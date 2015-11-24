@@ -1,3 +1,0 @@
-allprojects {
-  gradle clean assemble
-}
