@@ -1,0 +1,5 @@
+configurations.create("default")
+artifacts.add("default", file('osmbonuspack_v5.5 (1).aar'))
+dependencies {
+   // compile project(':osmbonuspack_v5.5')
+}
