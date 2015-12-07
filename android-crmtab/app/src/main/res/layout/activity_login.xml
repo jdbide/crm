@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="pds.muthu.com.crm_tab.LoginActivity"
+    tools:context="pds.isintheair.fr.crm_tab.LoginActivity"
     android:background="#dfdfdf"
     android:weightSum="1">
 

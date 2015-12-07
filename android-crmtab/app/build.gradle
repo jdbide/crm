@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "pds.muthu.com.crm_tab"
+        applicationId "pds.isintheair.fr.crm_tab"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
