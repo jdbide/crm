@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-
 public class LoginActivity extends Activity {
 
     @Override
