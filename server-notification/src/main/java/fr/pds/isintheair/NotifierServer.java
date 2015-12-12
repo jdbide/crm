@@ -1,11 +1,11 @@
+package fr.pds.isintheair;
+
+import fr.pds.isintheair.endpoint.NotifierEndpoint;
 import org.glassfish.tyrus.server.Server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-/**
- * Created by ohpre on 12/12/2015.
- */
 public class NotifierServer {
 
     public static void main(String[] args) {
