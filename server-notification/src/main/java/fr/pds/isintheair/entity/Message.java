@@ -1,6 +1,7 @@
 package fr.pds.isintheair.entity;
 
 public class Message {
+    Call call;
     private MessageMeta messageMeta;
     private Register register;
 
@@ -18,5 +19,13 @@ public class Message {
 
     public void setRegister(Register register) {
         this.register = register;
+    }
+
+    public Call getCall() {
+        return call;
+    }
+
+    public void setCall(Call call) {
+        this.call = call;
     }
 }

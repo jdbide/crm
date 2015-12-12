@@ -1,5 +1,7 @@
 package fr.pds.isintheair.entity;
 
+import fr.pds.isintheair.enumeration.MessageType;
+
 public class MessageMeta {
     private Integer code;
     private String message;
@@ -27,11 +29,5 @@ public class MessageMeta {
 
     public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
-    }
-
-    public enum MessageType {
-        CALL,
-        REGISTER_TABLET,
-        REGISTER_PHONE
     }
 }
