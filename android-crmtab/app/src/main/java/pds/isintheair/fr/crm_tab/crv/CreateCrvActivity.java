@@ -53,7 +53,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             //call service
 
             HttpRequestTask request = new HttpRequestTask();
-            request.setActivity(this);
+            request.setActivity("create");
             request.execute();
             Toast.makeText(this, "calling httprequest", Toast.LENGTH_LONG).show();
             return true;

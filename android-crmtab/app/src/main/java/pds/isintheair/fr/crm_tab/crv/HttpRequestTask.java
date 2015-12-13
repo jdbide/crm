@@ -1,21 +1,22 @@
 package pds.isintheair.fr.crm_tab.crv;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -23,30 +24,42 @@ import java.net.URL;
  * Created by Muthu on 12/12/2015.
  */
 //class for http request
-class HttpRequestTask extends AsyncTask<Activity, Void, Void> {
-private Context activity;
+class HttpRequestTask extends AsyncTask<String, Void, Void> {
+    private String action;
 
-    public void setActivity(Activity activity){
-        this.activity = activity;
+    public void setActivity(String action) {
+        this.action = action;
     }
+
     @Override
-    protected Void doInBackground(Activity... params) {
+    protected Void doInBackground(String... params) {
+        switch (action) {
+            case "create":
+                createCrv();
+                break;
 
 
+        }
+
+
+        return null;
+    }
+
+    public void createCrv() {
         try {
             JSONObject crvObject = new JSONObject();
-            crvObject.put("id",1);
-            crvObject.put("commercial",1);
-            crvObject.put("date",System.currentTimeMillis());
-            crvObject.put("satisfaction","oui");
-            crvObject.put("comment","client très satisfait");
-            crvObject.put("contact",1);
-            crvObject.put("client",1);
-            crvObject.put("visit",1);
+            crvObject.put("id", 1);
+            crvObject.put("commercial", 1);
+            crvObject.put("date", System.currentTimeMillis());
+            crvObject.put("satisfaction", "oui");
+            crvObject.put("comment", "client très satisfait");
+            crvObject.put("contact", 1);
+            crvObject.put("client", 1);
+            crvObject.put("visit", 1);
 
             JSONArray productArray = new JSONArray();
             JSONObject product = new JSONObject();
-            product.put("id",1);
+            product.put("id", 1);
             productArray.put(product);
 
             crvObject.put("product", productArray);
@@ -58,14 +71,42 @@ private Context activity;
             final String url = "http://192.168.1.53:8080/api/crv/addCrv";
 
 
-
             makeRequest(url, mainObject.toString());
         } catch (Exception e) {
             Log.e("HttpRequestTask", e.getMessage(), e);
         }
 
-        return null;
     }
+
+    public String getInfo() {
+        URL url;
+        Log.d("rest_service", "entered");
+        try {
+            url = new URL("http://192.168.1.53:8080/api/crv/getRandomInfo");
+
+
+            HttpURLConnection urlConnection;
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader input = new BufferedReader(new InputStreamReader(in));
+
+            String result = input.readLine();
+
+
+            return "";
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
 
     public  String makeRequest(String uri, String json) {
         HttpURLConnection urlConnection;
