@@ -39,11 +39,13 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Compte rendu de visite avec: "
+                    android:text="Compte rendu de visite pour: "
                     android:textSize="15sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/lblInfoClient"
                         android:textSize="20sp"/>
 
@@ -275,6 +277,7 @@
                     card_view:cardCornerRadius="4dp"
                     android:layout_width="350dp"
                     android:layout_height="200dp"
+                    android:visibility="invisible"
 
                     >
 
@@ -484,6 +487,7 @@
                             android:layout_width="500dp"
                             android:layout_height="fill_parent"
                             android:inputType="textMultiLine"
+                            android:id="@+id/txtComment"
                             android:hint="Commentaire"/>
                         <Button
                             android:layout_marginLeft="30dp"
@@ -498,6 +502,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/btnMessageList"
+                            android:onClick="launchInputDialog"
                             android:background="@drawable/list"/>
                     </LinearLayout>
 

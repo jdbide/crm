@@ -26,9 +26,13 @@ import java.net.URL;
 //class for http request
 class HttpRequestTask extends AsyncTask<String, Void, Void> {
     private String action;
+    private String requestJson;
 
     public void setActivity(String action) {
         this.action = action;
+    }
+    public void setRequestJson(String requestJson) {
+        this.requestJson = requestJson;
     }
 
     @Override
@@ -45,21 +49,29 @@ class HttpRequestTask extends AsyncTask<String, Void, Void> {
         return null;
     }
 
+
     public void createCrv() {
         try {
+            JSONObject data = new JSONObject(requestJson);
+            String mockData = data.get("mock").toString();
+            JSONObject mock = new JSONObject(mockData.toString());
+
+
+
+
             JSONObject crvObject = new JSONObject();
-            crvObject.put("id", 1);
-            crvObject.put("commercial", 1);
-            crvObject.put("date", System.currentTimeMillis());
-            crvObject.put("satisfaction", "oui");
-            crvObject.put("comment", "client très satisfait");
-            crvObject.put("contact", 1);
-            crvObject.put("client", 1);
-            crvObject.put("visit", 1);
+            crvObject.put("id", mock.get("id").toString());
+            crvObject.put("commercial", mock.get("commercial").toString());
+            crvObject.put("date", mock.get("date").toString());
+            crvObject.put("satisfaction", mock.get("satisfaction").toString());
+            crvObject.put("comment",  mock.get("comment").toString());
+            crvObject.put("contact",  mock.get("contact").toString());
+            crvObject.put("client",  mock.get("client").toString());
+            crvObject.put("visit",  mock.get("visit").toString());
 
             JSONArray productArray = new JSONArray();
             JSONObject product = new JSONObject();
-            product.put("id", 1);
+           // product.put("id", 1);
             productArray.put(product);
 
             crvObject.put("product", productArray);

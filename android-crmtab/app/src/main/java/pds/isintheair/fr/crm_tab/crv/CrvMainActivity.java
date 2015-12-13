@@ -26,7 +26,12 @@ public class CrvMainActivity extends AppCompatActivity {
             public void onClick(View view) {
               /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
-                  startActivity(CreateCrvActivity.class);
+                RandomInformation mock = new RandomInformation();
+                String json = mock.getRandomInfo();
+                Intent intent = new Intent(CrvMainActivity.this,CreateCrvActivity.class);
+                intent.putExtra("mock",json);
+                CrvMainActivity.this.startActivity(intent);
+
 
 
             }
