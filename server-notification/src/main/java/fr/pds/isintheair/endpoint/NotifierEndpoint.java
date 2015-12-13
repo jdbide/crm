@@ -1,6 +1,7 @@
 package fr.pds.isintheair.endpoint;
 
 import com.google.gson.Gson;
+import fr.pds.isintheair.PeerHandlerSingleton;
 import fr.pds.isintheair.controller.MessageController;
 import fr.pds.isintheair.entity.Message;
 
@@ -23,10 +24,11 @@ public class NotifierEndpoint {
 
         MessageController.handleMessage(message, session);
 
-        return body;
+        return "";
     }
 
     @OnClose
     public void onClose(Session session, CloseReason closeReason) {
+        PeerHandlerSingleton.getInstance().removePeerSession(session);
     }
 }

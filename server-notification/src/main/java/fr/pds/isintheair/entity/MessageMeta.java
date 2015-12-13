@@ -3,24 +3,30 @@ package fr.pds.isintheair.entity;
 import fr.pds.isintheair.enumeration.MessageType;
 
 public class MessageMeta {
-    private Integer code;
-    private String message;
     private MessageType messageType;
+    private Integer statusCode;
+    private String errorDescription;
 
-    public Integer getCode() {
-        return code;
+    public MessageMeta(MessageMetaBuilder messageMetaBuilder) {
+        this.messageType = messageMetaBuilder.messageType;
+        this.statusCode = messageMetaBuilder.statusCode;
+        this.errorDescription = messageMetaBuilder.errorDescription;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public Integer getStatusCode() {
+        return statusCode;
     }
 
-    public String getMessage() {
-        return message;
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getErrorDescription() {
+        return errorDescription;
+    }
+
+    public void setErrorDescription(String errorDescription) {
+        this.errorDescription = errorDescription;
     }
 
     public MessageType getMessageType() {
@@ -29,5 +35,33 @@ public class MessageMeta {
 
     public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
+    }
+
+    public static class MessageMetaBuilder {
+        private MessageType messageType;
+        private Integer statusCode;
+        private String errorDescription;
+
+        public MessageMetaBuilder addMessageType(MessageType messageType) {
+            this.messageType = messageType;
+
+            return this;
+        }
+
+        public MessageMetaBuilder addStatusCode(Integer statusCode) {
+            this.statusCode = statusCode;
+
+            return this;
+        }
+
+        public MessageMetaBuilder addErrorDescription(String errorDescription) {
+            this.errorDescription = errorDescription;
+
+            return this;
+        }
+
+        public MessageMeta build() {
+            return new MessageMeta(this);
+        }
     }
 }

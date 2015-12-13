@@ -57,4 +57,11 @@ public class PeerHandlerSingleton {
 
         return null;
     }
+
+    public synchronized void removePeerSession(Session session) {
+        if (phonePeer.inverse().containsKey(session))
+            phonePeer.inverse().remove(session);
+        else
+            tabletPeer.inverse().remove(session);
+    }
 }
