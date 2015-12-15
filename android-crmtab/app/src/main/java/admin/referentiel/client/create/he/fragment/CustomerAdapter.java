@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 //import admin.referentiel.client.create.he.fragment.ItemFragment.OnListFragmentInteractionListener;
-import admin.referentiel.client.create.he.fragment.dummy.DummyContent.DummyItem;
+//import admin.referentiel.client.create.he.fragment.dummy.DummyContent.DummyItem;
 import pds.isintheair.fr.crm_tab.R;
 
 import java.util.List;

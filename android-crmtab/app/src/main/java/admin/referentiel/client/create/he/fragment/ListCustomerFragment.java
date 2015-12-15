@@ -1,11 +1,11 @@
 package admin.referentiel.client.create.he.fragment;
 
+
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,8 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pds.isintheair.fr.crm_tab.R;
-import admin.referentiel.client.create.he.fragment.dummy.DummyContent;
-import admin.referentiel.client.create.he.fragment.dummy.DummyContent.DummyItem;
+
 
 import java.util.List;
 
@@ -25,13 +24,15 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ListCustomerFragment extends Fragment {
+public class ListCustomerFragment extends Fragment implements CreateCustomerAlertDialog.AlertPositiveListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    int position = 0;
+    ;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -106,6 +107,17 @@ public class ListCustomerFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onPositiveClick(int position) {
+        switch (position) {
+            case 0 :
+                CreateHEFragment createHEFragment = new CreateHEFragment();
+                getFragmentManager().beginTransaction()
+                    .replace(R.id.create_customer_fragment_container,createHEFragment).commit();
+
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -118,14 +130,30 @@ public class ListCustomerFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+       // void onListFragmentInteraction(DummyItem item);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.menu_list_customer_add){
-            // TODO: Add fragment
+        if(id == R.id.menu_list_customer_add) {
+
+
+            /** Instantiating the DialogFragment class */
+            CreateCustomerAlertDialog alert = new CreateCustomerAlertDialog();
+
+            /** Creating a bundle object to store the selected item's index */
+            Bundle b  = new Bundle();
+
+            /** Storing the selected item's index in the bundle object */
+            b.putInt("position", position);
+
+            /** Setting the bundle object to the dialog fragment object */
+            alert.setArguments(b);
+            FragmentManager manager = getFragmentManager();
+            /** Creating the dialog fragment object, which will in turn open the alert dialog window */
+            alert.show(manager,"CreateCustomerDialog");
+
             return true;
         }
 

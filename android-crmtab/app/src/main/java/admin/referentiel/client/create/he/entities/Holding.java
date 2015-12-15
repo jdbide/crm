@@ -10,8 +10,9 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
 /**
  * Created by tlacouque on 12/12/2015.
  */
+
 @Table(databaseName = OrmTabDataBase.DBNAME)
-public class EtablishmentType extends BaseModel {
+public class Holding extends BaseModel{
 
     @Column
     @PrimaryKey(autoincrement = true)
@@ -19,7 +20,6 @@ public class EtablishmentType extends BaseModel {
 
     @Column
     String name;
-
 
     public int getId() {
         return id;

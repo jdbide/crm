@@ -2,16 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context="admin.referentiel.client.create.he.fragment.CreateHEFragment"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="40dp"
+        android:text="@string/create_he_fragment_title_textview" />
 
     <LinearLayout
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -23,11 +27,13 @@
 
         <EditText
             android:id="@+id/create_he_fragment_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
+
 
 
     <LinearLayout
@@ -36,23 +42,22 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="@string/create_he_fragment_name_textview"
+            android:text="@string/create_he_fragment_is_public_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <!-- android:checkedButton="@id/create_he_fragment_is_public_yes_radio_button" -->
         <RadioGroup
             android:id="@+id/create_he_fragment_is_public"
-            android:checkedButton="@id/create_he_fragment_is_public_yes_radio_button"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:checkedButton="@+id/create_he_fragment_is_public_yes_radio_button"
+            >
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/create_he_fragment_is_public_yes_radio_button"
+                    android:id="@id/create_he_fragment_is_public_yes_radio_button"
                     android:text="@string/create_he_fragment_is_public_yes_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -61,8 +66,6 @@
                     android:text="@string/create_he_fragment_is_public_no_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
-            </LinearLayout>
 
         </RadioGroup>
 
@@ -81,8 +84,11 @@
 
         <EditText
             android:id="@+id/create_he_fragment_siret_number"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:minWidth="150dp"
+            android:inputType="number"
+            android:maxLength="14"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -98,8 +104,11 @@
 
         <EditText
             android:id="@+id/create_he_fragment_finess_number"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:inputType="number"
+            android:maxLength="9"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -115,8 +124,10 @@
 
         <EditText
             android:id="@+id/create_he_fragment_street_number"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -132,8 +143,9 @@
 
         <EditText
             android:id="@+id/create_he_fragment_street_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -149,8 +161,9 @@
 
         <EditText
             android:id="@+id/create_he_fragment_town_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -166,8 +179,11 @@
 
         <EditText
             android:id="@+id/create_he_fragment_zip_code"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:inputType="number"
+            android:maxLength="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -183,8 +199,10 @@
 
         <EditText
             android:id="@+id/create_he_fragment_bed_number"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -200,8 +218,9 @@
 
         <EditText
             android:id="@+id/create_he_fragment_web_site"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:minWidth="@dimen/create_customer_min_width_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -217,7 +236,7 @@
 
         <Spinner
             android:id="@+id/create_he_fragment_etablishment_type"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:prompt="@id/create_he_fragment_etablishment_type"></Spinner>
 
@@ -236,7 +255,7 @@
         <Spinner
             android:id="@+id/create_he_fragment_purshasing_central"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:prompt="@id/create_he_fragment_purshasing_central"></Spinner>
 
     </LinearLayout>
@@ -254,35 +273,28 @@
         <Spinner
             android:id="@+id/create_he_fragment_holding"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:prompt="@id/create_he_fragment_purshasing_central"></Spinner>
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
+        android:text="@string/create_he_fragment_difficulty_having_contact_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:text="@string/create_he_fragment_difficulty_having_contact_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
+        <!--android:checkedButton="@id/create_he_fragment_difficulty_having_contact_zero"    -->
         <RadioGroup
             android:id="@+id/create_he_fragment_difficulty_having_contact"
-            android:checkedButton="@id/create_he_fragment_difficulty_having_contact_zero"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:checkedButton="@+id/create_he_fragment_difficulty_having_contact_zero">
 
                 <RadioButton
-                    android:id="@+id/create_he_fragment_difficulty_having_contact_zero"
+                    android:id="@id/create_he_fragment_difficulty_having_contact_zero"
                     android:text="@string/create_he_fragment_zero_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -312,36 +324,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-            </LinearLayout>
-
         </RadioGroup>
 
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
         <TextView
             android:text="@string/create_he_fragment_service_building_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <!-- android:checkedButton="@id/create_he_fragment_service_building_zero" -->
         <RadioGroup
             android:id="@+id/create_he_fragment_service_building"
-            android:checkedButton="@id/create_he_fragment_service_building_zero"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:checkedButton="@+id/create_he_fragment_service_building_zero">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/create_he_fragment_service_building_zero"
+                    android:id="@id/create_he_fragment_service_building_zero"
                     android:text="@string/create_he_fragment_zero_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -371,18 +375,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-            </LinearLayout>
+
 
         </RadioGroup>
 
-
-    </LinearLayout>
-
-
+    <!--  android:onClick="insertHE" -->
     <Button
+        android:id="@+id/create_he_fragment_validate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="insertHE"
+
         android:text="@string/create_he_fragment_validate"/>
 
 

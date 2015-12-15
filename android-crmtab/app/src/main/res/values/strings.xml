@@ -18,10 +18,17 @@
     <!--Strings related to customer list fragment -->
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="customer_list_title">Liste des clients</string>
     <string name="customer_list_add">Ajouter un client</string>
+    <string name="customer_list_dialog_title">Choisir un type de client : </string>
+    <string name="customer_list_dialog_validate">Valider</string>
+    <string name="customer_list_dialog_cancel">Annuler</string>
 
     <!--Strings related to the creation of a HE customer  -->
+    <string name="create_he_fragment_title_action_bar">Créer un Etablisement de santé</string>
+    <string name="create_he_fragment_title_textview">Créer un Etablisement de santé</string>
     <string name="create_he_fragment_name_textview">Nom : </string>
+    <string name="create_he_fragment_is_public_textview">Est publique : </string>
     <string name="create_he_fragment_is_public_yes_radio_button">Oui</string>
     <string name="create_he_fragment_is_public_no_radio_button">Non</string>
     <string name="create_he_fragment_siret_number_textview">Numéro de Siret : </string>
@@ -32,10 +39,10 @@
     <string name="create_he_fragment_zip_code_textview">Code postal : </string>
     <string name="create_he_fragment_web_site_textview">Site web : </string>
     <string name="create_he_fragment_bed_number_textview">Nombre de lit : </string>
-    <string name="create_he_fragment_etablishment_type_textview">Type d'etablissement : </string>
-    <string name="create_he_fragment_purshasing_central_textview">Centrale d'achat : </string>
+    <string name="create_he_fragment_etablishment_type_textview">Type d etablissement : </string>
+    <string name="create_he_fragment_purshasing_central_textview">Centrale d achat : </string>
     <string name="create_he_fragment_holding_textview">Holding : </string>
-    <string name="create_he_fragment_difficulty_having_contact_textview">Difficulté d'avoir un contact : </string>
+    <string name="create_he_fragment_difficulty_having_contact_textview">Difficulté d avoir un contact : </string>
     <string name="create_he_fragment_zero_radio_button">0</string>
     <string name="create_he_fragment_one_radio_button">1</string>
     <string name="create_he_fragment_two_radio_button">2</string>
@@ -44,7 +51,9 @@
     <string name="create_he_fragment_five_radio_button">5</string>
     <string name="create_he_fragment_service_building_textview">Service et locaux : </string>
     <string name="create_he_fragment_validate">Valider</string>
+    <string name="title_activity_crudcustomer">CRUDCustomerActivity</string>
+    <string name="create_he_fragment_toast_validation">Le client a bien été créé</string>
+    <string name="create_he_fragment_dialog_error_title">Erreur dans le format des champs</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
