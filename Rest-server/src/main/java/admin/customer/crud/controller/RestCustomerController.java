@@ -1,11 +1,18 @@
 package admin.customer.crud.controller;
 
 import admin.customer.crud.createhc.entities.HealthCenter;
+import miage.pds.orm.SpringMongoConfig;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.IOException;
 
 
 /**
@@ -14,16 +21,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class RestCustomerController {
+    static final ObjectMapper mapper = new ObjectMapper();
+    static final  ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 
     /**
      * Simply selects the home view to render by returning its name.
      */
     @RequestMapping(value = "/customer/create/hc/{hc}", method = RequestMethod.GET)
-    public @ResponseBody String createHealthCenter(HealthCenter hc) {
+    public @ResponseBody String createHealthCenter(String hc) {
 
 
+       /** MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+
+        HealthCenter healthCenter = null;
+
+        try {
+            healthCenter = mapper.readValue(hc,HealthCenter.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mongoOperation.save(healthCenter);
+        */
 
 
-        return "REST SERVER IS RUNNING :)";
+        return "{\"id\": \"1\"}";
     }
 }
