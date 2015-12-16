@@ -56,8 +56,4 @@ public class CRUDCustomerActivity extends AppCompatActivity implements CreateCus
         }
     }
 
-    public void insertHE(View view) {
-        createHEFragment.insertHE(view);
-
-    }
 }
