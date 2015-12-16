@@ -2,10 +2,6 @@ package miage.pds.api;
 
 import java.net.UnknownHostException;
 
-import miage.pds.model.Product;
-import miage.pds.model.Reporting;
-import miage.pds.model.Report;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
