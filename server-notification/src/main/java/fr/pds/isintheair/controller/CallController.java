@@ -23,4 +23,17 @@ public class CallController {
             //TODO handle failed calls
         }
     }
+
+    public static void endCall(Session tabletSession) {
+        Session phoneSession = PeerController.getPhoneSession(tabletSession);
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_END).build();
+        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
+
+        try {
+            phoneSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
+        }
+        catch (IOException e) {
+            //TODO handle failed calls
+        }
+    }
 }

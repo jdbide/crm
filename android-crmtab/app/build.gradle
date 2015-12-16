@@ -1,4 +1,4 @@
-apply plugin    : 'com.android.application'
+apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
@@ -7,14 +7,20 @@ android {
 
     defaultConfig {
         applicationId "pds.isintheair.fr.crm_tab"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled false
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,6 +35,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup:otto:1.3.8'
-    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.google.code.gson:gson:2.4'
 }

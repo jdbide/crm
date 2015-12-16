@@ -17,7 +17,7 @@ public class CallWebSocketHandler extends WebSocketHandler {
         Log.d(LOG_TAG, "Connection opened");
 
         WebSocketConnectionHandlerSingleton.getInstance()
-                .sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(MessageType.REGISTER_TABLET), Message.class));
+                                           .sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(MessageType.REGISTER_TABLET, null), Message.class));
     }
 
     @Override

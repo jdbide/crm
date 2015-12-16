@@ -18,9 +18,16 @@ public class NotifierEndpoint {
     public void onOpen(Session session) {
     }
 
+    @OnError
+    public void onError(Session session, Throwable throwable) {
+        logger.info(throwable.getMessage());
+    }
+
     @OnMessage
     public String onMessage(String body, Session session) {
         Message message = gson.fromJson(body, Message.class);
+
+        logger.info("Received message : " + body);
 
         MessageController.handleMessage(message, session);
 

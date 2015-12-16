@@ -13,7 +13,7 @@ public class NotifierServer {
     }
 
     public static void runServer() {
-        Server server = new Server("localhost", 8080, "/", NotifierEndpoint.class);
+        Server server = new Server("localhost", 8090, "/", NotifierEndpoint.class);
 
         try {
             server.start();

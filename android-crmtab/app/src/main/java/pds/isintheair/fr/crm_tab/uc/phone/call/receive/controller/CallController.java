@@ -1,28 +1,31 @@
 package pds.isintheair.fr.crm_tab.uc.phone.call.receive.controller;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
+import java.util.HashMap;
 
-import pds.isintheair.fr.crm_tab.CrmTabApplication;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.BusHandlerSingleton;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.event.PhoneCallBegunEvent;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.entity.Message;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.entity.MessageFactory;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.util.Constant;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.util.JSONHelper;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.util.enumeration.MessageType;
 
 public class CallController {
     public static void call(String phoneNumber) {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        Context applicationContext = CrmTabApplication.context;
+        HashMap<String, String> callInformations = new HashMap<>();
 
-        callIntent.setData(Uri.parse("tel:" + phoneNumber));
-        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callInformations.put(Constant.MESSAGE_INFORMATIONS_PHONE_NUMBER, phoneNumber);
 
-        if (ActivityCompat.checkSelfPermission(applicationContext,
-                                               Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            applicationContext.startActivity(callIntent);
-        }
+        WebSocketConnectionHandlerSingleton.getInstance()
+                                           .sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
+                                                   MessageType.CALL, callInformations), Message.class));
+    }
+
+    public static void endCall() {
+        WebSocketConnectionHandlerSingleton.getInstance()
+                                           .sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
+                                                   MessageType.CALL_END, null), Message.class));
     }
 
     public static void notifiyCallOk() {
