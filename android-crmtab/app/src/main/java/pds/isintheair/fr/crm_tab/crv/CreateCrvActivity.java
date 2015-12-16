@@ -33,13 +33,14 @@ public class CreateCrvActivity extends AppCompatActivity {
 
     TextView commercial, date, contact, tel, comment, client;
     CheckBox ch1, ch2, ch3, ch4;
-    Button btnMessageList;
-    ListView listView ;
+    Button btnMessageList, btnList;
+    ListView listView , lstProducts;
     CardView card;
     List<String> messages = new ArrayList<String>();
     String userId, clientId, conatcId, visitId;
     RadioGroup radioGroup;
-
+    List<String> presentedProducts = new ArrayList<String>();
+    ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,9 @@ public class CreateCrvActivity extends AppCompatActivity {
         btnMessageList =(Button) findViewById(R.id.btnMessageList);
         card = (CardView) findViewById(R.id.card_view2);
         client = (TextView) findViewById(R.id.lblInfoClient);
-    radioGroup = (RadioGroup) findViewById(R.id.grpSatisfaction);
+        radioGroup = (RadioGroup) findViewById(R.id.grpSatisfaction);
+        lstProducts = (ListView) findViewById(R.id.lstProducts);
+        btnList = (Button) findViewById(R.id.btnList);
 
         ch1 = (CheckBox) findViewById(R.id.chk1);
         ch2 = (CheckBox) findViewById(R.id.chk2);
@@ -74,10 +77,12 @@ public class CreateCrvActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (compoundButton.isChecked()) {
                     //checked
-                    card.setVisibility(View.VISIBLE);
+                    btnList.setEnabled(true);
                 } else {
                     //not checked
-                    card.setVisibility(View.INVISIBLE);
+                    btnList.setEnabled(false);
+                    presentedProducts.clear();
+                    adapter.notifyDataSetChanged();
                 }
 
             }
@@ -95,6 +100,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             userId = mockObject.get("userId").toString();
             conatcId = mockObject.get("contactId").toString();
             visitId = mockObject.get("visitId").toString();
+
            int rand = RandomInformation.randInt(1,4);
             if(rand == 1){
                 ch1.setChecked(true);
@@ -111,13 +117,44 @@ public class CreateCrvActivity extends AppCompatActivity {
             }
             else if(rand == 4){
                 ch4.setChecked(true);
-                card.setVisibility(View.VISIBLE);
+              //  lstProducts.setVisibility(View.VISIBLE);
+                btnList.setEnabled(true);
 
             }
 
 
 
+            // Define a new Adapter
+             adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, presentedProducts);
 
+
+            // Assign adapter to ListView
+            lstProducts.setAdapter(adapter);
+
+
+            // ListView Item Click Listener
+            lstProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+
+                    // ListView Clicked item index
+                    int itemPosition = position;
+
+                    // ListView Clicked item value
+                    String itemValue = (String) listView.getItemAtPosition(position);
+                    //comment.append(" " + itemValue);
+                    // Show Alert
+                /*Toast.makeText(getApplicationContext(),
+                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                        .show();*/
+                    showDialogBox(position);
+
+                }
+
+            });
 
 
         } catch (JSONException e) {
@@ -128,6 +165,107 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
     }
+    public void showDialogBox(final int position){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCrvActivity.this);
+
+        // set title
+        alertDialogBuilder.setTitle(":)");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Êtes-vous sûr de supprimer ce produit?")
+                .setCancelable(false)
+                .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        presentedProducts.remove(position);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                })
+                .setNegativeButton("Non",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+
+
+    public void launchInputDialogProduct(View v){
+
+        List<String> products = new ArrayList<String>();
+        for(int i=0; i<20 ; i++){
+            products.add("Product "+i);
+        }
+        LayoutInflater layoutInflater = LayoutInflater.from(CreateCrvActivity.this);
+        View promptView = layoutInflater.inflate(R.layout.msg_layout, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCrvActivity.this);
+        alertDialogBuilder.setView(promptView);
+
+        // Get ListView object from xml
+        listView = (ListView) promptView.findViewById(R.id.lstMessages);
+
+        // Define a new Adapter
+         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, products);
+
+
+        // Assign adapter to ListView
+        listView.setAdapter(adapter1);
+
+        // ListView Item Click Listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // ListView Clicked item index
+                int itemPosition = position;
+
+                // ListView Clicked item value
+                String itemValue = (String) listView.getItemAtPosition(position);
+                //comment.append(" " + itemValue);
+                // Show Alert
+                /*Toast.makeText(getApplicationContext(),
+                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                        .show();*/
+                if(!presentedProducts.contains(itemValue)){
+                    presentedProducts.add(itemValue);
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+
+        });
+
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+
+                .setNegativeButton("Fermer",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+
+
+    }
+
 
     public void launchInputDialog(View v){
         // get prompts.xml view

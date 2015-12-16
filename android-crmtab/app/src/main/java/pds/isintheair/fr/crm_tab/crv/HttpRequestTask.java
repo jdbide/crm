@@ -90,6 +90,34 @@ class HttpRequestTask extends AsyncTask<String, Void, Void> {
 
     }
 
+    public String getProductList(){
+        URL url;
+        Log.d("rest_service", "entered");
+        try {
+            url = new URL("http://192.168.1.53:8080/api/crv/getProductList");
+
+
+            HttpURLConnection urlConnection;
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader input = new BufferedReader(new InputStreamReader(in));
+
+            String result = input.readLine();
+
+
+            return result;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Error 404";
+    }
+
     public String getInfo() {
         URL url;
         Log.d("rest_service", "entered");
