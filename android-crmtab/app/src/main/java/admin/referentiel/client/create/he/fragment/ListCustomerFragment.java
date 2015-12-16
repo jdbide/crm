@@ -15,9 +15,6 @@ import android.view.ViewGroup;
 
 import pds.isintheair.fr.crm_tab.R;
 
-
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -111,9 +108,9 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
     public void onPositiveClick(int position) {
         switch (position) {
             case 0 :
-                CreateHEFragment createHEFragment = new CreateHEFragment();
+                CreateHCFragment createHCFragment = new CreateHCFragment();
                 getFragmentManager().beginTransaction()
-                    .replace(R.id.create_customer_fragment_container,createHEFragment).commit();
+                    .replace(R.id.create_customer_fragment_container, createHCFragment).commit();
 
         }
     }

@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,32 +18,26 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import admin.referentiel.client.create.he.entities.HealthEtablishment;
 import admin.referentiel.client.enums.EnumMessageCreateCustomer;
-import admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
-import retrofit.Call;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateHEFragment.OnFragmentInteractionListener} interface
+ * {@link CreateHCFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CreateHEFragment#newInstance} factory method to
+ * Use the {@link CreateHCFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateHEFragment extends Fragment  {
+public class CreateHCFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -71,13 +64,13 @@ public class CreateHEFragment extends Fragment  {
 
     private OnFragmentInteractionListener mListener;
 
-    public CreateHEFragment() {
+    public CreateHCFragment() {
         // Required empty public constructor
     }
 
 
-    public static CreateHEFragment newInstance() {
-        CreateHEFragment fragment = new CreateHEFragment();
+    public static CreateHCFragment newInstance() {
+        CreateHCFragment fragment = new CreateHCFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
