@@ -10,6 +10,9 @@ public class MessageRest {
     private int idUser;
     private HealthCenter healthEtablishment;
 
+    public MessageRest() {
+    }
+
     public MessageRest(int idUser, HealthCenter healthEtablishment) {
         this.idUser = idUser;
         this.healthEtablishment = healthEtablishment;

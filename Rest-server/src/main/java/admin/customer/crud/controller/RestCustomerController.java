@@ -50,7 +50,7 @@ public class RestCustomerController {
 
         mongoOperation.save(healthCenter);
         */
-        System.out.println(MessageRest.getHealthEtablishment().getName());
+        //System.out.println(MessageRest.getHealthEtablishment().getName());
 
 
         ResponseRest responseRest  = new ResponseRest();

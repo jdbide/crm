@@ -8,6 +8,9 @@ public class ResponseRest {
 
     private int idUser;
 
+    public ResponseRest() {
+    }
+
     public int getIdUser() {
         return idUser;
     }
