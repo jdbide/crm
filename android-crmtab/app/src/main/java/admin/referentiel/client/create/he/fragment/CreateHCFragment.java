@@ -1,6 +1,7 @@
 package admin.referentiel.client.create.he.fragment;
 
 import android.app.AlertDialog;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.design.widget.Snackbar;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +46,7 @@ import retrofit.Retrofit;
  * Use the {@link CreateHCFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateHCFragment extends Fragment  {
+public class CreateHCFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -122,6 +124,7 @@ public class CreateHCFragment extends Fragment  {
         super.onDetach();
         mListener = null;
     }
+
 
 
 
@@ -231,7 +234,7 @@ public class CreateHCFragment extends Fragment  {
 
 
 
-    private boolean isSiretSyntaxValide(String siret){
+    public boolean isSiretSyntaxValide(String siret){
 
         if(siret.length() != 14) {
             return false;
