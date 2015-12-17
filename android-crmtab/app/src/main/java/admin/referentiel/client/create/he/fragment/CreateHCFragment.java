@@ -171,6 +171,9 @@ public class CreateHCFragment extends Fragment  {
                 call.enqueue(new Callback<ResponseRest>() {
                     @Override
                     public void onResponse(Response<ResponseRest> response, Retrofit retrofit) {
+                        Log.d("IdCustomer", response.message());
+                        Log.d("IdCustomer", response.headers().toString());
+                        Log.d("IdCustomer", ""+response.code());
                         Log.d("IdCustomer :", ""+response.body().getIdUser());
                         healthCenter.setId(response.body().getIdUser());
                         healthCenter.save();
@@ -272,6 +275,7 @@ public class CreateHCFragment extends Fragment  {
         healthCenter.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
         return healthCenter;
     }
+
 
 
 
