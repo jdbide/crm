@@ -1,7 +1,10 @@
 package admin.customer.crud.controller;
 
 import admin.customer.crud.createhc.entities.HealthCenter;
+import admin.customer.crud.message.MessageRest;
+import admin.customer.crud.message.ResponseRest;
 import miage.pds.orm.SpringMongoConfig;
+import org.apache.tools.ant.taskdefs.email.Message;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,7 +33,7 @@ public class RestCustomerController {
      * Simply selects the home view to render by returning its name.
      */
     @RequestMapping(value = "/customer/hc/create/", method = RequestMethod.POST)
-    public @ResponseBody String createHealthCenter(String MessageRest) {
+    public @ResponseBody ResponseRest createHealthCenter(MessageRest MessageRest) {
 
       //  final ObjectMapper mapper = new ObjectMapper();
        // final ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
@@ -47,9 +50,13 @@ public class RestCustomerController {
 
         mongoOperation.save(healthCenter);
         */
-        System.out.println("Je suis appelé");
+        System.out.println(MessageRest.getHealthEtablishment().getName());
 
 
-        return "{\"idCustomer\": \"1\"}";
+        ResponseRest responseRest  = new ResponseRest();
+        responseRest.setIdUser(1);
+
+
+        return responseRest;
     }
 }
