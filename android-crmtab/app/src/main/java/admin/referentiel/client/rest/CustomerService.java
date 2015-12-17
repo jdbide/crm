@@ -3,6 +3,7 @@ package admin.referentiel.client.rest;
 import admin.referentiel.client.create.he.entities.HealthEtablishment;
 import admin.referentiel.client.create.he.entities.HealthEtablishmentResponse;
 import admin.referentiel.client.create.he.message.MessageRest;
+import admin.referentiel.client.create.he.message.ResponseRest;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.Field;
@@ -22,7 +23,7 @@ public interface CustomerService {
     //@Header("Authorization")
     //,@Body HealthEtablishment healthEtablishment
     @POST("/customer/hc/create/")
-    Call<String> createHealthEtablishment(@Body MessageRest idUser);
+    Call<ResponseRest> createHealthEtablishment(@Body MessageRest hc);
 
    /** @GET("/SpringRESTapi/users")
     Call<ArrayList<User>> getUsers();

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import admin.referentiel.client.create.he.entities.HealthEtablishment;
 import admin.referentiel.client.create.he.message.MessageRest;
+import admin.referentiel.client.create.he.message.ResponseRest;
 import admin.referentiel.client.enums.EnumMessageCreateCustomer;
 import admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import butterknife.Bind;
@@ -35,6 +37,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
 import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,15 +146,15 @@ public class CreateHCFragment extends Fragment  {
     }
 
     @OnClick(R.id.create_he_fragment_validate_button)
-    public void insertHE(View view) {
+    public void insertHE(final View view) {
         List<String> checkFields = checkField();
-        if(!checkFields.isEmpty() && 1 == 2) {
-            for(String error : checkFields) {
+        if (!checkFields.isEmpty() && 1 == 2) {
+            for (String error : checkFields) {
                 Log.d("ErrorField", error);
             }
 
             String errorField = Arrays.toString(checkFields.toArray());
-            errorField = errorField.substring(1,errorField.length()-1);
+            errorField = errorField.substring(1, errorField.length() - 1);
             AlertDialog alertDialog =
                     new AlertDialog.Builder(this.getActivity()).create();
             alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
@@ -161,36 +166,37 @@ public class CreateHCFragment extends Fragment  {
                         }
                     });
             alertDialog.show();
-        }   else {
-            HealthEtablishment healthEtablishment = initHE();
-            MessageRest messageRest = new MessageRest(1,healthEtablishment);
+        } else {
+            final HealthEtablishment healthEtablishment = initHE();
+            MessageRest messageRest = new MessageRest(1, healthEtablishment);
 
-     Call<String> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
-             .createHealthEtablishment(messageRest);
-        String reponse = "";
-        String idCustomer = "";
-        try {
-            reponse = call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Call<ResponseRest> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
+                    .createHealthEtablishment(messageRest);
+            String reponse = "";
+            String idCustomer = "";
+
+                call.enqueue(new Callback<ResponseRest>() {
+                    @Override
+                    public void onResponse(Response<ResponseRest> response, Retrofit retrofit) {
+                        Log.d("IdCustomer :", ""+response.body().getIdUser());
+                        healthEtablishment.setId(response.body().getIdUser());
+                        healthEtablishment.save();
+                        Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+
+                    }
+                });
+
+
+
+
+
+
         }
-        try {
-            JSONObject jsonObject = new JSONObject(reponse);
-      idCustomer = jsonObject.getString("idCustomer");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-            Log.d("IdCustomer :", idCustomer);
-       // healthEtablishment.setId(Integer.decode(idCustomer));
-        //healthEtablishment.save();
-
-        Toast.makeText(this.getActivity().getApplicationContext(),
-                R.string.create_he_fragment_toast_validation, Toast.LENGTH_SHORT).show();
-
-
-
-        }
     }
 
 
