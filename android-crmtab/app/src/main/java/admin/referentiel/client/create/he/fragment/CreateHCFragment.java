@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import admin.referentiel.client.create.he.entities.HealthEtablishment;
+import admin.referentiel.client.create.he.message.MessageRest;
 import admin.referentiel.client.enums.EnumMessageCreateCustomer;
 import admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import butterknife.Bind;
@@ -162,9 +163,10 @@ public class CreateHCFragment extends Fragment  {
             alertDialog.show();
         }   else {
             HealthEtablishment healthEtablishment = initHE();
+            MessageRest messageRest = new MessageRest(1,healthEtablishment);
 
      Call<String> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
-             .createHealthEtablishment(1,healthEtablishment);
+             .createHealthEtablishment(messageRest);
         String reponse = "";
         String idCustomer = "";
         try {
@@ -179,8 +181,9 @@ public class CreateHCFragment extends Fragment  {
             e.printStackTrace();
         }
 
-        healthEtablishment.setId(Integer.decode(idCustomer));
-        healthEtablishment.save();
+            Log.d("IdCustomer :", idCustomer);
+       // healthEtablishment.setId(Integer.decode(idCustomer));
+        //healthEtablishment.save();
 
         Toast.makeText(this.getActivity().getApplicationContext(),
                 R.string.create_he_fragment_toast_validation, Toast.LENGTH_SHORT).show();
