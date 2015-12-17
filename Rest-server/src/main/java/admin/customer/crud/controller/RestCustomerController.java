@@ -30,7 +30,7 @@ public class RestCustomerController {
      * Simply selects the home view to render by returning its name.
      */
     @RequestMapping(value = "/customer/hc/create/", method = RequestMethod.POST)
-    public @ResponseBody String createHealthCenter(int idUser) {
+    public @ResponseBody String createHealthCenter(String MessageRest) {
 
       //  final ObjectMapper mapper = new ObjectMapper();
        // final ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
