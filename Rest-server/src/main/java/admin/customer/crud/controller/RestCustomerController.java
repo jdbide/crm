@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import java.io.IOException;
 
 
@@ -21,15 +22,18 @@ import java.io.IOException;
 
 @Controller
 public class RestCustomerController {
-    static final ObjectMapper mapper = new ObjectMapper();
-    static final  ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
+
+    public RestCustomerController() {
+    }
 
     /**
      * Simply selects the home view to render by returning its name.
      */
-    @RequestMapping(value = "/customer/create/hc/{hc}", method = RequestMethod.GET)
-    public @ResponseBody String createHealthCenter(String hc) {
+    @RequestMapping(value = "/customer/hc/create/", method = RequestMethod.POST)
+    public @ResponseBody String createHealthCenter(int idUser) {
 
+      //  final ObjectMapper mapper = new ObjectMapper();
+       // final ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
 
        /** MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
@@ -43,8 +47,9 @@ public class RestCustomerController {
 
         mongoOperation.save(healthCenter);
         */
+        System.out.println("Je suis appelé");
 
 
-        return "{\"id\": \"1\"}";
+        return "{\"idCustomer\": \"1\"}";
     }
 }
