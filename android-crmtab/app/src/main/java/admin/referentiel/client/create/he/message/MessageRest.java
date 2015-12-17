@@ -1,6 +1,6 @@
 package admin.referentiel.client.create.he.message;
 
-import admin.referentiel.client.create.he.entities.HealthEtablishment;
+import admin.referentiel.client.create.he.entities.HealthCenter;
 
 /**
  * Created by tlacouque on 17/12/2015.
@@ -9,11 +9,11 @@ public class MessageRest {
 
 
     private int idUser;
-    private HealthEtablishment healthEtablishment;
+    private HealthCenter healthCenter;
 
-    public MessageRest(int idUser, HealthEtablishment healthEtablishment) {
+    public MessageRest(int idUser, HealthCenter healthCenter) {
         this.idUser = idUser;
-        this.healthEtablishment = healthEtablishment;
+        this.healthCenter = healthCenter;
     }
 
     public int getIdUser() {
@@ -24,11 +24,11 @@ public class MessageRest {
         this.idUser = idUser;
     }
 
-    public HealthEtablishment getHealthEtablishment() {
-        return healthEtablishment;
+    public HealthCenter getHealthCenter() {
+        return healthCenter;
     }
 
-    public void setHealthEtablishment(HealthEtablishment healthEtablishment) {
-        this.healthEtablishment = healthEtablishment;
+    public void setHealthCenter(HealthCenter healthCenter) {
+        this.healthCenter = healthCenter;
     }
 }

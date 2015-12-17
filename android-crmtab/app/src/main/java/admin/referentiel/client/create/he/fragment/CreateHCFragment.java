@@ -16,18 +16,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import admin.referentiel.client.create.he.entities.HealthEtablishment;
+import admin.referentiel.client.create.he.entities.HealthCenter;
 import admin.referentiel.client.create.he.message.MessageRest;
 import admin.referentiel.client.create.he.message.ResponseRest;
 import admin.referentiel.client.enums.EnumMessageCreateCustomer;
@@ -167,20 +162,18 @@ public class CreateHCFragment extends Fragment  {
                     });
             alertDialog.show();
         } else {
-            final HealthEtablishment healthEtablishment = initHE();
-            MessageRest messageRest = new MessageRest(1, healthEtablishment);
+            final HealthCenter healthCenter = initHE();
+            MessageRest messageRest = new MessageRest(1, healthCenter);
 
             Call<ResponseRest> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                     .createHealthEtablishment(messageRest);
-            String reponse = "";
-            String idCustomer = "";
 
                 call.enqueue(new Callback<ResponseRest>() {
                     @Override
                     public void onResponse(Response<ResponseRest> response, Retrofit retrofit) {
                         Log.d("IdCustomer :", ""+response.body().getIdUser());
-                        healthEtablishment.setId(response.body().getIdUser());
-                        healthEtablishment.save();
+                        healthCenter.setId(response.body().getIdUser());
+                        healthCenter.save();
                         Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
                     }
 
@@ -261,23 +254,23 @@ public class CreateHCFragment extends Fragment  {
         else return false;
     }
 
-    private HealthEtablishment initHE() {
-        HealthEtablishment healthEtablishment = new HealthEtablishment();
-        healthEtablishment.setName(name.getText().toString());
-        healthEtablishment.setSiretNumber(Long.decode(siretNumber.getText().toString()));
-        healthEtablishment.setFinessNumber(Long.decode(finesstNumber.getText().toString()));
-        healthEtablishment.setStreetNumber(Integer.decode(streetNumber.getText().toString()));
-        healthEtablishment.setStreetName(streetName.getText().toString());
-        healthEtablishment.setTown(town.getText().toString());
-        healthEtablishment.setZipCode(Integer.decode(zipCode.getText().toString()));
-        healthEtablishment.setBedNumber(Integer.decode(bedNumber.getText().toString()));
-        healthEtablishment.setWebSite(webSite.getText().toString());
+    private HealthCenter initHE() {
+        HealthCenter healthCenter = new HealthCenter();
+        healthCenter.setName(name.getText().toString());
+        healthCenter.setSiretNumber(Long.decode(siretNumber.getText().toString()));
+        healthCenter.setFinessNumber(Long.decode(finesstNumber.getText().toString()));
+        healthCenter.setStreetNumber(Integer.decode(streetNumber.getText().toString()));
+        healthCenter.setStreetName(streetName.getText().toString());
+        healthCenter.setTown(town.getText().toString());
+        healthCenter.setZipCode(Integer.decode(zipCode.getText().toString()));
+        healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
+        healthCenter.setWebSite(webSite.getText().toString());
         if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Yes"))
-            healthEtablishment.setIsPublic(true);
-        else healthEtablishment.setIsPublic(false);
-        healthEtablishment.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
-        healthEtablishment.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
-        return healthEtablishment;
+            healthCenter.setIsPublic(true);
+        else healthCenter.setIsPublic(false);
+        healthCenter.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
+        healthCenter.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
+        return healthCenter;
     }
 
 
