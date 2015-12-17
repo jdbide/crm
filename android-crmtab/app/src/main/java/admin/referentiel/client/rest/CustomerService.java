@@ -5,6 +5,7 @@ import admin.referentiel.client.create.he.entities.HealthEtablishmentResponse;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -13,11 +14,12 @@ import retrofit.http.Path;
  */
 public interface CustomerService {
 
-    String BASE_URL = "http://192.168.20.3:8082";
-    static String BEGIN_URL = "/SpringRESTapi";
+    String BASE_URL = "http://192.168.43.106:8080";
+   // static String BEGIN_URL = "/SpringRESTapi";
 
-    @POST(BEGIN_URL+"/customer/he/add/{idUser}")
-    Call<String> createHealthEtablishment(@Path("idUser") int idUser,@Body HealthEtablishment healthEtablishment);
+
+    @POST("/customer/hc/create/")
+    Call<String> createHealthEtablishment(@Header("Authorization") int idUser,@Body HealthEtablishment healthEtablishment);
 
    /** @GET("/SpringRESTapi/users")
     Call<ArrayList<User>> getUsers();

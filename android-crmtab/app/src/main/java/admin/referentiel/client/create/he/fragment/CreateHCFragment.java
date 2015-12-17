@@ -18,16 +18,22 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import admin.referentiel.client.create.he.entities.HealthEtablishment;
 import admin.referentiel.client.enums.EnumMessageCreateCustomer;
+import admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
+import retrofit.Call;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,7 +142,7 @@ public class CreateHCFragment extends Fragment  {
     @OnClick(R.id.create_he_fragment_validate_button)
     public void insertHE(View view) {
         List<String> checkFields = checkField();
-        if(!checkFields.isEmpty()) {
+        if(!checkFields.isEmpty() && 1 == 2) {
             for(String error : checkFields) {
                 Log.d("ErrorField", error);
             }
@@ -157,8 +163,8 @@ public class CreateHCFragment extends Fragment  {
         }   else {
             HealthEtablishment healthEtablishment = initHE();
 
-     /**Call<String> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
-             .createHealthEtablishment(healthEtablishment);
+     Call<String> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
+             .createHealthEtablishment(1,healthEtablishment);
         String reponse = "";
         String idCustomer = "";
         try {
@@ -175,7 +181,7 @@ public class CreateHCFragment extends Fragment  {
 
         healthEtablishment.setId(Integer.decode(idCustomer));
         healthEtablishment.save();
-        */
+
         Toast.makeText(this.getActivity().getApplicationContext(),
                 R.string.create_he_fragment_toast_validation, Toast.LENGTH_SHORT).show();
 
