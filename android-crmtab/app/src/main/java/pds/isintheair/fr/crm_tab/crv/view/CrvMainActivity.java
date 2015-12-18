@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.crv;
+package pds.isintheair.fr.crm_tab.crv.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.crv.mock.RandomInformation;
 
 public class CrvMainActivity extends AppCompatActivity {
 

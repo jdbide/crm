@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.crv;
+package pds.isintheair.fr.crm_tab.crv.http;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -6,17 +6,14 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -24,7 +21,7 @@ import java.net.URL;
  * Created by Muthu on 12/12/2015.
  */
 //class for http request
-class HttpRequestTask extends AsyncTask<String, Void, Void> {
+public class HttpRequestTask extends AsyncTask<String, Void, Void> {
     private String action;
     private String requestJson;
 
@@ -37,19 +34,32 @@ class HttpRequestTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... params) {
+
+        //call right method for given action
         switch (action) {
             case "create":
                 createCrv();
                 break;
 
-
         }
-
 
         return null;
     }
 
 
+    //This method is to send JSON to REST server to create a VISIT REPORT
+    /*
+        It sends:
+         id of the report
+         Commercial name
+         date of report creation
+         Client satisfaction
+         comment content
+         contact id
+         client id
+         visit id
+
+     */
     public void createCrv() {
         try {
             JSONObject data = new JSONObject(requestJson);
@@ -90,67 +100,12 @@ class HttpRequestTask extends AsyncTask<String, Void, Void> {
 
     }
 
-    public String getProductList(){
-        URL url;
-        Log.d("rest_service", "entered");
-        try {
-            url = new URL("http://192.168.1.53:8080/api/crv/getProductList");
 
 
-            HttpURLConnection urlConnection;
-
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader input = new BufferedReader(new InputStreamReader(in));
-
-            String result = input.readLine();
-
-
-            return result;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Error 404";
-    }
-
-    public String getInfo() {
-        URL url;
-        Log.d("rest_service", "entered");
-        try {
-            url = new URL("http://192.168.1.53:8080/api/crv/getRandomInfo");
-
-
-            HttpURLConnection urlConnection;
-
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader input = new BufferedReader(new InputStreamReader(in));
-
-            String result = input.readLine();
-
-
-            return "";
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-
-
+    //POST Json to REST SERVER
     public  String makeRequest(String uri, String json) {
         HttpURLConnection urlConnection;
-        String url;
+
         String data = json;
         String result = null;
         try {

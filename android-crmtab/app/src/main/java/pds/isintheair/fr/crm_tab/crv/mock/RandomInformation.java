@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.crv;
+package pds.isintheair.fr.crm_tab.crv.mock;
 
 import org.json.JSONException;
 import org.json.JSONObject;
