@@ -24,6 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".isin.truong.ProspectActivity"
+            android:label="@string/title_activity_prospect"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".isin.truong.view.DetailProspectActivity"
+            android:label="@string/title_activity_detail_prospect"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
