@@ -23,7 +23,7 @@
 
         </activity>
         <activity
-            android:name="admin.referentiel.client.activity.CRUDCustomerActivity"
+            android:name=".admin.referentiel.client.activity.CRUDCustomerActivity"
             android:label="@string/title_activity_crudcustomer"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
