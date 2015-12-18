@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.crv;
+package pds.isintheair.fr.crm_tab.crv.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.crv.http.HttpRequestTask;
+import pds.isintheair.fr.crm_tab.crv.mock.RandomInformation;
+import pds.isintheair.fr.crm_tab.crv.model.Client;
 
 public class CreateCrvActivity extends AppCompatActivity {
 
+    //Init all var
     TextView commercial, date, contact, tel, comment, client;
     CheckBox ch1, ch2, ch3, ch4;
     Button btnMessageList, btnList;
@@ -41,10 +46,14 @@ public class CreateCrvActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     List<String> presentedProducts = new ArrayList<String>();
     ArrayAdapter<String> adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_crv);
+
+        //get all views
         commercial = (TextView)findViewById(R.id.txtName);
         date = (TextView)findViewById(R.id.txtDate);
         contact = (TextView)findViewById(R.id.txtContact);
@@ -69,8 +78,13 @@ public class CreateCrvActivity extends AppCompatActivity {
         messages.add("A voir plus tard");
 
 
+        //get mocked client object
         Intent intent = getIntent();
-        String mockValue = intent.getStringExtra("mock");
+
+        Client cl = (Client)intent.getSerializableExtra("ClientObject");
+
+
+        //if "presentation prosuit" selected, enable product list button to show mocked product list
         ch4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -88,20 +102,30 @@ public class CreateCrvActivity extends AppCompatActivity {
             }
         });
 
+
+
         try {
-            JSONObject json = new JSONObject(mockValue);
+
+            //Mock pre formated information
+            JSONObject json = new JSONObject(new RandomInformation().getRandomInfo());
             JSONObject mockObject = new JSONObject(json.getJSONObject("mock").toString());
             commercial.setText(mockObject.get("user").toString());
             contact.setText(mockObject.get("contact").toString());
             tel.setText(mockObject.get("tel").toString());
-            //ch1.setChecked(true);
-            client.setText(mockObject.get("client").toString()+" - "+mockObject.get("address").toString());
-            clientId = mockObject.get("clientId").toString();
-            userId = mockObject.get("userId").toString();
-            conatcId = mockObject.get("contactId").toString();
-            visitId = mockObject.get("visitId").toString();
 
-           int rand = RandomInformation.randInt(1,4);
+
+
+            //Mock a visit
+            int rand = RandomInformation.randInt(1,4);
+
+            client.setText(cl.getClientSurname() +" "+cl.getClientName()+" -- "+cl.getClientAddress());
+            clientId =  Integer.toString(cl.getClientId());
+            userId = "1";
+            conatcId = Integer.toString(rand);
+            visitId = Integer.toString(rand);
+
+
+            //Select a random visit report subject
             if(rand == 1){
                 ch1.setChecked(true);
 
@@ -124,6 +148,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
 
+            //Init presented Product list
             // Define a new Adapter
              adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1, presentedProducts);
@@ -145,11 +170,8 @@ public class CreateCrvActivity extends AppCompatActivity {
 
                     // ListView Clicked item value
                     String itemValue = (String) listView.getItemAtPosition(position);
-                    //comment.append(" " + itemValue);
-                    // Show Alert
-                /*Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();*/
+
+                    //launch a new dialog box to delete if a product is selected
                     showDialogBox(position);
 
                 }
@@ -165,6 +187,8 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
     }
+
+    //Dialog box that enables the option to delete a product in the list
     public void showDialogBox(final int position){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCrvActivity.this);
 
@@ -175,8 +199,8 @@ public class CreateCrvActivity extends AppCompatActivity {
         alertDialogBuilder
                 .setMessage("Êtes-vous sûr de supprimer ce produit?")
                 .setCancelable(false)
-                .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
                         presentedProducts.remove(position);
@@ -184,8 +208,8 @@ public class CreateCrvActivity extends AppCompatActivity {
 
                     }
                 })
-                .setNegativeButton("Non",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
                         dialog.cancel();
@@ -200,7 +224,7 @@ public class CreateCrvActivity extends AppCompatActivity {
     }
 
 
-
+//Init mocked product lsit
     public void launchInputDialogProduct(View v){
 
         List<String> products = new ArrayList<String>();
@@ -240,7 +264,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                 /*Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();*/
-                if(!presentedProducts.contains(itemValue)){
+                if (!presentedProducts.contains(itemValue)) {
                     presentedProducts.add(itemValue);
                 }
 
@@ -266,8 +290,8 @@ public class CreateCrvActivity extends AppCompatActivity {
 
     }
 
-
-    public void launchInputDialog(View v){
+    // This will be re implemented in the 3rd Itteration !
+    public void launchInputDialog(View v){/*
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(CreateCrvActivity.this);
         View promptView = layoutInflater.inflate(R.layout.msg_layout, null);
@@ -299,9 +323,9 @@ public class CreateCrvActivity extends AppCompatActivity {
                 String itemValue = (String) listView.getItemAtPosition(position);
                 comment.append(" " + itemValue);
                 // Show Alert
-                /*Toast.makeText(getApplicationContext(),
+                *//*Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();*/
+                        .show();*//*
 
 
             }
@@ -321,7 +345,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-
+        */
     }
 
     public String createJson(){
@@ -330,18 +354,13 @@ public class CreateCrvActivity extends AppCompatActivity {
 
         int selectedID = radioGroup.getCheckedRadioButtonId();
 
+        RadioButton satisfaction = (RadioButton)findViewById(selectedID);
         try {
             data.put("id", userId);
             data.put("commercial", userId);
             data.put("date", System.currentTimeMillis());
 
-            if(selectedID == 1){
-                data.put("satisfaction", "oui");
-            }else if(selectedID == 2){
-                data.put("satisfaction", "non");
-            }else if(selectedID == 3){
-                data.put("satisfaction", "moyen");
-            }
+            data.put("satisfaction", satisfaction.getText());
             data.put("comment", comment.getText().toString());
             data.put("contact", conatcId);
             data.put("client", clientId);
@@ -356,6 +375,8 @@ public class CreateCrvActivity extends AppCompatActivity {
         return mock.toString();
     }
 
+
+    //this method enables first block in UI to edit fields
     public void editInfo(View view){
        // commercial.setEnabled(true);
         date.setEnabled(true);
@@ -380,9 +401,13 @@ public class CreateCrvActivity extends AppCompatActivity {
             return true;
         }
         if(id == R.id.action_save){
-            //call service
 
+            //call HttpRequestTask to send json to REST server
             HttpRequestTask request = new HttpRequestTask();
+
+            //tell that it comes from create report activity to send
+            //json to correct url end point
+
             request.setActivity("create");
             request.setRequestJson(createJson());
             request.execute();
