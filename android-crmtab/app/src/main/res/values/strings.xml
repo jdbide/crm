@@ -25,4 +25,10 @@
     <string name="textViewNumero">Numéro</string>
     <string name="textviewcommentaire">Commentaire</string>
     <string name="textaddcalllog">Ajout d\'un compte-rendu d\'appel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="stringregistercalldialogbox">Voulez-vous enregistrer l\'appel?</string>
+    <string name="title_activity_start_call_register">StartCallRegisterActivity</string>
 </resources>

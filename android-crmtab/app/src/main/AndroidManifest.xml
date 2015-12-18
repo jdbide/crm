@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,11 +20,14 @@
             android:name=".LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".registercall.AddLogActivity">
 
         </activity>
-
-        <activity android:name=".registercall.MainActivity">
+        <activity
+            android:name=".registercall.StartCallRegisterActivity"
+            android:label="@string/title_activity_start_call_register"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
