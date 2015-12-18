@@ -9,4 +9,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="create_customer_min_width_edit_text">128dp</dimen>
+    <dimen name="create_customer_cartview_marge">64dp</dimen>
 </resources>

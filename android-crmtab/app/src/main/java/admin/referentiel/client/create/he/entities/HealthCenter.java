@@ -13,7 +13,7 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
  * Created by tlacouque on 12/12/2015.
  */
 @Table(databaseName = OrmTabDataBase.DBNAME)
-public class HealthEtablishment extends BaseModel implements Customer{
+public class HealthCenter extends BaseModel implements Customer{
 
     @Column
     @PrimaryKey(autoincrement = true)
@@ -97,7 +97,7 @@ public class HealthEtablishment extends BaseModel implements Customer{
 
 
 
-    public HealthEtablishment() {
+    public HealthCenter() {
     }
 
 

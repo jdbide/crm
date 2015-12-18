@@ -1,33 +1,32 @@
 package admin.referentiel.client.create.he.fragment;
 
 import android.app.AlertDialog;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.design.widget.Snackbar;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import admin.referentiel.client.create.he.entities.HealthEtablishment;
+import admin.referentiel.client.create.he.entities.HealthCenter;
+import admin.referentiel.client.create.he.message.MessageRest;
+import admin.referentiel.client.create.he.message.ResponseRest;
 import admin.referentiel.client.enums.EnumMessageCreateCustomer;
 import admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import butterknife.Bind;
@@ -35,16 +34,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
 import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateHEFragment.OnFragmentInteractionListener} interface
+ * {@link CreateHCFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CreateHEFragment#newInstance} factory method to
+ * Use the {@link CreateHCFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateHEFragment extends Fragment  {
+public class CreateHCFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -71,13 +73,13 @@ public class CreateHEFragment extends Fragment  {
 
     private OnFragmentInteractionListener mListener;
 
-    public CreateHEFragment() {
+    public CreateHCFragment() {
         // Required empty public constructor
     }
 
 
-    public static CreateHEFragment newInstance() {
-        CreateHEFragment fragment = new CreateHEFragment();
+    public static CreateHCFragment newInstance() {
+        CreateHCFragment fragment = new CreateHCFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -125,6 +127,7 @@ public class CreateHEFragment extends Fragment  {
 
 
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -141,15 +144,15 @@ public class CreateHEFragment extends Fragment  {
     }
 
     @OnClick(R.id.create_he_fragment_validate_button)
-    public void insertHE(View view) {
+    public void insertHE(final View view) {
         List<String> checkFields = checkField();
-        if(!checkFields.isEmpty()) {
-            for(String error : checkFields) {
+        if (!checkFields.isEmpty() && 1 == 2) {
+            for (String error : checkFields) {
                 Log.d("ErrorField", error);
             }
 
             String errorField = Arrays.toString(checkFields.toArray());
-            errorField = errorField.substring(1,errorField.length()-1);
+            errorField = errorField.substring(1, errorField.length() - 1);
             AlertDialog alertDialog =
                     new AlertDialog.Builder(this.getActivity()).create();
             alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
@@ -161,34 +164,38 @@ public class CreateHEFragment extends Fragment  {
                         }
                     });
             alertDialog.show();
-        }   else {
-            HealthEtablishment healthEtablishment = initHE();
+        } else {
+            final HealthCenter healthCenter = initHE();
+            MessageRest messageRest = new MessageRest(1, healthCenter);
 
-     /**Call<String> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
-             .createHealthEtablishment(healthEtablishment);
-        String reponse = "";
-        String idCustomer = "";
-        try {
-            reponse = call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Call<ResponseRest> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
+                    .createHealthEtablishment(messageRest);
+
+                call.enqueue(new Callback<ResponseRest>() {
+                    @Override
+                    public void onResponse(Response<ResponseRest> response, Retrofit retrofit) {
+                        Log.d("IdCustomer", response.message());
+                        Log.d("IdCustomer", response.headers().toString());
+                        Log.d("IdCustomer", ""+response.code());
+                        Log.d("IdCustomer :", ""+response.body().getIdUser());
+                        healthCenter.setId(response.body().getIdUser());
+                        healthCenter.save();
+                        Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+
+                    }
+                });
+
+
+
+
+
+
         }
-        try {
-            JSONObject jsonObject = new JSONObject(reponse);
-      idCustomer = jsonObject.getString("idCustomer");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        healthEtablishment.setId(Integer.decode(idCustomer));
-        healthEtablishment.save();
-        */
-        Toast.makeText(this.getActivity().getApplicationContext(),
-                R.string.create_he_fragment_toast_validation, Toast.LENGTH_SHORT).show();
-
-
-
-        }
     }
 
 
@@ -227,7 +234,7 @@ public class CreateHEFragment extends Fragment  {
 
 
 
-    private boolean isSiretSyntaxValide(String siret){
+    public boolean isSiretSyntaxValide(String siret){
 
         if(siret.length() != 14) {
             return false;
@@ -253,24 +260,25 @@ public class CreateHEFragment extends Fragment  {
         else return false;
     }
 
-    private HealthEtablishment initHE() {
-        HealthEtablishment healthEtablishment = new HealthEtablishment();
-        healthEtablishment.setName(name.getText().toString());
-        healthEtablishment.setSiretNumber(Long.decode(siretNumber.getText().toString()));
-        healthEtablishment.setFinessNumber(Long.decode(finesstNumber.getText().toString()));
-        healthEtablishment.setStreetNumber(Integer.decode(streetNumber.getText().toString()));
-        healthEtablishment.setStreetName(streetName.getText().toString());
-        healthEtablishment.setTown(town.getText().toString());
-        healthEtablishment.setZipCode(Integer.decode(zipCode.getText().toString()));
-        healthEtablishment.setBedNumber(Integer.decode(bedNumber.getText().toString()));
-        healthEtablishment.setWebSite(webSite.getText().toString());
+    private HealthCenter initHE() {
+        HealthCenter healthCenter = new HealthCenter();
+        healthCenter.setName(name.getText().toString());
+        healthCenter.setSiretNumber(Long.decode(siretNumber.getText().toString()));
+        healthCenter.setFinessNumber(Long.decode(finesstNumber.getText().toString()));
+        healthCenter.setStreetNumber(Integer.decode(streetNumber.getText().toString()));
+        healthCenter.setStreetName(streetName.getText().toString());
+        healthCenter.setTown(town.getText().toString());
+        healthCenter.setZipCode(Integer.decode(zipCode.getText().toString()));
+        healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
+        healthCenter.setWebSite(webSite.getText().toString());
         if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Yes"))
-            healthEtablishment.setIsPublic(true);
-        else healthEtablishment.setIsPublic(false);
-        healthEtablishment.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
-        healthEtablishment.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
-        return healthEtablishment;
+            healthCenter.setIsPublic(true);
+        else healthCenter.setIsPublic(false);
+        healthCenter.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
+        healthCenter.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
+        return healthCenter;
     }
+
 
 
 
