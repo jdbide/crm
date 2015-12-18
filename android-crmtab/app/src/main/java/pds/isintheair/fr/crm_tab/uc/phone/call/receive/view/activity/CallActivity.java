@@ -8,7 +8,9 @@ import com.squareup.otto.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.controller.CallController;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.BusHandlerSingleton;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.event.PhoneCallBegunEvent;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.event.PhoneCallEndedEvent;
@@ -16,6 +18,13 @@ import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.event.PhoneCall
 public class CallActivity extends Activity {
     @Bind(R.id.phone_state_textview)
     TextView phoneStateTextview;
+
+    @OnClick(R.id.phone_imageview)
+    public void onPhoneClick() {
+        CallController.endCall();
+
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

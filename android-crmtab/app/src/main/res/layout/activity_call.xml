@@ -8,6 +8,14 @@
     <TextView
         android:id="@+id/phone_state_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"/>
+
+    <ImageView
+        android:id="@+id/phone_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/phone_logo_red"/>
 
 </LinearLayout>

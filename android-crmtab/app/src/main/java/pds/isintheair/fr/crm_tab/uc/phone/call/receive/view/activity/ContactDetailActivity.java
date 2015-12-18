@@ -7,18 +7,13 @@ import android.os.Bundle;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.entity.Message;
-import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.entity.MessageFactory;
-import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
-import pds.isintheair.fr.crm_tab.uc.phone.call.receive.util.JSONHelper;
-import pds.isintheair.fr.crm_tab.uc.phone.call.receive.util.enumeration.MessageType;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.controller.CallController;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.controller.service.CallService;
 
 public class ContactDetailActivity extends Activity {
     @OnClick(R.id.phone_imageview)
-    private void onPhoneClick() {
-        WebSocketConnectionHandlerSingleton.getInstance()
-                                           .sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
-                                                   MessageType.CALL), Message.class));
+    public void onPhoneClick() {
+        CallController.call("0610772364");
 
         startActivity(new Intent(this, CallActivity.class));
     }
@@ -28,5 +23,6 @@ public class ContactDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_contact);
         ButterKnife.bind(this);
+        startService(new Intent(this, CallService.class));
     }
 }

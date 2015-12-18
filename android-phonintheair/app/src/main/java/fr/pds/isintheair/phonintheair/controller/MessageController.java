@@ -9,6 +9,8 @@ public class MessageController {
             case CALL:
                 CallController.call(message.getCall().getPhoneNumber());
                 break;
+            case CALL_END:
+
         }
     }
 }

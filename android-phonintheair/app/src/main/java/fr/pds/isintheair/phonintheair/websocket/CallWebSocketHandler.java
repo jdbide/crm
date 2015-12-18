@@ -25,6 +25,8 @@ public class CallWebSocketHandler extends WebSocketHandler {
 
     @Override
     public void onTextMessage(String payload) {
+        Log.d("WS", "Received message : " + payload);
+
         if (!payload.isEmpty())
             MessageController.handleMessage((Message) JSONHelper.deserialize(payload, Message.class));
     }
