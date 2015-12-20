@@ -38,6 +38,8 @@ public class DAO {
 		return true;
 
 	}
+	
+	//Add insert cra function
 
 	
 }

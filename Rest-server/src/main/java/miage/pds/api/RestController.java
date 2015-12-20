@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import miage.pds.api.model.Cra;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -48,6 +49,15 @@ public class RestController {
 		logger.info("REST SERVER IS RUNNING :)");
 
 		return "REST SERVER IS RUNNING :)";
+	}
+	//logger.info("");
+	@RequestMapping(value = "/calllog/create", method = RequestMethod.POST, headers="Accept=application/json")
+	public @ResponseBody String createCra(@RequestBody Cra cra) {
+		
+		JSONObject jsonObject = new JSONObject();
+
+		return jsonObject.toString();
+
 	}
 
 	
