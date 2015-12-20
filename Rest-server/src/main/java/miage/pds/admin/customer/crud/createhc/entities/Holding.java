@@ -1,16 +1,15 @@
-package admin.customer.crud.createhc.entities;
+package miage.pds.admin.customer.crud.createhc.entities;
 
 /**
  * Created by tlacouque on 16/12/2015.
  */
-public class PurchasingCentral {
+public class Holding {
 
 
     int id;
 
-    String name;
 
-    String type;
+    String name;
 
     public int getId() {
         return id;
@@ -26,13 +25,5 @@ public class PurchasingCentral {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

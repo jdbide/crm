@@ -1,4 +1,4 @@
-package admin.customer.crud.createhc.entities;
+package miage.pds.admin.customer.crud.createhc.entities;
 
 /**
  * Created by tlacouque on 16/12/2015.

@@ -1,19 +1,19 @@
-package admin.customer.crud.message;
+package miage.pds.admin.customer.crud.message;
 
-import admin.customer.crud.createhc.entities.HealthCenter;
+import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
 
 /**
  * Created by tlacouque on 17/12/2015.
  */
-public class MessageRest {
+public class MessageRestCustomer {
 
     private int idUser;
     private HealthCenter healthEtablishment;
 
-    public MessageRest() {
+    public MessageRestCustomer() {
     }
 
-    public MessageRest(int idUser, HealthCenter healthEtablishment) {
+    public MessageRestCustomer(int idUser, HealthCenter healthEtablishment) {
         this.idUser = idUser;
         this.healthEtablishment = healthEtablishment;
     }

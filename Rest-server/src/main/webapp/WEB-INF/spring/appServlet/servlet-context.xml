@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="miage.pds.api" />
-	<context:component-scan base-package="admin.customer.crud.controller" />
+	<context:component-scan base-package="miage.pds.admin.customer.crud.controller" />
 
 	
 	
