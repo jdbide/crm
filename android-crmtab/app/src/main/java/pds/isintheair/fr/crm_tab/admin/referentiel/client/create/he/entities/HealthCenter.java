@@ -73,7 +73,7 @@ public class HealthCenter extends BaseModel implements Customer{
 
     @Column
     @ForeignKey(
-            references = {@ForeignKeyReference(columnName = "holding_id",
+            references = {@ForeignKeyReference(columnName = "purchasing_central_id",
                     columnType = int.class,
                     foreignColumnName = "id")},
             saveForeignKeyModel = false)
@@ -82,7 +82,7 @@ public class HealthCenter extends BaseModel implements Customer{
 
     @Column
     @ForeignKey(
-            references = {@ForeignKeyReference(columnName = "purchasing_central_id",
+            references = {@ForeignKeyReference(columnName = "holding_id",
                     columnType = int.class,
                     foreignColumnName = "id")},
             saveForeignKeyModel = false)
