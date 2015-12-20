@@ -33,6 +33,7 @@
 =======
     <string name="action_settings">Settings</string>
     <string name="title_activity_preformated_message">PreformatedMessageActivity</string>
+<<<<<<< HEAD
 >>>>>>> us-create-visit-report
 =======
     <string name="customer_list_title">Liste des clients</string>
@@ -74,4 +75,9 @@
 
 
 >>>>>>> us-create-he
+=======
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> us-create-visit-report
 </resources>
