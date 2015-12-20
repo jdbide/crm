@@ -13,7 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.raizlabs.android.dbflow.sql.language.Select;
+
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * A fragment representing a list of Items.
@@ -29,7 +39,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     int position = 0;
-    ;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,6 +66,8 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+      //  initHolding();
+      //  initPurchasingCentral();
     }
 
     @Override
@@ -64,17 +76,6 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         View view = inflater.inflate(R.layout.fragment_customer_list, container, false);
 
 
-        // Set the adapter
-       /** if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new CustomerAdapter(DummyContent.ITEMS, mListener));
-        }*/
 
         return view;
     }
@@ -155,6 +156,50 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initHolding() {
+
+        if(new Select().count().from(Holding.class).count() == 0) {
+
+            Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService().getHoldings();
+
+            call.enqueue(new Callback<ResponseRestCustomer>() {
+                @Override
+                public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                    for (Holding holding : response.body().getHoldings()) {
+                        holding.save();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }
+    }
+
+    private void initPurchasingCentral() {
+
+        if(new Select().count().from(PurchasingCentral.class).count() == 0) {
+
+            Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService().getPurchasingCentral();
+
+            call.enqueue(new Callback<ResponseRestCustomer>() {
+                @Override
+                public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                    for (PurchasingCentral purchasingCentral : response.body().getPurchasingCentrals()) {
+                        purchasingCentral.save();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }
     }
 
 }

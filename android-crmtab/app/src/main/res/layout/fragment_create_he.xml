@@ -254,7 +254,7 @@
 
         <Spinner
             android:id="@+id/create_he_fragment_etablishment_type"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:prompt="@id/create_he_fragment_etablishment_type"></Spinner>
 
@@ -273,7 +273,7 @@
         <Spinner
             android:id="@+id/create_he_fragment_purshasing_central"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:prompt="@id/create_he_fragment_purshasing_central"></Spinner>
 
     </LinearLayout>
@@ -291,7 +291,7 @@
         <Spinner
             android:id="@+id/create_he_fragment_holding"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:prompt="@id/create_he_fragment_purshasing_central"></Spinner>
 
     </LinearLayout>

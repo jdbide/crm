@@ -54,6 +54,15 @@
     <string name="title_activity_crudcustomer">CRUDCustomerActivity</string>
     <string name="create_he_fragment_toast_validation">Le client a bien été créé</string>
     <string name="create_he_fragment_dialog_error_title">Erreur dans le format des champs</string>
-
+    <string name="create_he_fragment_error_name">Champ \"Nom\" vide</string>
+    <string name="create_he_fragment_error_siret">Champ \"Siret\" non valide</string>
+    <string name="create_he_fragment_error_siret_empty">Champ \"Siret\" doit faire 14 caractère</string>
+    <string name="create_he_fragment_error_finess">Champ \"Finess\" doit faire 9 caractères</string>
+    <string name="create_he_fragment_error_street_number">Champ \"Numéro de rue\" vide</string>
+    <string name="create_he_fragment_error_street_name">Champ \"Nom de rue\" vide</string>
+    <string name="create_he_fragment_error_town">Champ \"Ville\" vide</string>
+    <string name="create_he_fragment_error_offline_map">La carte représentant la position du client n’a pas été pré-téléchargé" +
+        " Il le sera à votre prochaine connexion au service en ligne</string>
+    <string name="create_he_fragment_message_customer">Le client a bien été créé</string>
 
 </resources>

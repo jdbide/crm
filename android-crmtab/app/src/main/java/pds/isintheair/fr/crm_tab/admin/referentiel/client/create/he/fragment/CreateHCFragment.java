@@ -14,19 +14,36 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 
+import com.mobsandgeeks.saripaar.QuickRule;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.Validator.ValidationListener;
+import com.mobsandgeeks.saripaar.annotation.AssertTrue;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.Min;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
+import com.raizlabs.android.dbflow.sql.language.Select;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.MessageRest;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRest;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding$Table;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral$Table;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.enums.EtablishmentType;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.MessageRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRestCustomer;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.enums.EnumMessageCreateCustomer;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import butterknife.Bind;
@@ -38,26 +55,45 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CreateHCFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CreateHCFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CreateHCFragment extends Fragment {
+public class CreateHCFragment extends Fragment implements ValidationListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-    @Bind(R.id.create_he_fragment_name) EditText name;
+    @Bind(R.id.create_he_fragment_name)
+    @Order(1)
+    @NotEmpty(messageResId = R.string.create_he_fragment_error_name)
+    EditText name;
+
+
     @Bind(R.id.create_he_fragment_is_public) RadioGroup isPublic;
-    @Bind(R.id.create_he_fragment_siret_number) EditText siretNumber;
-    @Bind(R.id.create_he_fragment_finess_number) EditText finesstNumber;
-    @Bind(R.id.create_he_fragment_street_number) EditText streetNumber;
-    @Bind(R.id.create_he_fragment_street_name) EditText streetName;
-    @Bind(R.id.create_he_fragment_town_name) EditText town;
+
+    @Bind(R.id.create_he_fragment_siret_number)
+    @Order(2)
+    @Length(min = 14, max = 14,messageResId = R.string.create_he_fragment_error_siret_empty)
+    EditText siretNumber;
+
+    @Bind(R.id.create_he_fragment_finess_number)
+    @Order(3)
+    @Length(min = 9, max = 9, messageResId = R.string.create_he_fragment_error_finess)
+    EditText finesstNumber;
+
+    @Bind(R.id.create_he_fragment_street_number)
+    @Order(4)
+    @NotEmpty(messageResId = R.string.create_he_fragment_error_street_number)
+    EditText streetNumber;
+
+    @Bind(R.id.create_he_fragment_street_name)
+    @Order(5)
+    @NotEmpty(messageResId = R.string.create_he_fragment_error_street_name)
+    EditText streetName;
+
+    @Bind(R.id.create_he_fragment_town_name)
+    @Order(6)
+    @NotEmpty(messageResId = R.string.create_he_fragment_error_town)
+    EditText town;
+
+
     @Bind(R.id.create_he_fragment_zip_code) EditText zipCode;
     @Bind(R.id.create_he_fragment_web_site) EditText webSite;
     @Bind(R.id.create_he_fragment_bed_number) EditText bedNumber;
@@ -67,8 +103,9 @@ public class CreateHCFragment extends Fragment {
     @Bind(R.id.create_he_fragment_difficulty_having_contact) RadioGroup difficultyHavingContact;
     @Bind(R.id.create_he_fragment_service_building) RadioGroup serviceBuilding;
 
-
-
+    List<Holding> holdings;
+    List<PurchasingCentral> purchasingCentrals;
+    Validator validator;
 
 
     private OnFragmentInteractionListener mListener;
@@ -88,7 +125,8 @@ public class CreateHCFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        validator = new Validator(this);
+        validator.setValidationListener(this);
     }
 
     @Override
@@ -96,8 +134,22 @@ public class CreateHCFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_create_he, container, false);
-
         ButterKnife.bind(this, v);
+        initSpinner();
+
+
+        validator.put(siretNumber, new QuickRule<EditText>() {
+            @Override
+            public boolean isValid(EditText view) {
+                return isSiretSyntaxValide(view.getText().toString());
+            }
+
+            @Override
+            public String getMessage(Context context) {
+                return getString(R.string.create_he_fragment_error_siret);
+            }
+        });
+
         return v;
     }
 
@@ -125,9 +177,6 @@ public class CreateHCFragment extends Fragment {
         mListener = null;
     }
 
-
-
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -145,101 +194,21 @@ public class CreateHCFragment extends Fragment {
 
     @OnClick(R.id.create_he_fragment_validate_button)
     public void insertHE(final View view) {
-        List<String> checkFields = checkField();
-        if (!checkFields.isEmpty() && 1 == 2) {
-            for (String error : checkFields) {
-                Log.d("ErrorField", error);
-            }
 
-            String errorField = Arrays.toString(checkFields.toArray());
-            errorField = errorField.substring(1, errorField.length() - 1);
-            AlertDialog alertDialog =
-                    new AlertDialog.Builder(this.getActivity()).create();
-            alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
-            alertDialog.setMessage(errorField);
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-        } else {
-            final HealthCenter healthCenter = initHE();
-            MessageRest messageRest = new MessageRest(1, healthCenter);
-
-            Call<ResponseRest> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
-                    .createHealthEtablishment(messageRest);
-
-                call.enqueue(new Callback<ResponseRest>() {
-                    @Override
-                    public void onResponse(Response<ResponseRest> response, Retrofit retrofit) {
-                        Log.d("IdCustomer", response.message());
-                        Log.d("IdCustomer", response.headers().toString());
-                        Log.d("IdCustomer", ""+response.code());
-                        Log.d("IdCustomer :", ""+response.body().getIdUser());
-                        healthCenter.setId(response.body().getIdUser());
-                        healthCenter.save();
-                        Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-
-                    }
-                });
-
-
-
-
-
-
-        }
-
+        validator.validate(true);
+        //validator.
     }
-
 
    private int getIntFromRadiogroup(RadioGroup radioGroup) {
       return Integer.decode(((RadioButton) getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))
               .getText().toString());
     }
 
-    private List<String> checkField() {
-        ArrayList<String> checkFields = new ArrayList<>();
-        if(name.getText().toString().length() == 0) {
-            checkFields.add(EnumMessageCreateCustomer.ERROR_NAME.toString());
-        }
-        String siretNumberString = siretNumber.getText().toString();
-        if(!isSiretSyntaxValide(siretNumberString)) {
-            checkFields.add(EnumMessageCreateCustomer.ERROR_SIRET.toString());
-        }
-        if(finesstNumber.getText().toString().length() != 9) {
-            checkFields.add(EnumMessageCreateCustomer.ERROR_FINESS.toString());
-        }
-        if(streetNumber.getText().toString().length() == 0) {
-            checkFields.add(EnumMessageCreateCustomer.ERROR_STREET_NUMBER.toString());
-        }
-        if (streetName.getText().toString().length() == 0) {
-            checkFields.add(EnumMessageCreateCustomer.ERROR_STREET_NAME.toString());
-        }
-        if(town.getText().toString().length() == 0) {
-            checkFields.add(EnumMessageCreateCustomer.ERROR_TOWN.toString());
-        }
-        if(zipCode.getText().toString().length() != 5) {
-            checkFields.add(EnumMessageCreateCustomer.ERROR_ZIP_CODE.toString());
-        }
-
-        return checkFields;
-    }
-
-
 
     public boolean isSiretSyntaxValide(String siret){
-
         if(siret.length() != 14) {
             return false;
         }
-
         int total = 0;
         int digit = 0;
 
@@ -279,9 +248,58 @@ public class CreateHCFragment extends Fragment {
         return healthCenter;
     }
 
+    private void initSpinner() {
+         holdings = new Select(Holding$Table.NAME).from(Holding.class).queryList();
+        holding.setAdapter(new ArrayAdapter<Holding>
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,holdings));
+        purchasingCentrals = new Select(PurchasingCentral$Table.NAME)
+                                                            .from(PurchasingCentral.class).queryList();
+        purshasingCentral.setAdapter(new ArrayAdapter<PurchasingCentral>
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,purchasingCentrals));
+        etablishmentType.setAdapter(new ArrayAdapter<EtablishmentType>
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, EtablishmentType.values()));
+    }
 
+    @Override
+    public void onValidationSucceeded() {
+        final HealthCenter healthCenter = initHE();
+        MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
 
+        Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
+                .createHealthEtablishment(messageRestCustomer);
 
+        call.enqueue(new Callback<ResponseRestCustomer>() {
+            @Override
+            public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                healthCenter.setId(response.body().getIdUser());
+                healthCenter.save();
+               // Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
+            }
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        });
+    }
 
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        String errorString = "";
+        for(ValidationError error : errors) {
+        errorString = errorString + error.getCollatedErrorMessage
+                (getActivity().getApplicationContext()) +".\n";
+        }
+        AlertDialog alertDialog =
+                new AlertDialog.Builder(this.getActivity()).create();
+        alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
+        alertDialog.setMessage(errorString);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+    }
 
 }

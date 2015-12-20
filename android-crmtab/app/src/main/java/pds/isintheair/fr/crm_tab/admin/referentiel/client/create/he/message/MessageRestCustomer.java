@@ -5,13 +5,13 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Hea
 /**
  * Created by tlacouque on 17/12/2015.
  */
-public class MessageRest {
+public class MessageRestCustomer {
 
 
     private int idUser;
     private HealthCenter healthCenter;
 
-    public MessageRest(int idUser, HealthCenter healthCenter) {
+    public MessageRestCustomer(int idUser, HealthCenter healthCenter) {
         this.idUser = idUser;
         this.healthCenter = healthCenter;
     }

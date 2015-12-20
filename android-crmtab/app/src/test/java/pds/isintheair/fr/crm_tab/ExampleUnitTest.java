@@ -1,4 +1,4 @@
-package pds.muthu.com.crm_tab;
+package pds.isintheair.fr.crm_tab;
 
 import org.junit.Test;
 

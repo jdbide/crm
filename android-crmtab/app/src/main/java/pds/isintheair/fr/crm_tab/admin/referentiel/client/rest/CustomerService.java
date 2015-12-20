@@ -1,9 +1,10 @@
 package pds.isintheair.fr.crm_tab.admin.referentiel.client.rest;
 
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.MessageRest;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRest;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.MessageRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRestCustomer;
 import retrofit.Call;
 import retrofit.http.Body;
+import retrofit.http.GET;
 import retrofit.http.POST;
 
 /**
@@ -17,7 +18,13 @@ public interface CustomerService {
     //@Header("Authorization")
     //,@Body HealthCenter healthEtablishment
     @POST("/customer/hc/create/")
-    Call<ResponseRest> createHealthEtablishment(@Body MessageRest hc);
+    Call<ResponseRestCustomer> createHealthEtablishment(@Body MessageRestCustomer hc);
+
+    @GET("/customer/holding")
+    Call<ResponseRestCustomer> getHoldings();
+
+    @GET("/customer/purchasingcentral")
+    Call<ResponseRestCustomer> getPurchasingCentral();
 
    /** @GET("/SpringRESTapi/users")
     Call<ArrayList<User>> getUsers();

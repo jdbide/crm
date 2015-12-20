@@ -68,12 +68,7 @@ public class HealthCenter extends BaseModel implements Customer{
     boolean isPublic;
 
     @Column
-    @ForeignKey(
-            references = {@ForeignKeyReference(columnName = "etablissement_type_id",
-                    columnType = int.class,
-                    foreignColumnName = "id")},
-            saveForeignKeyModel = false)
-    EtablishmentType etablishmentType;
+    String etablishmentType;
 
 
     @Column
@@ -219,11 +214,11 @@ public class HealthCenter extends BaseModel implements Customer{
         this.isPublic = isPublic;
     }
 
-    public EtablishmentType getEtablishmentType() {
+    public String getEtablishmentType() {
         return etablishmentType;
     }
 
-    public void setEtablishmentType(EtablishmentType etablishmentType) {
+    public void setEtablishmentType(String etablishmentType) {
         this.etablishmentType = etablishmentType;
     }
 
