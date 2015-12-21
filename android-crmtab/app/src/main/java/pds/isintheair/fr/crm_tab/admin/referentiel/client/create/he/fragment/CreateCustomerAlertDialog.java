@@ -51,6 +51,7 @@ public class CreateCustomerAlertDialog extends DialogFragment {
         }
     };
 
+
     /** This is a callback method which will be executed
      *  on creating this fragment
      */
