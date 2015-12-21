@@ -102,9 +102,6 @@ public class ListennerCallEndedSEvent extends Service {
                 .build();
         int i = 10;
         // Send the notification.
-        while (i != 0) {
             mNM.notify(i, notification);
-            i--;
-        }
     }
 }
