@@ -1,14 +1,20 @@
 package pds.isintheair.fr.crm_tab.registercall;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.squareup.otto.Bus;
+
+import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
 
 public class StartCallRegisterActivity extends AppCompatActivity {
+
+    private Bus bus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,18 +22,18 @@ public class StartCallRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_call_register);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Intent intent = new Intent(this, ListennerCallEndedSEvent.class);
+        startService(intent);
+        bus = Singleton.getInstance().getCurrentBusInstance();
+        bus.register(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
     }
-
+    @OnClick(R.id.fab)
     public void go(View v){
-        LogDialogBoxFragment fragment1 = new LogDialogBoxFragment();
-        // fragment1.mListener = MainActivity.this;
-        //fragment1.text = mTextView.getText().toString();
-        fragment1.show(getFragmentManager(), "klhkjm");
-
-
+        bus.post(new CallEndedEvent());
     }
+
+
 
 }
