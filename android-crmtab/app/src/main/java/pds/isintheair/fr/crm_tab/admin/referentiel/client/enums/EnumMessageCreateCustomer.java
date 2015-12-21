@@ -12,7 +12,7 @@ public enum EnumMessageCreateCustomer {
     ERROR_TOWN("Champ ville vide"),
     ERROR_ZIP_CODE("Champ code postal vide ou non complet"),
     ERROR_OFFLINE_MAP("La carte représentant la position du client n’a pas été pré-téléchargé" +
-            " Il le sera à votre prochaine connexion au service en ligne"),
+            ", elle le sera à votre prochaine connexion au service en ligne"),
     MESSAGE_CREATE_CUSTOMER("Client créé");
 
 

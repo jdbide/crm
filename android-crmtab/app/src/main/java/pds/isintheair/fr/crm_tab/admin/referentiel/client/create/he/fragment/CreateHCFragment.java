@@ -56,8 +56,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class CreateHCFragment extends Fragment implements ValidationListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 
 
     @Bind(R.id.create_he_fragment_name)
@@ -153,12 +152,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -229,7 +223,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         else return false;
     }
 
-    private HealthCenter initHE() {
+    private HealthCenter initHC() {
         HealthCenter healthCenter = new HealthCenter();
         healthCenter.setName(name.getText().toString());
         healthCenter.setSiretNumber(Long.decode(siretNumber.getText().toString()));
@@ -262,7 +256,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
 
     @Override
     public void onValidationSucceeded() {
-        final HealthCenter healthCenter = initHE();
+        final HealthCenter healthCenter = initHC();
         MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
 
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
@@ -271,7 +265,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                healthCenter.setId(response.body().getIdUser());
+                healthCenter.setId(response.body().getIdClient());
                 healthCenter.save();
                // Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
             }
