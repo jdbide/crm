@@ -7,6 +7,8 @@ import miage.pds.admin.customer.crud.message.ResponseRestCustomer;
 import miage.pds.orm.SpringMongoConfig;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class RestCustomerController {
 
     public static String PACKAGE_NAME = "miage.pds.admin.customer.crud.createhc.entities";
 
+    private static final Logger logger = LoggerFactory.getLogger(RestCustomerController.class);
+
     public RestCustomerController() {
     }
 
@@ -35,7 +39,6 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/hc/create/", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestCustomer createHealthCenter(MessageRestCustomer messageRestCustomer) {
-
 
         final Morphia morphia = new Morphia();
         morphia.mapPackage(PACKAGE_NAME,true);
