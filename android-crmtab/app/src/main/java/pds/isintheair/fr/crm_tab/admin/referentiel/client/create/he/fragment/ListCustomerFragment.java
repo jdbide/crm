@@ -33,10 +33,6 @@ import retrofit.Retrofit;
  */
 public class ListCustomerFragment extends Fragment implements CreateCustomerAlertDialog.AlertPositiveListener {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     int position = 0;
 
@@ -48,13 +44,10 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
     public ListCustomerFragment() {
     }
 
-    // TODO: Customize parameter initialization
+
     @SuppressWarnings("unused")
     public static ListCustomerFragment newInstance(int columnCount) {
         ListCustomerFragment fragment = new ListCustomerFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -64,7 +57,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         setHasOptionsMenu(true);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+
         }
       //  initHolding();
       //  initPurchasingCentral();

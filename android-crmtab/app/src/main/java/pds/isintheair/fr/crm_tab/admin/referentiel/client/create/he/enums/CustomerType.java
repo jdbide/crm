@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities;
+package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.enums;
 
 /**
  * Created by tlacouque on 12/12/2015.

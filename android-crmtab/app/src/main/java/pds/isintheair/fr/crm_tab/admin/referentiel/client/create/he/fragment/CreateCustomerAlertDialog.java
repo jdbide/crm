@@ -6,7 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.CustomerType;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.enums.CustomerType;
 import pds.isintheair.fr.crm_tab.R;
 
 /**
