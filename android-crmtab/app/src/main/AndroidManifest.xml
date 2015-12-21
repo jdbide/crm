@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 
 <manifest
     package="pds.isintheair.fr.crm_tab"
     xmlns:android="http://schemas.android.com/apk/res/android">
+=======
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="pds.isintheair.fr.crm_tab">
+>>>>>>> us-register-call-add-a-call-log
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -16,6 +21,9 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 >>>>>>> us-create-he
 
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".CrmTabApplication"
         android:allowBackup="true"
@@ -27,6 +35,7 @@
             android:name=".uc.phone.call.receive.view.activity.ContactDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
+<<<<<<< HEAD
             android:theme="@style/FullscreenTheme">
         </activity>
         <activity
@@ -75,6 +84,30 @@
         <service android:name=".uc.phone.call.receive.controller.service.CallService"/>
 =======
 >>>>>>> us-create-visit-report
+=======
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".registercall.AddLogActivity"></activity>
+        <activity
+            android:name=".registercall.StartCallRegisterActivity"
+            android:label="@string/title_activity_start_call_register"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".registercall.PopUpActivity"
+            android:label="@string/title_activity_call_log_main"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".registercall.StartServiceActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <service android:enabled="true" android:name=".registercall.ListennerCallEndedSEvent" />
+>>>>>>> us-register-call-add-a-call-log
     </application>
 
 </manifest>
