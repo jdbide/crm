@@ -1,20 +1,26 @@
 package pds.isintheair.fr.crm_tab.registercall;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 
 import pds.isintheair.fr.crm_tab.R;
 
 
 public class AddLogFragment extends Fragment {
 
-    ScrollView mCardView;
+    static AddLogFragment newInstance(int num) {
+        AddLogFragment f = new AddLogFragment();
+        // Supply num input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("num", num);
+        f.setArguments(args);
+        return f;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,16 +34,10 @@ public class AddLogFragment extends Fragment {
         return inflater.inflate(R.layout.add_log_fragment, container, false);
     }
 
-    public AddLogFragment(){
-
-    }
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mCardView = (ScrollView) view.findViewById(R.id.scroll_view);
     }
 
 

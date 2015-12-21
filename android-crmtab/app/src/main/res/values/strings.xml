@@ -31,4 +31,5 @@
 
     <string name="stringregistercalldialogbox">Voulez-vous enregistrer l\'appel?</string>
     <string name="title_activity_start_call_register">StartCallRegisterActivity</string>
+    <string name="title_activity_call_log_main">CallLogMainActivity</string>
 </resources>

@@ -21,19 +21,27 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".registercall.AddLogActivity">
-
-        </activity>
+        <activity android:name=".registercall.AddLogActivity"></activity>
         <activity
             android:name=".registercall.StartCallRegisterActivity"
             android:label="@string/title_activity_start_call_register"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".registercall.PopUpActivity"
+            android:label="@string/title_activity_call_log_main"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".registercall.StartServiceActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <service android:enabled="true" android:name=".registercall.ListennerCallEndedSEvent" />
     </application>
 
 </manifest>
