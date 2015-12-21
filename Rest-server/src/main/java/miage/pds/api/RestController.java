@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import miage.pds.api.crv.dao.CrvMorphiaDao;
+import miage.pds.api.crv.model.Reporting;
+
 
 /**
  * Handles requests for the application home page.
@@ -31,7 +35,7 @@ public class RestController {
 
 	boolean status = false;  
 	private static final Logger logger = LoggerFactory.getLogger(RestController.class);
-	DAO dao = new DAO();
+	
 
 	public RestController() {
 
@@ -39,18 +43,13 @@ public class RestController {
 	}
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Simply returns a status string.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-
+	public @ResponseBody String home() {
 
 		logger.info("REST SERVER IS RUNNING :)");
-
 		return "REST SERVER IS RUNNING :)";
 	}
-
-	
-
 
 }
