@@ -26,11 +26,11 @@ public class MessageRestCustomer {
         this.idUser = idUser;
     }
 
-    public HealthCenter getHealthEtablishment() {
+    public HealthCenter getHealthCenter() {
         return healthEtablishment;
     }
 
-    public void setHealthEtablishment(HealthCenter healthEtablishment) {
+    public void setHealthCenter(HealthCenter healthEtablishment) {
         this.healthEtablishment = healthEtablishment;
     }
 }

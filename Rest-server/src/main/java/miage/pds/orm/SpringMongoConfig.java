@@ -17,7 +17,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 public class SpringMongoConfig  {
     static final String URL_DB = "localhost";
     static final int PORT_DB = 27017;
-    static final String DB_NAME = "CRM";
+    public static final String DB_NAME = "crm";
 
 
     public String getDatabaseName() {

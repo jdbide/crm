@@ -1,5 +1,9 @@
 package miage.pds.admin.customer.crud.createhc.entities;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.Reference;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,56 +11,84 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by tlacouque on 16/12/2015.
  */
 
-@Document(collection = "healthcenter")
+@Entity("healthcenter")
 public class HealthCenter {
 
+    @Id
+    int id;
+
+    @Property
     String name;
 
+    @Property
     long  siretNumber;
 
+    @Property
     long  finessNumber;
 
+    @Property
     int streetNumber;
 
+    @Property
     String streetName;
 
+    @Property
     String town;
 
+    @Property
     int zipCode;
 
+    @Property
     double longitude;
 
+    @Property
     double lattitude;
 
+    @Property
     int bedNumber;
 
+    @Property
     String webSite;
 
 
+    @Property
     int serviceBuildingImage;
 
+    @Property
     int difficultyHavingContact;
 
 
+    @Property
     String origin;
 
 
+    @Property
     boolean isPublic;
 
-    @DBRef
+    @Reference
     EtablishmentType etablishmentType;
 
-    @DBRef
+    @Reference
     PurchasingCentral purchasingCentral;
 
-    @DBRef
+    @Reference
     Holding holding;
 
 
     public HealthCenter() {
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
 
     public String getName() {
         return name;
