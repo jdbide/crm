@@ -1,5 +1,6 @@
 package miage.pds.admin.customer.crud.createhc.entities;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
@@ -15,13 +16,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class HealthCenter {
 
     @Id
-    int id;
+    long  siretNumber;
 
     @Property
     String name;
-
-    @Property
-    long  siretNumber;
 
     @Property
     long  finessNumber;
@@ -78,13 +76,13 @@ public class HealthCenter {
     public HealthCenter() {
     }
 
-    public int getId() {
+   /** public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
+    }*/
 
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;

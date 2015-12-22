@@ -54,8 +54,7 @@ public class RestCustomerController {
         datastore.ensureIndexes();
         datastore.save(messageRestCustomer.getHealthCenter());
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setIdClient(messageRestCustomer.getHealthCenter().getId());
-
+        responseRestCustomer.setIsInserted(true);
         return responseRestCustomer;
     }
 
