@@ -52,11 +52,27 @@
                 android:orientation="vertical"
                 android:background="@drawable/gradientbackground"
                 >
+
+                <EditText
+                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:id="@+id/edittextiduser"
+                    android:visibility="gone"
+                    android:text="1" />
+
+                <EditText
+                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:id="@+id/edittextidcontact"
+                    android:visibility="gone"/>
+
                 <TextView android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="@string/contact"/>
-                <EditText android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/edittextcontatctname"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
@@ -70,7 +86,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="@string/textViewNumero"/>
-                <EditText android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/edittextcontatctnumber"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
@@ -83,7 +101,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="Client"/>
-                <EditText android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/edittextclientname"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
@@ -96,7 +116,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="Date"/>
-                <EditText android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/edittextdate"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
@@ -110,7 +132,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="Durée"/>
-                <EditText android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/edittextduration"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
@@ -124,7 +148,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="Type d'appel"/>
-                <EditText android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/edittextcalltype"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
@@ -138,7 +164,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="Sujet"/>
-                <EditText android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/edittextsubject"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
@@ -152,10 +180,12 @@
                     android:textColor="#372c24"
                     android:text="@string/textviewcommentaire"/>
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-                    <EditText android:layout_width="600dp"
+                    <EditText  android:id="@+id/edittextcomments"
+                        android:layout_width="600dp"
                         android:layout_height="100dp"
                         android:background="#f3f3f3"
                         android:layout_marginTop="5dip"
@@ -163,15 +193,16 @@
                         android:paddingLeft="5dp"
                         />
                     <Button
-
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:id="@+id/btnMic"
+                        android:id="@+id/vocalcomment"
                         android:background="@drawable/mic1"/>
                 </LinearLayout>
 
 
-                <Button android:layout_width="190dp"
+                <Button
+                    android:id="@+id/buttonregistercra"
+                    android:layout_width="190dp"
                     android:layout_height="38dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"

@@ -2,24 +2,35 @@ package pds.isintheair.fr.crm_tab.registercall;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
-import pds.isintheair.fr.crm_tab.registercall.Rest.CreateCraResponse;
-import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
-import retrofit.Call;
-import retrofit.Callback;
 import retrofit.GsonConverterFactory;
-import retrofit.Response;
 import retrofit.Retrofit;
 
 
 public class AddLogFragment extends Fragment {
+
+    @Bind(R.id.edittextcontatctname) EditText contactname;
+    @Bind(R.id.edittextclientname) EditText clientname;
+    @Bind(R.id.edittextcontatctnumber) EditText contactnumber;
+    @Bind(R.id.edittextduration) EditText duration;
+    @Bind(R.id.edittextcomments) EditText comments;
+    @Bind(R.id.edittextsubject) EditText subject;
+    @Bind(R.id.edittextdate) EditText date;
+    @Bind(R.id.edittextidcontact) EditText idcontact;
+    @Bind(R.id.edittextiduser) EditText iduser;
+    @Bind(R.id.edittextcalltype) EditText calltype;
+
 
     private String BASE_URL = "locahost";
 
@@ -41,6 +52,7 @@ public class AddLogFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ButterKnife.bind(getActivity());
         return inflater.inflate(R.layout.add_log_fragment, container, false);
     }
 
@@ -60,7 +72,7 @@ public class AddLogFragment extends Fragment {
 
     public void go(View v){
 
-        
+
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -68,8 +80,10 @@ public class AddLogFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        Log.v("ljk", String.valueOf(iduser.getText()));
+        //Cra newCra = new Cra(Integer);
         CraServiceInterface service = retrofit.create(CraServiceInterface.class);
-        Call<Cra> call = service.createcra();
+        /*Call<Cra> call = service.createcra(newCra);
         //asynchronous call
         call.enqueue(new Callback<CreateCraResponse>() {
             @Override
@@ -89,7 +103,7 @@ public class AddLogFragment extends Fragment {
             }
 
 
-        }
+        }*/
     }
 
 }

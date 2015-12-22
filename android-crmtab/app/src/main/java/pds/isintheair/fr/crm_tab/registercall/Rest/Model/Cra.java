@@ -6,7 +6,6 @@ package pds.isintheair.fr.crm_tab.registercall.Rest.Model;
 public class Cra {
 
     private int iduser;
-    private int idclient;
     private int idcontact;
     private String clientname;
     private String contactname;
@@ -15,9 +14,8 @@ public class Cra {
     private String date;
     private int duration;
 
-    public Cra(int iduser, int idclient, int idcontact, String clientname, String contactname, String comments, String subject, String date, int duration) {
+    public Cra(int iduser, int idcontact, String clientname, String contactname, String comments, String subject, String date, int duration) {
         this.iduser = iduser;
-        this.idclient = idclient;
         this.idcontact = idcontact;
         this.clientname = clientname;
         this.contactname = contactname;
