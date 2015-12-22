@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,7 +39,7 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/hc/create/", method = RequestMethod.POST)
     public @ResponseBody
-    ResponseRestCustomer createHealthCenter(MessageRestCustomer messageRestCustomer) {
+    ResponseRestCustomer createHealthCenter(@RequestBody MessageRestCustomer messageRestCustomer) {
 
         final Morphia morphia = new Morphia();
         morphia.mapPackage(PACKAGE_NAME,true);
