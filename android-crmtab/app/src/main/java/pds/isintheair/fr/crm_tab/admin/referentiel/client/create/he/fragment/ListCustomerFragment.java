@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,16 +60,13 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         if (getArguments() != null) {
 
         }
-        initHolding();
-        initPurchasingCentral();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_customer_list, container, false);
-
-
 
         return view;
     }
@@ -167,7 +165,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
                 @Override
                 public void onFailure(Throwable t) {
-
+                    Log.d("error", "holding");
                 }
             });
         }
@@ -189,10 +187,16 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
                 @Override
                 public void onFailure(Throwable t) {
-
+                    Log.d("error", "Pc");
                 }
             });
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initHolding();
+        initPurchasingCentral();
+    }
 }

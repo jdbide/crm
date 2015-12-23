@@ -22,16 +22,6 @@ public class CRUDCustomerActivity extends AppCompatActivity implements CreateCus
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-       /** FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.create_customer_fragment_container,new ListCustomerFragment());
         fragmentTransaction.commit();
@@ -54,5 +44,7 @@ public class CRUDCustomerActivity extends AppCompatActivity implements CreateCus
 
         }
     }
+
+
 
 }
