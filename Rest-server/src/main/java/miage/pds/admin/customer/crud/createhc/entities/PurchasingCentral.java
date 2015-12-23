@@ -1,15 +1,23 @@
 package miage.pds.admin.customer.crud.createhc.entities;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
+
 /**
  * Created by tlacouque on 16/12/2015.
  */
+
+@Entity("purchasingcentral")
 public class PurchasingCentral {
 
-
+    @Id
     int id;
 
+    @Property
     String name;
 
+    @Property
     String type;
 
     public int getId() {
