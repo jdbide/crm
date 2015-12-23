@@ -34,15 +34,15 @@ public class RestController {
 	}
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Simply returns a status string.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public @ResponseBody String home() {
 
 		logger.info("REST SERVER IS RUNNING :)");
-
 		return "REST SERVER IS RUNNING :)";
 	}
+	
 	//logger.info("");
 	@RequestMapping(value = "/createcra", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody CreateCraResponse createCra(@RequestBody Cra cra) {
