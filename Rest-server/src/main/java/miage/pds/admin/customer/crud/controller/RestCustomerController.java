@@ -2,11 +2,14 @@ package miage.pds.admin.customer.crud.controller;
 
 import com.mongodb.MongoClient;
 import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
+import miage.pds.admin.customer.crud.createhc.entities.Holding;
+import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
 import miage.pds.admin.customer.crud.message.MessageRestCustomer;
 import miage.pds.admin.customer.crud.message.ResponseRestCustomer;
 import miage.pds.orm.SpringMongoConfig;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.UnknownHostException;
+import java.util.List;
 
 
 /**
@@ -31,6 +35,10 @@ public class RestCustomerController {
 
     private static final Logger logger = LoggerFactory.getLogger(RestCustomerController.class);
 
+    Datastore datastore;
+
+    final Morphia morphia = new Morphia();
+
     public RestCustomerController() {
     }
 
@@ -41,17 +49,7 @@ public class RestCustomerController {
     public @ResponseBody
     ResponseRestCustomer createHealthCenter(@RequestBody MessageRestCustomer messageRestCustomer) {
 
-        final Morphia morphia = new Morphia();
-        morphia.mapPackage(PACKAGE_NAME,true);
-        Datastore datastore = null;
-
-        try {
-            datastore = morphia.createDatastore(new MongoClient(), SpringMongoConfig.DB_NAME);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-        datastore.ensureIndexes();
+        getDataStore().ensureIndexes();
         datastore.save(messageRestCustomer.getHealthCenter());
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIsInserted(true);
@@ -60,13 +58,30 @@ public class RestCustomerController {
 
     @RequestMapping(value = "/customer/holding", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getHoldings() {
+        final Query<Holding> query = getDataStore().createQuery(Holding.class);
+        final List<Holding> holdings = query.asList();
     ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setHoldings(holdings);
         return responseRestCustomer;
     }
 
     @RequestMapping(value = "/customer/purchasingcentral", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getPurchasingCentrals() {
+        final Query<PurchasingCentral> query = getDataStore().createQuery(PurchasingCentral.class);
+        final List<PurchasingCentral> purchasingCentrals = query.asList();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setPurchasingCentrals(purchasingCentrals);
         return responseRestCustomer;
+    }
+
+    private Datastore getDataStore() {
+        if(datastore == null ) {
+            try {
+                datastore = morphia.createDatastore(new MongoClient(), SpringMongoConfig.DB_NAME);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
+        return datastore;
     }
 }
