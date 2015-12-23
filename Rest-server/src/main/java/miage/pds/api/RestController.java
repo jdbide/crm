@@ -2,26 +2,21 @@ package miage.pds.api;
 
 
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import miage.pds.api.model.Cra;
+import miage.pds.api.model.CreateCraResponse;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -31,12 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class RestController {
 
 	boolean status = false;  
+
 	private static final Logger logger = LoggerFactory.getLogger(RestController.class);
 	DAO dao = new DAO();
 
 	public RestController() {
-
-
 	}
 
 	/**
@@ -45,19 +39,18 @@ public class RestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-
 		logger.info("REST SERVER IS RUNNING :)");
 
 		return "REST SERVER IS RUNNING :)";
 	}
 	//logger.info("");
-	@RequestMapping(value = "/calllog/create", method = RequestMethod.POST, headers="Accept=application/json")
-	public @ResponseBody String createCra(@RequestBody Cra cra) {
+	@RequestMapping(value = "/createcra", method = RequestMethod.POST, headers="Accept=application/json")
+	public @ResponseBody CreateCraResponse createCra(@RequestBody Cra cra) {
 		
-		JSONObject jsonObject = new JSONObject();
-
-		return jsonObject.toString();
-
+		CreateCraResponse response = new CreateCraResponse();
+		//boolean status = true;
+		response.setStatus(status);
+        return response;
 	}
 
 	
