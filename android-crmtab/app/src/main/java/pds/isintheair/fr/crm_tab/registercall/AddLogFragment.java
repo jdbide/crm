@@ -15,7 +15,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
-import pds.isintheair.fr.crm_tab.registercall.Rest.CreateCraResponse;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
 import retrofit.Call;
 import retrofit.Callback;
@@ -39,7 +38,7 @@ public class AddLogFragment extends Fragment {
     @Bind(R.id.buttonregistercra)  Button validation;
 
 
-    private String BASE_URL = "http://localhost.com";
+    private String BASE_URL = "http://localhost:8080/api";
 
     static AddLogFragment newInstance(int num) {
         AddLogFragment f = new AddLogFragment();
@@ -87,15 +86,16 @@ public class AddLogFragment extends Fragment {
                 .build();
 
         CraServiceInterface service = retrofit.create(CraServiceInterface.class);
-        Call<CreateCraResponse> call = service.createcra(newCra);
+        Call<String> call = service.createcra(newCra);
         //asynchronous call
-        call.enqueue(new Callback<CreateCraResponse>() {
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Response<CreateCraResponse> response, Retrofit retrofit) {
+            public void onResponse(Response<String> response, Retrofit retrofit) {
 
                     if (response.isSuccess()) {
                         // request successful (status code 200, 201)
-                        CreateCraResponse result = response.body();
+                        String result = response.body();
+                        Log.v("result",result);
 
                     } else {
                         //request not successful (like 400,401,403 etc)
