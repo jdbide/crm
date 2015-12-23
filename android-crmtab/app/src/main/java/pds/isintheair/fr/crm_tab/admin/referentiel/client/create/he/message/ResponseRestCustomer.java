@@ -10,7 +10,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Pur
  */
 public class ResponseRestCustomer {
 
-    private int idClient;
+    private boolean isInserted;
 
     private List<Holding> holdings;
 
@@ -18,12 +18,12 @@ public class ResponseRestCustomer {
 
 
 
-    public int getIdClient() {
-        return idClient;
+    public boolean getIsInserted() {
+        return isInserted;
     }
 
-    public void setIdClient(int idUser) {
-        this.idClient = idUser;
+    public void setIsInserted(boolean isInserted) {
+        this.isInserted = isInserted;
     }
 
     public List<Holding> getHoldings() {

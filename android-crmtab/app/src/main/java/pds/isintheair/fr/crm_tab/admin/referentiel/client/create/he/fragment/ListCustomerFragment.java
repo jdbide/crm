@@ -59,8 +59,8 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         if (getArguments() != null) {
 
         }
-      //  initHolding();
-      //  initPurchasingCentral();
+        initHolding();
+        initPurchasingCentral();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         switch (position) {
             case 0 :
                 CreateHCFragment createHCFragment = new CreateHCFragment();
-                getFragmentManager().beginTransaction()
+                getFragmentManager().beginTransaction().addToBackStack("listCustomerFragment")
                     .replace(R.id.create_customer_fragment_container, createHCFragment).commit();
 
         }

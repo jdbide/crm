@@ -16,14 +16,11 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
 public class HealthCenter extends BaseModel implements Customer{
 
     @Column
-    @PrimaryKey(autoincrement = true)
-    int id;
+    @PrimaryKey
+    long  siretNumber;
 
     @Column
     String name;
-
-    @Column
-    long  siretNumber;
 
     @Column
     long  finessNumber;
@@ -95,14 +92,6 @@ public class HealthCenter extends BaseModel implements Customer{
     public HealthCenter() {
     }
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

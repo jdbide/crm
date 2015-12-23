@@ -105,6 +105,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     List<Holding> holdings;
     List<PurchasingCentral> purchasingCentrals;
     Validator validator;
+    View view;
 
 
     private OnFragmentInteractionListener mListener;
@@ -188,7 +189,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
 
     @OnClick(R.id.create_he_fragment_validate_button)
     public void insertHE(final View view) {
-
+        this.view = view;
         validator.validate(true);
         //validator.
     }
@@ -234,7 +235,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         healthCenter.setZipCode(Integer.decode(zipCode.getText().toString()));
         healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
         healthCenter.setWebSite(webSite.getText().toString());
-        if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Yes"))
+        if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Oui"))
             healthCenter.setIsPublic(true);
         else healthCenter.setIsPublic(false);
         healthCenter.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
@@ -265,9 +266,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                healthCenter.setId(response.body().getIdClient());
-                healthCenter.save();
-               // Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
+                if(response.body().getIsInserted()) {
+                    healthCenter.save();
+                }
+               Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
+                getFragmentManager().popBackStack();
             }
             @Override
             public void onFailure(Throwable t) {
