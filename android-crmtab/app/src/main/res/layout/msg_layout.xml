@@ -22,6 +22,7 @@
         android:layout_height="50dp"
         android:id="@+id/btnAddMessage"
         android:layout_marginLeft="150dp"
+        android:onClick="launchPreformattedMessageActivity"
         android:background="@android:drawable/ic_input_add"/>
 </LinearLayout>
 

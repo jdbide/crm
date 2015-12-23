@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.crv.cache.CacheDao;
 import pds.isintheair.fr.crm_tab.crv.http.HttpRequestTask;
 import pds.isintheair.fr.crm_tab.crv.mock.RandomInformation;
 import pds.isintheair.fr.crm_tab.crv.model.Client;
@@ -46,12 +47,18 @@ public class CreateCrvActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     List<String> presentedProducts = new ArrayList<String>();
     ArrayAdapter<String> adapter;
-
+    CacheDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_crv);
+
+
+        //get all preformatted messages from cache
+        dao = new CacheDao(this);
+        messages = dao.getAllMessages();
+
 
         //get all views
         commercial = (TextView)findViewById(R.id.txtName);
@@ -70,12 +77,6 @@ public class CreateCrvActivity extends AppCompatActivity {
         ch2 = (CheckBox) findViewById(R.id.chk2);
         ch3 = (CheckBox) findViewById(R.id.chk3);
         ch4 = (CheckBox) findViewById(R.id.chk4);
-
-        //mock preformated messages
-        messages.add("Client très satisfait");
-        messages.add("Client pas satisfait");
-        messages.add("Important");
-        messages.add("A voir plus tard");
 
 
         //get mocked client object
@@ -290,8 +291,9 @@ public class CreateCrvActivity extends AppCompatActivity {
 
     }
 
-    // This will be re implemented in the 3rd Itteration !
-    public void launchInputDialog(View v){/*
+    // launch dialog box with pre formated message list
+    public void launchInputDialog(View v){
+        messages = dao.getAllMessages();
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(CreateCrvActivity.this);
         View promptView = layoutInflater.inflate(R.layout.msg_layout, null);
@@ -309,6 +311,8 @@ public class CreateCrvActivity extends AppCompatActivity {
         // Assign adapter to ListView
         listView.setAdapter(adapter);
 
+        adapter.notifyDataSetChanged();
+
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -323,9 +327,9 @@ public class CreateCrvActivity extends AppCompatActivity {
                 String itemValue = (String) listView.getItemAtPosition(position);
                 comment.append(" " + itemValue);
                 // Show Alert
-                *//*Toast.makeText(getApplicationContext(),
+                /*Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();*//*
+                        .show();*/
 
 
             }
@@ -345,7 +349,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-        */
+
     }
 
     public String createJson(){
@@ -416,6 +420,13 @@ public class CreateCrvActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    //Launch launchPreformattedMessageActivity
+    public void launchPreformattedMessageActivity(View view){
+        Intent intent = new Intent(this, CrvPreformatedMessage.class);
+        startActivity(intent);
     }
 
 }

@@ -39,12 +39,12 @@ public class CacheDao extends SQLiteOpenHelper {
 
     }
 
-    public Integer deleteMessage (Integer id)
+    public Integer deleteMessage (String message)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME,
-                "id = ? ",
-                new String[] { Integer.toString(id) });
+                "message = ? ",
+                new String[] { message });
     }
 
 
