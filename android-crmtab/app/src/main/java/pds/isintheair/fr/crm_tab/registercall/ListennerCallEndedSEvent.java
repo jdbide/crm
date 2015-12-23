@@ -44,8 +44,9 @@ public class ListennerCallEndedSEvent extends Service {
 
     @Subscribe
     public void showPopup(CallEndedEvent event) {
+        //TODO remplacer fragment principal
         Intent dialogIntent = new Intent(this, PopUpActivity.class);
-        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(dialogIntent);
     }
 

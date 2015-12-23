@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    android:id="@+id/scroll_view" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addlogfragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
@@ -64,6 +65,7 @@
                     android:layout_height="0dp"
                     android:layout_width="0dp"
                     android:id="@+id/edittextidcontact"
+                    android:text="1"
                     android:visibility="gone"/>
 
                 <TextView android:layout_width="fill_parent"
@@ -79,7 +81,7 @@
                     android:layout_marginBottom="20dip"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
-                    android:hint="Franck NEROT"
+                    android:text="Franck NEROT"
                     android:enabled="false"/>
 
                 <TextView android:layout_width="fill_parent"
@@ -95,7 +97,7 @@
                     android:layout_marginBottom="20dip"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
-                    android:hint="0762506058"
+                    android:text="0762506058"
                     android:enabled="false"/>
                 <TextView android:layout_width="fill_parent"
                     android:layout_height="match_parent"
@@ -110,7 +112,7 @@
                     android:layout_marginBottom="20dip"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
-                    android:hint="Hopital Henri Mondor"
+                    android:text="Hopital Henri Mondor"
                     android:enabled="false"/>
                 <TextView android:layout_width="fill_parent"
                     android:layout_height="match_parent"
@@ -125,7 +127,7 @@
                     android:layout_marginBottom="20dip"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
-                    android:hint="12/01/2015 - 14h53"
+                    android:text="12/01/2015 - 14h53"
                     android:enabled="false"/>
 
                 <TextView android:layout_width="fill_parent"
@@ -141,7 +143,7 @@
                     android:layout_marginBottom="20dip"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
-                    android:hint="5 min 15s"
+                    android:text="1034"
                     android:enabled="false"/>
 
                 <TextView android:layout_width="fill_parent"
@@ -157,7 +159,7 @@
                     android:layout_marginBottom="20dip"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
-                    android:hint="Reçu"
+                    android:text="Reçu"
                     android:enabled="false"/>
 
                 <TextView android:layout_width="fill_parent"

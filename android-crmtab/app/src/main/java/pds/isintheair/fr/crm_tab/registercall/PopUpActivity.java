@@ -4,9 +4,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
-
-import com.squareup.otto.Subscribe;
 
 import pds.isintheair.fr.crm_tab.R;
 
@@ -53,10 +50,10 @@ public class PopUpActivity extends FragmentActivity {
         }
     }
 
-    @Subscribe
+    /*@Subscribe
     public void onCallEndedEventReceived(CallEndedEvent callended){
         Toast.makeText(this, "event received", Toast.LENGTH_SHORT).show();
 
-    }
+    }*/
 
 }

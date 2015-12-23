@@ -11,7 +11,7 @@ import retrofit.http.POST;
 public interface CraServiceInterface {
 
     @POST("/createcra")
-    Call<Cra> createcra(@Body Cra cra) ;
+    Call<CreateCraResponse> createcra(@Body Cra cra) ;
 
 
 

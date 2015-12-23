@@ -30,9 +30,17 @@ public class StartCallRegisterActivity extends AppCompatActivity {
 
     }
     @OnClick(R.id.fab)
-    public void go(View v){
+    public void goo(View v){
         bus.post(new CallEndedEvent());
     }
+    //@Bind(R.id.edittextiduser) EditText iduser;
+
+    public void go(View v){
+        //AddLogFragment fragment = (AddLogFragment) getFragmentManager().findFragmentById(R.id.addlogfragment);
+        //fragment.show();
+    }
+
+
 
 
 
