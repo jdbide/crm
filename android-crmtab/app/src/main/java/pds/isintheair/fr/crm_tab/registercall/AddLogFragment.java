@@ -10,9 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnFocusChange;
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
@@ -23,7 +28,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 
-public class AddLogFragment extends Fragment {
+public class AddLogFragment extends Fragment implements Callback<String> {
+
+    @OnFocusChange
 
     @Bind(R.id.edittextcontatctname) EditText contactname;
     @Bind(R.id.edittextclientname) EditText clientname;
@@ -38,7 +45,7 @@ public class AddLogFragment extends Fragment {
     @Bind(R.id.buttonregistercra)  Button validation;
 
 
-    private String BASE_URL = "http://localhost:8080/api";
+    private String BASE_URL = "http://192.168.1.16:8080/api";
 
     static AddLogFragment newInstance(int num) {
         AddLogFragment f = new AddLogFragment();
@@ -80,15 +87,43 @@ public class AddLogFragment extends Fragment {
                 , String.valueOf(date.getText())
                 ,Integer.parseInt(String.valueOf(duration.getText())));
 
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         CraServiceInterface service = retrofit.create(CraServiceInterface.class);
-        Call<String> call = service.createcra(newCra);
-        //asynchronous call
+        Call<String> call = service.test();
+
         call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Response<String> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    // request successful (status code 200, 201)
+                    //String result = response.message();
+                    //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+                    Log.v("ok", "ok");
+
+                } else {
+                    //request not successful (like 400,401,403 etc)
+                    //Handle errors
+                    Log.v("rest","no rep");
+                    Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
+                Log.v("Failure",t.getMessage());
+            }
+        });
+        //asynchronous call
+        /*call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
 
@@ -108,7 +143,7 @@ public class AddLogFragment extends Fragment {
             public void onFailure(Throwable t) {
                 Log.v("klj","failure");
             }
-        });
+        });*/
 
     }
 
