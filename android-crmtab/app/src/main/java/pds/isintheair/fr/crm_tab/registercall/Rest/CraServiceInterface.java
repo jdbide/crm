@@ -16,10 +16,10 @@ public interface CraServiceInterface {
             "Accept: application/json",
             "Content-Type: application/json"
     })
-    @GET("/")
+    @GET("test")
     Call<String> test() ;
-    @POST("/createcra")
-    Call<String> createcra(@Body Cra cra) ;
+    @POST("createcra")
+    Call<Boolean> createcra(@Body Cra cra) ;
 
 
 

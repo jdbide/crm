@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,7 +18,6 @@ import com.google.gson.GsonBuilder;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnFocusChange;
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
@@ -28,9 +28,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 
-public class AddLogFragment extends Fragment implements Callback<String> {
+public class AddLogFragment extends Fragment {
 
-    @OnFocusChange
+
 
     @Bind(R.id.edittextcontatctname) EditText contactname;
     @Bind(R.id.edittextclientname) EditText clientname;
@@ -45,20 +45,22 @@ public class AddLogFragment extends Fragment implements Callback<String> {
     @Bind(R.id.buttonregistercra)  Button validation;
 
 
-    private String BASE_URL = "http://192.168.1.16:8080/api";
+    private String BASE_URL = "http://192.168.1.16:8080/api/";
 
     static AddLogFragment newInstance(int num) {
         AddLogFragment f = new AddLogFragment();
-        // Supply num input as an argument.
+       /* // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putInt("num", num);
-        f.setArguments(args);
+        f.setArguments(args);*/
         return f;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //hide  keyboard
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setHasOptionsMenu(true);
 
     }
@@ -96,16 +98,17 @@ public class AddLogFragment extends Fragment implements Callback<String> {
                 .build();
 
         CraServiceInterface service = retrofit.create(CraServiceInterface.class);
-        Call<String> call = service.test();
+        Call<Boolean> call = service.createcra(newCra);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
+            public void onResponse(Response<Boolean> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     // request successful (status code 200, 201)
                     //String result = response.message();
                     //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
-                    Log.v("ok", "ok");
+                    if(response.body()) Log.v("ok", "cra enregistre");
+                    else Log.v("ok", "erreur bdd");
 
                 } else {
                     //request not successful (like 400,401,403 etc)
@@ -117,33 +120,11 @@ public class AddLogFragment extends Fragment implements Callback<String> {
 
             @Override
             public void onFailure(Throwable t) {
-
                 Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
                 Log.v("Failure",t.getMessage());
             }
         });
-        //asynchronous call
-        /*call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
 
-                    if (response.isSuccess()) {
-                        // request successful (status code 200, 201)
-                        String result = response.body();
-                        Log.v("result",result);
-
-                    } else {
-                        //request not successful (like 400,401,403 etc)
-                        //Handle errors
-                        Log.v("rest","no rep");
-                    }
-                }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.v("klj","failure");
-            }
-        });*/
 
     }
 

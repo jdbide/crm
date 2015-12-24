@@ -1,16 +1,12 @@
 package pds.isintheair.fr.crm_tab.registercall;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import pds.isintheair.fr.crm_tab.R;
 
 /**
  * Created by j-d on 18/12/2015.
@@ -21,21 +17,23 @@ public class PopUpFragment extends DialogFragment {
     int mNum;
 
     /**
-     * Create a new instance of MyDialogFragment, providing "num"
-     * as an argument.
+     * Create a new instance of MyDialogFragment, with  the callEnded event params
+     * as arguments.
      */
-    static PopUpFragment newInstance(int num) {
+    static PopUpFragment newInstance(int num,String idcontact) {
         PopUpFragment f = new PopUpFragment();
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putInt("num", num);
+        args.putString("idcontact", idcontact);
+
+
         f.setArguments(args);
 
         return f;
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+    /*public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNum = getArguments().getInt("num");
 
@@ -69,19 +67,35 @@ public class PopUpFragment extends DialogFragment {
         ((TextView)tv).setText("Dialog #" + mNum + ": using style ");
              //   + getNameForNum(mNum));
 
+        //get ended call args
+        final String idcontact = getArguments().getString("idcontact");
+
         // Watch for button clicks.
         Button button = (Button)v.findViewById(R.id.oui);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),AddLogActivity.class));
+                Intent intent = new Intent(getActivity(), AddLogActivity.class);
+                intent.putExtra("idcontact", idcontact);
+                startActivity(intent);
 
             }
 
         });
 
+
         return v;
-    }
+    }*/
+
+   /* @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(400, 400);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+    }*/
 //3 buttons yes,no or later : problem no box title
 
 
@@ -106,12 +120,12 @@ public class PopUpFragment extends DialogFragment {
         return layout;
     }*/
 
-    /*@Override
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
        super.onCreateDialog(savedInstanceState);
         //3 buttons yes,no or later no box title
 
-        /*final Dialog dialog = new Dialog(getActivity());
+       /* final Dialog dialog = new Dialog(getActivity());
         //dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -125,7 +139,7 @@ public class PopUpFragment extends DialogFragment {
         return dialog;*/
 
         //two buttons yes and no
-        /*return 	new AlertDialog.Builder(getActivity()).setTitle("Enregistrer dernier appel?").setMessage("Enregistrer dernier appel ?")
+        return 	new AlertDialog.Builder(getActivity()).setTitle("Enregistrer dernier appel?").setMessage("Enregistrer dernier appel ?")
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -137,6 +151,7 @@ public class PopUpFragment extends DialogFragment {
 
                     }
                 }).show();
-    }*/
+
+    }
 
 }

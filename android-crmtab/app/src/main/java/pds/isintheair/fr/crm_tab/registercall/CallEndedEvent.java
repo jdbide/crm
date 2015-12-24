@@ -7,41 +7,35 @@ public class CallEndedEvent {
 
     private int idcontact;
     private int idclient;
-    private int number;
+    private int duration;
+    private String date;
+    private Boolean callemitted;
+
+    public CallEndedEvent(Boolean callemitted, String date, int duration, int idclient, int idcontact) {
+        this.callemitted = callemitted;
+        this.date = date;
+        this.duration = duration;
+        this.idclient = idclient;
+        this.idcontact = idcontact;
+    }
 
     public int getIdcontact() {
         return idcontact;
     }
 
-    public void setIdcontact(int idcontact) {
-        this.idcontact = idcontact;
+    public Boolean getCallemitted() {
+        return callemitted;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 
     public int getIdclient() {
         return idclient;
-    }
-
-    public void setIdclient(int idclient) {
-        this.idclient = idclient;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public CallEndedEvent(int idcontact, int idclient, int number) {
-
-        this.idcontact = idcontact;
-        this.idclient = idclient;
-        this.number = number;
-    }
-
-    public CallEndedEvent() {
-
-
     }
 }

@@ -44,10 +44,32 @@ public class PopUpActivity extends FragmentActivity {
                 ft.remove(prev);
             }
             ft.addToBackStack(null);
-            PopUpFragment fragment = PopUpFragment.newInstance(8) ;
-            //AddLogFragment fragment = new AddLogFragment();
-            fragment.show(getFragmentManager(), "");
+            //Create a popup instance
+            //get callEnded parameters from the service and pass them to the popup
+            PopUpFragment pop = PopUpFragment.newInstance(8,getIntent().getStringExtra("idcontact")) ;
+            AddLogFragment fragment = AddLogFragment.newInstance(4);
+
+            ft.add(R.id.fragment_container, fragment).commit();
+            pop.show(getFragmentManager(), "");
+            pop.setCancelable(false);
         }
+    }
+
+    public void replace(){
+
+        android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        //Create a popup instance
+        //get callEnded parameters from the service and pass them to the popup
+        //PopUpFragment fragment = PopUpFragment.newInstance(8,getIntent().getStringExtra("idcontact")) ;
+
+        AddLogFragment fragment = AddLogFragment.newInstance(4);
+        //fragment.show(getFragmentManager(), "");
+
     }
 
     /*@Subscribe

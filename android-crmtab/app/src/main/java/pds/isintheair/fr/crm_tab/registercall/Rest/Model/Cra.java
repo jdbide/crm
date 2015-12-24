@@ -14,6 +14,7 @@ public class Cra {
     private String date;
     private int duration;
 
+
     public Cra(int iduser, int idcontact, String clientname, String contactname, String comments, String subject, String date, int duration) {
         this.iduser = iduser;
         this.idcontact = idcontact;

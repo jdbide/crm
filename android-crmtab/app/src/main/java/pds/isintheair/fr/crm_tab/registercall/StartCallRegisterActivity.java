@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.squareup.otto.Bus;
 
+import java.util.Calendar;
+
 import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
 
@@ -31,13 +33,7 @@ public class StartCallRegisterActivity extends AppCompatActivity {
     }
     @OnClick(R.id.fab)
     public void goo(View v){
-        bus.post(new CallEndedEvent());
-    }
-    //@Bind(R.id.edittextiduser) EditText iduser;
-
-    public void go(View v){
-        //AddLogFragment fragment = (AddLogFragment) getFragmentManager().findFragmentById(R.id.addlogfragment);
-        //fragment.show();
+        bus.post(new CallEndedEvent(true, Calendar.getInstance().getTime().toLocaleString(),1034,00000000,11111111));
     }
 
 
