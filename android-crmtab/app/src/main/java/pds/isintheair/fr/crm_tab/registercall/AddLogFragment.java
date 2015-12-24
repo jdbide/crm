@@ -47,12 +47,15 @@ public class AddLogFragment extends Fragment {
 
     private String BASE_URL = "http://192.168.1.16:8080/api/";
 
-    static AddLogFragment newInstance(int num) {
+    static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype) {
         AddLogFragment f = new AddLogFragment();
-       /* // Supply num input as an argument.
+        // Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putInt("num", num);
-        f.setArguments(args);*/
+        args.putString("idcontact", idcontact);
+        args.putString("duration", duration);
+        args.putString("date", date);
+        args.putString("calltype", calltype);
+        f.setArguments(args);
         return f;
     }
 
@@ -67,8 +70,15 @@ public class AddLogFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_log_fragment, container,false);
+        View view = inflater.inflate(R.layout.add_log_fragment, container, false);
         ButterKnife.bind(this, view);
+        contactnumber.setText(getArguments().getString("idcontact"));
+        date.setText(getArguments().getString("date"));
+        duration.setText(getArguments().getString("duration"));
+        calltype.setText(getArguments().getString("calltype"));
+        iduser.setText("1");
+        idcontact.setText("1");
+
         validation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,8 +90,8 @@ public class AddLogFragment extends Fragment {
 
     private void sendForm() {
 
-        Cra newCra = new Cra(Integer.parseInt(String.valueOf(iduser.getText()))
-                ,Integer.parseInt(String.valueOf(idcontact.getText()))
+        Cra newCra = new Cra(String.valueOf(iduser.getText())
+                ,String.valueOf(idcontact.getText())
                 ,String.valueOf(clientname.getText())
                 ,String.valueOf(contactname.getText())
                 ,String.valueOf(comments.getText())

@@ -33,10 +33,10 @@ public class StartCallRegisterActivity extends AppCompatActivity {
     }
     @OnClick(R.id.fab)
     public void goo(View v){
-        bus.post(new CallEndedEvent(true, Calendar.getInstance().getTime().toLocaleString(),"1034","00000000","11111111"));
-        bus.post(new CallEndedEvent(false, Calendar.getInstance().getTime().toLocaleString(),"1034","2222222","33333333"));
-        bus.post(new CallEndedEvent(false, Calendar.getInstance().getTime().toLocaleString(),"1034","444444444","5555555"));
-        bus.post(new CallEndedEvent(false, Calendar.getInstance().getTime().toLocaleString(),"1034","6666666","7777777777"));
+        bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(),"1034","11111111"));
+        bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(),"1034","33333333"));
+        bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(),"1034","5555555"));
+        bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(),"1034","7777777777"));
     }
 
 

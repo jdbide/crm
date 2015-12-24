@@ -46,11 +46,15 @@ public class PopUpActivity extends FragmentActivity {
             ft.addToBackStack(null);
             //Create a popup instance
             //get callEnded parameters from the service and pass them to the popup
-            PopUpFragment pop = PopUpFragment.newInstance(8,getIntent().getStringExtra("idcontact")) ;
-            AddLogFragment fragment = AddLogFragment.newInstance(4);
+            PopUpFragment pop = PopUpFragment.newInstance(getIntent().getStringExtra("idcontact")) ;
+            AddLogFragment fragment = AddLogFragment.newInstance(getIntent().getStringExtra("idcontact")
+            ,getIntent().getStringExtra("date")
+            ,getIntent().getStringExtra("duration")
+            ,getIntent().getStringExtra("calltype"));
 
             ft.add(R.id.fragment_container, fragment).commit();
             pop.show(getFragmentManager(), "");
+            //make popup not cancellable
             pop.setCancelable(false);
             Singleton.getInstance().setPopUpDisplayed(true);
         }
@@ -68,7 +72,7 @@ public class PopUpActivity extends FragmentActivity {
         //get callEnded parameters from the service and pass them to the popup
         //PopUpFragment fragment = PopUpFragment.newInstance(8,getIntent().getStringExtra("idcontact")) ;
 
-        AddLogFragment fragment = AddLogFragment.newInstance(4);
+        //AddLogFragment fragment = AddLogFragment.newInstance(4);
         //fragment.show(getFragmentManager(), "");
 
     }
