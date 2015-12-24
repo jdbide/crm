@@ -145,10 +145,11 @@ public class PopUpFragment extends DialogFragment {
 
                         startActivity(new Intent(getActivity(),AddLogActivity.class));
                         //getActivity().finish();
+                        Singleton.getInstance().setPopUpDisplayed(false);
                     }
                 }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Singleton.getInstance().setPopUpDisplayed(false);
                     }
                 }).show();
 

@@ -52,6 +52,7 @@ public class PopUpActivity extends FragmentActivity {
             ft.add(R.id.fragment_container, fragment).commit();
             pop.show(getFragmentManager(), "");
             pop.setCancelable(false);
+            Singleton.getInstance().setPopUpDisplayed(true);
         }
     }
 

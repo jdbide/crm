@@ -34,21 +34,25 @@ public class ListennerCallEndedSEvent extends Service {
 
     @Override
     public void onCreate() {
-        singleton = Singleton.getInstance();
-        singleton.getCurrentBusInstance().register(this);
+        //registering service for events on the bus
+        Singleton.getInstance().getCurrentBusInstance().register(this);
 
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // Display a notification about us starting.  We put an icon in the status bar.
-        showNotification();
+       // showNotification();
     }
 
     @Subscribe
     public void showPopup(CallEndedEvent event) {
-        //TODO remplacer fragment principal
-        Intent dialogIntent = new Intent(this, PopUpActivity.class);
-        dialogIntent.putExtra("idcontact",event.getIdcontact());
-        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(dialogIntent);
+        //if no popup displayed show
+        if(!Singleton.getInstance().isPopUpDisplayed()) {
+            Intent dialogIntent = new Intent(this, PopUpActivity.class);
+            dialogIntent.putExtra("idcontact", event.getIdcontact());
+            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(dialogIntent);
+        }else{  //else local notification
+            showNotification(event);
+        }
     }
 
     @Override
@@ -85,7 +89,7 @@ public class ListennerCallEndedSEvent extends Service {
     /**
      * Show a notification while this service is running.
      */
-    private void showNotification() {
+    private void showNotification(CallEndedEvent event) {
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = "Service started";
 
@@ -102,7 +106,7 @@ public class ListennerCallEndedSEvent extends Service {
                 .setContentText(text)  // the contents of the entry
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
                 .build();
-        int i = 10;
+
         // Send the notification.
             mNM.notify(i, notification);
     }
