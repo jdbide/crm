@@ -1,8 +1,8 @@
 package miage.pds.prospect.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 /**
  * Created by Truong on 12/20/2015.
@@ -10,67 +10,58 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since 20/12/2015
  * @see Prospect model
  */
-
-@Document(collection = "client")
+@Entity("client")
 public class Prospect {
 
     @Id
-    private Integer id;
-
-    @Field("name")
+    private ObjectId objectId;
+    private int id;
     private String name;
-
-    @Field("finess")
     private int finessNumber;
-
-    @Field("siret")
     private int siretNumber;
-
-    @Field("streetNumber")
     private int streetNumber;
-
-    @Field("zipCode")
     private int zipCode;
-
-    @Field("address")
     private String address;
-
-    @Field("city")
-    private String city;
-
-    @Field("place")
     private int place;
-
-    @Field("website")
     private String website;
 
-    public Prospect(String name, int place) {
-        setName(name);
-        setPlace(place);
+    /**
+     *
+     */
+    public Prospect() {
+
     }
 
     /**
-     * Constructor of the Prospect model
+     * Full constructor of a prospect
+     * @param id
      * @param name
      * @param finessNumber
      * @param siretNumber
      * @param streetNumber
      * @param zipCode
      * @param address
-     * @param city
      * @param place
      * @param website
      */
-    public Prospect(String name, int finessNumber, int siretNumber, int streetNumber, int zipCode, String address, String city, int place, String website) {
-        setName(name);
-        setFinessNumber(finessNumber);
-        setSiretNumber(siretNumber);
-        setStreetNumber(streetNumber);
-        setZipCode(zipCode);
-        setAddress(address);
-        setCity(city);
-        setPlace(place);
-        setWebsite(website);
+    public Prospect(int id, String name, int finessNumber, int siretNumber, int streetNumber, int zipCode, String address, int place, String website) {
+        this.id = id;
+        this.name = name;
+        this.finessNumber = finessNumber;
+        this.siretNumber = siretNumber;
+        this.streetNumber = streetNumber;
+        this.zipCode = zipCode;
+        this.address = address;
+        this.place = place;
+        this.website = website;
+    }
+
+    public ObjectId getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(ObjectId objectId) {
+        this.objectId = objectId;
     }
 
     public int getId() {
@@ -129,14 +120,6 @@ public class Prospect {
         this.address = address;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public int getPlace() {
         return place;
     }
@@ -153,17 +136,21 @@ public class Prospect {
         this.website = website;
     }
 
+    /**
+     * To String method
+     * @return JSON Object type String
+     */
     @Override
     public String toString() {
         return "Prospect{" +
-                "id=" + id +
+                "objectId=" + objectId +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", finessNumber=" + finessNumber +
                 ", siretNumber=" + siretNumber +
                 ", streetNumber=" + streetNumber +
                 ", zipCode=" + zipCode +
                 ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
                 ", place=" + place +
                 ", website='" + website + '\'' +
                 '}';

@@ -1,9 +1,10 @@
 package miage.pds.prospect.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
+import java.util.Date;
 
 /**
  * Created by Truong on 12/20/2015.
@@ -11,23 +12,43 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @since 20/12/2015
  * @see Sales model
  */
-
-@Document(collection = "sale")
-public class Sales {
+@Entity("sales")
+public class Sales{
 
     @Id
-    private Integer id;
+    private ObjectId objectId;
+    private int id;
+    private int idClient;
+    private int idSeller;
+    private String date;
+    private double value;
 
-    @Indexed(name = "idProspect", unique = true)
-    private Prospect idProspect;
+    public Sales() {
 
-    private double salesValue;
+    }
 
+    /**
+     * Full constructor
+     * @param id
+     * @param idClient
+     * @param idSeller
+     * @param date
+     * @param value
+     */
+    public Sales(int id, int idClient, int idSeller, String date, double value) {
+        this.id = id;
+        this.idClient = idClient;
+        this.idSeller = idSeller;
+        this.date = date;
+        this.value = value;
+    }
 
-    @PersistenceConstructor
-    public Sales(Prospect idProspect, double salesValue) {
-        setIdProspect(idProspect);
-        setSalesValue(salesValue);
+    public ObjectId getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(ObjectId objectId) {
+        this.objectId = objectId;
     }
 
     public int getId() {
@@ -38,28 +59,47 @@ public class Sales {
         this.id = id;
     }
 
-    public Prospect getIdProspect() {
-        return idProspect;
+    public int getIdProspect() {
+        return idClient;
     }
 
-    public void setIdProspect(Prospect idProspect) {
-        this.idProspect = idProspect;
+    public void setIdProspect(int idProspect) {
+        this.idClient = idProspect;
     }
 
-    public double getSalesValue() {
-        return salesValue;
+    public int getIdSeller() {
+        return idSeller;
     }
 
-    public void setSalesValue(double salesValue) {
-        this.salesValue = salesValue;
+    public void setIdSeller(int idSeller) {
+        this.idSeller = idSeller;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
         return "Sales{" +
-                "id=" + id +
-                ", idProspect=" + idProspect +
-                ", salesValue=" + salesValue +
+                "objectId=" + objectId +
+                ", id=" + id +
+                ", idClient=" + idClient +
+                ", idSeller=" + idSeller +
+                ", date='" + date + '\'' +
+                ", value=" + value +
                 '}';
     }
 }
