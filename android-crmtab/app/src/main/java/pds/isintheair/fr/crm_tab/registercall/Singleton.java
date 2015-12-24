@@ -9,7 +9,7 @@ public class Singleton {
     private  static Singleton instance = null;
 
     private  Bus currentBusInstance;
-    private Boolean popupdisplayed;
+    private  Boolean popupdisplayed;
 
     private Singleton(){
         currentBusInstance = new Bus();
@@ -36,7 +36,7 @@ public class Singleton {
 
     public void setPopUpDisplayed(boolean state){
 
-        if(popupdisplayed == null) popupdisplayed = state;
+         popupdisplayed = state;
     }
 
     public  Bus getCurrentBusInstance(){

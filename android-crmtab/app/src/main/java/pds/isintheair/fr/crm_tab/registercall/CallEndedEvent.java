@@ -5,13 +5,13 @@ package pds.isintheair.fr.crm_tab.registercall;
  */
 public class CallEndedEvent {
 
-    private int idcontact;
-    private int idclient;
-    private int duration;
+    private String idcontact;
+    private String idclient;
+    private String duration;
     private String date;
     private Boolean callemitted;
 
-    public CallEndedEvent(Boolean callemitted, String date, int duration, int idclient, int idcontact) {
+    public CallEndedEvent(Boolean callemitted, String date, String duration, String idclient, String idcontact) {
         this.callemitted = callemitted;
         this.date = date;
         this.duration = duration;
@@ -19,7 +19,7 @@ public class CallEndedEvent {
         this.idcontact = idcontact;
     }
 
-    public int getIdcontact() {
+    public String getIdcontact() {
         return idcontact;
     }
 
@@ -31,11 +31,11 @@ public class CallEndedEvent {
         return date;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public int getIdclient() {
+    public String getIdclient() {
         return idclient;
     }
 }
