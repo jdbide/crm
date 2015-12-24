@@ -1,7 +1,7 @@
 package fr.pds.isintheair.phonintheair.entity;
 
 public class Message {
-    private Call        call;
+    private Call call;
     private MessageMeta messageMeta;
     private Register    register;
 
@@ -36,7 +36,7 @@ public class Message {
     }
 
     public static class MessageBuilder {
-        public Call        call;
+        public Call call;
         public MessageMeta messageMeta;
         public Register    register;
 

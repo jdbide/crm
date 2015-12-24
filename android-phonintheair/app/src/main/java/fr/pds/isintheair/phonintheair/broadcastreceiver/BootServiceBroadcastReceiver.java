@@ -6,13 +6,13 @@ import android.content.Intent;
 
 import fr.pds.isintheair.phonintheair.service.CallService;
 
-public class BootServiceBrodcastReceiver extends BroadcastReceiver {
+public class BootServiceBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            final Intent svc_intent = new Intent(context, CallService.class);
+            final Intent callServiceIntent = new Intent(context, CallService.class);
 
-            context.startService(svc_intent);
+            context.startService(callServiceIntent);
         }
     }
 }

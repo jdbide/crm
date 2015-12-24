@@ -10,7 +10,7 @@ public class MessageController {
                 CallController.call(message.getCall().getPhoneNumber());
                 break;
             case CALL_END:
-
+                CallController.endCall();
         }
     }
 }
