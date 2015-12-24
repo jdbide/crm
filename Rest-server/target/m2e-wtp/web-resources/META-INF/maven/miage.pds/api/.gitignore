@@ -134,8 +134,5 @@ proguard/
 # Android Studio Navigation editor temp files
 .navigation/
 
-.settings
-.classpath
-.project
-
+pom.properties
 
