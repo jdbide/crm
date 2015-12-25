@@ -13,12 +13,18 @@ import static org.junit.Assert.assertTrue;
  */
 public class CreateHCFragmentTest {
 
+
+
     @Test
     public void testSiretCalculTest() throws Exception {
         CreateHCFragment createHCFragment = CreateHCFragment.newInstance();
         assertTrue(createHCFragment.isSiretSyntaxValide("40483304800022"));
         assertFalse(createHCFragment.isSiretSyntaxValide("40483304800021"));
     }
+
+
+
+
 
 
 }

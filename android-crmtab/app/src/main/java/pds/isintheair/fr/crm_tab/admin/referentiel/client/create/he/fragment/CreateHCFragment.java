@@ -3,6 +3,7 @@ package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment;
 import android.app.AlertDialog;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 
 import android.support.design.widget.Snackbar;
 
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import com.mobsandgeeks.saripaar.QuickRule;
@@ -106,6 +109,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     List<PurchasingCentral> purchasingCentrals;
     Validator validator;
     View view;
+    boolean createCalled;
 
 
     private OnFragmentInteractionListener mListener;
@@ -190,8 +194,9 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     @OnClick(R.id.create_he_fragment_validate_button)
     public void insertHE(final View view) {
         this.view = view;
+
         validator.validate(true);
-        //validator.
+
     }
 
    private int getIntFromRadiogroup(RadioGroup radioGroup) {
@@ -258,19 +263,24 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     @Override
     public void onValidationSucceeded() {
         final HealthCenter healthCenter = initHC();
+        healthCenter.setOrigin("Prospection");
         MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
-
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                 .createHealthEtablishment(messageRestCustomer);
-
+        Log.d("Error","Je passe là");
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                Log.d("Error", "Je passe ici");
                 if(response.body().getIsInserted()) {
                     healthCenter.save();
+                    createCalled = true;
                 }
-               Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG);
-                getFragmentManager().popBackStack();
+
+                ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
             }
             @Override
             public void onFailure(Throwable t) {
@@ -299,4 +309,9 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(createCalled) Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG).show();
+    }
 }

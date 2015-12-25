@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
@@ -57,10 +58,6 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        if (getArguments() != null) {
-
-        }
-
     }
 
     @Override
@@ -101,8 +98,9 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         switch (position) {
             case 0 :
                 CreateHCFragment createHCFragment = new CreateHCFragment();
-                getFragmentManager().beginTransaction().addToBackStack("listCustomerFragment")
-                    .replace(R.id.create_customer_fragment_container, createHCFragment).commit();
+                getActivity().getFragmentManager().beginTransaction()
+                    .replace(R.id.create_customer_fragment_container, createHCFragment)
+                        .commit();
 
         }
     }
@@ -141,7 +139,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
             alert.setArguments(b);
             FragmentManager manager = getFragmentManager();
             /** Creating the dialog fragment object, which will in turn open the alert dialog window */
-            alert.show(manager,"CreateCustomerDialog");
+            alert.show(manager, "CreateCustomerDialog");
 
             return true;
         }
@@ -165,9 +163,8 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
                 @Override
                 public void onFailure(Throwable t) {
-                    Log.d("error", "holding");
-                }
-            });
+
+                }});
         }
     }
 
@@ -187,7 +184,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
                 @Override
                 public void onFailure(Throwable t) {
-                    Log.d("error", "Pc");
+
                 }
             });
         }
