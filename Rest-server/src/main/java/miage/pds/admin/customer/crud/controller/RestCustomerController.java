@@ -31,10 +31,6 @@ import java.util.List;
 @Controller
 public class RestCustomerController {
 
-    public static String PACKAGE_NAME = "miage.pds.admin.customer.crud.createhc.entities";
-
-    private static final Logger logger = LoggerFactory.getLogger(RestCustomerController.class);
-
     Datastore datastore;
 
     final Morphia morphia = new Morphia();
