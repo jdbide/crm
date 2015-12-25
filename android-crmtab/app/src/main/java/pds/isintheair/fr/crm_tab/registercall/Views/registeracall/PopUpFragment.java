@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall;
+package pds.isintheair.fr.crm_tab.registercall.Views.registeracall;
 
 
 import android.app.AlertDialog;
@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
 
 /**
  * Created by j-d on 18/12/2015.
@@ -51,26 +53,11 @@ public class PopUpFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
        super.onCreateDialog(savedInstanceState);
-        //3 buttons yes,no or later no box title
-
-       /* final Dialog dialog = new Dialog(getActivity());
-        //dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        dialog.setContentView(R.layout.dialogbox_layout);
-        dialog.getWindow().setBackgroundDrawable(
-                new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-        //mButton = (Button) dialog.findViewById(R.id.button1);
-        //mEditText = (EditText) dialog.findViewById(R.id.editText1);
-        //mEditText.setText(text);
-        return dialog;*/
-
         //two buttons yes and no
         return 	new AlertDialog.Builder(getActivity()).setTitle("Enregistrer dernier appel?").setMessage("Enregistrer dernier appel ?")
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //do nothing, just hide popup , addlog form is already below
+                        //hide popup , addlog fragment  is below
                         Singleton.getInstance().setPopUpDisplayed(false);
                     }
                 }).setNegativeButton("Non", new DialogInterface.OnClickListener() {

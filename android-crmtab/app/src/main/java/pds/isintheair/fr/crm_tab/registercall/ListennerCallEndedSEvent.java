@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.registercall.Objects.CallEndedEvent;
+import pds.isintheair.fr.crm_tab.registercall.Objects.CallType;
+import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crm_tab.registercall.Views.registeracall.RegisterCallActivity;
 
 /**
  * Created by j-d on 21/12/2015.
@@ -84,11 +88,11 @@ public class ListennerCallEndedSEvent extends Service {
     public void showPopup(CallEndedEvent event) {
         //if no popup displayed show
         if(!singleton.isPopUpDisplayed()) {
-            Intent dialogIntent = new Intent(this, PopUpActivity.class);
+            Intent dialogIntent = new Intent(this, RegisterCallActivity.class);
             dialogIntent.putExtra("idcontact", event.getIdcontact());
             dialogIntent.putExtra("date", event.getDate());
             dialogIntent.putExtra("duration", event.getDuration());
-            dialogIntent.putExtra("calltype", event.getCalltype()==CallType.INCOMING?"Reçu":"Emis");
+            dialogIntent.putExtra("calltype", event.getCalltype()== CallType.INCOMING?"Reçu":"Emis");
             dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(dialogIntent);
             singleton.setPopUpDisplayed(true);
@@ -120,7 +124,7 @@ public class ListennerCallEndedSEvent extends Service {
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, PopUpActivity.class), 0);
+                new Intent(this, RegisterCallActivity.class), 0);
 
           /* Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, NotificationView.class);

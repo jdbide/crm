@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall;
+package pds.isintheair.fr.crm_tab.registercall.Objects;
 
 import com.squareup.otto.Bus;
 

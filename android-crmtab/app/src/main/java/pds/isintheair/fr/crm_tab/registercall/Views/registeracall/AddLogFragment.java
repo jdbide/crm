@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall;
+package pds.isintheair.fr.crm_tab.registercall.Views.registeracall;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -27,10 +27,7 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-
 public class AddLogFragment extends Fragment {
-
-
 
     @Bind(R.id.edittextcontatctname) EditText contactname;
     @Bind(R.id.edittextclientname) EditText clientname;
@@ -101,7 +98,6 @@ public class AddLogFragment extends Fragment {
 
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -130,12 +126,12 @@ public class AddLogFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
                 Log.v("Failure",t.getMessage());
             }
         });
-
-
+        //Redirect to Call log list view
+        ((RegisterCallActivity)(getActivity())).showCallLogList();
     }
 
 

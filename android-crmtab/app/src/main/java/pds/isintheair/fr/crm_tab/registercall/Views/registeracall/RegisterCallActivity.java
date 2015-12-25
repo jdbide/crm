@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall;
+package pds.isintheair.fr.crm_tab.registercall.Views.registeracall;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -6,13 +6,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.DisplayCallLogFragment;
+import pds.isintheair.fr.crm_tab.registercall.dummy.DummyContent;
 
-public class PopUpActivity extends FragmentActivity {
+public class RegisterCallActivity extends FragmentActivity implements DisplayCallLogFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_call_log_main);
+        setContentView(R.layout.register_call_container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -27,18 +30,8 @@ public class PopUpActivity extends FragmentActivity {
                 return;
             }
 
-            /*// Create a new Fragment to be placed in the activity layout
-            LogDialogBoxFragment firstFragment = LogDialogBoxFragment.newInstance(2);
-
-            // In case this activity was started with special instructions from an
-            // Intent, pass the Intent's extras to the fragment as arguments
-            firstFragment.setArguments(getIntent().getExtras());
-
-            // Add the fragment to the 'fragment_container' FrameLayout
-            getFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, firstFragment).commit();*/
-
             android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
             Fragment prev = getFragmentManager().findFragmentByTag("dialog");
             if (prev != null) {
                 ft.remove(prev);
@@ -51,8 +44,7 @@ public class PopUpActivity extends FragmentActivity {
             ,getIntent().getStringExtra("date")
             ,getIntent().getStringExtra("duration")
             ,getIntent().getStringExtra("calltype"));
-
-            ft.add(R.id.fragment_container, fragment).commit();
+            ft.add(R.id.fragment_container, fragment,"FRAGMENT_AJOUT").commit();
             pop.show(getFragmentManager(), "");
             //make popup not cancellable
             pop.setCancelable(false);
@@ -60,20 +52,20 @@ public class PopUpActivity extends FragmentActivity {
         }
     }
 
-    public void replace(){
-
+    public void showCallLogList(){
         android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+        Fragment prev = getFragmentManager().findFragmentByTag("FRAGMENT_AJOUT");
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
-        //Create a popup instance
-        //get callEnded parameters from the service and pass them to the popup
-        //PopUpFragment fragment = PopUpFragment.newInstance(8,getIntent().getStringExtra("idcontact")) ;
+        ft.add(R.id.fragment_container, DisplayCallLogFragment.newInstance(1),"FRAGMENT_LISTE").commit();
+    }
 
-        //AddLogFragment fragment = AddLogFragment.newInstance(4);
-        //fragment.show(getFragmentManager(), "");
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 
