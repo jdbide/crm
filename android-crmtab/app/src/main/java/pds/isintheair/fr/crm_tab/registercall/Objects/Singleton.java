@@ -7,6 +7,7 @@ import com.squareup.otto.Bus;
  */
 public class Singleton {
     private  static Singleton instance = null;
+    private String BASE_URL ;
 
     private  Bus currentBusInstance;
     private  Boolean popupdisplayed;
@@ -14,6 +15,7 @@ public class Singleton {
     private Singleton(){
         currentBusInstance = new Bus();
         popupdisplayed = false;
+        BASE_URL = "http://192.168.1.16:8080/api/";
     }
 
     public static Singleton getInstance(){
@@ -46,6 +48,16 @@ public class Singleton {
             currentBusInstance = new Bus();
         }
         return currentBusInstance;
+
+    }
+
+    public  String getBaseUrl(){
+
+        if(BASE_URL == null)
+        {
+            BASE_URL = "http://192.168.1.16:8080/api/";
+        }
+        return BASE_URL;
 
     }
 

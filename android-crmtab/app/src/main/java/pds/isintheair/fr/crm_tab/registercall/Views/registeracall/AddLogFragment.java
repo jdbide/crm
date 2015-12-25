@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
 import retrofit.Call;
@@ -41,8 +42,6 @@ public class AddLogFragment extends Fragment {
     @Bind(R.id.edittextcalltype) EditText calltype;
     @Bind(R.id.buttonregistercra)  Button validation;
 
-
-    private String BASE_URL = "http://192.168.1.16:8080/api/";
 
     static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype) {
         AddLogFragment f = new AddLogFragment();
@@ -86,9 +85,9 @@ public class AddLogFragment extends Fragment {
     }
 
     private void sendForm() {
-
-        Cra newCra = new Cra(String.valueOf(iduser.getText())
-                ,String.valueOf(idcontact.getText())
+       contactname.setText("nom contactttt");
+        Cra newCra = new Cra(Long.parseLong(iduser.getText().toString())
+                ,Long.parseLong(idcontact.getText().toString())
                 ,String.valueOf(clientname.getText())
                 ,String.valueOf(contactname.getText())
                 ,String.valueOf(comments.getText())
@@ -99,7 +98,7 @@ public class AddLogFragment extends Fragment {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Singleton.getInstance().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -127,7 +126,7 @@ public class AddLogFragment extends Fragment {
             @Override
             public void onFailure(Throwable t) {
               //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("Failure",t.getMessage());
+                Log.v("Failure", t.getMessage());
             }
         });
         //Redirect to Call log list view

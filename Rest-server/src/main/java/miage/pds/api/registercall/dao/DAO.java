@@ -4,6 +4,7 @@ import java.util.List;
 
 import miage.pds.api.RestController;
 import miage.pds.registercallmodel.Cra;
+import miage.pds.registercallmodel.ListCra;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -45,9 +46,9 @@ public class DAO {
 	public boolean createCra(Cra cra) {
 		boolean state = false;
 		// check if connected to DB
-		if(ConnectDB()){
-		datastore.save(cra);
-		state = true;
+		if (ConnectDB()) {
+			datastore.save(cra);
+			state = true;
 		}
 
 		return state;
@@ -64,7 +65,12 @@ public class DAO {
 		// for
 		// for (Cra i : q)
 		// logger.info(i.toString());
-
+//Hotel hotel = ds.get(Hotel.class, hotelId);
 		return q.asList();
+	}
+
+	public List<Cra> getListCraForUser(String iduser) {
+		List<Cra> list = datastore.createQuery(Cra.class).filter("iduser", Integer.parseInt(iduser)).asList();
+		return list;
 	}
 }

@@ -6,13 +6,27 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.List;
+
 import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
+import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
 import pds.isintheair.fr.crm_tab.registercall.dummy.DummyContent;
 import pds.isintheair.fr.crm_tab.registercall.dummy.DummyContent.DummyItem;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * A fragment representing a list of Items.
@@ -54,10 +68,48 @@ public class DisplayCallLogFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.callloglist_container, container, false);
+
+
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Singleton.getInstance().getBaseUrl())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        CraServiceInterface service = retrofit.create(CraServiceInterface.class);
+        Call<List<Cra>> call = service.listcraforuser("1");
+
+        call.enqueue(new Callback<List<Cra>>() {
+            @Override
+            public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    // request successful (status code 200, 201)
+                    //String result = response.message();
+                    //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+                   // if(response.body.getListCra().size())
+                        Log.v("ok", "response success");
+
+                } else {
+                    //request not successful (like 400,401,403 etc)
+                    //Handle errors
+                    Log.v("listcraforuser", "no rep");
+                    //Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
+                Log.v("listcraforuser Failure",t.getMessage());
+            }
+        });
 
         // Set the adapter
         if (view instanceof RecyclerView) {

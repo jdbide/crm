@@ -5,25 +5,26 @@ import org.mongodb.morphia.annotations.Entity;
 @Entity
 public class Cra {
 
-    private String iduser;
-    private String idcontact;
+    private long iduser;
+    private long idcontact;
     private String clientname;
     private String contactname;
     private String comments;
     private String subject;
     private String date;
     private int duration;
+
     
-	public String getIduser() {
+	public long getIduser() {
 		return iduser;
 	}
-	public void setIduser(String iduser) {
+	public void setIduser(long iduser) {
 		this.iduser = iduser;
 	}
-	public String getIdcontact() {
+	public long getIdcontact() {
 		return idcontact;
 	}
-	public void setIdcontact(String idcontact) {
+	public void setIdcontact(long idcontact) {
 		this.idcontact = idcontact;
 	}
 	public String getClientname() {

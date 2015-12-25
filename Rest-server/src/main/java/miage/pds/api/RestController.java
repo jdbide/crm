@@ -2,8 +2,11 @@ package miage.pds.api;
 
 
 
+import java.util.List;
+
 import miage.pds.api.registercall.dao.DAO;
 import miage.pds.registercallmodel.Cra;
+import miage.pds.registercallmodel.ListCra;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -32,12 +36,15 @@ public class RestController {
 	 * Simply returns a status string.
 	 */
 	
-	@RequestMapping(value = "/test",method = RequestMethod.GET)
-	public @ResponseBody String home(){
+	@RequestMapping(value = "/listcra",method = RequestMethod.GET)
+	public @ResponseBody List<Cra> getListCraForUser(@RequestParam("iduser") String iduser){
 		//boolean status = false;  
-		/*logger.info("REST SERVER IS RUNNING :)");
-		JSONObject status = new JSONObject();
-		boolean reqstatus = true;*/
+		logger.info("Searching licra for : "+iduser);
+		//JSONObject status = new JSONObject();
+		//boolean reqstatus = true;
+		List<Cra> list = (List<Cra>) dao.getListCraForUser(iduser);
+		logger.info("first cra : "+ list.get(0).getContactname());
+		return list;
 		/*try {
 			status.put("status", reqstatus);	
 		} catch (JSONException e) {
@@ -45,11 +52,11 @@ public class RestController {
 			e.printStackTrace();
 		}*/
 		
-		dao.getAllCra();
+		//dao.getAllCra();
 		//for(Cra c :dao.getAllCra())
 		//logger.info(c.getIdcontact());
 		//return status.toString();	
-		return "ok";
+		//return "ok";
 	}
 
 	@RequestMapping(value = "/createcra", method = RequestMethod.POST, headers="Accept=application/json")
