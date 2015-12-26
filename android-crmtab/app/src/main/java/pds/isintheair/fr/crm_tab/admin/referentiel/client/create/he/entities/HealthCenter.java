@@ -5,6 +5,8 @@ import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.builder.Condition;
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import pds.isintheair.fr.crm_tab.OrmTabDataBase;
@@ -65,23 +67,11 @@ public class HealthCenter extends BaseModel implements Customer{
     @Column
     String etablishmentType;
 
+    @Column
+    int purchasingCentralId;
 
     @Column
-    @ForeignKey(
-            references = {@ForeignKeyReference(columnName = "purchasing_central_id",
-                    columnType = int.class,
-                    foreignColumnName = "id")},
-            saveForeignKeyModel = false)
-    PurchasingCentral purchasingCentral;
-
-
-    @Column
-    @ForeignKey(
-            references = {@ForeignKeyReference(columnName = "holding_id",
-                    columnType = int.class,
-                    foreignColumnName = "id")},
-            saveForeignKeyModel = false)
-    Holding holding;
+    int holdingId;
 
 
 
@@ -209,20 +199,20 @@ public class HealthCenter extends BaseModel implements Customer{
         this.etablishmentType = etablishmentType;
     }
 
-    public PurchasingCentral getPurchasingCentral() {
-        return purchasingCentral;
+    public int getPurchasingCentralId() {
+        return purchasingCentralId;
     }
 
-    public void setPurchasingCentral(PurchasingCentral purchasingCentral) {
-        this.purchasingCentral = purchasingCentral;
+    public void setPurchasingCentralId(int purchasingCentralId) {
+        this.purchasingCentralId = purchasingCentralId;
     }
 
-    public Holding getHolding() {
-        return holding;
+    public int getHoldingId() {
+        return holdingId;
     }
 
-    public void setHolding(Holding holding) {
-        this.holding = holding;
+    public void setHoldingId(int holdingId) {
+        this.holdingId = holdingId;
     }
 
     public int getBedNumber() {
@@ -239,5 +229,14 @@ public class HealthCenter extends BaseModel implements Customer{
 
     public void setDifficultyHavingContact(int difficultyHavingContact) {
         this.difficultyHavingContact = difficultyHavingContact;
+    }
+
+    public Holding getHolding() {
+        return new Select().from(Holding.class).where(Condition.column(Holding$Table.ID).eq(holdingId)).querySingle();
+    }
+
+    public PurchasingCentral getPurchasingCentral() {
+        return new Select().from(PurchasingCentral.class)
+                .where(Condition.column(PurchasingCentral$Table.ID).eq(purchasingCentralId)).querySingle();
     }
 }
