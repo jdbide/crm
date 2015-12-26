@@ -55,8 +55,6 @@ public class HealthCenter extends BaseModel implements Customer{
     @Column
     int difficultyHavingContact;
 
-
-
     @Column
     String origin;
 

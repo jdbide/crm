@@ -15,10 +15,9 @@ public interface CustomerService {
     String BASE_URL = "http://192.168.0.15:8080";
    // static String BEGIN_URL = "/SpringRESTapi";
 
-    //@Header("Authorization")
-    //,@Body HealthCenter healthEtablishment
+
     @POST("/customer/hc/create/")
-    Call<ResponseRestCustomer> createHealthEtablishment(@Body MessageRestCustomer hc);
+    Call<ResponseRestCustomer> createHealthCenter(@Body MessageRestCustomer hc);
 
     @GET("/customer/holding")
     Call<ResponseRestCustomer> getHoldings();

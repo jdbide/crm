@@ -266,7 +266,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         healthCenter.setOrigin("Prospection");
         MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
-                .createHealthEtablishment(messageRestCustomer);
+                .createHealthCenter(messageRestCustomer);
         Log.d("Error","Je passe là");
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
