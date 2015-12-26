@@ -1,5 +1,6 @@
 package miage.pds.admin.customer.crud.createhc.entities;
 
+import miage.pds.admin.customer.crud.controller.RestCustomerController;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -66,10 +67,15 @@ public class HealthCenter {
     @Reference
     EtablishmentType etablishmentType;
 
-    @Reference
+
+    @Property
+    int purchasingCentralId;
+
+    @Property
+    int holdingId;
+
     PurchasingCentral purchasingCentral;
 
-    @Reference
     Holding holding;
 
 
@@ -206,21 +212,7 @@ public class HealthCenter {
         this.etablishmentType = etablishmentType;
     }
 
-    public PurchasingCentral getPurchasingCentral() {
-        return purchasingCentral;
-    }
 
-    public void setPurchasingCentral(PurchasingCentral purchasingCentral) {
-        this.purchasingCentral = purchasingCentral;
-    }
-
-    public Holding getHolding() {
-        return holding;
-    }
-
-    public void setHolding(Holding holding) {
-        this.holding = holding;
-    }
 
     public int getBedNumber() {
         return bedNumber;
@@ -236,5 +228,49 @@ public class HealthCenter {
 
     public void setDifficultyHavingContact(int difficultyHavingContact) {
         this.difficultyHavingContact = difficultyHavingContact;
+    }
+
+    public int getPurchasingCentralId() {
+        return purchasingCentralId;
+    }
+
+    public void setPurchasingCentralId(int purchasingCentralId) {
+        this.purchasingCentralId = purchasingCentralId;
+    }
+
+    public int getHoldingId() {
+        return holdingId;
+    }
+
+    public void setHoldingId(int holdingId) {
+        this.holdingId = holdingId;
+    }
+
+    public PurchasingCentral getPurchasingCentral() {
+
+
+        return purchasingCentral;
+    }
+
+    public void setPurchasingCentral(int purchasingCentralId) {
+        purchasingCentral = RestCustomerController.getDataStore()
+                .find(PurchasingCentral.class,"id =",purchasingCentralId).get();
+    }
+
+    public Holding getHolding() {
+        return holding;
+    }
+
+    public void setHolding(int holdingId) {
+        holding = RestCustomerController.getDataStore()
+                .find(Holding.class,"id =",holdingId).get();
+    }
+
+    public void setPurchasingCentral(PurchasingCentral purchasingCentral) {
+        this.purchasingCentral = purchasingCentral;
+    }
+
+    public void setHolding(Holding holding) {
+        this.holding = holding;
     }
 }

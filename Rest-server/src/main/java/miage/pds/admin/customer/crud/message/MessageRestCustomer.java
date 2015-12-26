@@ -8,14 +8,14 @@ import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
 public class MessageRestCustomer {
 
     private int idUser;
-    private HealthCenter healthEtablishment;
+    private HealthCenter healthCenter;
 
     public MessageRestCustomer() {
     }
 
     public MessageRestCustomer(int idUser, HealthCenter healthEtablishment) {
         this.idUser = idUser;
-        this.healthEtablishment = healthEtablishment;
+        this.healthCenter = healthEtablishment;
     }
 
     public int getIdUser() {
@@ -27,10 +27,10 @@ public class MessageRestCustomer {
     }
 
     public HealthCenter getHealthCenter() {
-        return healthEtablishment;
+        return healthCenter;
     }
 
     public void setHealthCenter(HealthCenter healthEtablishment) {
-        this.healthEtablishment = healthEtablishment;
+        this.healthCenter = healthEtablishment;
     }
 }

@@ -31,9 +31,9 @@ import java.util.List;
 @Controller
 public class RestCustomerController {
 
-    Datastore datastore;
+    static Datastore datastore;
 
-    final Morphia morphia = new Morphia();
+    static final Morphia morphia = new Morphia();
 
     public RestCustomerController() {
     }
@@ -70,7 +70,7 @@ public class RestCustomerController {
         return responseRestCustomer;
     }
 
-    private Datastore getDataStore() {
+    public static Datastore getDataStore() {
         if(datastore == null ) {
             try {
                 datastore = morphia.createDatastore(new MongoClient(), SpringMongoConfig.DB_NAME);
