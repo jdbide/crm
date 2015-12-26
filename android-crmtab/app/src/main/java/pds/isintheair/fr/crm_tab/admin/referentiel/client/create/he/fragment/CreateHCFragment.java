@@ -33,6 +33,7 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
+import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
@@ -240,12 +241,31 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         healthCenter.setZipCode(Integer.decode(zipCode.getText().toString()));
         healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
         healthCenter.setWebSite(webSite.getText().toString());
+        healthCenter.setOrigin("Prospection");
         if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Oui"))
             healthCenter.setIsPublic(true);
         else healthCenter.setIsPublic(false);
         healthCenter.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
         healthCenter.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
+        Holding holdingInit = new Select().from(Holding.class)
+                .where(Condition.column(Holding$Table.NAME).eq(holding.getSelectedItem().toString())).querySingle();
+        PurchasingCentral pcInit = new Select().from(PurchasingCentral.class)
+                .where(Condition.column(PurchasingCentral$Table.NAME)
+                        .eq(purshasingCentral.getSelectedItem().toString())).querySingle();
+        healthCenter.setHoldingId(holdingInit.getId());
+        healthCenter.setPurchasingCentralId(pcInit.getId());
         return healthCenter;
+    }
+
+    private void initHCWithDbValue(HealthCenter hc) {
+        Holding holdingInit = new Select().from(Holding.class)
+                .where(Condition.column(Holding$Table.NAME).eq(holding.getSelectedItem().toString())).querySingle();
+        PurchasingCentral pcInit = new Select().from(PurchasingCentral.class)
+                .where(Condition.column(PurchasingCentral$Table.NAME)
+                        .eq(purshasingCentral.getSelectedItem().toString())).querySingle();
+        hc.setHoldingId(holdingInit.getId());
+        hc.setPurchasingCentralId(pcInit.getId());
+
     }
 
     private void initSpinner() {
@@ -263,15 +283,13 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     @Override
     public void onValidationSucceeded() {
         final HealthCenter healthCenter = initHC();
-        healthCenter.setOrigin("Prospection");
+
         MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                 .createHealthCenter(messageRestCustomer);
-        Log.d("Error","Je passe là");
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                Log.d("Error", "Je passe ici");
                 if(response.body().getIsInserted()) {
                     healthCenter.save();
                     createCalled = true;
