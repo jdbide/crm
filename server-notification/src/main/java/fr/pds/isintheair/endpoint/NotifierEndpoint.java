@@ -18,7 +18,7 @@ public class NotifierEndpoint {
     @OnOpen
     public void onOpen(Session session) {
         try {
-            session.getBasicRemote().sendText("Coucou");
+            session.getBasicRemote().sendText("Bonjour");
         } catch (IOException e) {
             e.printStackTrace();
         }
