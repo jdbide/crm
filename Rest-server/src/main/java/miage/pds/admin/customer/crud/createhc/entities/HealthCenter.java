@@ -74,10 +74,6 @@ public class HealthCenter {
     @Property
     int holdingId;
 
-    PurchasingCentral purchasingCentral;
-
-    Holding holding;
-
 
     public HealthCenter() {
     }
@@ -247,30 +243,16 @@ public class HealthCenter {
     }
 
     public PurchasingCentral getPurchasingCentral() {
-
+        PurchasingCentral purchasingCentral = RestCustomerController.getDataStore()
+                .find(PurchasingCentral.class,"id =",purchasingCentralId).get();
 
         return purchasingCentral;
     }
 
-    public void setPurchasingCentral(int purchasingCentralId) {
-        purchasingCentral = RestCustomerController.getDataStore()
-                .find(PurchasingCentral.class,"id =",purchasingCentralId).get();
-    }
-
     public Holding getHolding() {
+        Holding holding = RestCustomerController.getDataStore()
+                .find(Holding.class,"id =",holdingId).get();
         return holding;
     }
 
-    public void setHolding(int holdingId) {
-        holding = RestCustomerController.getDataStore()
-                .find(Holding.class,"id =",holdingId).get();
-    }
-
-    public void setPurchasingCentral(PurchasingCentral purchasingCentral) {
-        this.purchasingCentral = purchasingCentral;
-    }
-
-    public void setHolding(Holding holding) {
-        this.holding = holding;
-    }
 }
