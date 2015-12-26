@@ -16,6 +16,7 @@ public class CallController {
         Call call = new Call(phoneNumber);
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
 
+
         try {
             phoneSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
         }
