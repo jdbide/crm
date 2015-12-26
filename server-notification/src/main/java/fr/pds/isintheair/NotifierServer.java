@@ -19,8 +19,10 @@ public class NotifierServer {
             try {
                 server.start();
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                reader.readLine();
+                Thread.currentThread().join();
+
+                /* BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                reader.readLine(); /*/
             } catch (Exception e) {
                 throw new RuntimeException(e);
             } finally {
