@@ -88,14 +88,13 @@ public class ListennerCallEndedSEvent extends Service {
     public void showPopup(CallEndedEvent event) {
         //if no popup displayed show
         if(!singleton.isPopUpDisplayed()) {
-            Intent dialogIntent = new Intent(this, RegisterCallActivity.class);
-            dialogIntent.putExtra("idcontact", event.getIdcontact());
-            dialogIntent.putExtra("date", event.getDate());
-            dialogIntent.putExtra("duration", event.getDuration());
-            dialogIntent.putExtra("calltype", event.getCalltype()== CallType.INCOMING?"Reçu":"Emis");
-            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(dialogIntent);
-            singleton.setPopUpDisplayed(true);
+            Intent intent = new Intent(this, RegisterCallActivity.class);
+            intent.putExtra("idcontact", event.getIdcontact());
+            intent.putExtra("date", event.getDate());
+            intent.putExtra("duration", event.getDuration());
+            intent.putExtra("calltype", event.getCalltype() == CallType.INCOMING ? "Reçu" : "Emis");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }else{  //else local notification
             callEndedEventList.add(event);
             showNotification(event);

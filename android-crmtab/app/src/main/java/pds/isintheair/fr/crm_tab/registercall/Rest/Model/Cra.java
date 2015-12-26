@@ -25,4 +25,35 @@ public class Cra {
         this.date = date;
         this.duration = duration;
     }
+    public String getContactname() {
+        return contactname;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public String getClientname() {
+        return clientname;
+    }
+
+    public long getIdcontact() {
+        return idcontact;
+    }
+
+    public long getIduser() {
+        return iduser;
+    }
 }

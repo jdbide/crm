@@ -14,18 +14,15 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crm_tab.registercall.dummy.DummyContent;
-import pds.isintheair.fr.crm_tab.registercall.dummy.DummyContent.DummyItem;
 import retrofit.Call;
-import retrofit.Callback;
 import retrofit.GsonConverterFactory;
-import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
@@ -39,7 +36,8 @@ public class DisplayCallLogFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 4;
+    private int mColumnCount;
+    private List<Cra> list;
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -62,6 +60,7 @@ public class DisplayCallLogFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        list = new ArrayList<Cra>();
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -75,7 +74,6 @@ public class DisplayCallLogFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.callloglist_container, container, false);
 
-
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -86,7 +84,7 @@ public class DisplayCallLogFragment extends Fragment {
         CraServiceInterface service = retrofit.create(CraServiceInterface.class);
         Call<List<Cra>> call = service.listcraforuser("1");
 
-        call.enqueue(new Callback<List<Cra>>() {
+        /*call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
@@ -94,6 +92,7 @@ public class DisplayCallLogFragment extends Fragment {
                     //String result = response.message();
                     //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
                    // if(response.body.getListCra().size())
+                    list = response.body();
                         Log.v("ok", "response success");
 
                 } else {
@@ -109,7 +108,7 @@ public class DisplayCallLogFragment extends Fragment {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
                 Log.v("listcraforuser Failure",t.getMessage());
             }
-        });
+        });*/
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -120,7 +119,23 @@ public class DisplayCallLogFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new CallLogViewAdapter(DummyContent.ITEMS, mListener));
+
+            for(int i =0;i<=20;i++) {
+                list.add(new Cra(10
+                        , 10
+                        , "client name"
+                        , "contact name"
+                        , "commentaire"
+                        , "Subject"
+                        , "date"
+                        , 1034));
+            }
+            Log.v("liste","liste non vide");
+            //add line divider
+            recyclerView.addItemDecoration(new LineDivider(
+                            getActivity()
+));
+                    recyclerView.setAdapter(new CallLogRecyclerViewAdapter(list, mListener));
         }
         return view;
     }
@@ -155,6 +170,6 @@ public class DisplayCallLogFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Cra item);
     }
 }

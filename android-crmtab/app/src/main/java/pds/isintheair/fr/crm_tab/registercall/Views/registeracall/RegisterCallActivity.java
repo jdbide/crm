@@ -8,9 +8,8 @@ import android.support.v7.widget.Toolbar;
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.DisplayCallLogFragment;
-import pds.isintheair.fr.crm_tab.registercall.dummy.DummyContent;
 
-public class RegisterCallActivity extends FragmentActivity implements DisplayCallLogFragment.OnListFragmentInteractionListener {
+public class RegisterCallActivity extends FragmentActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class RegisterCallActivity extends FragmentActivity implements DisplayCal
             if (prev != null) {
                 ft.remove(prev);
             }
-            ft.addToBackStack(null);
+            //ft.addToBackStack(null);
             //Create a popup instance
             //get callEnded parameters from the service and pass them to the popup
             PopUpFragment pop = PopUpFragment.newInstance(getIntent().getStringExtra("idcontact")) ;
@@ -44,7 +43,7 @@ public class RegisterCallActivity extends FragmentActivity implements DisplayCal
             ,getIntent().getStringExtra("date")
             ,getIntent().getStringExtra("duration")
             ,getIntent().getStringExtra("calltype"));
-            ft.add(R.id.fragment_container, fragment,"FRAGMENT_AJOUT").commit();
+            ft.add(R.id.fragment_container, fragment, "FRAGMENT_AJOUT").commit();
             pop.show(getFragmentManager(), "");
             //make popup not cancellable
             pop.setCancelable(false);
@@ -63,11 +62,6 @@ public class RegisterCallActivity extends FragmentActivity implements DisplayCal
         ft.add(R.id.fragment_container, DisplayCallLogFragment.newInstance(1),"FRAGMENT_LISTE").commit();
     }
 
-
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
-    }
 
     /*@Subscribe
     public void onCallEndedEventReceived(CallEndedEvent callended){

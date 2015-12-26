@@ -22,6 +22,10 @@
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme" />
         <activity
+            android:name=".registercall.Views.displaycalls.LaunchDisplayLogFragment"
+            android:label="@string/title_activity_start_call_register"
+             />
+        <activity
             android:name=".registercall.StartCallRegisterActivity"
             android:label="@string/title_activity_start_call_register"
             android:theme="@style/AppTheme.NoActionBar">
@@ -33,8 +37,8 @@
         <activity
             android:name=".registercall.Views.registeracall.RegisterCallActivity"
             android:label="@string/title_activity_call_log_main"
-            android:theme="@style/AppTheme.NoActionBar">
-
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
 
         <service android:enabled="true" android:name=".registercall.ListennerCallEndedSEvent" />

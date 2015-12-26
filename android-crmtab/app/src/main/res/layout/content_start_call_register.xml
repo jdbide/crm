@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="pds.isintheair.fr.crm_tab.registercall.StartCallRegisterActivity"
-    tools:showIn="@layout/activity_start_call_register">
+    tools:showIn="@layout/start_call_register_activity">
+
 
 </RelativeLayout>
