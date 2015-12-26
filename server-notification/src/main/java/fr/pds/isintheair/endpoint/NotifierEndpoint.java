@@ -7,6 +7,7 @@ import fr.pds.isintheair.entity.Message;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 @ServerEndpoint("/notifier")
@@ -16,6 +17,11 @@ public class NotifierEndpoint {
 
     @OnOpen
     public void onOpen(Session session) {
+        try {
+            session.getBasicRemote().sendText("Coucou");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @OnError
