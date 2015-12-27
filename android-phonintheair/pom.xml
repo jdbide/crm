@@ -40,6 +40,7 @@
                         <platform>23</platform>
                     </sdk>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <resourceDirectory>${project.basedir}/app/src/main/res</resourceDirectory>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
