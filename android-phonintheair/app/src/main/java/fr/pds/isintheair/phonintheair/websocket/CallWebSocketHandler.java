@@ -5,8 +5,6 @@ import android.util.Log;
 import de.tavendo.autobahn.WebSocketHandler;
 import fr.pds.isintheair.phonintheair.controller.MessageController;
 import fr.pds.isintheair.phonintheair.entity.Message;
-import fr.pds.isintheair.phonintheair.entity.MessageFactory;
-import fr.pds.isintheair.phonintheair.enumeration.MessageType;
 import fr.pds.isintheair.phonintheair.util.JSONHelper;
 
 public class CallWebSocketHandler extends WebSocketHandler {
@@ -16,13 +14,9 @@ public class CallWebSocketHandler extends WebSocketHandler {
     public void onOpen() {
         Log.d(TAG, "Connection opened");
 
-        WebSocketConnectionHandlerSingleton connectionHandlerSingleton = WebSocketConnectionHandlerSingleton
-                .getInstance();
+        WebSocketConnectionHandlerSingleton.getInstance().isConnected = true;
 
-        connectionHandlerSingleton.isConnected = true;
-
-        connectionHandlerSingleton.sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
-                MessageType.REGISTER_PHONE), Message.class));
+        MessageController.sendRegisterMessage();
     }
 
     @Override
