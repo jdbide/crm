@@ -13,7 +13,10 @@ public class PeerController {
         return peerHandlerSingleton.findPeerSession(PeerType.PHONE, userId);
     }
 
-    public static Session getTabletSession(Integer userId) {
-        return null;
+    public static Session getTabletSession(Session phoneSession) {
+        PeerHandlerSingleton peerHandlerSingleton = PeerHandlerSingleton.getInstance();
+        Integer userId = peerHandlerSingleton.findPeerUserId(PeerType.PHONE, phoneSession);
+
+        return peerHandlerSingleton.findPeerSession(PeerType.TABLET, userId);
     }
 }

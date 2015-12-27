@@ -19,6 +19,10 @@ public class MessageController {
                 break;
             case CALL_END:
                 CallController.endCall(session);
+                break;
+            case CALL_RECEIVED:
+                CallController.notifyCallReceived(session, message.getCall().getPhoneNumber());
+                break;
         }
     }
 }

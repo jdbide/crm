@@ -3,7 +3,7 @@ package fr.pds.isintheair.enumeration;
 public enum MessageType {
     CALL,
     CALL_END,
-    CALL_OK,
+    CALL_RECEIVED,
     REGISTER_TABLET,
     REGISTER_PHONE
 }

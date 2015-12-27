@@ -10,12 +10,11 @@ import javax.websocket.Session;
 import java.io.IOException;
 
 public class CallController {
-    public static void call(Session tabletSession, Long phoneNumber) {
+    public static void call(Session tabletSession, String phoneNumber) {
         Session phoneSession = PeerController.getPhoneSession(tabletSession);
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL).build();
         Call call = new Call(phoneNumber);
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
-
 
         try {
             phoneSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
@@ -32,6 +31,20 @@ public class CallController {
 
         try {
             phoneSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
+        }
+        catch (IOException e) {
+            //TODO handle failed calls
+        }
+    }
+
+    public static void notifyCallReceived(Session phoneSession, String phoneNumber) {
+        Session tabletSession = PeerController.getTabletSession(phoneSession);
+        MessageMeta messageMeta = MessageMeta.buildStandardMessageMeta(MessageType.CALL_RECEIVED);
+        Call call = new Call(phoneNumber);
+        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
+
+        try {
+            tabletSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
         }
         catch (IOException e) {
             //TODO handle failed calls

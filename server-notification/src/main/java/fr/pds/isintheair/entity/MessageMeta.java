@@ -13,6 +13,10 @@ public class MessageMeta {
         this.errorDescription = messageMetaBuilder.errorDescription;
     }
 
+    public static MessageMeta buildStandardMessageMeta(MessageType messageType) {
+        return new MessageMetaBuilder().addMessageType(messageType).build();
+    }
+
     public Integer getStatusCode() {
         return statusCode;
     }
