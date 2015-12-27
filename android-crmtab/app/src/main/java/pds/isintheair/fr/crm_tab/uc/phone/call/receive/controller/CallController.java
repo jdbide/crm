@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.BusHandlerSingleton;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.event.PhoneCallBegunEvent;
+import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.bus.event.PhoneCallReceivedEvent;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.entity.Message;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.entity.MessageFactory;
 import pds.isintheair.fr.crm_tab.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
@@ -19,7 +20,9 @@ public class CallController {
 
         WebSocketConnectionHandlerSingleton.getInstance()
                                            .sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
-                                                   MessageType.CALL, callInformations), Message.class));
+                                                                                     MessageType.CALL,
+                                                                                     callInformations),
+                                                                             Message.class));
     }
 
     public static void endCall() {
@@ -30,5 +33,11 @@ public class CallController {
 
     public static void notifiyCallOk() {
         BusHandlerSingleton.getInstance().getBus().post(new PhoneCallBegunEvent());
+    }
+
+    public static void notifyCallReceived(String phoneNumber) {
+        PhoneCallReceivedEvent phoneCallReceivedEvent = new PhoneCallReceivedEvent(phoneNumber);
+
+        BusHandlerSingleton.getInstance().getBus().post(phoneCallReceivedEvent);
     }
 }
