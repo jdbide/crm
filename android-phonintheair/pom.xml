@@ -35,6 +35,7 @@
                 <artifactId>android-maven-plugin</artifactId>
                 <version>3.9.0-rc.2</version>
                 <configuration>
+                    <androidManifestFile>${project.basedir}/app/src/main/AndroidManifest.xml</androidManifestFile>
                     <sdk>
                         <platform>23</platform>
                     </sdk>
