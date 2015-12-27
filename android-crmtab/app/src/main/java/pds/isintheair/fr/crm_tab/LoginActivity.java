@@ -1,9 +1,13 @@
 package pds.isintheair.fr.crm_tab;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import pds.isintheair.fr.crm_tab.isin.truong.ProspectActivity;
 
 public class LoginActivity extends Activity {
 
@@ -15,5 +19,14 @@ public class LoginActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+    }
+
+    /**
+     *
+     * @param view
+     */
+    public void login(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProspectActivity.class);
+        startActivity(intent);
     }
 }
