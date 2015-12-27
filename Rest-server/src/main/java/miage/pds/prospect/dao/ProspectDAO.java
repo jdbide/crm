@@ -11,19 +11,8 @@ import java.util.List;
  */
 public interface ProspectDAO {
 
-    /**
-     * Function to call a prospect with it id
-     * @param id
-     * @return
-     */
-    public Prospect getProspectByIDAndName(int id, String name);
-
-    /**
-     * Function to call a list of prospect
-     * @return
-     */
     public List<Prospect> getAllProspect();
 
-
+    public Prospect getProspectByID(int id);
 
 }

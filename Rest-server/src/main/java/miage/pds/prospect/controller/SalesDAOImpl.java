@@ -1,9 +1,11 @@
 package miage.pds.prospect.controller;
 
+import com.mongodb.MongoClient;
 import miage.pds.prospect.dao.SalesDAO;
 import miage.pds.prospect.model.Sales;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
 
@@ -19,38 +21,34 @@ public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO{
 
     /**
      *
-     * @param entityClass
-     * @param ds
+     * @param mongoClient
+     * @param morphia
+     * @param dbName
      */
+    public SalesDAOImpl(MongoClient mongoClient, Morphia morphia, String dbName) {
+        super(mongoClient, morphia, dbName);
+    }
+
     public SalesDAOImpl(Class<Sales> entityClass, Datastore ds) {
         super(entityClass, ds);
-    }
-
-    /**
-     *
-     * @param idClient
-     * @return
-     */
-    @Override
-    public List<Sales> getSalesByIdProspect(int idClient) {
-        Query<Sales> query = createQuery().filter(ID_CLIENT + " ==" , idClient);
-        return query.asList();
-    }
-
-    /**
-     *
-     * @param value
-     * @return
-     */
-    @Override
-    public Sales getSalesBySalesValue(double value) {
-        Query<Sales> query = createQuery().field(VALUE).equal(value);
-        return query.get();
     }
 
     @Override
     public List<Sales> getAllSales() {
         Query<Sales> query = createQuery();
+        return query.asList();
+    }
+
+
+    @Override
+    public long getCountAllSales() {
+        long i = getDs().createQuery(Sales.class).countAll();
+        return i;
+    }
+
+    @Override
+    public List<Sales> getSalesSuperiorThanAverage(double average) {
+        Query<Sales> query = createQuery().filter(VALUE + " >=", average);
         return query.asList();
     }
 

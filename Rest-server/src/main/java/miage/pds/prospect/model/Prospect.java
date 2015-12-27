@@ -17,10 +17,10 @@ public class Prospect {
     private ObjectId objectId;
     private int id;
     private String name;
-    private int finessNumber;
-    private int siretNumber;
-    private int streetNumber;
-    private int zipCode;
+    private long finessNumber;
+    private long siretNumber;
+    private long streetNumber;
+    private long zipCode;
     private String address;
     private int place;
     private String website;
@@ -44,7 +44,7 @@ public class Prospect {
      * @param place
      * @param website
      */
-    public Prospect(int id, String name, int finessNumber, int siretNumber, int streetNumber, int zipCode, String address, int place, String website) {
+    public Prospect(int id, String name, long finessNumber, int siretNumber, int streetNumber, int zipCode, String address, int place, String website) {
         this.id = id;
         this.name = name;
         this.finessNumber = finessNumber;
@@ -80,23 +80,23 @@ public class Prospect {
         this.name = name;
     }
 
-    public int getFinessNumber() {
+    public long getFinessNumber() {
         return finessNumber;
     }
 
-    public void setFinessNumber(int finessNumber) {
+    public void setFinessNumber(long finessNumber) {
         this.finessNumber = finessNumber;
     }
 
-    public int getSiretNumber() {
+    public long getSiretNumber() {
         return siretNumber;
     }
 
-    public void setSiretNumber(int siretNumber) {
+    public void setSiretNumber(long siretNumber) {
         this.siretNumber = siretNumber;
     }
 
-    public int getStreetNumber() {
+    public long getStreetNumber() {
         return streetNumber;
     }
 
@@ -104,11 +104,11 @@ public class Prospect {
         this.streetNumber = streetNumber;
     }
 
-    public int getZipCode() {
+    public long getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(long zipCode) {
         this.zipCode = zipCode;
     }
 

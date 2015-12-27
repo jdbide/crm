@@ -9,20 +9,9 @@ import java.util.List;
  */
 public interface SalesDAO {
 
-    /**
-     *
-     * @param idClient
-     * @return
-     */
-    public List<Sales> getSalesByIdProspect(int idClient);
-
-    /**
-     * 
-     * @param value
-     * @return
-     */
-    public Sales getSalesBySalesValue(double value);
-
-
     public List<Sales> getAllSales();
+
+    public long getCountAllSales();
+
+    public List<Sales> getSalesSuperiorThanAverage(double average);
 }
