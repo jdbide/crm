@@ -5,8 +5,6 @@ import android.util.Log;
 import de.tavendo.autobahn.WebSocketHandler;
 import fr.pds.isintheair.phonintheair.controller.MessageController;
 import fr.pds.isintheair.phonintheair.entity.Message;
-import fr.pds.isintheair.phonintheair.entity.MessageFactory;
-import fr.pds.isintheair.phonintheair.enumeration.MessageType;
 import fr.pds.isintheair.phonintheair.util.JSONHelper;
 
 public class CallWebSocketHandler extends WebSocketHandler {
@@ -20,21 +18,19 @@ public class CallWebSocketHandler extends WebSocketHandler {
                 .getInstance();
 
         connectionHandlerSingleton.isConnected = true;
-
-        connectionHandlerSingleton.sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
-                MessageType.REGISTER_PHONE), Message.class));
+        MessageController.sendRegisterMessage();
     }
 
     @Override
     public void onClose(int code, String reason) {
-        Log.d("WS", "Connection closed");
+        Log.d(TAG, "Connection closed");
 
         WebSocketConnectionHandlerSingleton.getInstance().isConnected = false;
     }
 
     @Override
     public void onTextMessage(String payload) {
-        Log.d("WS", "Received message : " + payload);
+        Log.d(TAG, "Received message : " + payload);
 
         if (!payload.isEmpty())
             MessageController.handleMessage((Message) JSONHelper.deserialize(payload,
