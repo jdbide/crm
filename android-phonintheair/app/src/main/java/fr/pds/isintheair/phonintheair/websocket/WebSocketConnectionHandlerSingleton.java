@@ -40,7 +40,7 @@ public class WebSocketConnectionHandlerSingleton {
             //TODO handle exception
         }
     }
-    
+
     /**
      * Send a message using websocket
      *
@@ -50,10 +50,6 @@ public class WebSocketConnectionHandlerSingleton {
         String serializedMessage = JSONHelper.serialize(message, Message.class);
 
         Log.d(TAG, "Sending message : " + serializedMessage);
-
-
-    public void sendMessage(Message message) {
-        String serializedMessage = JSONHelper.serialize(message, Message.class);
 
         webSocketConnection.sendTextMessage(serializedMessage);
     }
