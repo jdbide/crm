@@ -18,9 +18,6 @@ public class CallWebSocketHandler extends WebSocketHandler {
                 .getInstance();
 
         connectionHandlerSingleton.isConnected = true;
-
-        connectionHandlerSingleton.sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
-                MessageType.REGISTER_PHONE), Message.class));
         MessageController.sendRegisterMessage();
     }
 

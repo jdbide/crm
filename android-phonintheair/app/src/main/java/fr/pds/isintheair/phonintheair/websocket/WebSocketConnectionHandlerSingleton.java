@@ -4,7 +4,6 @@ import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
-import fr.pds.isintheair.phonintheair.util.Constant;
 import fr.pds.isintheair.phonintheair.entity.Message;
 import fr.pds.isintheair.phonintheair.util.Constant;
 import fr.pds.isintheair.phonintheair.util.JSONHelper;
@@ -41,9 +40,7 @@ public class WebSocketConnectionHandlerSingleton {
             //TODO handle exception
         }
     }
-
-    public void sendMessage(String message) {
-        webSocketConnection.sendTextMessage(message);
+    
     /**
      * Send a message using websocket
      *
