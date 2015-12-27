@@ -1,17 +1,17 @@
 package fr.pds.isintheair.entity;
 
 public class Call {
-    private Long phoneNumber;
+    private String phoneNumber;
 
-    public Call(Long phoneNumber) {
+    public Call(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
