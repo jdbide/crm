@@ -51,6 +51,10 @@ public class WebSocketConnectionHandlerSingleton {
 
         Log.d(TAG, "Sending message : " + serializedMessage);
 
+
+    public void sendMessage(Message message) {
+        String serializedMessage = JSONHelper.serialize(message, Message.class);
+
         webSocketConnection.sendTextMessage(serializedMessage);
     }
 }
