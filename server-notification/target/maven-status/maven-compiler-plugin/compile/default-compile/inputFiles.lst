@@ -1,0 +1,14 @@
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\enumeration\MessageType.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\entity\MessageMeta.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\PeerHandlerSingleton.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\enumeration\PeerType.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\entity\Message.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\MessageHelper.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\controller\MessageController.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\controller\CallController.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\NotifierServer.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\endpoint\NotifierEndpoint.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\entity\Call.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\controller\RegisterController.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\entity\Register.java
+C:\Users\julie\Documents\CRM\server-notification\src\main\java\fr\pds\isintheair\controller\PeerController.java
