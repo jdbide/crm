@@ -23,6 +23,9 @@ public class Company extends BaseModel {
     @Column
     String type;
 
+    @Column
+    int zipCode;
+
     public int getId() {
         return id;
     }
@@ -45,6 +48,14 @@ public class Company extends BaseModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
     }
 
     @Override

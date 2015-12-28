@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,7 +149,31 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
             public String getMessage(Context context) {
                 return getString(R.string.create_he_fragment_error_siret);
             }
+
+
         });
+
+        zipCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                List<Company> companies = new Select().from(Company.class)
+                        .where(Condition.column(Company$Table.ZIPCODE)
+                                .like(zipCode.getText().toString().concat("%"))).queryList();
+                company.setAdapter(new ArrayAdapter<Company>
+                        (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,companies));
+            }
+        });
+
 
         return v;
     }
@@ -225,6 +251,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
     }
 
     private Independant initIndep() {
+
         Independant independant = new Independant();
         independant.setName(name.getText().toString());
         independant.setSiretNumber(Long.decode(siretNumber.getText().toString()));
