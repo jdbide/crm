@@ -10,8 +10,7 @@ import miage.pds.prospect.service.MongoService;
 import org.mongodb.morphia.logging.Logger;
 import org.mongodb.morphia.logging.MorphiaLoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Truong on 12/20/2015.
@@ -33,26 +32,40 @@ public class ProspectController {
         this.userClientRelationDAO  = new UserClientRelationDAOImpl(UserClientRelation.class, mongoService.getDatastore());
     }
 
-    public HashMap<Double, Prospect> getSalesByRelationLevel(){
-        HashMap<Double, Prospect> prospectHashMap = getSalesVolumeByProspect();
-        
-        return prospectHashMap;
+    public List<Prospect> getProspectByRelationshipLv(){
+        List<Prospect> prospectList = getSalesVolumeByProspect();
+        HashMap<Prospect, Long> prospectLongHashMap = new HashMap<Prospect, Long>();
+        if (prospectList.size() > 1){
+            for (Prospect prospect: prospectList){
+                long count = userClientRelationDAO.countRelationshipByClientID(prospect.getId());
+                logger.info(String.valueOf(count));
+                prospectLongHashMap.put(prospect, count);
+            }
+            long max = Collections.max(prospectLongHashMap.values());
+            for (Map.Entry<Prospect, Long> entry : prospectLongHashMap.entrySet()){
+                if (entry.getValue() == max){
+                    logger.info(String.valueOf(max));
+                    logger.info(entry.getKey().toString());
+                }
+            }
+        }
+
+        return prospectList;
     }
-
-
+    
     /**
      * Function to calculate sales volume for each client
      * @return
      */
-    public HashMap<Double,Prospect> getSalesVolumeByProspect(){
-        HashMap<Double, Prospect>   prospectHashMap = new HashMap<Double, Prospect>();
-        List<Prospect>              prospects       = prospectDAO.getAllProspect();
-        double                      saleAverageTotal= getSalesAverage();
+    public List<Prospect> getSalesVolumeByProspect(){
+        List<Prospect>  prospectList    = new ArrayList<Prospect>();
+        List<Prospect>  prospects       = prospectDAO.getAllProspect();
+        double          saleAverageTotal= getSalesAverage();
         for (Prospect prospect: prospects){
             List<Sales> sales               = salesDAO.getSalesByIDClient(prospect.getId());
             double      salesTotal          = 0.0d;
             double      salesAveByPros      = 0.0d;
-            logger.info("This is my prospect: " + prospect.toString());
+            logger.info("This is my client: " + prospect.toString());
             if (sales.size() > 0){
                 for (int i = 0; i < sales.size(); i++){
                     Sales sales1    = sales.get(i);
@@ -69,13 +82,12 @@ public class ProspectController {
             }
             logger.info("This is my sales volume: " + String.valueOf(salesTotal));
             if (salesAveByPros > 0 && salesAveByPros > saleAverageTotal){
-                prospectHashMap.put(salesAveByPros, prospect);
+                prospectList.add(prospect);
             }
-
         }
-        logger.info("This is my map of prospect");
-        logger.info(prospectHashMap.toString());
-        return prospectHashMap;
+        logger.info("This is my list of prospect");
+        logger.info(prospectList.toString());
+        return prospectList;
     }
 
     /**

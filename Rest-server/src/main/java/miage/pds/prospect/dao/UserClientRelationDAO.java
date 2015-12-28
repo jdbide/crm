@@ -12,4 +12,6 @@ public interface UserClientRelationDAO {
     public List<UserClientRelation> getClientByUserId(int idUser);
 
     public List<UserClientRelation> getUserByClientId(int idClient);
+
+    public long countRelationshipByClientID(int idClient);
 }
