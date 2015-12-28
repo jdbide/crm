@@ -46,9 +46,4 @@ public class SalesDAOImplTest {
         assertEquals(8, salesDAO.getCountAllSales());
     }
 
-    @Test
-    public void testGetSalesSuperiorThanAverage() throws Exception {
-        List<Sales> salesAverage = salesDAO.getSalesSuperiorThanAverage(1000000.00);
-        assertEquals(4, salesAverage.size());
-    }
 }

@@ -20,8 +20,8 @@ public class Sales{
     private int id;
     private int idClient;
     private int idSeller;
-    private String date;
     private double value;
+    private Date date;
 
     public Sales() {
 
@@ -35,13 +35,14 @@ public class Sales{
      * @param date
      * @param value
      */
-    public Sales(int id, int idClient, int idSeller, String date, double value) {
+    public Sales(int id, int idClient, int idSeller, Date date, double value) {
         this.id = id;
         this.idClient = idClient;
         this.idSeller = idSeller;
         this.date = date;
         this.value = value;
     }
+
 
     public ObjectId getObjectId() {
         return objectId;
@@ -59,12 +60,12 @@ public class Sales{
         this.id = id;
     }
 
-    public int getIdProspect() {
+    public int getIdClient() {
         return idClient;
     }
 
-    public void setIdProspect(int idProspect) {
-        this.idClient = idProspect;
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
 
     public int getIdSeller() {
@@ -75,20 +76,20 @@ public class Sales{
         this.idSeller = idSeller;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public double getValue() {
         return value;
     }
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -98,8 +99,8 @@ public class Sales{
                 ", id=" + id +
                 ", idClient=" + idClient +
                 ", idSeller=" + idSeller +
-                ", date='" + date + '\'' +
                 ", value=" + value +
+                ", date=" + date +
                 '}';
     }
 }

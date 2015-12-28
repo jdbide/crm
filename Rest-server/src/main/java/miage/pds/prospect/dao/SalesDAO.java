@@ -13,5 +13,5 @@ public interface SalesDAO {
 
     public long getCountAllSales();
 
-    public List<Sales> getSalesSuperiorThanAverage(double average);
+    public List<Sales> getSalesByIDClient(int idClient);
 }

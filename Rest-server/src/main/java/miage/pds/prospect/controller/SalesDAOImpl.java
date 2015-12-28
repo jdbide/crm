@@ -9,6 +9,7 @@ import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO{
 
     private static final String ID_CLIENT       = "idClient";
     private static final String VALUE           = "value";
-
+    private int year = Calendar.getInstance().get(Calendar.YEAR);
     /**
      *
      * @param mongoClient
@@ -46,9 +47,10 @@ public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO{
         return i;
     }
 
+
     @Override
-    public List<Sales> getSalesSuperiorThanAverage(double average) {
-        Query<Sales> query = createQuery().filter(VALUE + " >=", average);
+    public List<Sales> getSalesByIDClient(int idClient) {
+        Query<Sales> query = createQuery().field(ID_CLIENT).equal(idClient);
         return query.asList();
     }
 
