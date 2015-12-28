@@ -168,7 +168,8 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
             public void afterTextChanged(Editable s) {
                 List<Company> companies = new Select().from(Company.class)
                         .where(Condition.column(Company$Table.ZIPCODE)
-                                .like(zipCode.getText().toString().concat("%"))).queryList();
+                                .like(zipCode.getText().toString().concat("%")))
+                        .or(Condition.column(Company$Table.ID).eq(1)).queryList();
                 company.setAdapter(new ArrayAdapter<Company>
                         (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,companies));
             }
