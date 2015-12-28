@@ -43,9 +43,6 @@ public class Independant extends BaseModel implements Customer {
     double lattitude;
 
     @Column
-    int bedNumber;
-
-    @Column
     String webSite;
 
     @Column
@@ -143,13 +140,6 @@ public class Independant extends BaseModel implements Customer {
         this.lattitude = lattitude;
     }
 
-    public int getBedNumber() {
-        return bedNumber;
-    }
-
-    public void setBedNumber(int bedNumber) {
-        this.bedNumber = bedNumber;
-    }
 
     public String getWebSite() {
         return webSite;
