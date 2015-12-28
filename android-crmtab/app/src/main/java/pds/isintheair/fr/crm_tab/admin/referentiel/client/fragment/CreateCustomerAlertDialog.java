@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment;
+package pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

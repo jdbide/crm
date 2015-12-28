@@ -65,4 +65,11 @@
         " Il le sera à votre prochaine connexion au service en ligne</string>
     <string name="create_he_fragment_message_customer">Le client a bien été créé</string>
 
+    <!-- Strings related to the creation of an  independant customer -->
+    <string name="create_indep_fragment_title_action_bar">Créer un Indépendant</string>
+    <string name="create_indep_fragment_title_textview">Créer un Indépendant</string>
+    <string name="create_indep_fragment_company_textview">Entreprise</string>
+    <string name="create_indep_fragment_specialty_textview">Spécialité</string>
+    <string name="create_indep_fragment_long_term_fidelity_textview">Fidélisation sur le long terme</string>
+
 </resources>

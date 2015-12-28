@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment;
+package pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment;
 
 
 import android.app.Fragment;
@@ -13,14 +13,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Company;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Specialty;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.ResponseRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.InitValue;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;
@@ -101,7 +105,14 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
                 getActivity().getFragmentManager().beginTransaction()
                     .replace(R.id.create_customer_fragment_container, createHCFragment)
                         .commit();
+                    break;
+            case 1 :
 
+                CreateIndepFragment createIndepFragment = new CreateIndepFragment();
+                getActivity().getFragmentManager().beginTransaction()
+                        .replace(R.id.create_customer_fragment_container, createIndepFragment)
+                        .commit();
+                    break;
         }
     }
 
@@ -147,53 +158,11 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         return super.onOptionsItemSelected(item);
     }
 
-    private void initHolding() {
 
-        if(new Select().count().from(Holding.class).count() == 0) {
-
-            Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService().getHoldings();
-
-            call.enqueue(new Callback<ResponseRestCustomer>() {
-                @Override
-                public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                    for (Holding holding : response.body().getHoldings()) {
-                        holding.save();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                }});
-        }
-    }
-
-    private void initPurchasingCentral() {
-
-        if(new Select().count().from(PurchasingCentral.class).count() == 0) {
-
-            Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService().getPurchasingCentral();
-
-            call.enqueue(new Callback<ResponseRestCustomer>() {
-                @Override
-                public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                    for (PurchasingCentral purchasingCentral : response.body().getPurchasingCentrals()) {
-                        purchasingCentral.save();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                }
-            });
-        }
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        initHolding();
-        initPurchasingCentral();
+        InitValue.doInit();
     }
 }

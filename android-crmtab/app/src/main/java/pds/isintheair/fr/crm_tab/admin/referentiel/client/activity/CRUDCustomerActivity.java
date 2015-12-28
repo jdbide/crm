@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.CreateCustomerAlertDialog;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment.CreateCustomerAlertDialog;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.ListCustomerFragment;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment.ListCustomerFragment;
 import pds.isintheair.fr.crm_tab.R;
 
 public class CRUDCustomerActivity extends AppCompatActivity implements CreateCustomerAlertDialog.AlertPositiveListener {
@@ -41,10 +42,17 @@ public class CRUDCustomerActivity extends AppCompatActivity implements CreateCus
                 toolbar.setTitle(R.string.create_he_fragment_title_action_bar);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.create_customer_fragment_container, createHCFragment).commit();
+                break;
+            case 1 :
+
+                CreateIndepFragment createIndepFragment = new CreateIndepFragment();
+                toolbar.setTitle(R.string.create_indep_fragment_title_action_bar);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.create_customer_fragment_container, createIndepFragment)
+                        .commit();
+                break;
 
         }
     }
-
-
 
 }

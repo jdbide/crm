@@ -1,15 +1,11 @@
 package pds.isintheair.fr.crm_tab.client.create.he.test;
 
-import android.support.v7.app.AppCompatActivity;
-
 import org.junit.Test;
 
-import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.ListCustomerFragment;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.MessageRestCustomer;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.MessageRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.ResponseRestCustomer;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;

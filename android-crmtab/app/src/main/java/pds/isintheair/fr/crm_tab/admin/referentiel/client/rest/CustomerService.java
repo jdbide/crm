@@ -1,7 +1,7 @@
 package pds.isintheair.fr.crm_tab.admin.referentiel.client.rest;
 
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.MessageRestCustomer;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.message.ResponseRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.MessageRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.ResponseRestCustomer;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -19,16 +19,22 @@ public interface CustomerService {
     @POST("/customer/hc/create/")
     Call<ResponseRestCustomer> createHealthCenter(@Body MessageRestCustomer hc);
 
+    @POST("/customer/indep/create/")
+    Call<ResponseRestCustomer> createIndependant(@Body MessageRestCustomer hc);
+
     @GET("/customer/holding")
     Call<ResponseRestCustomer> getHoldings();
 
     @GET("/customer/purchasingcentral")
     Call<ResponseRestCustomer> getPurchasingCentral();
 
-   /** @GET("/SpringRESTapi/users")
-    Call<ArrayList<User>> getUsers();
+   @GET("/customer/company")
+    Call<ResponseRestCustomer> getCompanies();
 
-    @POST("/SpringRESTapi/user/updateUser/{id}/{lastName}/{firstName}")
+    @GET("/customer/specialty")
+    Call<ResponseRestCustomer> getSpecialties();
+/**
+ @POST("/SpringRESTapi/user/updateUser/{id}/{lastName}/{firstName}")
     Call<CreateOrUpdateResponse> updateUser(@Path("id") Integer id, @Path("lastName") String lastName, @Path("firstName") String firstName);
 
     @GET("/SpringRESTapi/user/deleteUser/{id}")
