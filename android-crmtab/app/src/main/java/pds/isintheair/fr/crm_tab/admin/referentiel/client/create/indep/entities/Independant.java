@@ -12,7 +12,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Cus
  * Created by tlacouque on 27/12/2015.
  */
 @Table(databaseName = OrmTabDataBase.DBNAME)
-public class Independant extends BaseModel {
+public class Independant extends BaseModel implements Customer {
 
     @Column
     @PrimaryKey
@@ -67,7 +67,7 @@ public class Independant extends BaseModel {
         return name;
     }
 
-
+    @Override
     public String getAdress() {
         return ""+streetNumber+" "+streetName+" ,"+town;
     }
@@ -169,8 +169,8 @@ public class Independant extends BaseModel {
         return independantType;
     }
 
-    public void setIndependantType(String intdependantType) {
-        this.independantType = intdependantType;
+    public void setIndependantType(String independantType) {
+        this.independantType = independantType;
     }
 
     public int getSpecialtyId() {
