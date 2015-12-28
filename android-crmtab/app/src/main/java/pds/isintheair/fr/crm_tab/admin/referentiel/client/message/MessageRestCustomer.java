@@ -8,7 +8,6 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.
  */
 public class MessageRestCustomer {
 
-
     private int idUser;
     private HealthCenter healthCenter;
     private Independant independant;
