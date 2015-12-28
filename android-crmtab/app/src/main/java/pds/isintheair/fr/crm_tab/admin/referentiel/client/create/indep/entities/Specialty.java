@@ -14,7 +14,7 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
 public class Specialty extends BaseModel {
 
     @Column
-    @PrimaryKey(autoincrement = true)
+    @PrimaryKey
     int id;
 
     @Column

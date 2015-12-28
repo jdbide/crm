@@ -10,11 +10,12 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
 /**
  * Created by tlacouque on 27/12/2015.
  */
+
 @Table(databaseName = OrmTabDataBase.DBNAME)
 public class Company extends BaseModel {
 
     @Column
-    @PrimaryKey(autoincrement = true)
+    @PrimaryKey
     int id;
 
     @Column

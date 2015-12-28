@@ -274,14 +274,14 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
     }
 
     private void initSpinner() {
-     /**   companies = new Select(Company$Table.NAME).from(Company.class).queryList();
+        companies = new Select(Company$Table.NAME).from(Company.class).queryList();
 
         company.setAdapter(new ArrayAdapter<Company>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,companies));
         specialties = new Select(Specialty$Table.NAME)
                 .from(Specialty.class).queryList();
         specialty.setAdapter(new ArrayAdapter<Specialty>
-                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,specialties));*/
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,specialties));
         independantType.setAdapter(new ArrayAdapter<IndependantType>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, IndependantType.values()));
 
