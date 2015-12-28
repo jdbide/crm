@@ -1,9 +1,7 @@
 package fr.pds.isintheair.phonintheair.controller;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 
@@ -20,9 +18,9 @@ public class CallController {
         callIntent.setData(Uri.parse("tel:" + phoneNumber));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        if (applicationContext.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+        /* if (applicationContext.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             applicationContext.startActivity(callIntent);
-        }
+        } */
     }
 
     public static void endCall() {
