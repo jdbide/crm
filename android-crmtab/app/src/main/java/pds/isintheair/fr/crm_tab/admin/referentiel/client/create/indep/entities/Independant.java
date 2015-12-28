@@ -55,7 +55,7 @@ public class Independant extends BaseModel implements Customer {
     String origin;
 
     @Column
-    String intdependantType;
+    String independantType;
 
     @Column
     int specialtyId;
@@ -175,12 +175,12 @@ public class Independant extends BaseModel implements Customer {
         this.origin = origin;
     }
 
-    public String getIntdependantType() {
-        return intdependantType;
+    public String getIndependantType() {
+        return independantType;
     }
 
-    public void setIntdependantType(String intdependantType) {
-        this.intdependantType = intdependantType;
+    public void setIndependantType(String intdependantType) {
+        this.independantType = intdependantType;
     }
 
     public int getSpecialtyId() {

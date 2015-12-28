@@ -263,6 +263,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         independant.setZipCode(Integer.decode(zipCode.getText().toString()));
         independant.setWebSite(webSite.getText().toString());
         independant.setOrigin("Prospection");
+        independant.setIndependantType(independantType.getSelectedItem().toString());
         independant.setLongTermFidelity(getIntFromRadiogroup(longTermFidelity));
         Specialty specialtyInit = new Select().from(Specialty.class)
                 .where(Condition.column(Specialty$Table.NAME).eq(specialty.getSelectedItem().toString())).querySingle();
