@@ -12,7 +12,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Cus
  * Created by tlacouque on 27/12/2015.
  */
 @Table(databaseName = OrmTabDataBase.DBNAME)
-public class Independant extends BaseModel implements Customer {
+public class Independant extends BaseModel {
 
     @Column
     @PrimaryKey
@@ -62,12 +62,12 @@ public class Independant extends BaseModel implements Customer {
 
 
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public String getAdress() {
         return ""+streetNumber+" "+streetName+" ,"+town;
     }

@@ -17,9 +17,9 @@ public class MessageRestCustomer {
         this.healthCenter = healthCenter;
     }
 
-    public MessageRestCustomer(int idUser, Independant independant) {
+   public MessageRestCustomer(int idUser, Independant independant) {
         this.idUser = idUser;
-        this.independant = independant;
+       this.independant = independant;
     }
 
     public int getIdUser() {
@@ -38,7 +38,7 @@ public class MessageRestCustomer {
         this.healthCenter = healthCenter;
     }
 
-    public Independant getIndependant() {
+   public Independant getIndependant() {
         return independant;
     }
 

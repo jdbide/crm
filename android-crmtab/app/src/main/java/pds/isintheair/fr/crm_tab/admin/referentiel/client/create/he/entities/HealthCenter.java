@@ -15,7 +15,7 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
  * Created by tlacouque on 12/12/2015.
  */
 @Table(databaseName = OrmTabDataBase.DBNAME)
-public class HealthCenter extends BaseModel implements Customer{
+public class HealthCenter extends BaseModel {
 
     @Column
     @PrimaryKey
@@ -85,7 +85,7 @@ public class HealthCenter extends BaseModel implements Customer{
         return name;
     }
 
-    @Override
+
     public String getAdress() {
         return ""+streetNumber+" "+streetName+" ,"+town;
     }
