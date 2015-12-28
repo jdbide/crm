@@ -2,12 +2,12 @@ package fr.pds.isintheair.phonintheair.websocket;
 
 import android.util.Log;
 
-import de.tavendo.autobahn.WebSocketHandler;
+import de.tavendo.autobahn.WebSocketConnectionHandler;
 import fr.pds.isintheair.phonintheair.controller.MessageController;
 import fr.pds.isintheair.phonintheair.entity.Message;
 import fr.pds.isintheair.phonintheair.util.JSONHelper;
 
-public class CallWebSocketHandler extends WebSocketHandler {
+public class CallWebSocketHandler extends WebSocketConnectionHandler {
     private String TAG = getClass().getSimpleName();
 
     @Override

@@ -14,7 +14,7 @@ import fr.pds.isintheair.phonintheair.PhointheairApp;
 
 public class CallController {
     public static void call(String phoneNumber) {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        Intent  callIntent         = new Intent(Intent.ACTION_CALL);
         Context applicationContext = PhointheairApp.context;
 
         callIntent.setData(Uri.parse("tel:" + phoneNumber));

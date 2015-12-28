@@ -4,6 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <repositories>
+        <repository>
+            <id>oss-sonatype</id>
+            <name>oss-sonatype</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <parent>
         <groupId>fr.pds.isintheair</groupId>
         <artifactId>crm</artifactId>
@@ -30,10 +41,17 @@
             <artifactId>gson</artifactId>
             <version>2.5</version>
         </dependency>
+        <dependency>
+            <groupId>de.tavendo</groupId>
+            <artifactId>autobahn-android</artifactId>
+            <version>0.5.2-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>Phonintheair</finalName>
+        <sourceDirectory>${project.basedir}/app/src/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/app/src/androidTest</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
@@ -49,6 +67,9 @@
                     <testPackages>
                         <package>fr.pds.isintheair</package>
                     </testPackages>
+                    <classesJarIncludes>true</classesJarIncludes>
+                    <includeJdkLibs>true</includeJdkLibs>
+                    <nativeLibrariesDirectory>${project.basedir}/app/libs</nativeLibrariesDirectory>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
