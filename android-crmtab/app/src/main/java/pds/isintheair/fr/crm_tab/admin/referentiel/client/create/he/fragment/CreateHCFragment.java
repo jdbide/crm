@@ -235,6 +235,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
         healthCenter.setWebSite(webSite.getText().toString());
         healthCenter.setOrigin("Prospection");
+        healthCenter.setEtablishmentType(etablishmentType.getSelectedItem().toString());
         if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Oui"))
             healthCenter.setIsPublic(true);
         else healthCenter.setIsPublic(false);
