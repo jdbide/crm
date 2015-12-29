@@ -64,7 +64,7 @@ public class HealthCenter {
     @Property
     boolean isPublic;
 
-    @Reference
+    @Property
     String etablishmentType;
 
 
@@ -73,6 +73,9 @@ public class HealthCenter {
 
     @Property
     int holdingId;
+
+    @Property
+    int idUser;
 
 
     public HealthCenter() {
@@ -255,4 +258,11 @@ public class HealthCenter {
         return holding;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
 }

@@ -57,6 +57,9 @@ public class Independant {
     @Property
     int companyId;
 
+    @Property
+    int idUser;
+
     public String getName() {
         return name;
     }
@@ -181,4 +184,11 @@ public class Independant {
         this.companyId = companyId;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
 }
