@@ -33,6 +33,7 @@ import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
 
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.SiretValidator;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding$Table;
@@ -143,7 +144,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         validator.put(siretNumber, new QuickRule<EditText>() {
             @Override
             public boolean isValid(EditText view) {
-                return isSiretSyntaxValide(view.getText().toString());
+                return SiretValidator.isSiretSyntaxValide(view.getText().toString());
             }
 
             @Override
@@ -200,31 +201,6 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
    private int getIntFromRadiogroup(RadioGroup radioGroup) {
       return Integer.decode(((RadioButton) getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))
               .getText().toString());
-    }
-
-
-    public boolean isSiretSyntaxValide(String siret){
-        if(siret.length() != 14) {
-            return false;
-        }
-        int total = 0;
-        int digit = 0;
-
-        for (int i = 0; i<siret.length(); i++) {
-            /** Recherche les positions impaires : 1er, 3è, 5è, etc... que l'on multiplie par 2*/
-
-            if ((i % 2) == 0) {
-                digit = Integer.parseInt(String.valueOf(siret.charAt(i))) * 2;
-                /** if result > 9 => compose of 2 digits, every digits should be added and cannot be
-                 * >19 , so we need to do : digit-9 */
-                if (digit > 9) digit -= 9;
-            }
-            else digit = Integer.parseInt(String.valueOf(siret.charAt(i)));
-            total += digit;
-        }
-        /** If sum is a multiple of 10, siret number is valid */
-        if ((total % 10) == 0) return true;
-        else return false;
     }
 
     private HealthCenter initHC() {
