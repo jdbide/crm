@@ -101,7 +101,7 @@ public class RestCustomerController {
 
     @RequestMapping(value = "/customer/healthcenter/{iduser}", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getHealthCenters(@PathVariable int iduser) {
-        final Query<HealthCenter> query = getDataStore().createQuery(HealthCenter.class).where("idUser <> "+iduser);
+        final Query<HealthCenter> query = getDataStore().createQuery(HealthCenter.class).filter("idUser <>",iduser);
         final List<HealthCenter> healthCenters = query.asList();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setHealthCenters(healthCenters);
@@ -110,7 +110,7 @@ public class RestCustomerController {
 
     @RequestMapping(value = "/customer/independant/{iduser}", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getIndependants(@PathVariable int iduser) {
-        final Query<Independant> query = getDataStore().createQuery(Independant.class).where("idUser <> "+iduser);
+        final Query<Independant> query = getDataStore().createQuery(Independant.class).filter("idUser <>",iduser);
         final List<Independant> independants = query.asList();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIndependants(independants);
