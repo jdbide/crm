@@ -90,7 +90,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     EditText town;
 
 
-    @Bind(R.id.create_he_fragment_zip_code) EditText zipCode;
+    @Bind(R.id.create_he_fragment_zip_code)
+    @Order(7)
+    @Length(min = 5, max = 5, messageResId = R.string.create_he_fragment_error_zip_code)
+    EditText zipCode;
+
     @Bind(R.id.create_he_fragment_web_site) EditText webSite;
     @Bind(R.id.create_he_fragment_bed_number) EditText bedNumber;
     @Bind(R.id.create_he_fragment_etablishment_type) Spinner etablishmentType;

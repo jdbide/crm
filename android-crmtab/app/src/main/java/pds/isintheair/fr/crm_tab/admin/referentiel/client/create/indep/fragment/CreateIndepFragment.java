@@ -93,7 +93,12 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
     EditText town;
 
 
-    @Bind(R.id.create_indep_fragment_zip_code) EditText zipCode;
+    @Bind(R.id.create_indep_fragment_zip_code)
+    @Order(7)
+    @Length(min = 5, max = 5, messageResId = R.string.create_he_fragment_error_zip_code)
+    EditText zipCode;
+
+
     @Bind(R.id.create_indep_fragment_web_site) EditText webSite;
     @Bind(R.id.create_indep_fragment_independant_type)
     Spinner independantType;

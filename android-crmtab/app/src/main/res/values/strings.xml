@@ -61,6 +61,7 @@
     <string name="create_he_fragment_error_street_number">Champ \"Numéro de rue\" vide</string>
     <string name="create_he_fragment_error_street_name">Champ \"Nom de rue\" vide</string>
     <string name="create_he_fragment_error_town">Champ \"Ville\" vide</string>
+    <string name="create_he_fragment_error_zip_code">Champ \"Code postal\" doit faire 5 caractère</string>
     <string name="create_he_fragment_error_offline_map">La carte représentant la position du client n’a pas été pré-téléchargé" +
         " Il le sera à votre prochaine connexion au service en ligne</string>
     <string name="create_he_fragment_message_customer">Le client a bien été créé</string>
