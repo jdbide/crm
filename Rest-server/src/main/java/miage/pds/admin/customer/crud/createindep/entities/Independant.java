@@ -40,9 +40,6 @@ public class Independant {
     double lattitude;
 
     @Property
-    int bedNumber;
-
-    @Property
     String webSite;
 
     @Property
@@ -134,14 +131,6 @@ public class Independant {
 
     public void setLattitude(double lattitude) {
         this.lattitude = lattitude;
-    }
-
-    public int getBedNumber() {
-        return bedNumber;
-    }
-
-    public void setBedNumber(int bedNumber) {
-        this.bedNumber = bedNumber;
     }
 
     public String getWebSite() {
