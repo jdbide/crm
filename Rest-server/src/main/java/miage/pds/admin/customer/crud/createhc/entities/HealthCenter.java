@@ -1,6 +1,7 @@
 package miage.pds.admin.customer.crud.createhc.entities;
 
 import miage.pds.admin.customer.crud.controller.RestCustomerController;
+import miage.pds.admin.customer.crud.entities.Customer;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -14,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 
 @Entity("healthcenter")
-public class HealthCenter {
+public class HealthCenter implements Customer {
 
     @Id
     long  siretNumber;

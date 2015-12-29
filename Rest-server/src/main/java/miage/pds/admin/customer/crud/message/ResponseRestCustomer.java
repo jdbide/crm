@@ -6,6 +6,7 @@ import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
 import miage.pds.admin.customer.crud.createindep.entities.Company;
 import miage.pds.admin.customer.crud.createindep.entities.Independant;
 import miage.pds.admin.customer.crud.createindep.entities.Specialty;
+import miage.pds.admin.customer.crud.entities.Customer;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class ResponseRestCustomer {
     private List<HealthCenter> healthCenters;
 
     private List<Independant> independants;
+
+    private List<Customer> customers;
 
 
 
@@ -84,5 +87,13 @@ public class ResponseRestCustomer {
 
     public void setIndependants(List<Independant> independants) {
         this.independants = independants;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 }

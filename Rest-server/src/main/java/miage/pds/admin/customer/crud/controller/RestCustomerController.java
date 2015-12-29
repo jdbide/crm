@@ -7,6 +7,7 @@ import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
 import miage.pds.admin.customer.crud.createindep.entities.Company;
 import miage.pds.admin.customer.crud.createindep.entities.Independant;
 import miage.pds.admin.customer.crud.createindep.entities.Specialty;
+import miage.pds.admin.customer.crud.entities.Customer;
 import miage.pds.admin.customer.crud.message.MessageRestCustomer;
 import miage.pds.admin.customer.crud.message.ResponseRestCustomer;
 import miage.pds.orm.SpringMongoConfig;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -114,6 +116,21 @@ public class RestCustomerController {
         final List<Independant> independants = query.asList();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIndependants(independants);
+        return responseRestCustomer;
+    }
+
+    @RequestMapping(value = "/customer/{iduser}", method = RequestMethod.GET)
+    public @ResponseBody ResponseRestCustomer getCustomers(@PathVariable int iduser) {
+        final List<Customer> customers = new ArrayList<Customer>();
+
+        final Query<Independant> queryindep = getDataStore().createQuery(Independant.class).filter("idUser <>",iduser);
+        final List<Independant> independants = queryindep.asList();
+        customers.addAll(independants);
+        final Query<HealthCenter> queryhc = getDataStore().createQuery(HealthCenter.class).filter("idUser <>",iduser);
+        final List<HealthCenter> healthCenters = queryhc.asList();
+        customers.addAll(healthCenters);
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setCustomers(customers);
         return responseRestCustomer;
     }
 

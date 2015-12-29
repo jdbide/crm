@@ -1,6 +1,7 @@
 package miage.pds.admin.customer.crud.createindep.entities;
 
 
+import miage.pds.admin.customer.crud.entities.Customer;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
@@ -10,7 +11,7 @@ import org.mongodb.morphia.annotations.Property;
  */
 
 @Entity("independant")
-public class Independant {
+public class Independant implements Customer {
 
     @Id
     long  siretNumber;
