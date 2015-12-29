@@ -60,6 +60,9 @@ public class Independant extends BaseModel implements Customer {
     @Column
     int companyId;
 
+    @Column
+    int idUser;
+
 
 
 
@@ -187,5 +190,13 @@ public class Independant extends BaseModel implements Customer {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 }

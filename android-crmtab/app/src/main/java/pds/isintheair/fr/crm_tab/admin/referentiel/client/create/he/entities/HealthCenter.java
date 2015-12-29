@@ -73,6 +73,9 @@ public class HealthCenter extends BaseModel implements Customer {
     @Column
     int holdingId;
 
+    @Column
+    int idUser;
+
 
 
 
@@ -238,5 +241,13 @@ public class HealthCenter extends BaseModel implements Customer {
     public PurchasingCentral getPurchasingCentral() {
         return new Select().from(PurchasingCentral.class)
                 .where(Condition.column(PurchasingCentral$Table.ID).eq(purchasingCentralId)).querySingle();
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 }

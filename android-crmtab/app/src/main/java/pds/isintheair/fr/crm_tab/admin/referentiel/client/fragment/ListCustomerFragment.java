@@ -41,6 +41,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
     private OnListFragmentInteractionListener mListener;
     int position = 0;
+    public static int idUser = 1;
 
 
     /**
