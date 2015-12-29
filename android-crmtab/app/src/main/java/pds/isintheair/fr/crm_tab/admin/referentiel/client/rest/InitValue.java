@@ -2,10 +2,16 @@ package pds.isintheair.fr.crm_tab.admin.referentiel.client.rest;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
+import java.util.List;
+
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Customer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Company;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Independant;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Specialty;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment.ListCustomerFragment;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.ResponseRestCustomer;
 import retrofit.Call;
 import retrofit.Callback;
@@ -114,4 +120,10 @@ public final class InitValue {
     }
 
 
-}
+
+
+
+    }
+
+
+

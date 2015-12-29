@@ -2,9 +2,11 @@ package pds.isintheair.fr.crm_tab.admin.referentiel.client.message;
 
 import java.util.List;
 
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Company;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Independant;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Specialty;
 
 /**
@@ -21,6 +23,10 @@ public class ResponseRestCustomer {
     private List<Specialty> specialties;
 
     private List<Company> companies;
+
+    private List<HealthCenter> healthCenters;
+
+    private List<Independant> independants;
 
 
 
@@ -63,5 +69,21 @@ public class ResponseRestCustomer {
 
     public void setCompanies(List<Company> companies) {
         this.companies = companies;
+    }
+
+    public List<HealthCenter> getHealthCenters() {
+        return healthCenters;
+    }
+
+    public void setHealthCenters(List<HealthCenter> healthCenters) {
+        this.healthCenters = healthCenters;
+    }
+
+    public List<Independant> getIndependants() {
+        return independants;
+    }
+
+    public void setIndependants(List<Independant> independants) {
+        this.independants = independants;
     }
 }
