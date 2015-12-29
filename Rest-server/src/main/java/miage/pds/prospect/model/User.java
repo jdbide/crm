@@ -3,6 +3,7 @@ package miage.pds.prospect.model;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * Created by Truong on 12/20/2015.
@@ -10,11 +11,12 @@ import org.mongodb.morphia.annotations.Id;
  * @since 20/12/2015
  * @see User model
  */
-@Entity("user")
+@Entity(value = "user")
 public class User {
 
     @Id
     private ObjectId objectId;
+    @Indexed
     private int id;
     private String login;
 

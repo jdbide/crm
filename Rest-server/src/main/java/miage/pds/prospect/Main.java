@@ -10,6 +10,8 @@ public class Main {
     public static void main(String[] args) {
         ProspectController prospectController = new ProspectController();
 //        prospectController.getSalesVolumeByProspect();
-        prospectController.getProspectByRelationshipLv();
+//        prospectController.getProspectByRelationshipLv();
+//        prospectController.getProspectListForEachUser();
+        prospectController.analyseProspect();
     }
 }

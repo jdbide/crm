@@ -14,4 +14,6 @@ public interface UserClientRelationDAO {
     public List<UserClientRelation> getUserByClientId(int idClient);
 
     public long countRelationshipByClientID(int idClient);
+
+    public boolean checkRelation(int idUser, int idClient);
 }

@@ -54,4 +54,14 @@ public class UserClientRelationDAOImpl extends BasicDAO<UserClientRelation, Obje
         long i = count(query);
         return i;
     }
+
+    @Override
+    public boolean checkRelation(int idUser, int idClient) {
+        Query<UserClientRelation> query = createQuery().field(USER_ID).equal(idUser).field(CLIENT_ID).equal(idClient);
+        if (query.get() == null){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

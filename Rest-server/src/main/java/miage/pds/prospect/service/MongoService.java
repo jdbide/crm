@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 
 /**
  * Created by Truong on 12/22/2015.
+ * @version 1.0
  */
 public class MongoService {
 

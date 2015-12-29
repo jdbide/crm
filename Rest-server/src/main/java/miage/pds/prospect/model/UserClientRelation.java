@@ -3,6 +3,7 @@ package miage.pds.prospect.model;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * Created by Truong on 12/22/2015.
@@ -13,7 +14,9 @@ public class UserClientRelation {
     @Id
     private ObjectId objectId;
     private int id;
+    @Indexed
     private int idClient;
+    @Indexed
     private int idUser;
 
     public UserClientRelation() {

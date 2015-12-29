@@ -14,21 +14,17 @@ import java.util.List;
  */
 public class UserDAOImpl extends BasicDAO<User, ObjectId> implements UserDAO {
 
-    private static final String LOGIN = "login";
+    private static final String LOGIN   = "login";
+    private static final String ID      = "id";
 
     public UserDAOImpl(Class<User> entityClass, Datastore ds) {
         super(entityClass, ds);
     }
 
-    @Override
-    public User getUserByLogin(String login) {
-        Query<User> query = createQuery().field(LOGIN).equal(login);
-        return query.get();
-    }
 
     @Override
-    public List<User> getUsers() {
-        Query<User> query = createQuery();
+    public List<User> getAllUsers() {
+        Query<User> query = createQuery().order(ID);
         return query.asList();
     }
 }
