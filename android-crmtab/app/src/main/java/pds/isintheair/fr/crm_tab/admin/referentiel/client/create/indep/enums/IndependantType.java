@@ -8,7 +8,9 @@ public enum IndependantType {
     MEDECIN_GENERALISTE_LIBERAL("Médecin généraliste libérale"),
     INFIRMIERE_LIBERAL("Infirmière libéral"),
     SPECIALISTE("Spécialiste"),
-    PHARMACIE("Pharmacie");
+    PHARMACIE("Pharmacie"),
+    CHIRURGIEN_DENTISTE("Dentiste"),
+    SAGE_FEMME("Sage femme");
 
 
     private String stringValue;
