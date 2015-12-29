@@ -40,8 +40,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
-
-        <service android:enabled="true" android:name=".registercall.ListennerCallEndedSEvent" />
+        <service android:enabled="true" android:name=".registercall.CheckPendingLogs" />
+        <service android:enabled="true" android:name=".registercall.ListennerCallEndedEvent" />
     </application>
 
 </manifest>

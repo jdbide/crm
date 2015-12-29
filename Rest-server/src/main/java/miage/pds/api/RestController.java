@@ -37,36 +37,20 @@ public class RestController {
 	 */
 	
 	@RequestMapping(value = "/listcra",method = RequestMethod.GET)
-	public @ResponseBody List<Cra> getListCraForUser(@RequestParam("iduser") String iduser){
-		//boolean status = false;  
-		logger.info("Searching licra for : "+iduser);
-		//JSONObject status = new JSONObject();
-		//boolean reqstatus = true;
-		List<Cra> list = (List<Cra>) dao.getListCraForUser(iduser);
-		logger.info("first cra : "+ list.get(0).getContactname());
-		return list;
-		/*try {
-			status.put("status", reqstatus);	
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
-		//dao.getAllCra();
-		//for(Cra c :dao.getAllCra())
-		//logger.info(c.getIdcontact());
-		//return status.toString();	
-		//return "ok";
+	public @ResponseBody List<Cra> getListCraForUser(@RequestParam("iduser") int iduser){
+
+		List<Cra> liste = dao.getListCraForUser(iduser);
+		System.out.println("response list size :" + liste.size());
+		return liste;
 	}
 
-	@RequestMapping(value = "/createcra", method = RequestMethod.POST, headers="Accept=application/json")
+	@RequestMapping(value = "/createcra", method = RequestMethod.POST)
 	public @ResponseBody Boolean createCra(@RequestBody Cra cra) {
 		boolean status = false;  
 		status = dao.createCra(cra);
-		//return status.toString();
 		if(status) logger.info("Cra registered :)");
+		else logger.info("Cra not registered :)");
 		return status;
-		//return false;
 	}
 	
 }

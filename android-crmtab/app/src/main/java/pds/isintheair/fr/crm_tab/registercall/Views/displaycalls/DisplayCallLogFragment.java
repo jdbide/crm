@@ -13,16 +13,20 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
-import pds.isintheair.fr.crm_tab.registercall.Rest.CraServiceInterface;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crm_tab.registercall.Rest.ServiceGenerator;
 import retrofit.Call;
+import retrofit.Callback;
 import retrofit.GsonConverterFactory;
+import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
@@ -37,7 +41,7 @@ public class DisplayCallLogFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount;
-    private List<Cra> list;
+    private List<Cra> listecra;
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -47,8 +51,7 @@ public class DisplayCallLogFragment extends Fragment {
     public DisplayCallLogFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
+    // initialization
     public static DisplayCallLogFragment newInstance(int columnCount) {
         DisplayCallLogFragment fragment = new DisplayCallLogFragment();
         Bundle args = new Bundle();
@@ -60,7 +63,7 @@ public class DisplayCallLogFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list = new ArrayList<Cra>();
+        listecra = new ArrayList<Cra>();
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -74,30 +77,44 @@ public class DisplayCallLogFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.callloglist_container, container, false);
 
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        Gson gson = new GsonBuilder().create();
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient httpClient = new OkHttpClient();
+        // add logging as last interceptor
+        httpClient.interceptors().add(logging);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Singleton.getInstance().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(httpClient)
                 .build();
 
-        CraServiceInterface service = retrofit.create(CraServiceInterface.class);
-        Call<List<Cra>> call = service.listcraforuser("1");
+        ServiceGenerator service = retrofit.create(ServiceGenerator.class);
+        Call<List<Cra>> call = service.listcraforuser(1);
 
-        /*call.enqueue(new Callback<List<Cra>>() {
+        call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
-                    // request successful (status code 200, 201)
-                    //String result = response.message();
-                    //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
-                   // if(response.body.getListCra().size())
-                    list = response.body();
-                        Log.v("ok", "response success");
+
+                    List<Cra> liste = response.body();
+                    for(int i =0;i<liste.size();i++) {
+                        listecra.add(new Cra(liste.get(i).getIduser()
+                            , liste.get(i).getIdcontact()
+                            , liste.get(i).getClientname()
+                            , liste.get(i).getContactname()
+                            , liste.get(i).getComments()
+                            , liste.get(i).getSubject()
+                            , liste.get(i).getDate()
+                            , liste.get(i).getDuration()
+                            , liste.get(i).getCalltype()));
+                    }
 
                 } else {
-                    //request not successful (like 400,401,403 etc)
-                    //Handle errors
                     Log.v("listcraforuser", "no rep");
                     //Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
                 }
@@ -108,7 +125,7 @@ public class DisplayCallLogFragment extends Fragment {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
                 Log.v("listcraforuser Failure",t.getMessage());
             }
-        });*/
+        });
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -120,25 +137,28 @@ public class DisplayCallLogFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            for(int i =0;i<=20;i++) {
-                list.add(new Cra(10
-                        , 10
-                        , "client name"
-                        , "contact name"
-                        , "commentaire"
-                        , "Subject"
-                        , "date"
-                        , 1034));
-            }
-            Log.v("liste","liste non vide");
             //add line divider
             recyclerView.addItemDecoration(new LineDivider(
-                            getActivity()
-));
-                    recyclerView.setAdapter(new CallLogRecyclerViewAdapter(list, mListener));
+                            getActivity()));
+
+            for(int i =0;i<4;i++) {
+                listecra.add(new Cra(1
+                        , 1
+                        , "BIDE JD"
+                        , "Dranck NEROT"
+                        , "rien de spécial"
+                        , "Demande d'infos"
+                        , "25/12/2015"
+                        , 1034
+                        , "Emis"));
+            }
+
+            recyclerView.setAdapter(new CallLogRecyclerViewAdapter(listecra, mListener));
         }
+
         return view;
     }
+
 
 
     @Override

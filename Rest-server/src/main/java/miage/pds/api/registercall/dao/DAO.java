@@ -39,7 +39,6 @@ public class DAO {
 		datastore = morphia.createDatastore(mongo, "CRM");
 
 		return true;
-
 	}
 
 	// cra insertion
@@ -50,27 +49,25 @@ public class DAO {
 			datastore.save(cra);
 			state = true;
 		}
-
 		return state;
 	}
 
-	// cra insertion
-	public List<Cra> getAllCra() {
-
-		Query q = datastore.find(Cra.class);
-		// single entity
-		// MyEntity e = q.get();
-		// e = q.sort("foo").get();
-
-		// for
-		// for (Cra i : q)
-		// logger.info(i.toString());
-//Hotel hotel = ds.get(Hotel.class, hotelId);
-		return q.asList();
-	}
-
-	public List<Cra> getListCraForUser(String iduser) {
-		List<Cra> list = datastore.createQuery(Cra.class).filter("iduser", Integer.parseInt(iduser)).asList();
-		return list;
+	public List<Cra> getListCraForUser(int iduser) {
+		List<Cra> liste = null;
+		if (ConnectDB()) {
+		liste =  datastore.createQuery(Cra.class).field("iduser").equal(iduser).asList();
+		}
+		/*logger.info("1");
+		System.out.println("1");
+		datastore.createQuery(Cra.class).filter("iduser", iduser);
+		logger.info("2");
+		List<Cra> liste = datastore.createQuery(Cra.class).filter("iduser", iduser).asList();
+		
+		logger.info("size" + String.valueOf(liste.size()));*/
+		//ListCra list = new ListCra(datastore.createQuery(Cra.class).filter("iduser", Integer.parseInt(iduser)).asList());
+		//logger.info(arg0);
+		//return list;
+		//ListCra list = new ListCra(liste);
+		return liste;
 	}
 }

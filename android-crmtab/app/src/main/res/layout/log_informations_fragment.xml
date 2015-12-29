@@ -3,38 +3,38 @@
     android:id="@+id/addlogfragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:foregroundGravity="center">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="700dp"
-        android:layout_height="1000dp"
-        card_view:cardCornerRadius="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        card_view:cardCornerRadius="16dp"
         card_view:cardBackgroundColor="#00218c"
-        android:layout_gravity="center_horizontal" android:orientation="vertical"
-        android:gravity="center_vertical|center_horizontal">
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:background="#ffffff"
             android:orientation="vertical"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_gravity="center_vertical">
-
-
+              >
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="#e8e8e7"
-                android:orientation="horizontal"
                 >
 
-                <TextView android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/formtitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
-                    android:text="@string/textaddcalllog"
                     android:textColor="#2582C5"
                     android:textAlignment="center"
                     android:textSize="18sp"
@@ -46,12 +46,14 @@
 
             <LinearLayout android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
                 android:orientation="vertical"
-                android:background="@drawable/gradientbackground"
+                android:background="#e8e8e7"
                 >
 
                 <EditText
@@ -78,7 +80,8 @@
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="20dip"
-                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:singleLine="true"
                     android:enabled="false"/>
 
@@ -93,7 +96,8 @@
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="20dip"
-                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:singleLine="true"
                     android:enabled="false"/>
                 <TextView android:layout_width="fill_parent"
@@ -107,7 +111,8 @@
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="20dip"
-                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:singleLine="true"
                     android:enabled="false"/>
                 <TextView android:layout_width="fill_parent"
@@ -121,7 +126,8 @@
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="20dip"
-                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:singleLine="true"
                     android:enabled="false"/>
 
@@ -136,7 +142,8 @@
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="20dip"
-                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:singleLine="true"
                     android:enabled="false"/>
 
@@ -151,7 +158,8 @@
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="20dip"
-                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:singleLine="true"
                     android:enabled="false"/>
 
@@ -166,7 +174,8 @@
                     android:background="#f3f3f3"
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="20dip"
-                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:singleLine="true"
                     />
 
@@ -179,13 +188,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-                    <EditText  android:id="@+id/edittextcomments"
+                    <EditText
+                        android:id="@+id/edittextcomments"
                         android:layout_width="600dp"
                         android:layout_height="100dp"
                         android:background="#f3f3f3"
                         android:layout_marginTop="5dip"
                         android:layout_marginBottom="20dip"
-                        android:paddingLeft="5dp"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
                         />
                     <Button
                         android:layout_width="50dp"

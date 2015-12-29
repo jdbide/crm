@@ -1,4 +1,6 @@
-package pds.isintheair.fr.crm_tab.registercall.Objects;
+package pds.isintheair.fr.crm_tab.registercall.Objects.Events;
+
+import pds.isintheair.fr.crm_tab.registercall.Objects.CallType;
 
 /**
  * Created by j-d on 20/12/2015.

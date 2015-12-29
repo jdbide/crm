@@ -11,7 +11,7 @@ import com.squareup.otto.Bus;
 import java.util.Calendar;
 
 import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Objects.CallEndedEvent;
+import pds.isintheair.fr.crm_tab.registercall.Objects.Events.CallEndedEvent;
 import pds.isintheair.fr.crm_tab.registercall.Objects.CallType;
 import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.LaunchDisplayLogFragment;
@@ -26,8 +26,9 @@ public class StartCallRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.start_call_register_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-        Intent intent = new Intent(this, ListennerCallEndedSEvent.class);
-        startService(intent);
+        //start local services
+        startService(new Intent(this, ListennerCallEndedEvent.class));
+        startService(new Intent(this, CheckPendingLogs.class));
         bus = Singleton.getInstance().getCurrentBusInstance();
         bus.register(this);
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

@@ -13,9 +13,10 @@ public class Cra {
     private String subject;
     private String date;
     private int duration;
+    private String calltype;
 
 
-    public Cra(long iduser, long idcontact, String clientname, String contactname, String comments, String subject, String date, int duration) {
+    public Cra(long iduser, long idcontact, String clientname, String contactname, String comments, String subject, String date, int duration,String calltype) {
         this.iduser = iduser;
         this.idcontact = idcontact;
         this.clientname = clientname;
@@ -24,7 +25,9 @@ public class Cra {
         this.subject = subject;
         this.date = date;
         this.duration = duration;
+        this.calltype = calltype;
     }
+
     public String getContactname() {
         return contactname;
     }
@@ -55,5 +58,9 @@ public class Cra {
 
     public long getIduser() {
         return iduser;
+    }
+
+    public String getCalltype() {
+        return calltype;
     }
 }

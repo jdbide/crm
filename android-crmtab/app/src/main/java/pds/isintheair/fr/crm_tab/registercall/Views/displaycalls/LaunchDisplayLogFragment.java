@@ -1,8 +1,8 @@
 package pds.isintheair.fr.crm_tab.registercall.Views.displaycalls;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
@@ -10,7 +10,7 @@ import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
 /**
  * Created by j-d on 26/12/2015.
  */
-public class LaunchDisplayLogFragment extends Activity implements DisplayCallLogFragment.OnListFragmentInteractionListener {
+public class LaunchDisplayLogFragment extends AppCompatActivity implements DisplayCallLogFragment.OnListFragmentInteractionListener {
 
 
     @Override
@@ -19,8 +19,6 @@ public class LaunchDisplayLogFragment extends Activity implements DisplayCallLog
         setContentView(R.layout.displaycalls_container);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         //setSupportActionBar(toolbar);
-        Log.v("okxnfnfhnhv", "okhggbfnfhndf");
-
 
        // if (findViewById(R.id.launch_display_fragment_container) != null) {
 
@@ -41,13 +39,26 @@ public class LaunchDisplayLogFragment extends Activity implements DisplayCallLog
             //Create a popup instance
             //get callEnded parameters from the service and pass them to the popup
             DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
-            ft.add(R.id.launch_display_fragment_container, fragment).commit();
+            ft.add(R.id.launch_display_fragment_container, fragment,"FRAGMENT_LISTE").commit();
 
         //}
     }
 
+    //Click on button display
     @Override
-    public void onListFragmentInteraction(Cra item) {
+    public void onListFragmentInteraction(Cra cra) {
 
+        android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+            Fragment prev = getFragmentManager().findFragmentByTag("FRAGMENT_LISTE");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+
+        //ft.addToBackStack(null);
+        //startActivity(new Intent(this,CallDetailsActivity.class));
+        //get callEnded parameters from the service and pass them to the popup
+        CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra) ;
+        ft.add(R.id.launch_display_fragment_container, fragment).commit();
     }
 }

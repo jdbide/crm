@@ -13,56 +13,54 @@ public class Cra {
     private String subject;
     private String date;
     private int duration;
-
-    
-	public long getIduser() {
-		return iduser;
-	}
-	public void setIduser(long iduser) {
-		this.iduser = iduser;
-	}
-	public long getIdcontact() {
-		return idcontact;
-	}
-	public void setIdcontact(long idcontact) {
-		this.idcontact = idcontact;
-	}
-	public String getClientname() {
-		return clientname;
-	}
-	public void setClientname(String clientname) {
-		this.clientname = clientname;
-	}
-	public String getContactname() {
-		return contactname;
-	}
-	public void setContactname(String contactname) {
-		this.contactname = contactname;
-	}
-	public String getComments() {
-		return comments;
-	}
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
-	public int getDuration() {
-		return duration;
-	}
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
+    private String calltype;
 
 
+    public Cra(long iduser, long idcontact, String clientname, String contactname, String comments, String subject, String date, int duration,String calltype) {
+        this.iduser = iduser;
+        this.idcontact = idcontact;
+        this.clientname = clientname;
+        this.contactname = contactname;
+        this.comments = comments;
+        this.subject = subject;
+        this.date = date;
+        this.duration = duration;
+        this.calltype = calltype;
+    }
+
+    public String getContactname() {
+        return contactname;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public String getClientname() {
+        return clientname;
+    }
+
+    public long getIdcontact() {
+        return idcontact;
+    }
+
+    public long getIduser() {
+        return iduser;
+    }
+
+    public String getCalltype() {
+        return calltype;
+    }
 }

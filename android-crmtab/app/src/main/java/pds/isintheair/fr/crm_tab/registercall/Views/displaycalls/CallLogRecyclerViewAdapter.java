@@ -1,13 +1,10 @@
 package pds.isintheair.fr.crm_tab.registercall.Views.displaycalls;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.util.List;
-
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
 import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.DisplayCallLogFragment.OnListFragmentInteractionListener;
@@ -51,7 +48,7 @@ public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecy
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    //mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
         });
