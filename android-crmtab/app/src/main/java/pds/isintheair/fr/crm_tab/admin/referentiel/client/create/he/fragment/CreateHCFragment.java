@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -253,6 +254,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                 .createHealthCenter(messageRestCustomer);
+        healthCenter.save();
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {

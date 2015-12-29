@@ -49,7 +49,7 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
     private OnListFragmentInteractionListener mListener;
     int position = 0;
     public static int idUser = 1;
-    private List<Customer> customers;
+    public List<Customer> customers;
 
 
 
@@ -181,7 +181,7 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
 
     public List<Customer> initCustomers() {
 
-        final List<Customer> customers  = (List<Customer>)(List<?>) new Select().count().from(HealthCenter.class).queryList();
+        final List<Customer> customers  = (List<Customer>)(List<?>) new Select().from(HealthCenter.class).queryList();
 
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
                 .getCustomerService().getHealthCenters(ListCustomerFragment.idUser);
@@ -205,6 +205,8 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
 
     private void initIndep(final List<Customer> customers) {
 
+        final List<Customer> indeps  = (List<Customer>)(List<?>) new Select().from(Independant.class).queryList();
+        customers.addAll(indeps);
 
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
                 .getCustomerService().getIndependants(ListCustomerFragment.idUser);
@@ -215,7 +217,7 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
                 for (Independant independant : response.body().getIndependants()) {
                     customers.add(independant);
                 }
-
+                ListCustomerFragment.this.customers = customers;
                 CustomerAdapter customerAdapter =
                         new CustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
                 ListCustomerFragment.this.setListAdapter(customerAdapter);
