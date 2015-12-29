@@ -2,6 +2,8 @@ package miage.pds.admin.customer.crud.message;
 
 import miage.pds.admin.customer.crud.createhc.entities.Holding;
 import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
+import miage.pds.admin.customer.crud.createindep.entities.Company;
+import miage.pds.admin.customer.crud.createindep.entities.Specialty;
 
 import java.util.List;
 
@@ -15,6 +17,10 @@ public class ResponseRestCustomer {
     private List<Holding> holdings;
 
     private List<PurchasingCentral> purchasingCentrals;
+
+    private List<Company> companies;
+
+    private List<Specialty> specialties;
 
 
 
@@ -40,5 +46,21 @@ public class ResponseRestCustomer {
 
     public void setPurchasingCentrals(List<PurchasingCentral> purchasingCentrals) {
         this.purchasingCentrals = purchasingCentrals;
+    }
+
+    public List<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
+
+    public List<Specialty> getSpecialties() {
+        return specialties;
+    }
+
+    public void setSpecialties(List<Specialty> specialties) {
+        this.specialties = specialties;
     }
 }

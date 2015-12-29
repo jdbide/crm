@@ -4,6 +4,8 @@ import com.mongodb.MongoClient;
 import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
 import miage.pds.admin.customer.crud.createhc.entities.Holding;
 import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
+import miage.pds.admin.customer.crud.createindep.entities.Company;
+import miage.pds.admin.customer.crud.createindep.entities.Specialty;
 import miage.pds.admin.customer.crud.message.MessageRestCustomer;
 import miage.pds.admin.customer.crud.message.ResponseRestCustomer;
 import miage.pds.orm.SpringMongoConfig;
@@ -67,6 +69,24 @@ public class RestCustomerController {
         final List<PurchasingCentral> purchasingCentrals = query.asList();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setPurchasingCentrals(purchasingCentrals);
+        return responseRestCustomer;
+    }
+
+    @RequestMapping(value = "/customer/company", method = RequestMethod.GET)
+    public @ResponseBody ResponseRestCustomer getCompanies() {
+        final Query<Company> query = getDataStore().createQuery(Company.class);
+        final List<Company> companies = query.asList();
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setCompanies(companies);
+        return responseRestCustomer;
+    }
+
+    @RequestMapping(value = "/customer/specialty", method = RequestMethod.GET)
+    public @ResponseBody ResponseRestCustomer getSpecialties() {
+        final Query<Specialty> query = getDataStore().createQuery(Specialty.class);
+        final List<Specialty> specialties = query.asList();
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setSpecialties(specialties);
         return responseRestCustomer;
     }
 
