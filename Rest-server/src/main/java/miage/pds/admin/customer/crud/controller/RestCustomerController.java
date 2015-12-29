@@ -5,6 +5,7 @@ import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
 import miage.pds.admin.customer.crud.createhc.entities.Holding;
 import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
 import miage.pds.admin.customer.crud.createindep.entities.Company;
+import miage.pds.admin.customer.crud.createindep.entities.Independant;
 import miage.pds.admin.customer.crud.createindep.entities.Specialty;
 import miage.pds.admin.customer.crud.message.MessageRestCustomer;
 import miage.pds.admin.customer.crud.message.ResponseRestCustomer;
@@ -17,10 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
 import java.util.List;
@@ -98,6 +96,24 @@ public class RestCustomerController {
         final List<Specialty> specialties = query.asList();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setSpecialties(specialties);
+        return responseRestCustomer;
+    }
+
+    @RequestMapping(value = "/customer/healthcenter/{iduser}", method = RequestMethod.GET)
+    public @ResponseBody ResponseRestCustomer getHealthCenters(@PathVariable int iduser) {
+        final Query<HealthCenter> query = getDataStore().createQuery(HealthCenter.class).where("idUser <> "+iduser);
+        final List<HealthCenter> healthCenters = query.asList();
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setHealthCenters(healthCenters);
+        return responseRestCustomer;
+    }
+
+    @RequestMapping(value = "/customer/independant/{iduser}", method = RequestMethod.GET)
+    public @ResponseBody ResponseRestCustomer getIndependants(@PathVariable int iduser) {
+        final Query<Independant> query = getDataStore().createQuery(Independant.class).where("idUser <> "+iduser);
+        final List<Independant> independants = query.asList();
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setIndependants(independants);
         return responseRestCustomer;
     }
 
