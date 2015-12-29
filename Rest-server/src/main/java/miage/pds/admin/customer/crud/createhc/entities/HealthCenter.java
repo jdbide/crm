@@ -65,7 +65,7 @@ public class HealthCenter {
     boolean isPublic;
 
     @Reference
-    EtablishmentType etablishmentType;
+    String etablishmentType;
 
 
     @Property
@@ -200,11 +200,11 @@ public class HealthCenter {
         this.isPublic = isPublic;
     }
 
-    public EtablishmentType getEtablishmentType() {
+    public String getEtablishmentType() {
         return etablishmentType;
     }
 
-    public void setEtablishmentType(EtablishmentType etablishmentType) {
+    public void setEtablishmentType(String etablishmentType) {
         this.etablishmentType = etablishmentType;
     }
 
