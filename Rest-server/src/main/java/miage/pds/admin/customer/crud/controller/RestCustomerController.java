@@ -54,6 +54,17 @@ public class RestCustomerController {
         return responseRestCustomer;
     }
 
+    @RequestMapping(value = "/customer/indep/create/", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseRestCustomer createIndependant(@RequestBody MessageRestCustomer messageRestCustomer) {
+
+        getDataStore().ensureIndexes();
+        datastore.save(messageRestCustomer.getIndependant());
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setIsInserted(true);
+        return responseRestCustomer;
+    }
+
     @RequestMapping(value = "/customer/holding", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getHoldings() {
         final Query<Holding> query = getDataStore().createQuery(Holding.class);
