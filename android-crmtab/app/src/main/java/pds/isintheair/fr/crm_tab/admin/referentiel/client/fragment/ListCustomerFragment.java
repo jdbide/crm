@@ -31,6 +31,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Specialty;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.ResponseRestCustomer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.CheckInternetConnexion;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.InitValue;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
@@ -179,30 +180,21 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
     }
 
 
-    public List<Customer> initCustomers() {
+    public void initCustomers() {
 
         final List<Customer> customers  = (List<Customer>)(List<?>) new Select().from(HealthCenter.class).queryList();
+        final List<Customer> indeps  = (List<Customer>)(List<?>) new Select().from(Independant.class).queryList();
+        customers.addAll(indeps);
+        if(CheckInternetConnexion.isNetworkAvailable(this.getActivity().getApplicationContext())) {
+            callRest(customers);
+        } else {
+            initAdapter(customers);
+        }
 
-        Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
-                .getCustomerService().getHealthCenters(ListCustomerFragment.idUser);
 
-        call.enqueue(new Callback<ResponseRestCustomer>() {
-            @Override
-            public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                for (HealthCenter healthCenter : response.body().getHealthCenters()) {
-                    customers.add(healthCenter);
-                }
-                initIndep(customers);
-            }
 
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
-        return customers;
     }
-
+/**
     private void initIndep(final List<Customer> customers) {
 
         final List<Customer> indeps  = (List<Customer>)(List<?>) new Select().from(Independant.class).queryList();
@@ -229,6 +221,37 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
 
             }
         });
+    }*/
+
+    private void callRest(final List<Customer> customers) {
+
+        Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
+                .getCustomerService().getCustomers(ListCustomerFragment.idUser);
+
+        call.enqueue(new Callback<ResponseRestCustomer>() {
+            @Override
+            public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                for (HealthCenter healthCenter : response.body().getHealthCenters()) {
+                    customers.add(healthCenter);
+                }
+                for(Independant independant : response.body().getIndependants()) {
+                    customers.add(independant);
+                }
+                initAdapter(customers);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
+    private void initAdapter(List<Customer> customers) {
+        ListCustomerFragment.this.customers = customers;
+        CustomerAdapter customerAdapter =
+                new CustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
+        ListCustomerFragment.this.setListAdapter(customerAdapter);
     }
 
 }

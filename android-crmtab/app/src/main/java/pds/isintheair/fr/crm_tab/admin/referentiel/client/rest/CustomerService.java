@@ -40,6 +40,9 @@ public interface CustomerService {
 
     @GET("/customer/independant/{iduser}")
     Call<ResponseRestCustomer> getIndependants(@Path("iduser") int iduser);
+
+    @GET("/customer/{iduser}")
+    Call<ResponseRestCustomer> getCustomers(@Path("iduser") int iduser);
 /**
  @POST("/SpringRESTapi/user/updateUser/{id}/{lastName}/{firstName}")
     Call<CreateOrUpdateResponse> updateUser(@Path("id") Integer id, @Path("lastName") String lastName, @Path("firstName") String firstName);
