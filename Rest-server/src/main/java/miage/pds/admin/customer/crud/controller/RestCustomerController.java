@@ -121,16 +121,13 @@ public class RestCustomerController {
 
     @RequestMapping(value = "/customer/{iduser}", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getCustomers(@PathVariable int iduser) {
-        final List<Customer> customers = new ArrayList<Customer>();
-
         final Query<Independant> queryindep = getDataStore().createQuery(Independant.class).filter("idUser <>",iduser);
         final List<Independant> independants = queryindep.asList();
-        customers.addAll(independants);
         final Query<HealthCenter> queryhc = getDataStore().createQuery(HealthCenter.class).filter("idUser <>",iduser);
         final List<HealthCenter> healthCenters = queryhc.asList();
-        customers.addAll(healthCenters);
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setCustomers(customers);
+        responseRestCustomer.setIndependants(independants);
+        responseRestCustomer.setHealthCenters(healthCenters);
         return responseRestCustomer;
     }
 
