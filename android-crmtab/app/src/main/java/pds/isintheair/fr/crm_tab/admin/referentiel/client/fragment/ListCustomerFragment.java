@@ -40,7 +40,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Customers.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
@@ -51,8 +51,6 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
     int position = 0;
     public static int idUser = 1;
     public List<Customer> customers;
-
-
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -76,14 +74,6 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
         initCustomers();
         //healthCenters = InitValue.initHealthCenter();
     }
-/**
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-       // View view = inflater.inflate(R.layout.fragment_customer_list, container, false);
-
-        return view;
-    }*/
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -129,18 +119,8 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
        // void onListFragmentInteraction(DummyItem item);
     }
 
@@ -194,34 +174,6 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
 
 
     }
-/**
-    private void initIndep(final List<Customer> customers) {
-
-        final List<Customer> indeps  = (List<Customer>)(List<?>) new Select().from(Independant.class).queryList();
-        customers.addAll(indeps);
-
-        Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
-                .getCustomerService().getIndependants(ListCustomerFragment.idUser);
-
-        call.enqueue(new Callback<ResponseRestCustomer>() {
-            @Override
-            public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                for (Independant independant : response.body().getIndependants()) {
-                    customers.add(independant);
-                }
-                ListCustomerFragment.this.customers = customers;
-                CustomerAdapter customerAdapter =
-                        new CustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
-                ListCustomerFragment.this.setListAdapter(customerAdapter);
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
-    }*/
 
     private void callRest(final List<Customer> customers) {
 
