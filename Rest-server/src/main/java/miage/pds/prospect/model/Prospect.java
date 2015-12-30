@@ -7,9 +7,10 @@ import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * Created by Truong on 12/20/2015.
+ *
  * @version 1.1
- * @since 20/12/2015
  * @see Prospect model
+ * @since 20/12/2015
  */
 @Entity("client")
 public class Prospect {
@@ -36,6 +37,7 @@ public class Prospect {
 
     /**
      * Full constructor of a prospect
+     *
      * @param id
      * @param name
      * @param finessNumber
@@ -140,6 +142,7 @@ public class Prospect {
 
     /**
      * To String method
+     *
      * @return JSON Object type String
      */
     @Override
@@ -157,4 +160,6 @@ public class Prospect {
                 ", website='" + website + '\'' +
                 '}';
     }
+
+
 }
