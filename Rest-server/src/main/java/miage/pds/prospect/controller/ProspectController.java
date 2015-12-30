@@ -51,6 +51,8 @@ public class ProspectController {
         HashMap<User, ArrayList<Prospect>>              userListHashMap = getProspectListForEachUser();
         analyzeProspectBySales(userListHashMap);
         Iterator<Map.Entry<User, ArrayList<Prospect>>>  entryIterator   = userListHashMap.entrySet().iterator();
+
+        // Refill the list of prospect for each user
         while (entryIterator.hasNext()){
             Map.Entry<User, ArrayList<Prospect>>    userArrayListEntry  = entryIterator.next();
             ArrayList<Prospect>                     prospects           = userArrayListEntry.getValue();
