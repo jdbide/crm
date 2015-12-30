@@ -170,9 +170,6 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
         } else {
             initAdapter(customers);
         }
-
-
-
     }
 
     private void callRest(final List<Customer> customers) {
