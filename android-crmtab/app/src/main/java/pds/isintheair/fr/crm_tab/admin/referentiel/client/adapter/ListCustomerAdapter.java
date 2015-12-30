@@ -15,9 +15,9 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Cus
 /**
  * Created by tlacouque on 29/12/2015.
  */
-public class CustomerAdapter extends ArrayAdapter<Customer> {
+public class ListCustomerAdapter extends ArrayAdapter<Customer> {
 
-    public CustomerAdapter(Context context, int resource, List<Customer> customers) {
+    public ListCustomerAdapter(Context context, int resource, List<Customer> customers) {
         super(context, 0, customers);
     }
 

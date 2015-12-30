@@ -1,34 +1,25 @@
 package pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment;
 
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
 
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
 
 import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.adapter.CustomerAdapter;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.adapter.ListCustomerAdapter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Customer;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Company;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Independant;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Specialty;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.ResponseRestCustomer;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.CheckInternetConnexion;
@@ -198,8 +189,8 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
 
     private void initAdapter(List<Customer> customers) {
         ListCustomerFragment.this.customers = customers;
-        CustomerAdapter customerAdapter =
-                new CustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
+        ListCustomerAdapter customerAdapter =
+                new ListCustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
         ListCustomerFragment.this.setListAdapter(customerAdapter);
     }
 
