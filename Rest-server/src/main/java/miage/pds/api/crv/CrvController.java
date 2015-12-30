@@ -35,20 +35,10 @@ public class CrvController {
 		return "TEST PAGE :)";
 	}
 	@RequestMapping(value = "/crv/addCrv", method = RequestMethod.POST, headers="Accept=application/json")
-	public @ResponseBody String createCrv(@RequestBody Reporting crv) {
+	public @ResponseBody Boolean createCrv(@RequestBody Reporting crv) {
 		logger.info("Start create Reporting.");
-		JSONObject status = new JSONObject();
-		boolean createStatus = dao.createCrv(crv.getReport());
-		try {
-			
-			status.put("status", createStatus);
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		return dao.createCrv(crv.getReport());
 		
-		return status.toString();
 
 	}
 	
