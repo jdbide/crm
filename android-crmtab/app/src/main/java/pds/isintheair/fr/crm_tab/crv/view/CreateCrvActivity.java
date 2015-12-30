@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,9 +34,16 @@ import java.util.List;
 
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.crv.cache.CacheDao;
-import pds.isintheair.fr.crm_tab.crv.http.HttpRequestTask;
 import pds.isintheair.fr.crm_tab.crv.mock.RandomInformation;
 import pds.isintheair.fr.crm_tab.crv.model.Client;
+import pds.isintheair.fr.crm_tab.crv.model.Report;
+import pds.isintheair.fr.crm_tab.crv.model.Reporting;
+import pds.isintheair.fr.crm_tab.crv.retrofit.Service;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class CreateCrvActivity extends AppCompatActivity {
 
@@ -352,6 +363,58 @@ public class CreateCrvActivity extends AppCompatActivity {
 
     }
 
+    public void createReport(){
+        Gson gson = new GsonBuilder()
+                .disableHtmlEscaping()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.53:8080/api/crv/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        Service iService = retrofit.create(Service.class);
+
+
+        //create reporting object
+
+        int selectedID = radioGroup.getCheckedRadioButtonId();
+
+        RadioButton satisfaction = (RadioButton)findViewById(selectedID);
+
+
+        Reporting reporting = new Reporting();
+        Report report = new Report();
+        report.setId("1");
+        report.setCommercial(userId);
+        report.setDate(Long.toString(System.currentTimeMillis()));
+        report.setSatisfaction(satisfaction.getText().toString());
+        report.setComment(comment.getText().toString());
+        report.setClient(clientId);
+        report.setContact(conatcId);
+        report.setVisit(visitId);
+
+        reporting.setReport(report);
+
+        Call<Boolean> call = iService.createReport(reporting);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Response<Boolean> response, Retrofit retrofit) {
+                if(response.isSuccess()){
+                    Log.i("rest response", "Report created");
+                    Toast.makeText(CreateCrvActivity.this, "Compte rendu de visite a bien été crée :)", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(CreateCrvActivity.this, "Response: "+response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                    Log.e("rest response", t.toString());
+            }
+        });
+    }
+
     public String createJson(){
         JSONObject data = new JSONObject();
         JSONObject mock = new JSONObject();
@@ -359,6 +422,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         int selectedID = radioGroup.getCheckedRadioButtonId();
 
         RadioButton satisfaction = (RadioButton)findViewById(selectedID);
+
         try {
             data.put("id", userId);
             data.put("commercial", userId);
@@ -407,14 +471,15 @@ public class CreateCrvActivity extends AppCompatActivity {
         if(id == R.id.action_save){
 
             //call HttpRequestTask to send json to REST server
-            HttpRequestTask request = new HttpRequestTask();
+           // HttpRequestTask request = new HttpRequestTask();
 
             //tell that it comes from create report activity to send
             //json to correct url end point
 
-            request.setActivity("create");
-            request.setRequestJson(createJson());
-            request.execute();
+           // request.setActivity("create");
+            //request.setRequestJson(createJson());
+            //request.execute();
+            createReport();
             Toast.makeText(this, "calling httprequest", Toast.LENGTH_LONG).show();
             return true;
         }
