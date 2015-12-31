@@ -36,14 +36,22 @@ public class SalesDAOImplTest {
 
     @Test
     public void testGetAllSales() throws Exception {
-        List<Sales> salesList = salesDAO.getAllSales();
-        assertEquals(8, salesList.size());
+        List<Sales> sales = salesDAO.createQuery().asList();
+        assertEquals(sales.size(), salesDAO.getAllSales().size());
+        assertTrue(sales.size() == salesDAO.getAllSales().size());
     }
 
 
     @Test
     public void testGetCountAllSales() throws Exception {
-        assertEquals(8, salesDAO.getCountAllSales());
+        List<Sales> sales = salesDAO.createQuery().asList();
+        int count = sales.size();
+        log.info("The size: " + count);
+        assertEquals(count, salesDAO.getCountAllSales());
     }
 
+    @Test
+    public void testGetSalesByIDClient() throws Exception {
+
+    }
 }

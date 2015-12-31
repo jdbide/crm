@@ -35,4 +35,14 @@ public class UserClientRelationDAOImplTest {
     public void testGetUserByClientId() throws Exception {
 
     }
+
+    @Test
+    public void testCountRelationshipByClientID() throws Exception {
+
+    }
+
+    @Test
+    public void testCheckRelation() throws Exception {
+
+    }
 }
