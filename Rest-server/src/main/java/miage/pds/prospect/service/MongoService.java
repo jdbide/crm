@@ -1,7 +1,6 @@
 package miage.pds.prospect.service;
 
 import com.mongodb.MongoClient;
-import miage.pds.api.Config;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ public class MongoService {
 
     public MongoService() {
         try {
-            MongoClient mongoClient = new MongoClient(Config.URL, Config.PORT);
+            MongoClient mongoClient = new MongoClient(MorphiaConfig.URL, MorphiaConfig.PORT);
             logger.info("The new instance of mongo service running with Morphia");
             // Create new instance
             this.morphia    =   new Morphia();
