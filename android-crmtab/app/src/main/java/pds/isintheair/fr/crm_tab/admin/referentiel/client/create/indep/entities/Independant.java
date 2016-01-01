@@ -6,10 +6,16 @@ import android.os.Parcelable;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.builder.Condition;
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import pds.isintheair.fr.crm_tab.OrmTabDataBase;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Customer;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding$Table;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral$Table;
 
 /**
  * Created by tlacouque on 27/12/2015.
@@ -225,6 +231,15 @@ public class Independant extends BaseModel implements Customer, Parcelable {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public Specialty getSpecialty() {
+        return new Select().from(Specialty.class).where(Condition.column(Specialty$Table.ID).eq(specialtyId)).querySingle();
+    }
+
+    public Company getCompany() {
+        return new Select().from(Company.class)
+                .where(Condition.column(Company$Table.ID).eq(companyId)).querySingle();
     }
 
     public int getIdUser() {

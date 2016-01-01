@@ -18,6 +18,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Cus
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Independant;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.display.hc.fragment.DetailHCFragment;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.display.indep.fragment.DetailIndepFragment;
 
 /**
  * Created by tlacouque on 01/01/2016.
@@ -74,7 +75,14 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
     }
 
     private void startDetailIndepFragment(Independant independant) {
-
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(DetailIndepFragment.KEY_INDEP_ARGS, independant);
+        DetailIndepFragment detailIndepFragment = new DetailIndepFragment();
+        detailIndepFragment.setArguments(bundle);
+        ((AppCompatActivity)context).getSupportActionBar()
+                .setTitle(R.string.display_independant_fragment_title_action_bar);
+        ((AppCompatActivity)context).getFragmentManager().beginTransaction().addToBackStack("list")
+                .replace(R.id.create_customer_fragment_container, detailIndepFragment).commit();
     }
 
 

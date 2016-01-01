@@ -69,16 +69,21 @@
     <!-- Strings related to the creation of an  independant customer -->
     <string name="create_indep_fragment_title_action_bar">Créer un Indépendant</string>
     <string name="create_indep_fragment_title_textview">Créer un Indépendant</string>
-    <string name="create_indep_fragment_company_textview">Entreprise</string>
-    <string name="create_indep_fragment_specialty_textview">Spécialité</string>
-    <string name="create_indep_fragment_long_term_fidelity_textview">Fidélisation sur le long terme</string>
+    <string name="create_indep_fragment_independant_type_textview">Type d indépendant :</string>
+    <string name="create_indep_fragment_company_textview">Entreprise : </string>
+    <string name="create_indep_fragment_specialty_textview">Spécialité : </string>
+    <string name="create_indep_fragment_long_term_fidelity_textview">Fidélisation sur le long terme : </string>
 
     <!-- Strings related to the display of an healthcenter customer -->
-    <string name="display_hc_fragment_title_action_bar">Détail d un établissement de santé</string>
-    <string name="display_hc_fragment_title_textview">Détail d un établissement de santé</string>
-    <string name="display_hc_fragment_adress_textview">Adresse :</string>
+    <string name="display_hc_fragment_title_action_bar">Détail d\'un établissement de santé</string>
+    <string name="display_hc_fragment_title_textview">Détail d\'un établissement de santé</string>
+    <string name="display_hc_fragment_adress_textview">Adresse : </string>
     <string name="display_hc_fragment_ispublic_yes_textview">Oui</string>
     <string name="display_hc_fragment_ispublic_no_textview">Non</string>
+    <string name="display_hc_fragment_map_textview">Carte de </string>
 
+    <!-- Strings related to the display of an independant customer -->
+    <string name="display_independant_fragment_title_action_bar">Détail d\'un indépendant</string>
+    <string name="display_indep_fragment_title_textview">Détail d\'un indépendant</string>
 
 </resources>
