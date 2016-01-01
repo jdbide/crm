@@ -1,5 +1,8 @@
 package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
@@ -15,7 +18,7 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
  * Created by tlacouque on 12/12/2015.
  */
 @Table(databaseName = OrmTabDataBase.DBNAME)
-public class HealthCenter extends BaseModel implements Customer {
+public class HealthCenter extends BaseModel implements Customer, Parcelable {
 
     @Column
     @PrimaryKey
@@ -76,13 +79,43 @@ public class HealthCenter extends BaseModel implements Customer {
     @Column
     int idUser;
 
-
-
-
-
     public HealthCenter() {
     }
 
+
+    protected HealthCenter(Parcel in) {
+        siretNumber = in.readLong();
+        name = in.readString();
+        finessNumber = in.readLong();
+        streetNumber = in.readInt();
+        streetName = in.readString();
+        town = in.readString();
+        zipCode = in.readInt();
+        longitude = in.readDouble();
+        lattitude = in.readDouble();
+        bedNumber = in.readInt();
+        webSite = in.readString();
+        serviceBuildingImage = in.readInt();
+        difficultyHavingContact = in.readInt();
+        origin = in.readString();
+        isPublic = in.readByte() != 0;
+        etablishmentType = in.readString();
+        purchasingCentralId = in.readInt();
+        holdingId = in.readInt();
+        idUser = in.readInt();
+    }
+
+    public static final Creator<HealthCenter> CREATOR = new Creator<HealthCenter>() {
+        @Override
+        public HealthCenter createFromParcel(Parcel in) {
+            return new HealthCenter(in);
+        }
+
+        @Override
+        public HealthCenter[] newArray(int size) {
+            return new HealthCenter[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -249,5 +282,33 @@ public class HealthCenter extends BaseModel implements Customer {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(siretNumber);
+        dest.writeString(name);
+        dest.writeLong(finessNumber);
+        dest.writeInt(streetNumber);
+        dest.writeString(streetName);
+        dest.writeString(town);
+        dest.writeInt(zipCode);
+        dest.writeDouble(longitude);
+        dest.writeDouble(lattitude);
+        dest.writeInt(bedNumber);
+        dest.writeString(webSite);
+        dest.writeInt(serviceBuildingImage);
+        dest.writeInt(difficultyHavingContact);
+        dest.writeString(origin);
+        dest.writeInt(isPublic ? 1 : 0);
+        dest.writeString(etablishmentType);
+        dest.writeInt(purchasingCentralId);
+        dest.writeInt(holdingId);
+        dest.writeInt(idUser);
     }
 }

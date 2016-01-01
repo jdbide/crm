@@ -34,13 +34,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.SiretValidator;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding$Table;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.PurchasingCentral$Table;
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.enums.EtablishmentType;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.FormatValidator;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Company;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Company$Table;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Independant;
@@ -148,7 +142,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         validator.put(siretNumber, new QuickRule<EditText>() {
             @Override
             public boolean isValid(EditText view) {
-                return SiretValidator.isSiretSyntaxValide(view.getText().toString());
+                return FormatValidator.isSiretSyntaxValide(view.getText().toString());
             }
 
             @Override

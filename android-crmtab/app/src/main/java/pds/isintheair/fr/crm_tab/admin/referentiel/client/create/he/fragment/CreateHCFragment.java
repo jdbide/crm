@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
 
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.SiretValidator;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.FormatValidator;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding$Table;
@@ -145,7 +144,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         validator.put(siretNumber, new QuickRule<EditText>() {
             @Override
             public boolean isValid(EditText view) {
-                return SiretValidator.isSiretSyntaxValide(view.getText().toString());
+                return FormatValidator.isSiretSyntaxValide(view.getText().toString());
             }
 
             @Override

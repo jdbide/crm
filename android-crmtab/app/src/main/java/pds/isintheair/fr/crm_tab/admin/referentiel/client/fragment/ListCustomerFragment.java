@@ -6,9 +6,12 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
@@ -21,6 +24,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Hea
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Independant;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
+import pds.isintheair.fr.crm_tab.admin.referentiel.client.display.hc.fragment.DetailHCFragment;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.message.ResponseRestCustomer;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.CheckInternetConnexion;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.rest.InitValue;
@@ -174,7 +178,7 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
                 for (HealthCenter healthCenter : response.body().getHealthCenters()) {
                     customers.add(healthCenter);
                 }
-                for(Independant independant : response.body().getIndependants()) {
+                for (Independant independant : response.body().getIndependants()) {
                     customers.add(independant);
                 }
                 initAdapter(customers);
@@ -193,5 +197,28 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
                 new ListCustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
         ListCustomerFragment.this.setListAdapter(customerAdapter);
     }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Customer customer = customers.get(position);
+        if(customer instanceof HealthCenter) startDetailHCFragment((HealthCenter) customer);
+        else startDetailIndepFragment((Independant) customer);
+    }
+
+    private void startDetailHCFragment(HealthCenter healthCenter) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(DetailHCFragment.KEY_HC_ARGS,healthCenter);
+        DetailHCFragment detailHCFragment = new DetailHCFragment();
+        detailHCFragment.setArguments(bundle);
+        ((AppCompatActivity)getActivity()).getSupportActionBar()
+                .setTitle(R.string.display_hc_fragment_title_action_bar);
+        getFragmentManager().beginTransaction().addToBackStack("list")
+                .replace(R.id.create_customer_fragment_container, detailHCFragment).commit();
+    }
+
+    private void startDetailIndepFragment(Independant independant) {
+
+    }
+
 
 }

@@ -1,5 +1,8 @@
 package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -12,7 +15,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Cus
  * Created by tlacouque on 27/12/2015.
  */
 @Table(databaseName = OrmTabDataBase.DBNAME)
-public class Independant extends BaseModel implements Customer {
+public class Independant extends BaseModel implements Customer, Parcelable {
 
     @Column
     @PrimaryKey
@@ -64,7 +67,39 @@ public class Independant extends BaseModel implements Customer {
     int idUser;
 
 
+    public Independant() {
+    }
 
+    protected Independant(Parcel in) {
+        siretNumber = in.readLong();
+        name = in.readString();
+        finessNumber = in.readLong();
+        streetNumber = in.readInt();
+        streetName = in.readString();
+        town = in.readString();
+        zipCode = in.readInt();
+        longitude = in.readDouble();
+        lattitude = in.readDouble();
+        webSite = in.readString();
+        longTermFidelity = in.readInt();
+        origin = in.readString();
+        independantType = in.readString();
+        specialtyId = in.readInt();
+        companyId = in.readInt();
+        idUser = in.readInt();
+    }
+
+    public static final Creator<Independant> CREATOR = new Creator<Independant>() {
+        @Override
+        public Independant createFromParcel(Parcel in) {
+            return new Independant(in);
+        }
+
+        @Override
+        public Independant[] newArray(int size) {
+            return new Independant[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -198,5 +233,30 @@ public class Independant extends BaseModel implements Customer {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(siretNumber);
+        dest.writeString(name);
+        dest.writeLong(finessNumber);
+        dest.writeInt(streetNumber);
+        dest.writeString(streetName);
+        dest.writeString(town);
+        dest.writeInt(zipCode);
+        dest.writeDouble(longitude);
+        dest.writeDouble(lattitude);
+        dest.writeString(webSite);
+        dest.writeInt(longTermFidelity);
+        dest.writeString(origin);
+        dest.writeString(independantType);
+        dest.writeInt(specialtyId);
+        dest.writeInt(companyId);
+        dest.writeInt(idUser);
     }
 }

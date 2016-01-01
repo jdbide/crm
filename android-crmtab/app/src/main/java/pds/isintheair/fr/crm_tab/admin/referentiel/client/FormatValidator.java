@@ -3,7 +3,7 @@ package pds.isintheair.fr.crm_tab.admin.referentiel.client;
 /**
  * Created by tlacouque on 29/12/2015.
  */
-public class SiretValidator {
+public class FormatValidator {
 
     public static boolean isSiretSyntaxValide(String siret){
         if(siret.length() != 14) {
@@ -27,5 +27,12 @@ public class SiretValidator {
         /** If sum is a multiple of 10, siret number is valid */
         if ((total % 10) == 0) return true;
         else return false;
+    }
+
+
+    public static String formatUrl(String url) {
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+        return url;
     }
 }
