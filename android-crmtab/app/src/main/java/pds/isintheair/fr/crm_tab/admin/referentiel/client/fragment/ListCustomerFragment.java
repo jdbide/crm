@@ -1,19 +1,28 @@
 package pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.adapter.ListCustomerAdapter;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Customer;
@@ -36,7 +45,10 @@ import retrofit.Retrofit;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ListCustomerFragment extends ListFragment implements CreateCustomerAlertDialog.AlertPositiveListener {
+public class ListCustomerFragment extends Fragment implements CreateCustomerAlertDialog.AlertPositiveListener {
+
+    @Bind(R.id.list_customer_recycler_view)
+    RecyclerView recyclerView;
 
     private OnListFragmentInteractionListener mListener;
     int position = 0;
@@ -61,9 +73,21 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
-        initCustomers();
+
         //healthCenters = InitValue.initHealthCenter();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_customer_list, container, false);
+        ButterKnife.bind(this, v);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        initCustomers();
+        return v;
+
     }
 
     @Override
@@ -188,10 +212,12 @@ public class ListCustomerFragment extends ListFragment implements CreateCustomer
     }
 
     private void initAdapter(List<Customer> customers) {
+
         ListCustomerFragment.this.customers = customers;
-        ListCustomerAdapter customerAdapter =
+        recyclerView.setAdapter(new ListCustomerAdapter(customers));
+       /* ListCustomerAdapter customerAdapter =
                 new ListCustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
-        ListCustomerFragment.this.setListAdapter(customerAdapter);
+        ListCustomerFragment.this.setListAdapter(customerAdapter);*/
     }
 
 }
