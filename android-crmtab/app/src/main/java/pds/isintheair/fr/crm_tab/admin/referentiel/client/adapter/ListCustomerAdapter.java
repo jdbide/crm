@@ -19,9 +19,11 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Cus
 public class ListCustomerAdapter extends RecyclerView.Adapter<CustomerListViewHolder> {
 
     List<Customer> customers;
+    Context context;
 
-    public ListCustomerAdapter(List<Customer> customers) {
+    public ListCustomerAdapter(List<Customer> customers, Context context) {
         this.customers = customers;
+        this.context = context;
     }
 
     /**
@@ -48,7 +50,7 @@ public class ListCustomerAdapter extends RecyclerView.Adapter<CustomerListViewHo
     @Override
     public CustomerListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_customer_adapter,parent,false);
-        return new CustomerListViewHolder(view);
+        return new CustomerListViewHolder(view,this);
 
     }
 
@@ -62,5 +64,14 @@ public class ListCustomerAdapter extends RecyclerView.Adapter<CustomerListViewHo
     @Override
     public int getItemCount() {
         return customers.size();
+    }
+
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }
