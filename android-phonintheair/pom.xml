@@ -4,6 +4,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <repositories>
+        <repository>
+            <id>oss-sonatype</id>
+            <name>oss-sonatype</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <parent>
         <groupId>fr.pds.isintheair</groupId>
         <artifactId>crm</artifactId>
@@ -20,25 +40,58 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.android</groupId>
+            <optional>true</optional>
+            <groupId>android</groupId>
             <artifactId>android</artifactId>
-            <version>4.1.1.4</version>
+            <version>6.0_r2</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.robolectric</groupId>
+            <artifactId>robolectric</artifactId>
+            <version>3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>de.tavendo</groupId>
+            <artifactId>autobahn-android</artifactId>
+            <version>0.5.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>Phonintheair</finalName>
+        <sourceDirectory>${project.basedir}/app/src/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/app/src/test</testSourceDirectory>
         <plugins>
             <plugin>
-                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <groupId>com.simpligility.maven.plugins</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <version>3.9.0-rc.2</version>
+                <version>4.3.0</version>
                 <configuration>
+                    <androidManifestFile>${project.basedir}/app/src/main/AndroidManifest.xml</androidManifestFile>
                     <sdk>
                         <platform>23</platform>
                     </sdk>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <resourceDirectory>${project.basedir}/app/src/main/res</resourceDirectory>
+                    <testPackages>
+                        <package>fr.pds.isintheair</package>
+                    </testPackages>
+                    <classesJarIncludes>true</classesJarIncludes>
+                    <includeJdkLibs>true</includeJdkLibs>
+                    <nativeLibrariesDirectory>${project.basedir}/app/libs</nativeLibrariesDirectory>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
@@ -47,9 +100,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <compilerVersion>1.8</compilerVersion>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <compilerVersion>1.7</compilerVersion>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
         </plugins>

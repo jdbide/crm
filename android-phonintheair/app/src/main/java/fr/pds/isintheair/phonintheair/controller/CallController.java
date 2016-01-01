@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
+import fr.pds.isintheair.phonintheair.PhointheairApp;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import fr.pds.isintheair.phonintheair.PhointheairApp;
 
 public class CallController {
     public static void call(String phoneNumber) {
