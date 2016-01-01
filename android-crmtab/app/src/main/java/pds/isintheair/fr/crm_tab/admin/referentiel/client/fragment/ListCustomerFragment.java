@@ -88,7 +88,6 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         //healthCenters = InitValue.initHealthCenter();
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_customer_list, container, false);
