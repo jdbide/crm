@@ -64,7 +64,7 @@ public class DetailIndepFragment extends Fragment {
     TextView specialty;
 
     @Bind(R.id.detail_indep_fragment_long_term_fidelisation)
-    TextView longTermFidelisation;
+    TextView longTermFidelity;
 
     @Bind(R.id.detail_indep_fragment_map)
     MapView map;
@@ -76,7 +76,7 @@ public class DetailIndepFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DetailIndepFragment newInstance(String param1, String param2) {
+    public static DetailIndepFragment newInstance() {
         DetailIndepFragment fragment = new DetailIndepFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -141,7 +141,7 @@ public class DetailIndepFragment extends Fragment {
         independantType.setText(independant.getIndependantType());
         company.setText(independant.getCompany().getName());
         specialty.setText(independant.getSpecialty().getName());
-        longTermFidelisation.setText(String.valueOf(independant.getLongTermFidelity()));
+        longTermFidelity.setText(String.valueOf(independant.getLongTermFidelity()));
     }
 
     private void initMap() {
