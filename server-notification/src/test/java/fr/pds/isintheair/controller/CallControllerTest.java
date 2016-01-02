@@ -14,10 +14,6 @@ import static org.mockito.Mockito.when;
 public class CallControllerTest {
     @Test
     public void testCall() throws Exception {
-        RemoteEndpoint.Basic basicRemote = Mockito.mock(RemoteEndpoint.Basic.class);
-        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(RemoteEndpoint.Basic.class);
-        Mockito.doThrow(new Exception()).when(basicRemote).sendText();
-
     }
 
     @Test
