@@ -21,7 +21,6 @@ public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO{
 
     private static final String ID_CLIENT       = "idClient";
     private static final String VALUE           = "value";
-    private int year = Calendar.getInstance().get(Calendar.YEAR);
 
     /**
      * Constructor DAO

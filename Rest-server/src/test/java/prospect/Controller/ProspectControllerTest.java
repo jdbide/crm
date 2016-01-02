@@ -1,6 +1,7 @@
+package prospect.controller;
+
 import com.mongodb.MongoClient;
 import miage.pds.prospect.controller.*;
-import miage.pds.prospect.dao.ProspectDAO;
 import miage.pds.prospect.model.Prospect;
 import miage.pds.prospect.model.Sales;
 import miage.pds.prospect.model.User;

@@ -1,3 +1,5 @@
+package prospect.dao;
+
 import com.mongodb.MongoClient;
 import miage.pds.prospect.controller.SalesDAOImpl;
 import miage.pds.prospect.model.Sales;
@@ -6,7 +8,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

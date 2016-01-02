@@ -1,3 +1,5 @@
+package prospect.dao;
+
 import com.mongodb.MongoClient;
 import miage.pds.prospect.controller.ProspectDAOImpl;
 import miage.pds.prospect.model.Prospect;
@@ -27,6 +29,7 @@ public class ProspectDAOImplTest {
     private ProspectDAOImpl     prospectDAO;
     private final String        dbname      = "crm";
     private Datastore           datastore;
+
 
     @Before
     public void setUp() throws Exception {

@@ -1,3 +1,5 @@
+package prospect.dao;
+
 import com.mongodb.MongoClient;
 import miage.pds.prospect.controller.UserClientRelationDAOImpl;
 import miage.pds.prospect.model.UserClientRelation;
