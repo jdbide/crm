@@ -13,7 +13,11 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * Created by Truong on 12/26/2015.
+ * The unit test for the class sales dao
+ *
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 public class SalesDAOImplTest {
 
@@ -45,13 +49,16 @@ public class SalesDAOImplTest {
     @Test
     public void testGetCountAllSales() throws Exception {
         List<Sales> sales = salesDAO.createQuery().asList();
-        int count = sales.size();
+        int         count = sales.size();
         log.info("The size: " + count);
         assertEquals(count, salesDAO.getCountAllSales());
     }
 
     @Test
     public void testGetSalesByIDClient() throws Exception {
-
+        int     idClient = 1;
+        List<Sales> sales= salesDAO.createQuery().field("idClient").equal(idClient).asList();
+        assertNotNull(sales);
+        assertEquals(sales.size(), salesDAO.getSalesByIDClient(idClient).size());
     }
 }

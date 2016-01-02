@@ -99,8 +99,6 @@ public class ProspectController {
                 boolean         isRelationship  = userClientRelationDAO.checkRelation(user.getId(), prospect.getId());
                 if (isRelationship == false) {
                     prospectList.add(prospect);
-                } else {
-                    logger.info("This has a relationship between " + user.getLogin() + " and " + prospect.getName());
                 }
             }
             userListHashMap.put(user, prospectList);

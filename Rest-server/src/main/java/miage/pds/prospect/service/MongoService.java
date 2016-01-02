@@ -9,8 +9,11 @@ import org.slf4j.LoggerFactory;
 import java.net.UnknownHostException;
 
 /**
- * Created by Truong on 12/22/2015.
- * @version 1.0
+ * The class to create the service to communicate with mongodb
+ *
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 public class MongoService {
 

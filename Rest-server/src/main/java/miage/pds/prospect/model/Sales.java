@@ -8,10 +8,11 @@ import org.mongodb.morphia.annotations.Indexed;
 import java.util.Date;
 
 /**
+ * The sales model class
+ *
  * Created by Truong on 12/20/2015.
- * @version 1.1
- * @since 20/12/2015
- * @see Sales model
+ * @version 1.1.19
+ * @serial 111912202015
  */
 @Entity("sales")
 public class Sales{

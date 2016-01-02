@@ -1,9 +1,13 @@
 package miage.pds.prospect.service;
 
 /**
- * Created by Truong on 12/31/2015.
+ * The interface to declare the host and the port of crm database
+ *
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 public interface MorphiaConfig {
-    static final String URL = "localhost";
-    static final int PORT = 27017;
+    static final String URL     = "localhost";
+    static final int    PORT    = 27017;
 }

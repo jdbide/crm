@@ -6,11 +6,11 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
- * Created by Truong on 12/20/2015.
+ * The prospect model class
  *
- * @version 1.1
- * @see Prospect model
- * @since 20/12/2015
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 @Entity("client")
 public class Prospect {

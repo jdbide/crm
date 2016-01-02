@@ -5,7 +5,11 @@ import miage.pds.prospect.model.UserClientRelation;
 import java.util.List;
 
 /**
- * Created by Truong on 12/22/2015.
+ * This is a class dao which declare all method communicate with the user_client_relationship collection in the database crm.
+ *
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 public interface UserClientRelationDAO {
 

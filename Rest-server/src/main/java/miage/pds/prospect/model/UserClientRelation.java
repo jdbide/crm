@@ -6,7 +6,11 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
- * Created by Truong on 12/22/2015.
+ * The user client relationship model class
+ *
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 @Entity("user_client_relationship")
 public class UserClientRelation {

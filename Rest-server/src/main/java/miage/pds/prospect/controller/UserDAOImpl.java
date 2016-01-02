@@ -10,18 +10,30 @@ import org.mongodb.morphia.query.Query;
 import java.util.List;
 
 /**
- * Created by Truong on 12/22/2015.
+ * This is a class dao which declare all method communicate with the user collection in the database crm.
+ *
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 public class UserDAOImpl extends BasicDAO<User, ObjectId> implements UserDAO {
 
     private static final String LOGIN   = "login";
-    private static final String ID      = "id";
+    private static final String ID      = "_id";
 
+    /**
+     * Constructor DAO
+     * @param entityClass
+     * @param ds
+     */
     public UserDAOImpl(Class<User> entityClass, Datastore ds) {
         super(entityClass, ds);
     }
 
-
+    /**
+     * Method to call all users in the table
+     * @return
+     */
     @Override
     public List<User> getAllUsers() {
         Query<User> query = createQuery().order(ID);

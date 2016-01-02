@@ -14,7 +14,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by Truong on 12/26/2015.
+ * The unit test for the class prospect dao
+ *
+ * Created by Truong on 12/20/2015.
+ * @version 1.1.19
+ * @serial 111912202015
  */
 public class ProspectDAOImplTest {
     private final static Logger log         = LoggerFactory.getLogger(ProspectDAOImplTest.class);
@@ -42,9 +46,10 @@ public class ProspectDAOImplTest {
 
     @Test
     public void testGetProspectByID() throws Exception {
-        Prospect prospect   = prospectDAO.getProspectByID(1);
+        Prospect prospect   = prospectDAO.createQuery().field("id").equal(1).get();
+        Prospect prospect1  = prospectDAO.getProspectByID(1);
         assertNotNull(prospect);
-        assertEquals(1, prospect.getId());
-        assertEquals(522, prospect.getPlace());
+        assertEquals(prospect.getId(), prospect1.getId());
+        assertEquals(prospect.getPlace(), prospect1.getPlace());
     }
 }
