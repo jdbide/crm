@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = "src/main/AndroidManifest.xml", sdk = 21, packageName = "fr.pds.isintheair")
+@Config(manifest = Config.DEFAULT, sdk = 21, packageName = "fr.pds.isintheair")
 public class BroadcastReceiversTest {
     @Test
     public void testBroadcastReceiversInManifest() {
