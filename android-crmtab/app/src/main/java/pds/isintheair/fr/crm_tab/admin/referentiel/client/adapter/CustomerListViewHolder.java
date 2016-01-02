@@ -22,6 +22,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.display.indep.fragment
 
 /**
  * Created by tlacouque on 01/01/2016.
+ * Represent a line in ListCustomerAdapter
  */
 public class CustomerListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -35,7 +36,11 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
     ImageView image;
 
 
-
+    /**
+     * Constructor, take listCustomerAdapter to call it when the is a click on the list
+     * @param itemView
+     * @param listCustomerAdapter
+     */
     public CustomerListViewHolder(View itemView,ListCustomerAdapter listCustomerAdapter) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -45,7 +50,10 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
         itemView.setOnClickListener(this);
     }
 
-
+    /**
+     * Called when a new viewHolder is created. Is used to set value in attributes
+     * @param customer
+     */
     public void bind(Customer customer){
         if(customer instanceof HealthCenter) image.setImageResource(R.drawable.list_customer_hc);
         else image.setImageResource(R.drawable.list_customer_indep);
@@ -53,7 +61,10 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
         name.setText(customer.getName());
     }
 
-
+    /**
+     * Called when the user click on view holder.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         Customer customer = listCustomerAdapter.getCustomers().get(this.getLayoutPosition());
@@ -63,6 +74,11 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
 
     }
 
+    /**
+     * Called when a click was made on an health center
+     * Begin detailHCFragment
+     * @param healthCenter
+     */
     void startDetailHCFragment(HealthCenter healthCenter) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(DetailHCFragment.KEY_HC_ARGS, healthCenter);
@@ -74,6 +90,11 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
                 .replace(R.id.create_customer_fragment_container, detailHCFragment).commit();
     }
 
+    /**
+     * Called when a click was made on an independant
+     * Begin DetailIndepFragment
+     * @param independant
+     */
     private void startDetailIndepFragment(Independant independant) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(DetailIndepFragment.KEY_INDEP_ARGS, independant);

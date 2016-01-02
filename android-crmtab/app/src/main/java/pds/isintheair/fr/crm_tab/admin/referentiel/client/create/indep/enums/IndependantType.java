@@ -2,6 +2,7 @@ package pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.enums;
 
 /**
  * Created by tlacouque on 27/12/2015.
+ * Enum used to stock independant type
  */
 public enum IndependantType {
 
@@ -19,6 +20,10 @@ public enum IndependantType {
         stringValue = toString;
     }
 
+    /**
+     * Method implemented to call Enum.attribute.toString(). Return string of this attribute.
+     * @return String
+     */
     @Override
     public String toString() {
         return stringValue;

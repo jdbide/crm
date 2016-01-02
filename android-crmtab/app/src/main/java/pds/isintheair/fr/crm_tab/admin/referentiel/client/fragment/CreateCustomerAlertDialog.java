@@ -10,9 +10,12 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.enums.Custom
 import pds.isintheair.fr.crm_tab.R;
 
 /**
- * Created by user on 12/12/2015.
+ * Created by tlacouque on 12/12/2015.
+ * DialogFragment called when a user want to create a new customer. It propose 2 choices,
+ * HealthEtablishment and Independant.
  */
 public class CreateCustomerAlertDialog extends DialogFragment {
+
 
     static String[] customerTypeList = new String[] {
             CustomerType.HEALTH_ETABLISHMENT.toString(),

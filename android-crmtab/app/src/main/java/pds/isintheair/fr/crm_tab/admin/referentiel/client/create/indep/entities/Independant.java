@@ -250,6 +250,10 @@ public class Independant extends BaseModel implements Customer, Parcelable {
         this.idUser = idUser;
     }
 
+    /**
+     * Return the number of serializable attributes to needed to parse an independant object
+     * @return int
+     */
     @Override
     public int describeContents() {
         return 0;

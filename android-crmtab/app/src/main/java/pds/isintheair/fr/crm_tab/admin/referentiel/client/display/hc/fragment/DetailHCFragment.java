@@ -24,16 +24,15 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.FormatValidator;
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.HealthCenter;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailHCFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DetailHCFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by tlacouque on 01/01/2016.
+ * Controller which is used to display an health center. He used to display the view, and to open
+ * a web navigator if the user click on the website textview.
  */
 public class DetailHCFragment extends Fragment {
 
+    //Used to have the same key to pass healthcenter from customer list view holder to this fragment
     public static final String KEY_HC_ARGS = "HC";
+
     private HealthCenter healthCenter;
 
     @Bind(R.id.detail_hc_fragment_name)
@@ -85,6 +84,10 @@ public class DetailHCFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Can be called when a new DetailHCFragment is needed
+     * @return DetailHCFragment
+     */
     public static DetailHCFragment newInstance() {
         DetailHCFragment fragment = new DetailHCFragment();
         Bundle args = new Bundle();
@@ -137,6 +140,9 @@ public class DetailHCFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    /**
+     * Initialise the view before displaying it with health center pass by the list
+     */
     private void initView() {
         if(healthCenter.isPublic()) isPublic.setText(R.string.display_hc_fragment_ispublic_yes_textview);
         else isPublic.setText(R.string.display_hc_fragment_ispublic_no_textview);
@@ -154,6 +160,9 @@ public class DetailHCFragment extends Fragment {
         serviceBuilding.setText(String.valueOf(healthCenter.getServiceBuildingImage()));
     }
 
+    /**
+     * Initialise the map in this view
+     */
     private void initMap() {
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
@@ -166,6 +175,9 @@ public class DetailHCFragment extends Fragment {
         map.invalidate();
     }
 
+    /**
+     * Open a navigator and with the url pass by the website textview
+     */
     @OnClick(R.id.detail_hc_fragment_web_site)
     public void openWebSite() {
         String url = FormatValidator.formatUrl(webSite.getText().toString());

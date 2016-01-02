@@ -82,7 +82,6 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
     public HealthCenter() {
     }
 
-
     protected HealthCenter(Parcel in) {
         siretNumber = in.readLong();
         name = in.readString();
@@ -284,6 +283,10 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
         this.idUser = idUser;
     }
 
+    /**
+     * Return the number of serializable attributes to needed to parse an health center object
+     * @return int
+     */
     @Override
     public int describeContents() {
         return 0;

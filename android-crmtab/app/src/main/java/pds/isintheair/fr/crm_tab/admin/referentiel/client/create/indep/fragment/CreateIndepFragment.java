@@ -51,7 +51,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * Created by user on 27/12/2015.
+ * Created by tlacouque on 27/12/2015.
+ * Controller which is used to create an independant. He used to display the view, to control values,
+ * and to call rest interface.
  */
 public class CreateIndepFragment extends Fragment implements Validator.ValidationListener {
 
@@ -115,6 +117,10 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         // Required empty public constructor
     }
 
+    /**
+     * Can be called when a new CreteHCFragment is needed
+     * @return CreateIndepFragment
+     */
 
     public static CreateIndepFragment newInstance() {
         CreateIndepFragment fragment = new CreateIndepFragment();
@@ -140,11 +146,21 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
 
         validator.put(siretNumber, new QuickRule<EditText>() {
+            /**
+             * Checks if the rule is valid.T he rule verify if the Siret syntax is valid.
+             * @param view
+             * @return boolean
+             */
             @Override
             public boolean isValid(EditText view) {
                 return FormatValidator.isSiretSyntaxValide(view.getText().toString());
             }
 
+            /**
+             * Called automaticly if the rule is not valid
+             * @param context
+             * @return
+             */
             @Override
             public String getMessage(Context context) {
                 return getString(R.string.create_he_fragment_error_siret);
@@ -153,6 +169,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
         });
 
+        //Used to short the company spinner by zipcode.
         zipCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -164,6 +181,11 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                 // Do nothing
             }
 
+            /**
+             * This method is called to notify you that the text has been changed.
+             * Restrict possible values in the company spinner.
+             * @param s
+             */
             @Override
             public void afterTextChanged(Editable s) {
                 List<Company> companies = new Select().from(Company.class)
@@ -213,6 +235,11 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         void onFragmentInteraction(Uri uri);
     }
 
+
+    /**
+     * Method called when a user click "valider" button on the view
+     * @param view
+     */
     @OnClick(R.id.create_indep_fragment_validate_button)
     public void insertIndep(final View view) {
         this.view = view;
@@ -221,11 +248,20 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
     }
 
+    /**
+     * Take a radiogroup which radiobutton text are numbers and return the number which is selected.
+     * @param radioGroup
+     * @return int
+     */
     private int getIntFromRadiogroup(RadioGroup radioGroup) {
         return Integer.decode(((RadioButton) getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))
                 .getText().toString());
     }
 
+    /**
+     * Method called to initialise a new Independant with values from the view
+     * @return HealthCenter
+     */
     private Independant initIndep() {
 
         Independant independant = new Independant();
@@ -251,6 +287,9 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         return independant;
     }
 
+    /**
+     * Initialise spinner before displaying the view
+     */
     private void initSpinner() {
         companies = new Select(Company$Table.NAME).from(Company.class).queryList();
 
@@ -265,6 +304,11 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
     }
 
+
+    /**
+     * Is called when all Rules pass from the validator.
+     * Called after  validator.validate(true); from insertIndep method
+     * */
     @Override
     public void onValidationSucceeded() {
         final Independant independant = initIndep();
@@ -273,6 +317,11 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                 .createIndependant(messageRestCustomer);
         call.enqueue(new Callback<ResponseRestCustomer>() {
+            /**
+             * Called when a good HTTP response is return
+             * @param response
+             * @param retrofit
+             */
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
                 if(response.body().getIsInserted()) {
@@ -285,12 +334,21 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                 getFragmentManager().beginTransaction()
                         .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
             }
+            /**
+             * Called when a bad HTTP response is return
+             * @param t
+             */
             @Override
             public void onFailure(Throwable t) {
             }
         });
     }
 
+    /**
+     * Called when one or several Rules fail from the validator.
+     * Called after  validator.validate(true); from insertHE method
+     * @param errors
+     */
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         String errorString = "";
@@ -312,6 +370,11 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
     }
 
+    /**
+     * Called when the Fragment is no longer started.
+     * This is generally tied to Activity.onStop of the containing Activity's lifecycle.
+     * If the fragment is stop after the creation of a health center, it display a snackbar
+     */
     @Override
     public void onStop() {
         super.onStop();

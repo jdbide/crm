@@ -15,38 +15,31 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Cus
 
 /**
  * Created by tlacouque on 29/12/2015.
+ * Adapter to display a list of customer
+ *
  */
 public class ListCustomerAdapter extends RecyclerView.Adapter<CustomerListViewHolder> {
 
     List<Customer> customers;
     Context context;
 
+    /**
+     * Constructor, take a context and a customer list to pass them to customerListViewHolders
+     * @param customers
+     * @param context
+     */
     public ListCustomerAdapter(List<Customer> customers, Context context) {
         this.customers = customers;
         this.context = context;
     }
 
+
     /**
-    public ListCustomerAdapter(Context context, int resource, List<Customer> customers) {
-        super(context, 0, customers);
-    }
-
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.fragment_customer_adapter, parent, false);
-        }
-
-        Customer customer = getItem(position);
-        TextView textView = (TextView) view.findViewById(R.id.fragment_customer_adapter_name_textview);
-        textView.setText(customer.getName());
-        return view;
-    }*/
-
-
-
+     * Method called automaticly with a creation of a new view holder
+     * @param parent
+     * @param viewType
+     * @return CustomerListViewHolder
+     */
     @Override
     public CustomerListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_customer_adapter,parent,false);
@@ -54,11 +47,15 @@ public class ListCustomerAdapter extends RecyclerView.Adapter<CustomerListViewHo
 
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(CustomerListViewHolder holder, int position) {
         Customer myObject = customers.get(position);
         holder.bind(myObject);
-
     }
 
     @Override

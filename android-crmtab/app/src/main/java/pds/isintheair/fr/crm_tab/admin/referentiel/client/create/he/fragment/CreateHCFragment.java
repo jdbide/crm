@@ -53,6 +53,12 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+/**
+ *
+ * Controller which is used to create an health center. He used to display the view, to control values,
+ * and to call rest interface.
+ */
+
 public class CreateHCFragment extends Fragment implements ValidationListener {
 
 
@@ -118,6 +124,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     }
 
 
+    /**
+     * Can be called when a new CreteHCFragment is needed
+     * @return CreateHCFragment
+     */
+
     public static CreateHCFragment newInstance() {
         CreateHCFragment fragment = new CreateHCFragment();
         Bundle args = new Bundle();
@@ -142,11 +153,22 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
 
 
         validator.put(siretNumber, new QuickRule<EditText>() {
+
+            /**
+             * Checks if the rule is valid. The rule verify if the Siret syntax is valid.
+             * @param view
+             * @return boolean
+             */
             @Override
             public boolean isValid(EditText view) {
                 return FormatValidator.isSiretSyntaxValide(view.getText().toString());
             }
 
+            /**
+             * Called automaticly if the rule is not valid
+             * @param context
+             * @return
+             */
             @Override
             public String getMessage(Context context) {
                 return getString(R.string.create_he_fragment_error_siret);
@@ -186,10 +208,15 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 
+
+    /**
+     * Method called when a user click "valider" button on the view
+     * @param view
+     */
     @OnClick(R.id.create_he_fragment_validate_button)
     public void insertHE(final View view) {
         this.view = view;
@@ -198,11 +225,20 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
 
     }
 
+    /**
+     * Take a radiogroup which radiobutton text are numbers and return the number which is selected.
+     * @param radioGroup
+     * @return int
+     */
    private int getIntFromRadiogroup(RadioGroup radioGroup) {
       return Integer.decode(((RadioButton) getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))
               .getText().toString());
     }
 
+    /**
+     * Method called to initialise a new Health Center with values from the view
+     * @return HealthCenter
+     */
     private HealthCenter initHC() {
         HealthCenter healthCenter = new HealthCenter();
         healthCenter.setName(name.getText().toString());
@@ -233,7 +269,9 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     }
 
 
-
+    /**
+     * Initialise spinner before displaying the view
+     */
     private void initSpinner() {
          holdings = new Select(Holding$Table.NAME).from(Holding.class).queryList();
         holding.setAdapter(new ArrayAdapter<Holding>
@@ -246,6 +284,10 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, EtablishmentType.values()));
     }
 
+    /**
+     * Is called when all Rules pass from the validator.
+     * Called after  validator.validate(true); from insertHE method
+     * */
     @Override
     public void onValidationSucceeded() {
         final HealthCenter healthCenter = initHC();
@@ -255,6 +297,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                 .createHealthCenter(messageRestCustomer);
         healthCenter.save();
         call.enqueue(new Callback<ResponseRestCustomer>() {
+            /**
+             * Called when a good HTTP response is return
+             * @param response
+             * @param retrofit
+             */
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
                 if(response.body().getIsInserted()) {
@@ -267,19 +314,32 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                 getFragmentManager().beginTransaction()
                         .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
             }
+
+            /**
+             * Called when a bad HTTP response is return
+             * @param t
+             */
             @Override
             public void onFailure(Throwable t) {
             }
         });
     }
 
+    /**
+     * Called when one or several Rules fail from the validator.
+     * Called after  validator.validate(true); from insertHE method
+     * @param errors
+     */
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         String errorString = "";
+
+        // Concat error strings
         for(ValidationError error : errors) {
         errorString = errorString + error.getCollatedErrorMessage
                 (getActivity().getApplicationContext()) +".\n";
         }
+
         AlertDialog alertDialog =
                 new AlertDialog.Builder(this.getActivity()).create();
         alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
@@ -294,6 +354,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
 
     }
 
+    /**
+     * Called when the Fragment is no longer started.
+     * This is generally tied to Activity.onStop of the containing Activity's lifecycle.
+     * If the fragment is stop after the creation of a health center, it display a snackbar
+     */
     @Override
     public void onStop() {
         super.onStop();

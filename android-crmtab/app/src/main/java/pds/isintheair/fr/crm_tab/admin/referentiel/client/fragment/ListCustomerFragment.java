@@ -50,9 +50,6 @@ import retrofit.Retrofit;
 
 /**
  * A fragment representing a list of Customers.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
  */
 public class ListCustomerFragment extends Fragment implements CreateCustomerAlertDialog.AlertPositiveListener {
 
@@ -123,15 +120,21 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         mListener = null;
     }
 
+    /**
+     * Called after the user click on the button validate in CreateCustomerAlertDialog
+     * @param position represent the position of the radiobutton in the list
+     */
     @Override
     public void onPositiveClick(int position) {
         switch (position) {
+            // Health center is selected
             case 0 :
                 CreateHCFragment createHCFragment = new CreateHCFragment();
                 getActivity().getFragmentManager().beginTransaction()
                     .replace(R.id.create_customer_fragment_container, createHCFragment)
                         .commit();
                     break;
+            //Independant is selected
             case 1 :
 
                 CreateIndepFragment createIndepFragment = new CreateIndepFragment();
@@ -182,12 +185,16 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         InitValue.doInit();
     }
 
-
+    /**
+     * Initialise the list of customer. if the user have an internet connexion
+     * a rest call is send to have customer added by other commercials.
+     */
     public void initCustomers() {
 
         final List<Customer> customers  = (List<Customer>)(List<?>) new Select().from(HealthCenter.class).queryList();
         final List<Customer> indeps  = (List<Customer>)(List<?>) new Select().from(Independant.class).queryList();
         customers.addAll(indeps);
+        //Check if there is a network available
         if(CheckInternetConnexion.isNetworkAvailable(this.getActivity().getApplicationContext())) {
             callRest(customers);
         } else {
@@ -195,6 +202,10 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         }
     }
 
+    /**
+     * Called to do a rest call to have customer added by other commercials.
+     * @param customers
+     */
     private void callRest(final List<Customer> customers) {
 
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
@@ -219,6 +230,10 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         });
     }
 
+    /**
+     * Method called to initialiase the list of Customer
+     * @param customers
+     */
     private void initAdapter(List<Customer> customers) {
 
         ListCustomerFragment.this.customers = customers;

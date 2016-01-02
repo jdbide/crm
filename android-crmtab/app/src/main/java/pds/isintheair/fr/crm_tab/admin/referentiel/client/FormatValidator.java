@@ -2,9 +2,15 @@ package pds.isintheair.fr.crm_tab.admin.referentiel.client;
 
 /**
  * Created by tlacouque on 29/12/2015.
+ * Class used to validate format from views
  */
 public class FormatValidator {
 
+    /**
+     * Check if siret pass by parameter is valid
+     * @param siret
+     * @return
+     */
     public static boolean isSiretSyntaxValide(String siret){
         if(siret.length() != 14) {
             return false;
@@ -29,7 +35,11 @@ public class FormatValidator {
         else return false;
     }
 
-
+    /**
+     * Format the url to be used by openWebSite method
+     * @param url
+     * @return
+     */
     public static String formatUrl(String url) {
         if (!url.startsWith("http://") && !url.startsWith("https://"))
             url = "http://" + url;

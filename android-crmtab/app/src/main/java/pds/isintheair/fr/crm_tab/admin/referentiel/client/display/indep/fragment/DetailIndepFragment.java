@@ -24,15 +24,13 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Hea
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.Independant;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailIndepFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DetailIndepFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by tlacouque on 01/01/2016.
+ * Controller which is used to display an independant. He used to display the view, and to open
+ * a web navigator if the user click on the website textview.
  */
 public class DetailIndepFragment extends Fragment {
 
+    //Used to have the same key to pass independant from customer list view holder to this fragment
     public static final String KEY_INDEP_ARGS = "INDEP";
     private Independant independant;
 
@@ -76,6 +74,10 @@ public class DetailIndepFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Can be called when a new DetailHCFragment is needed
+     * @return DetailHCFragment
+     */
     public static DetailIndepFragment newInstance() {
         DetailIndepFragment fragment = new DetailIndepFragment();
         Bundle args = new Bundle();
@@ -130,7 +132,9 @@ public class DetailIndepFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
+    /**
+     * Initialise the view before displaying it with independant pass by the list
+     */
     private void initView() {
         name.setText(independant.getName());
         siretNumber.setText(String.valueOf(independant.getSiretNumber()));
@@ -144,6 +148,10 @@ public class DetailIndepFragment extends Fragment {
         longTermFidelity.setText(String.valueOf(independant.getLongTermFidelity()));
     }
 
+
+    /**
+     * Initialise the map in this view
+     */
     private void initMap() {
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
@@ -156,6 +164,9 @@ public class DetailIndepFragment extends Fragment {
         map.invalidate();
     }
 
+    /**
+     * Open a navigator and with the url pass by the website textview
+     */
     @OnClick(R.id.detail_indep_fragment_web_site)
     public void openWebSite() {
         String url = FormatValidator.formatUrl(webSite.getText().toString());

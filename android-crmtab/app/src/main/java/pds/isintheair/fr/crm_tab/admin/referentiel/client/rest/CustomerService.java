@@ -10,6 +10,7 @@ import retrofit.http.Path;
 
 /**
  * Created by tlacouque on 13/12/2015.
+ * Interface used to
  */
 public interface CustomerService {
 

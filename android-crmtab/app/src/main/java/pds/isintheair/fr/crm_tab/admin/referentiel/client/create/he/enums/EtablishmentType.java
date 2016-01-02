@@ -9,6 +9,7 @@ import pds.isintheair.fr.crm_tab.OrmTabDataBase;
 
 /**
  * Created by tlacouque on 12/12/2015.
+ * Enum used to stock etablishment type
  */
 
 public enum EtablishmentType {
@@ -30,6 +31,10 @@ public enum EtablishmentType {
         stringValue = toString;
     }
 
+    /**
+     * Method implemented to call Enum.attribute.toString(). Return string of this attribute.
+     * @return
+     */
     @Override
     public String toString() {
         return stringValue;

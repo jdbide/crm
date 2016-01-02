@@ -11,6 +11,7 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.indep.entities.
 
 /**
  * Created by tlacouque on 17/12/2015.
+ * Class used has DTO to pass information from rest server to android crm tab
  */
 public class ResponseRestCustomer {
 

@@ -20,6 +20,7 @@ import retrofit.Retrofit;
 
 /**
  * Created by tlacouque on 28/12/2015.
+ * Class used to initialise all data which are not in administration customer uc
  */
 public final class InitValue {
 
@@ -30,6 +31,9 @@ public final class InitValue {
         initSpecialties();
     }
 
+    /**
+     * Initialise Holding if there is no holdings in the database
+     */
     private static void initHolding() {
 
         if(new Select().count().from(Holding.class).count() == 0) {
@@ -52,6 +56,9 @@ public final class InitValue {
         }
     }
 
+    /**
+     * Initialise Purchasing Central if there is no Purchasing Central in the database
+     */
     private static void initPurchasingCentral() {
 
         if(new Select().count().from(PurchasingCentral.class).count() == 0) {
@@ -74,6 +81,9 @@ public final class InitValue {
         }
     }
 
+    /**
+     * Initialise Companies if there is no Companies in the database
+     */
     private static void initCompanies() {
 
         if(new Select().count().from(Company.class).count() == 0) {
@@ -96,6 +106,9 @@ public final class InitValue {
         }
     }
 
+    /**
+     * Initialise Specialties if there is no Specialties in the database
+     */
     private static void initSpecialties() {
 
         if(new Select().count().from(Specialty.class).count() == 0) {
