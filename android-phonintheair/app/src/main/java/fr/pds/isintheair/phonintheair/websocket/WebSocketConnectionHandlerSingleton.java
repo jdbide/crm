@@ -1,7 +1,5 @@
 package fr.pds.isintheair.phonintheair.websocket;
 
-import android.util.Log;
-
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import fr.pds.isintheair.phonintheair.entity.Message;
@@ -36,7 +34,7 @@ public class WebSocketConnectionHandlerSingleton {
             webSocketConnection.connect(Constant.WS_URL, callWebSocketHandler);
         }
         catch (WebSocketException e) {
-            Log.d(TAG, "Websocket connection failed : " + e.getMessage());
+            //Log.d(TAG, "Websocket connection failed : " + e.getMessage());
             //TODO handle exception
         }
     }
@@ -49,7 +47,7 @@ public class WebSocketConnectionHandlerSingleton {
     public void sendMessage(Message message) {
         String serializedMessage = JSONHelper.serialize(message, Message.class);
 
-        Log.d(TAG, "Sending message : " + serializedMessage);
+        //Log.d(TAG, "Sending message : " + serializedMessage);
 
         webSocketConnection.sendTextMessage(serializedMessage);
     }
