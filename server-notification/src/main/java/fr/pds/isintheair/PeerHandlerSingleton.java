@@ -9,7 +9,6 @@ import javax.websocket.Session;
 public class PeerHandlerSingleton {
     private BiMap<Integer, Session> phonePeer;
     private BiMap<Integer, Session> tabletPeer;
-    private BiMap<Session, Session> sessionPeer;
     private static PeerHandlerSingleton INSTANCE = null;
 
     private PeerHandlerSingleton() {

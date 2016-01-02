@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="pds.isintheair.fr.crm_tab"
+    package="pds.isintheair.fr.crmtab"
     xmlns:android="http://schemas.android.com/apk/res/android">
     
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".uc.phone.call.receive.view.activity.ContactDetailActivity"
+            android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.view.activity.ContactDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme">
@@ -25,16 +25,16 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".uc.phone.call.receive.view.activity.CallActivity"/>
+        <activity android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.view.activity.CallActivity"/>
 
         <receiver
-            android:name=".uc.phone.call.receive.controller.broadcastreceiver.BootServiceBrodcastReceiver"
+            android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.broadcastreceiver.BootServiceBrodcastReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
-        <service android:name=".uc.phone.call.receive.controller.service.CallService"/>
+        <service android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.service.CallService"/>
     </application>
 </manifest>
