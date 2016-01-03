@@ -1,6 +1,4 @@
-package fr.pds.isintheair.phonintheair.controller;
-
-import junit.framework.TestCase;
+package fr.pds.isintheair.phonintheair;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +7,7 @@ import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.DEFAULT, sdk = 21, packageName = "fr.pds.isintheair")
-public class CallControllerTest extends TestCase {
+public class CallControllerTest {
 
     @Test
     public void testCall() throws Exception {
