@@ -77,7 +77,7 @@ public class ProspectControllerTest {
             ArrayList<Prospect>                  prospects           = userArrayListEntry.getValue();
             for (Prospect prospect: prospects){
                 if (user.getId() == 3){
-                    assertEquals(1, prospect.getId());
+                    assertEquals(4, prospect.getId());
                 }
                 if (user.getId() == 2){
                     assertEquals(4, prospect.getId());
@@ -101,8 +101,9 @@ public class ProspectControllerTest {
             Map.Entry<User, ArrayList<Prospect>> userArrayListEntry  = entryIterator.next();
             User                                 user                = userArrayListEntry.getKey();
             ArrayList<Prospect>                  prospects           = userArrayListEntry.getValue();
+
             if (user.getId() == 1){
-                assertEquals(1, prospects.size());
+                assertEquals(0, prospects.size());
                 for (Prospect prospect: prospects){
                     assertEquals(4, prospect.getId());
                     assertEquals(1234, prospect.getPlace());
@@ -110,7 +111,7 @@ public class ProspectControllerTest {
             }
 
             if (user.getId() == 3){
-                assertEquals(0, prospects.size());
+                assertEquals(1, prospects.size());
             }
         }
     }
@@ -125,15 +126,7 @@ public class ProspectControllerTest {
             User                                 user                = userArrayListEntry.getKey();
             ArrayList<Prospect>                  prospects           = userArrayListEntry.getValue();
             if (user.getId() == 3){
-                assertEquals(2, prospects.size());
-                for (Prospect prospect: prospects){
-                    if (prospect.getId() == 7){
-                        assertEquals(14134, prospect.getPlace());
-                    }
-                    if (prospect.getId() == 3) {
-                        assertEquals(1547, prospect.getPlace());
-                    }
-                }
+                assertEquals(1, prospects.size());
             }
         }
     }
@@ -147,6 +140,7 @@ public class ProspectControllerTest {
             Map.Entry<User, ArrayList<Prospect>> userArrayListEntry  = entryIterator.next();
             User                                 user                = userArrayListEntry.getKey();
             ArrayList<Prospect>                  prospects           = userArrayListEntry.getValue();
+            log.info("check");
             assertEquals(1, prospects.size());
         }
     }
@@ -156,6 +150,7 @@ public class ProspectControllerTest {
         List<Sales> salesList = salesDAO.getAllSales();
         int         count     = salesList.size();
         double      sum       = 0.0d;
+        log.info("check sum: " + sum);
         for (Sales sales : salesList){
             sum = sum + sales.getValue();
         }
