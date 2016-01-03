@@ -149,3 +149,4 @@ Rest-server/.settings/org.eclipse.wst.validation.prefs
 
 Rest-server/target/m2e-wtp/web-resources/META-INF/maven/miage.pds/api/pom.properties
 
+Rest-server/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF

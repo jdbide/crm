@@ -11,7 +11,6 @@
 		<java-version>1.6</java-version>
 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<spring.data.version>1.8.2.RELEASE</spring.data.version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
@@ -20,12 +19,6 @@
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
-		<dependency>
-			<groupId>org.mongodb.morphia</groupId>
-			<artifactId>morphia</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-
 
 		<!-- MongoDB -->
 
@@ -36,6 +29,15 @@
 			<version>1.0.0-rc0</version>
 		</dependency>
 
+<<<<<<< HEAD
+=======
+		<dependency>
+			<groupId>org.mongodb.morphia</groupId>
+			<artifactId>morphia</artifactId>
+			<version>1.0.0-rc0</version>
+		</dependency>
+
+>>>>>>> a2d8f8dc7d0273c58edb7d119c1a613a0ecf2219
 
 		<!-- Spring -->
 		<dependency>
@@ -56,6 +58,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -63,6 +66,8 @@
 			<version>${spring.data.version}</version>
 		</dependency>
 
+=======
+>>>>>>> a2d8f8dc7d0273c58edb7d119c1a613a0ecf2219
 
 		<!-- AspectJ -->
 >>>>>>> dev
@@ -133,6 +138,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<version>4.7</version>
 =======
 			<version>4.12</version>
@@ -144,6 +150,10 @@
 			<artifactId>morphia</artifactId>
 			<version>1.0.1</version>
 >>>>>>> dev
+=======
+			<version>4.7</version>
+			<scope>test</scope>
+>>>>>>> a2d8f8dc7d0273c58edb7d119c1a613a0ecf2219
 		</dependency>
 	</dependencies>
 	<build>
