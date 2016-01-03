@@ -5,7 +5,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="pds.isintheair.fr.crm_tab.crv.view.VisitListActivity">
+    tools:context="pds.isintheair.fr.crmtab.crv.view.VisitListActivity">
 
     <ListView
         android:layout_width="wrap_content"
