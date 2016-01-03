@@ -66,7 +66,7 @@ public class ClientListFragment extends ListFragment {
 
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View promptView = layoutInflater.inflate(R.layout.options_layout, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptView);
 
         // Get ListView object from xml
@@ -93,16 +93,17 @@ public class ClientListFragment extends ListFragment {
                 String itemValue = (String) listView.getItemAtPosition(position);
 
                 if(itemValue.equalsIgnoreCase("crv")){
-                    Intent intent = new Intent(getActivity(), CreateCrvActivity.class);
+                    Intent intent = new Intent(getActivity(), CrvMainActivity.class);
                     intent.putExtra("ClientObject", client);
                     startActivity(intent);
+
                 }
             }
 
         });
 
         // setup a dialog window
-        alertDialogBuilder.setCancelable(false)
+        alertDialogBuilder.setCancelable(true)
 
                 .setNegativeButton("Fermer",
                         new DialogInterface.OnClickListener() {

@@ -9,6 +9,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_create_crv" tools:context=".CreateCrvActivity">
 
-    <TextView android:text="TODO Lister les comptes rendu de visite" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TODO list of reports"/>
+
 </RelativeLayout>

@@ -4,16 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.crv.mock.RandomInformation;
+import pds.isintheair.fr.crm_tab.crv.model.Client;
+import pds.isintheair.fr.crm_tab.crv.model.Report;
 
 public class CrvMainActivity extends AppCompatActivity {
 
+    Client client;
+    int clientId;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private List<Report> dataList = new ArrayList<Report>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +33,17 @@ public class CrvMainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Report report = new Report();
+        report.setId("1");
+        report.setClient("5");
+        report.setCommercial("1");
+        report.setVisit("1");
+        report.setComment("Client satisfait");
+
+        dataList.add(report);
+
+        client = (Client)getIntent().getSerializableExtra("ClientObject");
+        clientId = client.getClientId();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,20 +51,18 @@ public class CrvMainActivity extends AppCompatActivity {
               /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
                 RandomInformation mock = new RandomInformation();
-                String json = mock.getRandomInfo();
-                Intent intent = new Intent(CrvMainActivity.this,CreateCrvActivity.class);
-                intent.putExtra("mock",json);
+                //String json = mock.getRandomInfo();
+                Intent intent = new Intent(CrvMainActivity.this, CreateCrvActivity.class);
+                //intent.putExtra("mock",json);
+                intent.putExtra("ClientObject", client);
                 CrvMainActivity.this.startActivity(intent);
-
 
 
             }
         });
 
-    }
-    public void startActivity(Class sctivity){
-        Intent launchCreateActivity = new Intent(this,sctivity);
-        startActivity(launchCreateActivity);
+
+
     }
 
     @Override

@@ -2,8 +2,11 @@ package miage.pds.api.crv;
 
 
 
+import java.util.List;
+
 import miage.pds.api.RestController;
 import miage.pds.api.crv.dao.CrvMorphiaDao;
+import miage.pds.api.crv.model.Report;
 import miage.pds.api.crv.model.Reporting;
 
 import org.json.JSONException;
@@ -11,6 +14,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,12 +38,26 @@ public class CrvController {
 		//logger.info("REST SERVER IS RUNNING :)");
 		return "TEST PAGE :)";
 	}
+	
 	@RequestMapping(value = "/crv/addCrv", method = RequestMethod.POST, headers="Accept=application/json")
-	public @ResponseBody Boolean createCrv(@RequestBody Reporting crv) {
-		logger.info("Start create Reporting.");
-		return dao.createCrv(crv.getReport());
+	public @ResponseBody Boolean createOrModifyCrv(@RequestBody Reporting crv) {
+		logger.info("Start create Report.");
+		return dao.createOrModifyCrv(crv.getReport());
 		
 
+	}
+	@RequestMapping(value = "/crv/getCrv/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Report> getReportForCommercial(@PathVariable String id) {
+		logger.info("Start get Reports.");
+		return dao.getAllReportsForClient(id);
+		
+	}
+	@RequestMapping(value = "/crv/deleteCrv/{id}", method = RequestMethod.GET)
+	public @ResponseBody Boolean deleteReportById(@PathVariable String id) {
+
+		logger.info("Start delete Report by id.");
+		return dao.deleteReportById(id);
+		
 	}
 	
 	

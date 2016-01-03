@@ -134,3 +134,4 @@ proguard/
 # Android Studio Navigation editor temp files
 .navigation/
 
+Rest-server/target/m2e-wtp/web-resources/META-INF/maven/miage.pds/api/pom.properties

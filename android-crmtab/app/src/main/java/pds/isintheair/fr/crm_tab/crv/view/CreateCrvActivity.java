@@ -36,6 +36,7 @@ import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.crv.cache.CacheDao;
 import pds.isintheair.fr.crm_tab.crv.mock.RandomInformation;
 import pds.isintheair.fr.crm_tab.crv.model.Client;
+import pds.isintheair.fr.crm_tab.crv.model.Product;
 import pds.isintheair.fr.crm_tab.crv.model.Report;
 import pds.isintheair.fr.crm_tab.crv.model.Reporting;
 import pds.isintheair.fr.crm_tab.crv.retrofit.Service;
@@ -384,8 +385,24 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
         Reporting reporting = new Reporting();
+
+
+        int count = presentedProducts.size();
+        Product[] products = new Product[count];
+        if(count>0){
+
+            Product p;
+
+            for(int i=0; i<count; i++){
+                p = new Product();
+                p.setName(presentedProducts.get(i));
+                products[i] = p;
+            }
+
+        }
+
         Report report = new Report();
-        report.setId("1");
+        report.setId("");
         report.setCommercial(userId);
         report.setDate(Long.toString(System.currentTimeMillis()));
         report.setSatisfaction(satisfaction.getText().toString());
@@ -393,7 +410,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         report.setClient(clientId);
         report.setContact(conatcId);
         report.setVisit(visitId);
-
+        report.setProduct(products);
         reporting.setReport(report);
 
         Call<Boolean> call = iService.createReport(reporting);

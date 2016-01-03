@@ -1,11 +1,14 @@
 package miage.pds.api.crv.dao;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import miage.pds.api.crv.model.Product;
 import miage.pds.api.crv.model.Report;
 import miage.pds.api.crv.model.Reporting;
 
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,21 +43,24 @@ public class CrvMorphiaDao {
 			/**** Get database ****/
 			// if database doesn't exists, MongoDB will create it for you
 			datastore = morphia.createDatastore(mongo, "CRM");
-			
+			return true;
 
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 
 	}
 
-	//insert a crv into database
-	public boolean createCrv(Report report){
+	//insert or update a report 
+	public boolean createOrModifyCrv(Report report){
 			
 		//check if connected to DB
 		if(ConnectDB()){
+			if(report.getId().equals("")){
+				report.setId(Long.toString(datastore.getCount(Report.class)));
+			}
 			//save report to DB
 			datastore.save(report);
 			return true;
@@ -62,4 +68,35 @@ public class CrvMorphiaDao {
 		return false;
 			
 	}
+	
+	//get all reports for a specific client
+	public List<Report> getAllReportsForClient(String id){
+		List<Report> list = new ArrayList<Report>();
+		if(ConnectDB()){
+			list = datastore.createQuery(Report.class)
+					.filter("client =", id)
+					.asList();
+		}
+		
+		
+		return list;
+	}
+	
+	//delete a report by given id
+	public Boolean deleteReportById(String id){
+		Report report;
+		if(ConnectDB()){
+			try {
+				report = datastore.find(Report.class).field("_id").equal(id).get();
+				datastore.delete(report);
+				return true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.getMessage();
+			}
+					
+		}
+		return false;
+	}
+	
 }

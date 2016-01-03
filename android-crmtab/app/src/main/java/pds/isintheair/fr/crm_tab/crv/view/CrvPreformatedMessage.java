@@ -33,6 +33,8 @@ public class CrvPreformatedMessage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         dao = new CacheDao(this);
+
+        //get all messages from local cache
         messages = dao.getAllMessages();
 
 
