@@ -18,6 +18,7 @@ public class NotifierEndpointTest {
 
         peerHandlerSingleton.addPeer(PeerType.PHONE, 42, phoneSession);
         new NotifierEndpoint().onClose(phoneSession, null);
+
         assertNull(peerHandlerSingleton.findPeerSession(PeerType.PHONE, 42));
     }
 }
