@@ -3,6 +3,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
     <dimen name="text_margin">16dp</dimen>
+
+
+    <dimen name="create_customer_min_width_edit_text">128dp</dimen>
+    <dimen name="create_customer_cartview_marge">64dp</dimen>
+    <dimen name="detail_hc_margin_top">15dp</dimen>
+    <dimen name="detail_hc_size_text_text_view">15sp</dimen>
 
 </resources>

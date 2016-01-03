@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 package pds.isintheair.fr.crmtab;
 
 import android.content.Context;
+=======
+package pds.isintheair.fr.crm_tab;
+>>>>>>> admin-referential-customer-crud
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
