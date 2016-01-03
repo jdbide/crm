@@ -1,0 +1,185 @@
+{
+    "id" : 1,
+    "idUser" : 1,
+    "idClient" : 1
+}
+
+{
+    "id" : 2,
+    "idUser" : 1,
+    "idClient" : 2
+}
+
+{
+    "id" : 3,
+    "idUser" : 1,
+    "idClient" : 3
+}
+
+{
+    "id" : 4,
+    "idUser" : 1,
+    "idClient" : 4
+}
+
+{
+    "id" : 5,
+    "idUser" : 1,
+    "idClient" : 5
+}
+
+{
+    "id" : 6,
+    "idUser" : 1,
+    "idClient" : 6
+}
+
+{
+    "id" : 7,
+    "idUser" : 1,
+    "idClient" : 7
+}
+
+{
+    "id" : 8,
+    "idUser" : 1,
+    "idClient" : 8
+}
+
+{
+    "id" : 9,
+    "idUser" : 2,
+    "idClient" : 1
+}
+
+{
+    "id" : 10,
+    "idUser" : 2,
+    "idClient" : 2
+}
+
+{
+    "id" : 11,
+    "idUser" : 2,
+    "idClient" : 7
+}
+
+{
+    "id" : 12,
+    "idUser" : 2,
+    "idClient" : 9
+}
+
+{
+    "id" : 13,
+    "idUser" : 2,
+    "idClient" : 10
+}
+
+{
+    "id" : 14,
+    "idUser" : 2,
+    "idClient" : 11
+}
+
+{
+    "id" : 15,
+    "idUser" : 3,
+    "idClient" : 1
+}
+
+{
+    "id" : 16,
+    "idUser" : 3,
+    "idClient" : 2
+}
+
+{
+    "id" : 17,
+    "idUser" : 3,
+    "idClient" : 3
+}
+
+{
+    "id" : 18,
+    "idUser" : 4,
+    "idClient" : 12
+}
+
+{
+    "id" : 19,
+    "idUser" : 4,
+    "idClient" : 14
+}
+
+{
+    "id" : 20,
+    "idUser" : 5,
+    "idClient" : 10
+}
+
+{
+    "id" : 21,
+    "idUser" : 5,
+    "idClient" : 11
+}
+
+{
+    "id" : 22,
+    "idUser" : 6,
+    "idClient" : 3
+}
+
+{
+    "id" : 23,
+    "idUser" : 6,
+    "idClient" : 5
+}
+
+{
+    "id" : 24,
+    "idUser" : 6,
+    "idClient" : 6
+}
+
+{
+    "id" : 25,
+    "idUser" : 7,
+    "idClient" : 13
+}
+
+{
+    "id" : 26,
+    "idUser" : 7,
+    "idClient" : 14
+}
+
+{
+    "id" : 27,
+    "idUser" : 8,
+    "idClient" : 2
+}
+
+{
+    "id" : 28,
+    "idUser" : 9,
+    "idClient" : 3
+}
+
+{
+    "id" : 29,
+    "idUser" : 9,
+    "idClient" : 4
+}
+
+{
+    "id" : 30,
+    "idUser" : 9,
+    "idClient" : 5
+}
+
+{
+    "id" : 31,
+    "idUser" : 9,
+    "idClient" : 5
+}

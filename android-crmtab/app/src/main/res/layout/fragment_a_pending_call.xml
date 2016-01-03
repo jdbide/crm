@@ -46,13 +46,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/yes"
-            android:background="@drawable/mic1"/>
+            android:background="@drawable/logo"/>
 
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/no"
-            android:background="@drawable/mic1"/>
+            android:background="@drawable/logo"/>
 
 
     </LinearLayout>
