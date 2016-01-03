@@ -1,7 +1,7 @@
-package miage.pds.admin.customer.crud.message;
+package miage.pds.api.admin.customer.crud.message;
 
-import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
-import miage.pds.admin.customer.crud.createindep.entities.Independant;
+import miage.pds.api.admin.customer.crud.createhc.entities.HealthCenter;
+import miage.pds.api.admin.customer.crud.createindep.entities.Independant;
 
 /**
  * Created by tlacouque on 17/12/2015.

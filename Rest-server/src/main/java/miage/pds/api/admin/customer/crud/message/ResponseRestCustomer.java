@@ -1,12 +1,12 @@
-package miage.pds.admin.customer.crud.message;
+package miage.pds.api.admin.customer.crud.message;
 
-import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
-import miage.pds.admin.customer.crud.createhc.entities.Holding;
-import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
-import miage.pds.admin.customer.crud.createindep.entities.Company;
-import miage.pds.admin.customer.crud.createindep.entities.Independant;
-import miage.pds.admin.customer.crud.createindep.entities.Specialty;
-import miage.pds.admin.customer.crud.entities.Customer;
+import miage.pds.api.admin.customer.crud.createhc.entities.HealthCenter;
+import miage.pds.api.admin.customer.crud.createhc.entities.Holding;
+import miage.pds.api.admin.customer.crud.createhc.entities.PurchasingCentral;
+import miage.pds.api.admin.customer.crud.createindep.entities.Company;
+import miage.pds.api.admin.customer.crud.createindep.entities.Independant;
+import miage.pds.api.admin.customer.crud.createindep.entities.Specialty;
+import miage.pds.api.admin.customer.crud.entities.Customer;
 
 import java.util.List;
 

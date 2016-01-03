@@ -1,15 +1,15 @@
-package miage.pds.admin.customer.crud.createindep.entities;
+package miage.pds.api.admin.customer.crud.createhc.entities;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
 /**
- * Created by tlacouque on 28/12/2015.
+ * Created by tlacouque on 16/12/2015.
  */
 
-@Entity("company")
-public class Company {
+@Entity("purchasingcentral")
+public class PurchasingCentral {
 
     @Id
     int id;
@@ -19,9 +19,6 @@ public class Company {
 
     @Property
     String type;
-
-    @Property
-    int zipCode;
 
     public int getId() {
         return id;
@@ -46,18 +43,4 @@ public class Company {
     public void setType(String type) {
         this.type = type;
     }
-
-    public int getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
-
 }

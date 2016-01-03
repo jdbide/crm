@@ -1,4 +1,4 @@
-package miage.pds.admin.customer.crud.entities;
+package miage.pds.api.admin.customer.crud.entities;
 
 /**
  * Created by tlacouque on 29/12/2015.

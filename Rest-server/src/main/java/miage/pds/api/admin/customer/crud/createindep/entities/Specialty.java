@@ -1,4 +1,4 @@
-package miage.pds.admin.customer.crud.createindep.entities;
+package miage.pds.api.admin.customer.crud.createindep.entities;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;

@@ -1,28 +1,22 @@
-package miage.pds.admin.customer.crud.controller;
+package miage.pds.api.admin.customer.crud.controller;
 
 import com.mongodb.MongoClient;
-import miage.pds.admin.customer.crud.createhc.entities.HealthCenter;
-import miage.pds.admin.customer.crud.createhc.entities.Holding;
-import miage.pds.admin.customer.crud.createhc.entities.PurchasingCentral;
-import miage.pds.admin.customer.crud.createindep.entities.Company;
-import miage.pds.admin.customer.crud.createindep.entities.Independant;
-import miage.pds.admin.customer.crud.createindep.entities.Specialty;
-import miage.pds.admin.customer.crud.entities.Customer;
-import miage.pds.admin.customer.crud.message.MessageRestCustomer;
-import miage.pds.admin.customer.crud.message.ResponseRestCustomer;
+import miage.pds.api.admin.customer.crud.createhc.entities.HealthCenter;
+import miage.pds.api.admin.customer.crud.createhc.entities.Holding;
+import miage.pds.api.admin.customer.crud.createhc.entities.PurchasingCentral;
+import miage.pds.api.admin.customer.crud.createindep.entities.Company;
+import miage.pds.api.admin.customer.crud.createindep.entities.Independant;
+import miage.pds.api.admin.customer.crud.createindep.entities.Specialty;
+import miage.pds.api.admin.customer.crud.message.MessageRestCustomer;
+import miage.pds.api.admin.customer.crud.message.ResponseRestCustomer;
 import miage.pds.orm.SpringMongoConfig;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -1,14 +1,10 @@
-package miage.pds.admin.customer.crud.createhc.entities;
+package miage.pds.api.admin.customer.crud.createhc.entities;
 
-import miage.pds.admin.customer.crud.controller.RestCustomerController;
-import miage.pds.admin.customer.crud.entities.Customer;
-import org.bson.types.ObjectId;
+import miage.pds.api.admin.customer.crud.controller.RestCustomerController;
+import miage.pds.api.admin.customer.crud.entities.Customer;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
-import org.mongodb.morphia.annotations.Reference;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by tlacouque on 16/12/2015.
