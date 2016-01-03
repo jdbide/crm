@@ -40,4 +40,74 @@
     <string name="title_activity_start_call_register">StartCallRegisterActivity</string>
     <string name="title_activity_call_log_main">CallLogMainActivity</string>
 
+    <!--Strings related to customer list fragment -->
+    <string name="customer_list_title">Liste des clients</string>
+    <string name="customer_list_add">Ajouter un client</string>
+    <string name="customer_list_dialog_title">Choisir un type de client : </string>
+    <string name="customer_list_dialog_validate">Valider</string>
+    <string name="customer_list_dialog_cancel">Annuler</string>
+
+    <!--Strings related to the creation of a HE customer  -->
+    <string name="create_he_fragment_title_action_bar">Créer un Etablisement de santé</string>
+    <string name="create_he_fragment_title_textview">Créer un Etablisement de santé</string>
+    <string name="create_he_fragment_name_textview">Nom : </string>
+    <string name="create_he_fragment_is_public_textview">Est publique : </string>
+    <string name="create_he_fragment_is_public_yes_radio_button">Oui</string>
+    <string name="create_he_fragment_is_public_no_radio_button">Non</string>
+    <string name="create_he_fragment_siret_number_textview">Numéro de Siret : </string>
+    <string name="create_he_fragment_finess_number_textview">Numéro de Finess : </string>
+    <string name="create_he_fragment_street_number_textview">Numéro de rue : </string>
+    <string name="create_he_fragment_street_name_textview">Nom de rue : </string>
+    <string name="create_he_fragment_town_name_textview">Ville : </string>
+    <string name="create_he_fragment_zip_code_textview">Code postal : </string>
+    <string name="create_he_fragment_web_site_textview">Site web : </string>
+    <string name="create_he_fragment_bed_number_textview">Nombre de lit : </string>
+    <string name="create_he_fragment_etablishment_type_textview">Type d etablissement : </string>
+    <string name="create_he_fragment_purshasing_central_textview">Centrale d achat : </string>
+    <string name="create_he_fragment_holding_textview">Holding : </string>
+    <string name="create_he_fragment_difficulty_having_contact_textview">Difficulté d avoir un contact : </string>
+    <string name="create_he_fragment_zero_radio_button">0</string>
+    <string name="create_he_fragment_one_radio_button">1</string>
+    <string name="create_he_fragment_two_radio_button">2</string>
+    <string name="create_he_fragment_three_radio_button">3</string>
+    <string name="create_he_fragment_four_radio_button">4</string>
+    <string name="create_he_fragment_five_radio_button">5</string>
+    <string name="create_he_fragment_service_building_textview">Service et locaux : </string>
+    <string name="create_he_fragment_validate">Valider</string>
+    <string name="title_activity_crudcustomer">CRUDCustomerActivity</string>
+    <string name="create_he_fragment_toast_validation">Le client a bien été créé</string>
+    <string name="create_he_fragment_dialog_error_title">Erreur dans le format des champs</string>
+    <string name="create_he_fragment_error_name">Champ \"Nom\" vide</string>
+    <string name="create_he_fragment_error_siret">Champ \"Siret\" non valide</string>
+    <string name="create_he_fragment_error_siret_empty">Champ \"Siret\" doit faire 14 caractère</string>
+    <string name="create_he_fragment_error_finess">Champ \"Finess\" doit faire 9 caractères</string>
+    <string name="create_he_fragment_error_street_number">Champ \"Numéro de rue\" vide</string>
+    <string name="create_he_fragment_error_street_name">Champ \"Nom de rue\" vide</string>
+    <string name="create_he_fragment_error_town">Champ \"Ville\" vide</string>
+    <string name="create_he_fragment_error_zip_code">Champ \"Code postal\" doit faire 5 caractère</string>
+    <string name="create_he_fragment_error_offline_map">La carte représentant la position du client n’a pas été pré-téléchargé" +
+        " Il le sera à votre prochaine connexion au service en ligne</string>
+    <string name="create_he_fragment_message_customer">Le client a bien été créé</string>
+
+    <!-- Strings related to the creation of an  independant customer -->
+    <string name="create_indep_fragment_title_action_bar">Créer un Indépendant</string>
+    <string name="create_indep_fragment_title_textview">Créer un Indépendant</string>
+    <string name="create_indep_fragment_independant_type_textview">Type d indépendant :</string>
+    <string name="create_indep_fragment_company_textview">Entreprise : </string>
+    <string name="create_indep_fragment_specialty_textview">Spécialité : </string>
+    <string name="create_indep_fragment_long_term_fidelity_textview">Fidélisation sur le long terme : </string>
+
+    <!-- Strings related to the display of an healthcenter customer -->
+    <string name="display_hc_fragment_title_action_bar">Détail d\'un établissement de santé</string>
+    <string name="display_hc_fragment_title_textview">Détail d\'un établissement de santé</string>
+    <string name="display_hc_fragment_adress_textview">Adresse : </string>
+    <string name="display_hc_fragment_ispublic_yes_textview">Oui</string>
+    <string name="display_hc_fragment_ispublic_no_textview">Non</string>
+    <string name="display_hc_fragment_map_textview">Carte de </string>
+
+    <!-- Strings related to the display of an independant customer -->
+    <string name="display_independant_fragment_title_action_bar">Détail d\'un indépendant</string>
+    <string name="display_indep_fragment_title_textview">Détail d\'un indépendant</string>
+
+
 </resources>
