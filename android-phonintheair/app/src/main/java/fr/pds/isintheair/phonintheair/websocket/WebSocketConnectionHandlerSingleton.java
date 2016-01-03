@@ -7,10 +7,10 @@ import fr.pds.isintheair.phonintheair.util.Constant;
 import fr.pds.isintheair.phonintheair.util.JSONHelper;
 
 public class WebSocketConnectionHandlerSingleton {
-    private static WebSocketConnectionHandlerSingleton INSTANCE = null;
-    public Boolean isConnected = false;
-    private String TAG = getClass().getSimpleName();
-    private WebSocketConnection webSocketConnection = null;
+    private static WebSocketConnectionHandlerSingleton INSTANCE            = null;
+    public         Boolean                             isConnected         = false;
+    private        String                              TAG                 = getClass().getSimpleName();
+    private        WebSocketConnection                 webSocketConnection = null;
 
     private WebSocketConnectionHandlerSingleton() {
         webSocketConnection = new WebSocketConnection();
@@ -46,9 +46,6 @@ public class WebSocketConnectionHandlerSingleton {
      */
     public void sendMessage(Message message) {
         String serializedMessage = JSONHelper.serialize(message, Message.class);
-
-        //Log.d(TAG, "Sending message : " + serializedMessage);
-
         webSocketConnection.sendTextMessage(serializedMessage);
     }
 }
