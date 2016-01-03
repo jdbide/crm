@@ -19,7 +19,7 @@ public class CallController {
         try {
             phoneSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
         }
-        catch (IOException e) {
+        catch (IOException | NullPointerException e) {
             //TODO handle failed calls
         }
     }

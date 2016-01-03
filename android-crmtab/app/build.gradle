@@ -29,11 +29,22 @@ android {
 dependencies {
     apt 'com.raizlabs.android:DBFlow-Compiler:2.2.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.code.gson:gson:2.4'
+
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.raizlabs.android:DBFlow:2.2.1'
     compile 'com.raizlabs.android:DBFlow-Core:2.2.1'
     compile 'com.squareup:otto:1.3.8'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     testCompile 'junit:junit:4.12'
+
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:+'
+    compile 'com.google.code.gson:gson:2.5'
+
+    compile 'junit:junit:4.12'
 }
