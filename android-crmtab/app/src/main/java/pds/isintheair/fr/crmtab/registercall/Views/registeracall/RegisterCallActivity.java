@@ -1,12 +1,12 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.registeracall;
+package pds.isintheair.fr.crmtab.registercall.Views.registeracall;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.DisplayCallLogFragment;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment;
 
 public class RegisterCallActivity extends FragmentActivity implements DisplayCallLogFragment.OnListFragmentInteractionListener {
 

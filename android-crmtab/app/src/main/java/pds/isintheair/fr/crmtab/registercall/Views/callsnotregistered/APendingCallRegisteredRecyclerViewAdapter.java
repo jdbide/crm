@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.callsnotregistered;
+package pds.isintheair.fr.crmtab.registercall.Views.callsnotregistered;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
 
 
 public class APendingCallRegisteredRecyclerViewAdapter extends RecyclerView.Adapter<APendingCallRegisteredRecyclerViewAdapter.ViewHolder> {

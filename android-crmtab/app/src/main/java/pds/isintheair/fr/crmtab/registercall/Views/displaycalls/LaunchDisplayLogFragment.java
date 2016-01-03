@@ -1,11 +1,11 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.displaycalls;
+package pds.isintheair.fr.crmtab.registercall.Views.displaycalls;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 
 /**
  * Created by j-d on 26/12/2015.

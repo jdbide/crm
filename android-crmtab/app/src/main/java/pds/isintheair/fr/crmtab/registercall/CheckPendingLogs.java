@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall;
+package pds.isintheair.fr.crmtab.registercall;
 
 
 import android.app.NotificationManager;
@@ -12,10 +12,10 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Events.CallEndedEvent;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Events.PendingCallEndedEventListUpdated;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.PendingCallEndedEventListUpdated;
+import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 
 /**
  * Created by j-d on 29/12/2015.

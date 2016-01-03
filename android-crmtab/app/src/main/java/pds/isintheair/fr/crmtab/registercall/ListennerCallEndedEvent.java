@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall;
+package pds.isintheair.fr.crmtab.registercall;
 
 import android.app.Service;
 import android.content.Intent;
@@ -8,11 +8,11 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
-import pds.isintheair.fr.crm_tab.registercall.Objects.CallType;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Events.CallEndedEvent;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Events.PendingCallEndedEventListUpdated;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
-import pds.isintheair.fr.crm_tab.registercall.Views.registeracall.RegisterCallActivity;
+import pds.isintheair.fr.crmtab.registercall.Objects.CallType;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.PendingCallEndedEventListUpdated;
+import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crmtab.registercall.Views.registeracall.RegisterCallActivity;
 
 /**
  * Created by j-d on 21/12/2015.

@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.registeracall;
+package pds.isintheair.fr.crmtab.registercall.Views.registeracall;
 
 
 import android.app.AlertDialog;
@@ -7,7 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 
 /**
  * Created by j-d on 18/12/2015.

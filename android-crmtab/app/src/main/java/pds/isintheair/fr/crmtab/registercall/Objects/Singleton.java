@@ -1,11 +1,11 @@
-package pds.isintheair.fr.crm_tab.registercall.Objects;
+package pds.isintheair.fr.crmtab.registercall.Objects;
 
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pds.isintheair.fr.crm_tab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
 
 /**
  * Created by j-d on 21/12/2015.

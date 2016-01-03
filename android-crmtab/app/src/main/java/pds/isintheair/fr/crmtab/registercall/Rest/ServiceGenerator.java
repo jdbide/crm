@@ -1,8 +1,8 @@
-package pds.isintheair.fr.crm_tab.registercall.Rest;
+package pds.isintheair.fr.crmtab.registercall.Rest;
 
 import java.util.List;
 
-import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;

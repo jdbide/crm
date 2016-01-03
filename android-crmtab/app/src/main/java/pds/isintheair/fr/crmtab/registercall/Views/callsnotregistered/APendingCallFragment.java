@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.callsnotregistered;
+package pds.isintheair.fr.crmtab.registercall.Views.callsnotregistered;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Events.CallEndedEvent;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 
 /**
  * A fragment representing a list of Items.

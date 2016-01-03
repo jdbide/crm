@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab;
+package pds.isintheair.fr.crmtab;
 
 /**
  * Created by j-d on 29/12/2015.

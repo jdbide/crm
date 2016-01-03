@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.displaycalls;
+package pds.isintheair.fr.crmtab.registercall.Views.displaycalls;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import pds.isintheair.fr.crm_tab.R;
+import pds.isintheair.fr.crmtab.R;
 
 /**
  * Created by j-d on 26/12/2015.

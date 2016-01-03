@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.displaycalls;
+package pds.isintheair.fr.crmtab.registercall.Views.displaycalls;
 
 /**
  * Created by j-d on 28/12/2015.
@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 
 /**
  * Created by j-d on 28/12/2015.

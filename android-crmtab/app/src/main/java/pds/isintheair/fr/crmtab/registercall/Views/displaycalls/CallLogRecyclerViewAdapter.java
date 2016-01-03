@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.displaycalls;
+package pds.isintheair.fr.crmtab.registercall.Views.displaycalls;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.DisplayCallLogFragment.OnListFragmentInteractionListener;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment.OnListFragmentInteractionListener;
 
 
 public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecyclerViewAdapter.ViewHolder> {

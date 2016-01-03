@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pds.isintheair.fr.crm_tab">
+    package="pds.isintheair.fr.crmtab">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -17,16 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="pds.isintheair.fr.crmtab.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name=".registercall.Views.displaycalls.LaunchDisplayLogFragment"
+            android:name="pds.isintheair.fr.crmtab.registercall.Views.displaycalls.LaunchDisplayLogFragment"
             android:label="@string/title_activity_start_call_register"
              />
         <activity
-            android:name=".registercall.StartCallRegisterActivity"
+            android:name="pds.isintheair.fr.crmtab.registercall.StartCallRegisterActivity"
             android:label="@string/title_activity_start_call_register"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -35,13 +35,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".registercall.Views.registeracall.RegisterCallActivity"
+            android:name="pds.isintheair.fr.crmtab.registercall.Views.registeracall.RegisterCallActivity"
             android:label="@string/title_activity_call_log_main"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
-        <service android:enabled="true" android:name=".registercall.CheckPendingLogs" />
-        <service android:enabled="true" android:name=".registercall.ListennerCallEndedEvent" />
+        <service android:enabled="true" android:name="pds.isintheair.fr.crmtab.registercall.CheckPendingLogs" />
+        <service android:enabled="true" android:name="pds.isintheair.fr.crmtab.registercall.ListennerCallEndedEvent" />
     </application>
 
 </manifest>

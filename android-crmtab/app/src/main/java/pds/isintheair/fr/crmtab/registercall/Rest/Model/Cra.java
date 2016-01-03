@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Rest.Model;
+package pds.isintheair.fr.crmtab.registercall.Rest.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 /**

@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab;
+package pds.isintheair.fr.crmtab;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crm_tab.registercall.Views.displaycalls;
+package pds.isintheair.fr.crmtab.registercall.Views.displaycalls;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -19,10 +19,10 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
-import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crm_tab.registercall.Rest.ServiceGenerator;
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
+import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crmtab.registercall.Rest.ServiceGenerator;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
