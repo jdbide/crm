@@ -20,6 +20,7 @@ fr\pds\isintheair\phonintheair\R$layout.class
 fr\pds\isintheair\phonintheair\service\CallService$CallBinder.class
 fr\pds\isintheair\phonintheair\entity\Register.class
 fr\pds\isintheair\phonintheair\controller\CallController.class
+fr\pds\isintheair\phonintheair\Manifest.class
 fr\pds\isintheair\phonintheair\R$string.class
 fr\pds\isintheair\phonintheair\entity\MessageMeta.class
 fr\pds\isintheair\phonintheair\enumeration\MessageType.class

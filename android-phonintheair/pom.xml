@@ -79,7 +79,7 @@
                 <artifactId>android-maven-plugin</artifactId>
                 <version>4.3.0</version>
                 <configuration>
-                    <androidManifestFile>${project.basedir}/app/src/main/AndroidManifest.xml</androidManifestFile>
+                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
                     <sdk>
                         <platform>23</platform>
                     </sdk>
