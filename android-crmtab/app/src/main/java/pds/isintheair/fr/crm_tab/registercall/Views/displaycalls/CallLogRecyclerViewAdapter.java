@@ -4,17 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.List;
+
 import pds.isintheair.fr.crm_tab.R;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
 import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.DisplayCallLogFragment.OnListFragmentInteractionListener;
-import pds.isintheair.fr.crm_tab.registercall.dummy.DummyContent.DummyItem;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecyclerViewAdapter.ViewHolder> {
 
     private final List<Cra> liste;

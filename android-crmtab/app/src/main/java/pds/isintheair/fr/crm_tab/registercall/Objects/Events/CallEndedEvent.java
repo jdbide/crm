@@ -16,7 +16,6 @@ public class CallEndedEvent {
         this.callemitted = callemitted;
         this.date = date;
         this.duration = duration;
-
         this.idcontact = idcontact;
     }
 
