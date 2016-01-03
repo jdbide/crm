@@ -4,7 +4,7 @@ package miage.pds.api.crv;
 
 import java.util.List;
 
-import miage.pds.api.RestController;
+import miage.pds.api.crv.CrvController;
 import miage.pds.api.crv.dao.CrvMorphiaDao;
 import miage.pds.api.crv.model.Report;
 import miage.pds.api.crv.model.Reporting;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CrvController {
 
 	boolean status = false;  
-	private static final Logger logger = LoggerFactory.getLogger(RestController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CrvController.class);
 	CrvMorphiaDao dao = new CrvMorphiaDao();
 	public CrvController() {
 		// TODO Auto-generated constructor stub

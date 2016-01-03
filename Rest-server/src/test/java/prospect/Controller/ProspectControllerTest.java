@@ -1,4 +1,4 @@
-package prospect.controller;
+package prospect.Controller;
 
 import com.mongodb.MongoClient;
 import miage.pds.prospect.controller.*;
