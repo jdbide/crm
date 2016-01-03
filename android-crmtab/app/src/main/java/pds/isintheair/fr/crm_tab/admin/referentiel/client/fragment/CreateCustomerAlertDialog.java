@@ -31,15 +31,7 @@ public class CreateCustomerAlertDialog extends DialogFragment {
     }
 
 
-    public void onAttach(android.app.Activity activity) {
-        super.onAttach(activity);
-        try{
-            alertPositiveListener = (AlertPositiveListener) activity;
-        }catch(ClassCastException e){
-            // The hosting activity does not implemented the interface AlertPositiveListener
-            throw new ClassCastException(activity.toString() + " must implement AlertPositiveListener");
-        }
-    }
+
 
     /** This is the OK button listener for the alert dialog,
      *  which in turn invokes the method onPositiveClick(position)

@@ -11,7 +11,8 @@ import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.fragment.Cre
 import pds.isintheair.fr.crm_tab.admin.referentiel.client.fragment.ListCustomerFragment;
 import pds.isintheair.fr.crm_tab.R;
 
-public class CRUDCustomerActivity extends AppCompatActivity implements CreateCustomerAlertDialog.AlertPositiveListener {
+public class CRUDCustomerActivity extends AppCompatActivity implements CreateCustomerAlertDialog.AlertPositiveListener,
+        ListCustomerFragment.OnListFragmentInteractionListener {
 
     Toolbar toolbar;
     CreateHCFragment createHCFragment;
