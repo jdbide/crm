@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import pds.isintheair.fr.crm_tab.R;
-import pds.isintheair.fr.crm_tab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
 import pds.isintheair.fr.crm_tab.registercall.Views.displaycalls.DisplayCallLogFragment;
 
@@ -47,7 +46,6 @@ public class RegisterCallActivity extends FragmentActivity implements DisplayCal
             pop.show(getFragmentManager(), "dialog");
             //make popup not cancellable
             pop.setCancelable(false);
-            Singleton.getInstance().setPopUpDisplayed(true);
         }
     }
 

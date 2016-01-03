@@ -40,7 +40,6 @@ public class AddLogFragment extends Fragment {
     @Bind(R.id.edittextcomments) EditText comments;
     @Bind(R.id.edittextsubject) EditText subject;
     @Bind(R.id.edittextdate) EditText date;
-    @Bind(R.id.edittextidcontact) EditText idcontact;
     @Bind(R.id.edittextiduser) EditText iduser;
     @Bind(R.id.edittextcalltype) EditText calltype;
     @Bind(R.id.buttonregistercra)  Button validation;
@@ -71,20 +70,15 @@ public class AddLogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.log_informations_fragment, container, false);
         ButterKnife.bind(this, view);
-        if(getActivity() instanceof RegisterCallActivity) {
-            formtitle.setText("Ajout d'un compte-rendu");
-            Log.v("ajout","true");
-        }
-        else {
-            formtitle.setText("Détails sur le compte-rendu");
-            Log.v("lecture", "true");
-        }
+
+
+        formtitle.setText("Ajout d'un compte-rendu");
         contactnumber.setText(getArguments().getString("idcontact"));
         date.setText(getArguments().getString("date"));
         duration.setText(getArguments().getString("duration"));
         calltype.setText(getArguments().getString("calltype"));
         iduser.setText("1");
-        idcontact.setText("1");
+        //idcontact.setText(getArguments().getString("idcontact"));
         //should be taken from a request
         contactname.setText("nom contactttt");
         clientname.setText("nom client");
@@ -100,15 +94,16 @@ public class AddLogFragment extends Fragment {
 
     private void sendForm() {
 
-        Cra newCra = new Cra(Long.parseLong(iduser.getText().toString())
-                ,Long.parseLong(idcontact.getText().toString())
-                ,clientname.getText().toString()
-                ,contactname.getText().toString()
-                ,comments.getText().toString()
-                ,subject.getText().toString()
-                , /*date.getText().toString()*/"444"
-                ,Integer.parseInt(String.valueOf(duration.getText()))
-                ,calltype.getText().toString());
+        Cra newCra = new Cra();
+        newCra.setCalltype(calltype.getText().toString());
+        newCra.setClientname(clientname.getText().toString());
+        newCra.setComments(comments.getText().toString());
+        newCra.setContactname(contactname.getText().toString());
+        newCra.setDate(date.getText().toString());
+        newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
+        newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
+        newCra.setSubject(subject.getText().toString());
+        newCra.setIduser(Long.parseLong(iduser.getText().toString()));
 
         //Interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -129,6 +124,34 @@ public class AddLogFragment extends Fragment {
 
         ServiceGenerator service = retrofit.create(ServiceGenerator.class);
         Call<Boolean> call = service.createcra(newCra);
+
+
+        /*Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Singleton.getInstance().getBaseUrl())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(httpClient)
+                .build();
+
+        ServiceGenerator service = retrofit.create(ServiceGenerator.class);
+        Call<String> call = service.createcro(new Cro("o"));
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Response<String> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+
+                    Log.v("ok", "ok");
+
+                } else {
+                    Log.v("ok", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });*/
 
         call.enqueue(new Callback<Boolean>() {
             @Override

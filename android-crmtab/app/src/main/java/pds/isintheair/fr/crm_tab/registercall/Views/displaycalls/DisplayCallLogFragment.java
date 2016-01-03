@@ -37,9 +37,7 @@ import retrofit.Retrofit;
  */
 public class DisplayCallLogFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount;
     private List<Cra> listecra;
     private OnListFragmentInteractionListener mListener;
@@ -68,15 +66,6 @@ public class DisplayCallLogFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-    }
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.callloglist_container, container, false);
-
         Gson gson = new GsonBuilder().create();
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -103,17 +92,18 @@ public class DisplayCallLogFragment extends Fragment {
 
                     List<Cra> liste = response.body();
                     for(int i =0;i<liste.size();i++) {
-                        listecra.add(new Cra(liste.get(i).getIduser()
-                            , liste.get(i).getIdcontact()
-                            , liste.get(i).getClientname()
-                            , liste.get(i).getContactname()
-                            , liste.get(i).getComments()
-                            , liste.get(i).getSubject()
-                            , liste.get(i).getDate()
-                            , liste.get(i).getDuration()
-                            , liste.get(i).getCalltype()));
+                        Cra cra = new Cra();
+                        cra.setCalltype(liste.get(i).getCalltype());
+                        cra.setClientname(liste.get(i).getClientname());
+                        cra.setComments(liste.get(i).getComments());
+                        cra.setContactname(liste.get(i).getContactname());
+                        cra.setDate(liste.get(i).getDate());
+                        cra.setDuration(liste.get(i).getDuration());
+                        cra.setIdcontact(liste.get(i).getIdcontact());
+                        cra.setSubject(liste.get(i).getSubject());
+                        cra.setIduser(liste.get(i).getIduser());
+                        listecra.add(cra);
                     }
-
                 } else {
                     Log.v("listcraforuser", "no rep");
                     //Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
@@ -126,6 +116,13 @@ public class DisplayCallLogFragment extends Fragment {
                 Log.v("listcraforuser Failure",t.getMessage());
             }
         });
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.callloglist_container, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -139,23 +136,10 @@ public class DisplayCallLogFragment extends Fragment {
 
             //add line divider
             recyclerView.addItemDecoration(new LineDivider(
-                            getActivity()));
-
-            for(int i =0;i<4;i++) {
-                listecra.add(new Cra(1
-                        , 1
-                        , "BIDE JD"
-                        , "Dranck NEROT"
-                        , "rien de spécial"
-                        , "Demande d'infos"
-                        , "25/12/2015"
-                        , 1034
-                        , "Emis"));
-            }
+                    getActivity()));
 
             recyclerView.setAdapter(new CallLogRecyclerViewAdapter(listecra, mListener));
         }
-
         return view;
     }
 

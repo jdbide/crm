@@ -65,6 +65,7 @@ public class ListennerCallEndedEvent extends Service {
     public void showPopup(CallEndedEvent event) {
         //if no popup displayed show
         if(!Singleton.getInstance().isPopUpDisplayed()) {
+            Singleton.getInstance().setPopUpDisplayed(true);
             Intent intent = new Intent(this, RegisterCallActivity.class);
             intent.putExtra("idcontact", event.getIdcontact());
             intent.putExtra("date", event.getDate());

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pds.isintheair.fr.crm_tab.R;
@@ -22,6 +24,8 @@ import pds.isintheair.fr.crm_tab.registercall.Rest.Model.Cra;
  */
 public class CallDetailsFragment extends Fragment {
 
+    @Bind(R.id.formtitle)
+    TextView formtitle;
     @Bind(R.id.edittextcontatctname) EditText contactname;
     @Bind(R.id.edittextclientname) EditText clientname;
     @Bind(R.id.edittextcontatctnumber) EditText contactnumber;
@@ -29,7 +33,6 @@ public class CallDetailsFragment extends Fragment {
     @Bind(R.id.edittextcomments) EditText comments;
     @Bind(R.id.edittextsubject) EditText subject;
     @Bind(R.id.edittextdate) EditText date;
-    @Bind(R.id.edittextidcontact) EditText idcontact;
     @Bind(R.id.edittextiduser) EditText iduser;
     @Bind(R.id.edittextcalltype) EditText calltype;
     @Bind(R.id.buttonregistercra)
@@ -65,15 +68,24 @@ public class CallDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.log_informations_fragment, container, false);
         ButterKnife.bind(this, view);
-        contactnumber.setText(getArguments().getString("idcontact"));
+
+        formtitle.setText("Détails sur le compte-rendu");
+        //contactnumber.setText(getArguments().getString("idcontact"));
         date.setText(getArguments().getString("date"));
         duration.setText(getArguments().getString("duration"));
         calltype.setText(getArguments().getString("calltype"));
-        iduser.setText("1");
-        idcontact.setText(getArguments().getString("idcontact"));
+        iduser.setText(getArguments().getString("idcontact"));
+        contactnumber.setText(getArguments().getString("idcontact"));
         contactname.setText(getArguments().getString("contactname"));
         clientname.setText(getArguments().getString("clientname"));
-        //validation.h;
+        validation.setVisibility(View.GONE);
+        //Disable subjects and comments fields
+        subject.setEnabled(false);
+        comments.setEnabled(false);
+
+        subject.setText(getArguments().getString("subject"));
+        comments.setText(getArguments().getString("comments"));
+
         return view;
     }
 

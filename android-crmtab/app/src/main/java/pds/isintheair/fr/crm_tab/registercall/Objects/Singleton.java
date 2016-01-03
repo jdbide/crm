@@ -17,11 +17,13 @@ public class Singleton {
     private  Bus currentBusInstance;
     private  Boolean popupdisplayed;
     private List<CallEndedEvent> callEndedEventList;
+    //private List<CallEndedEvent> callEndedEventList;
 
     private Singleton(){
         currentBusInstance = new Bus();
         popupdisplayed = false;
-        BASE_URL = "http://192.168.43.193:8080/api/";
+        //BASE_URL = "http://192.168.43.193:8080/api/";
+        BASE_URL = "http://192.168.1.16:8080/api/";
         callEndedEventList = new ArrayList<CallEndedEvent>();
     }
 

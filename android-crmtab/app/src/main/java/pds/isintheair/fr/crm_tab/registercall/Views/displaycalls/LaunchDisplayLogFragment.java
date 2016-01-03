@@ -60,5 +60,8 @@ public class LaunchDisplayLogFragment extends AppCompatActivity implements Displ
         //get callEnded parameters from the service and pass them to the popup
         CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra) ;
         ft.add(R.id.launch_display_fragment_container, fragment).commit();
+        //ft.detach(fragment);
+        //ft.attach(fragment);
+        //ft.commit();
     }
 }

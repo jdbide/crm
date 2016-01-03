@@ -49,7 +49,16 @@ public class RestController {
 		boolean status = false;  
 		status = dao.createCra(cra);
 		if(status) logger.info("Cra registered :)");
-		else logger.info("Cra not registered :)");
+		else logger.info("Cra not r egistered :)");
+		return status;
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public @ResponseBody Boolean createCra() {
+		boolean status = false;  
+		//status = dao.createCra(cra);
+		//if(status) logger.info("Cra registered :)");
+		//else logger.info("Cra not registered :)");
 		return status;
 	}
 	

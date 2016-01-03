@@ -18,8 +18,10 @@ public interface ServiceGenerator {
     @GET("listcra")
     Call<List<Cra>> listcraforuser(@Query("iduser") int iduser) ;
 
+
     @POST("createcra")
     Call<Boolean> createcra(@Body Cra cra) ;
+
 
 
 
