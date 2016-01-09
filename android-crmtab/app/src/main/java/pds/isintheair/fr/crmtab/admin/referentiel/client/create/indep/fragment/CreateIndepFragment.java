@@ -40,9 +40,9 @@ import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.I
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.enums.IndependantType;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.message.MessageRestCustomer;
-//import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Company$Table;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Company$Table;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty;
-//import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty$Table;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty$Table;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.message.ResponseRestCustomer;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
@@ -169,7 +169,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
         });
 
-     /**   //Used to short the company spinner by zipcode.
+        //Used to short the company spinner by zipcode.
         zipCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -186,7 +186,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
              * Restrict possible values in the company spinner.
              * @param s
              */
-        /**    @Override
+            @Override
             public void afterTextChanged(Editable s) {
                 List<Company> companies = new Select().from(Company.class)
                         .where(Condition.column(Company$Table.ZIPCODE)
@@ -197,7 +197,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
             }
         });
 
-         */
+
         return v;
     }
 
@@ -267,13 +267,13 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         independant.setIndependantType(independantType.getSelectedItem().toString());
         independant.setLongTermFidelity(getIntFromRadiogroup(longTermFidelity));
         independant.setIdUser(ListCustomerFragment.idUser);
-     /**   Specialty specialtyInit = new Select().from(Specialty.class)
+        Specialty specialtyInit = new Select().from(Specialty.class)
                 .where(Condition.column(Specialty$Table.NAME).eq(specialty.getSelectedItem().toString())).querySingle();
         Company companyInit = new Select().from(Company.class)
                 .where(Condition.column(Company$Table.NAME)
                         .eq(company.getSelectedItem().toString())).querySingle();
         independant.setCompanyId(companyInit.getId());
-        independant.setSpecialtyId(specialtyInit.getId());*/
+        independant.setSpecialtyId(specialtyInit.getId());
         return independant;
     }
 
@@ -281,7 +281,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
      * Initialise spinner before displaying the view
      */
     private void initSpinner() {
-   /**     companies = new Select(Company$Table.NAME).from(Company.class).queryList();
+        companies = new Select(Company$Table.NAME).from(Company.class).queryList();
 
         company.setAdapter(new ArrayAdapter<Company>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,companies));
@@ -291,7 +291,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,specialties));
         independantType.setAdapter(new ArrayAdapter<IndependantType>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, IndependantType.values()));
-*/
+
     }
 
 

@@ -125,7 +125,7 @@ public class DetailIndepFragment extends Fragment {
      * Initialise the view before displaying it with independant pass by the list
      */
     private void initView() {
-   /**     name.setText(independant.getName());
+        name.setText(independant.getName());
         siretNumber.setText(String.valueOf(independant.getSiretNumber()));
         finessNumber.setText(String.valueOf(independant.getFinessNumber()));
         adress.setText(independant.getAdress());
@@ -134,7 +134,7 @@ public class DetailIndepFragment extends Fragment {
         independantType.setText(independant.getIndependantType());
         company.setText(independant.getCompany().getName());
         specialty.setText(independant.getSpecialty().getName());
-        longTermFidelity.setText(String.valueOf(independant.getLongTermFidelity()));*/
+        longTermFidelity.setText(String.valueOf(independant.getLongTermFidelity()));
     }
 
 

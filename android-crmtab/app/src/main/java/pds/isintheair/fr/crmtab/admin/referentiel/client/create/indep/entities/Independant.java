@@ -230,7 +230,7 @@ public class Independant extends BaseModel implements Customer, Parcelable {
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
     }
-/**
+
     public Specialty getSpecialty() {
         return new Select().from(Specialty.class).where(Condition.column(Specialty$Table.ID).eq(specialtyId)).querySingle();
     }
@@ -239,7 +239,7 @@ public class Independant extends BaseModel implements Customer, Parcelable {
         return new Select().from(Company.class)
                 .where(Condition.column(Company$Table.ID).eq(companyId)).querySingle();
     }
-*/
+
     public int getIdUser() {
         return idUser;
     }

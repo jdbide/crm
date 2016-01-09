@@ -1,19 +1,29 @@
 package pds.isintheair.fr.crmtab.admin.referentiel.client.display.hc.fragment;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -97,6 +107,10 @@ public class DetailHCFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= 23) {
+                        checkPermissions();
+                   }
+
     }
 
     @Override
@@ -134,7 +148,7 @@ public class DetailHCFragment extends Fragment {
      * Initialise the view before displaying it with health center pass by the list
      */
     private void initView() {
-   /**   if(healthCenter.isPublic()) isPublic.setText(R.string.display_hc_fragment_ispublic_yes_textview);
+     if(healthCenter.isPublic()) isPublic.setText(R.string.display_hc_fragment_ispublic_yes_textview);
         else isPublic.setText(R.string.display_hc_fragment_ispublic_no_textview);
         name.setText(healthCenter.getName());
         siretNumber.setText(String.valueOf(healthCenter.getSiretNumber()));
@@ -147,7 +161,7 @@ public class DetailHCFragment extends Fragment {
         purshasingCentral.setText(healthCenter.getPurchasingCentral().getName());
         holding.setText(healthCenter.getHolding().getName());
         difficultyHavingContact.setText(String.valueOf(healthCenter.getDifficultyHavingContact()));
-        serviceBuilding.setText(String.valueOf(healthCenter.getServiceBuildingImage()));*/
+        serviceBuilding.setText(String.valueOf(healthCenter.getServiceBuildingImage()));
     }
 
     /**
@@ -175,4 +189,62 @@ public class DetailHCFragment extends Fragment {
         intentWeb.setData(Uri.parse(url));
         startActivity(intentWeb);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+           			case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:	{
+            				Map<String, Integer> perms = new HashMap<>();
+               				// Initial
+              				perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
+              				perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+              				// Fill with results
+             				for (int i = 0; i < permissions.length; i++)
+                					perms.put(permissions[i], grantResults[i]);
+              				// Check for ACCESS_FINE_LOCATION and WRITE_EXTERNAL_STORAGE
+                                Boolean location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                              Boolean storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+             				if (location && storage) {
+                  					// All Permissions Granted
+                  					Toast.makeText(getActivity().getApplicationContext(), "All permissions granted", Toast.LENGTH_SHORT).show();
+                				} else if (location) {
+                                     Toast.makeText(getActivity().getApplicationContext(), "Storage permission is required to store map tiles to reduce data usage and for offline usage.", Toast.LENGTH_LONG).show();
+                                 } else if (storage) {
+                                    Toast.makeText(getActivity().getApplicationContext(),"Location permission is required to show the user's location on map.", Toast.LENGTH_LONG).show();
+                                 } else { // !location && !storage case
+                					// Permission Denied
+                					Toast.makeText(getActivity().getApplicationContext(), "Storage permission is required to store map tiles to reduce data usage and for offline usage." +
+                       							"\nLocation permission is required to show the user's location on map.", Toast.LENGTH_SHORT).show();
+                     				}
+             			}
+          			break;
+            			default:
+             			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                		}
+
+    }
+
+    // START PERMISSION CHECK
+     	final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+
+
+            	private void checkPermissions() {
+                List<String> permissions = new ArrayList<>();
+                String message = "OSMDroid permissions:";
+               if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                       permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+                      message += "\nStorage access to store map tiles.";
+                }
+              if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                      permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                       message += "\nLocation to show user location.";
+                    }
+               if (!permissions.isEmpty()) {
+                       Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                     String[] params = permissions.toArray(new String[permissions.size()]);
+                      requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                  } // else: We already have permissions, so handle as normal
+         }
+
+
 }

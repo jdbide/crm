@@ -266,7 +266,7 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
     }
 
 
-  /**   public Holding getHolding() {
+    public Holding getHolding() {
         return new Select().from(Holding.class).where(Condition.column(Holding$Table.ID).eq(holdingId)).querySingle();
     }
 
@@ -274,7 +274,7 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
         return new Select().from(PurchasingCentral.class)
                 .where(Condition.column(PurchasingCentral$Table.ID).eq(purchasingCentralId)).querySingle();
     }
-*/
+
     public int getIdUser() {
         return idUser;
     }

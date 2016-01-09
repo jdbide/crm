@@ -39,8 +39,8 @@ import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Purc
 import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.message.MessageRestCustomer;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding;
-//import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding$Table;
-//import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral$Table;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding$Table;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral$Table;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.enums.EtablishmentType;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.message.ResponseRestCustomer;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
@@ -249,13 +249,13 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         else healthCenter.setIsPublic(false);
         healthCenter.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
         healthCenter.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
-    /**    Holding holdingInit = new Select().from(Holding.class)
+        Holding holdingInit = new Select().from(Holding.class)
                 .where(Condition.column(Holding$Table.NAME).eq(holding.getSelectedItem().toString())).querySingle();
         PurchasingCentral pcInit = new Select().from(PurchasingCentral.class)
                 .where(Condition.column(PurchasingCentral$Table.NAME)
                         .eq(purshasingCentral.getSelectedItem().toString())).querySingle();
         healthCenter.setHoldingId(holdingInit.getId());
-        healthCenter.setPurchasingCentralId(pcInit.getId());*/
+        healthCenter.setPurchasingCentralId(pcInit.getId());
         return healthCenter;
     }
 
@@ -264,7 +264,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
      * Initialise spinner before displaying the view
      */
     private void initSpinner() {
-      /**   holdings = new Select(Holding$Table.NAME).from(Holding.class).queryList();
+         holdings = new Select(Holding$Table.NAME).from(Holding.class).queryList();
         holding.setAdapter(new ArrayAdapter<Holding>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,holdings));
         purchasingCentrals = new Select(PurchasingCentral$Table.NAME)
@@ -272,7 +272,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         purshasingCentral.setAdapter(new ArrayAdapter<PurchasingCentral>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,purchasingCentrals));
         etablishmentType.setAdapter(new ArrayAdapter<EtablishmentType>
-                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, EtablishmentType.values()));*/
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, EtablishmentType.values()));
     }
 
     /**
