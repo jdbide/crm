@@ -9,7 +9,7 @@ import miage.pds.api.admin.customer.crud.createindep.entities.Independant;
 import miage.pds.api.admin.customer.crud.createindep.entities.Specialty;
 import miage.pds.api.admin.customer.crud.message.MessageRestCustomer;
 import miage.pds.api.admin.customer.crud.message.ResponseRestCustomer;
-import miage.pds.orm.SpringMongoConfig;
+import miage.pds.api.admin.customer.crud.SpringMongoConfig;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
