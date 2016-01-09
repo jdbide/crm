@@ -72,7 +72,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
-        <service android:enabled="true" android:name="pds.isintheair.fr.crmtab.registercall.CheckPendingLogs" />
+        <service android:enabled="true" android:name=".registercall.ListenerPendingLogs" />
         <service android:enabled="true" android:name="pds.isintheair.fr.crmtab.registercall.ListennerCallEndedEvent" />
 
         <activity android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.view.activity.CallActivity"/>

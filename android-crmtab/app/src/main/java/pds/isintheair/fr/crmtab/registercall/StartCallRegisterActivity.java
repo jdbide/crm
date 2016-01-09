@@ -28,7 +28,7 @@ public class StartCallRegisterActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //start local services
         startService(new Intent(this, ListennerCallEndedEvent.class));
-        startService(new Intent(this, CheckPendingLogs.class));
+        startService(new Intent(this, ListenerPendingLogs.class));
         bus = Singleton.getInstance().getCurrentBusInstance();
         bus.register(this);
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

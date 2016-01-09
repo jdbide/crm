@@ -20,7 +20,7 @@ import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 /**
  * Created by j-d on 29/12/2015.
  */
-public class CheckPendingLogs extends Service {
+public class ListenerPendingLogs extends Service {
 
     private static final int notification_id = 10000;
     private NotificationManager mNM;
