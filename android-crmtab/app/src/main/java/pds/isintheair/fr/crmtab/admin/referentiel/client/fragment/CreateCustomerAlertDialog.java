@@ -32,7 +32,6 @@ public class CreateCustomerAlertDialog extends DialogFragment {
 
 
 
-
     /** This is the OK button listener for the alert dialog,
      *  which in turn invokes the method onPositiveClick(position)
      *  of the hosting activity which is supposed to implement it
@@ -81,4 +80,7 @@ public class CreateCustomerAlertDialog extends DialogFragment {
         return d;
     }
 
+    public void setAlertPositiveListener(AlertPositiveListener alertPositiveListener) {
+        this.alertPositiveListener = alertPositiveListener;
+    }
 }

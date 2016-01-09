@@ -141,6 +141,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
             /** Instantiating the DialogFragment class */
             CreateCustomerAlertDialog alert = new CreateCustomerAlertDialog();
+            alert.setAlertPositiveListener(this);
 
             /** Creating a bundle object to store the selected item's index */
             Bundle b  = new Bundle();
