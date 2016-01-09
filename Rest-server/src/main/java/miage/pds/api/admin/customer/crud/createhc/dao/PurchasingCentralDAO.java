@@ -16,6 +16,10 @@ public class PurchasingCentralDAO extends BasicDAO<PurchasingCentral,ObjectId> {
         super(ds);
     }
 
+    /**
+     * Return a list of all purchasing central from the db
+     * @return List<PurchasingCentral>
+     */
     public List<PurchasingCentral> findAll() {
         return find().asList();
     }

@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by tlacouque on 09/01/2016.
+ * Class used to do operation between mongodb table "holding" and the rest server
  */
 public class HoldingDAO extends BasicDAO<Holding,ObjectId> {
 
@@ -19,6 +20,10 @@ public class HoldingDAO extends BasicDAO<Holding,ObjectId> {
         super(ds);
     }
 
+    /**
+     * Return a list of all holding from the db
+     * @return List<Holding>
+     */
     public List<Holding> findAll() {
         return find().asList();
     }

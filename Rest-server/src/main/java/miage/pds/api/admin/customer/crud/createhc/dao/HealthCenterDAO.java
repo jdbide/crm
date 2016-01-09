@@ -21,7 +21,11 @@ public class HealthCenterDAO extends BasicDAO<HealthCenter,ObjectId> {
         super(ds);
     }
 
-
+    /**
+     * Return a list of health center from the db without all lines
+     * where the idUser is equals to the id pass in parameter
+     * @return List<HealthCenter>
+     */
     public List<HealthCenter> findAllWithoutUserId(int id) {
        return getDatastore().createQuery(HealthCenter.class).filter("idUser <>",id).asList();
     }
