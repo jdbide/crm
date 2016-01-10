@@ -11,10 +11,6 @@
 		<java-version>1.6</java-version>
 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-<<<<<<< HEAD
-=======
-		<spring.data.version>1.8.2.RELEASE</spring.data.version>
->>>>>>> ususus
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
@@ -25,15 +21,11 @@
 		</dependency>
 
 		<!-- MongoDB -->
-<<<<<<< HEAD
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>2.10.1</version>
 		</dependency>
-=======
-
->>>>>>> ususus
 
 		<dependency>
 			<groupId>org.mongodb.morphia</groupId>
@@ -60,7 +52,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-<<<<<<< HEAD
 
 		<!-- AspectJ -->
 		<dependency>
@@ -68,15 +59,6 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-=======
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>${spring.data.version}</version>
-		</dependency>
-
-
->>>>>>> ususus
 		<!-- Jackson -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -101,7 +83,6 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-<<<<<<< HEAD
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -160,19 +141,13 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-=======
-
->>>>>>> ususus
 
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
-<<<<<<< HEAD
 			<scope>test</scope>
-=======
->>>>>>> ususus
 		</dependency>
 	</dependencies>
 	<build>

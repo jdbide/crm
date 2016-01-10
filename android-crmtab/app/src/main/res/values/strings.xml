@@ -17,6 +17,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_preformated_message">Messages pré-formaté</string>
 
@@ -39,6 +40,7 @@
     <string name="stringregistercalldialogbox">Voulez-vous enregistrer l\'appel?</string>
     <string name="title_activity_start_call_register">StartCallRegisterActivity</string>
     <string name="title_activity_call_log_main">CallLogMainActivity</string>
+
 
     <!--Strings related to customer list fragment -->
     <string name="customer_list_title">Liste des clients</string>

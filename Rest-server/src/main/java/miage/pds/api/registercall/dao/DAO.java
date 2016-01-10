@@ -1,5 +1,6 @@
 package miage.pds.api.registercall.dao;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 import miage.pds.api.RestController;
@@ -31,12 +32,18 @@ public class DAO {
 		/**** Connect to MongoDB ****/
 		MongoClient mongo;
 
-		mongo = new MongoClient(Config.URL, Config.PORT);
+		try {
+			mongo = new MongoClient(Config.URL, Config.PORT);
+		
 		morphia = new Morphia();
 
 		/**** Get database ****/
 		// if database doesn't exists, MongoDB will create it for you
 		datastore = morphia.createDatastore(mongo, "CRM");
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return true;
 	}

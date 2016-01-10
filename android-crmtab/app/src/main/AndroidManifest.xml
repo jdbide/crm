@@ -10,11 +10,15 @@
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
+        android:name=".CrmTabApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -39,6 +43,15 @@
             android:theme="@style/FullscreenTheme">
 
         </activity>
+
+        <activity android:name=".admin.referentiel.client.activity.CRUDCustomerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="pds.isintheair.fr.crmtab.crv.view.CrvMainActivity"
             android:label="@string/app_name"
@@ -51,10 +64,7 @@
             android:name="pds.isintheair.fr.crmtab.crv.view.CrvHomeActivity"
             android:label="CRM-tab" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
 
         <activity
@@ -63,7 +73,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
-        <service android:enabled="true" android:name="pds.isintheair.fr.crmtab.registercall.CheckPendingLogs" />
+        <service android:enabled="true" android:name=".registercall.ListenerPendingLogs" />
         <service android:enabled="true" android:name="pds.isintheair.fr.crmtab.registercall.ListennerCallEndedEvent" />
 
         <activity android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.view.activity.CallActivity"/>
