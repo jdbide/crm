@@ -6,7 +6,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -62,7 +61,8 @@ Temporary Items
 *.iml
 
 ## Directory-based project format:
-.idea/
+.idea
+.idea/*
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
@@ -134,3 +134,19 @@ proguard/
 # Android Studio Navigation editor temp files
 .navigation/
 
+
+Rest-server/.classpath
+Rest-server/.project
+Rest-server/.settings/.jsdtscope
+Rest-server/.settings/org.eclipse.jdt.core.prefs
+Rest-server/.settings/org.eclipse.m2e.core.prefs
+Rest-server/.settings/org.eclipse.wst.common.component
+Rest-server/.settings/org.eclipse.wst.common.project.facet.core.xml
+Rest-server/.settings/org.eclipse.wst.jsdt.ui.superType.container
+Rest-server/target/m2e-wtp/web-resources/META-INF/maven/miage.pds/api/pom.properties
+Rest-server/.settings/org.eclipse.wst.jsdt.ui.superType.name
+Rest-server/.settings/org.eclipse.wst.validation.prefs
+
+Rest-server/target/m2e-wtp/web-resources/META-INF/maven/miage.pds/api/pom.properties
+
+Rest-server/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF

@@ -5,6 +5,7 @@ import miage.pds.api.admin.customer.crud.createindep.entities.Independant;
 
 /**
  * Created by tlacouque on 17/12/2015.
+ * DTO used between Android crm tab, to the current rest server
  */
 public class MessageRestCustomer {
 

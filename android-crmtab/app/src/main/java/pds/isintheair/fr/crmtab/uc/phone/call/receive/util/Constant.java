@@ -1,0 +1,6 @@
+package pds.isintheair.fr.crmtab.uc.phone.call.receive.util;
+
+public class Constant {
+    public static String WS_URL = "ws://192.168.20.3:8090";
+    public static String MESSAGE_INFORMATIONS_PHONE_NUMBER = "phoneNumber";
+}

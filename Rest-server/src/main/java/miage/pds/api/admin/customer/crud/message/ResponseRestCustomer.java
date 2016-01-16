@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by tlacouque on 17/12/2015.
+ * DTO used between the current rest server, to Android crm tab.
  */
 public class ResponseRestCustomer {
 
