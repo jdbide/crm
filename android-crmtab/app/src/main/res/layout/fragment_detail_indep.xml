@@ -74,29 +74,6 @@
             </LinearLayout>
 
 
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/detail_hc_margin_top"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="@string/create_he_fragment_is_public_textview"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/detail_hc_size_text_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/detail_indep_fragment_is_public"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/detail_hc_size_text_text_view"
-                    android:layout_height="wrap_content" />
-
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_marginTop="@dimen/detail_hc_margin_top"
                 android:orientation="horizontal"
