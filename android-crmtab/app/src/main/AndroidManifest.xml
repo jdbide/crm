@@ -80,6 +80,8 @@
         <activity
          android:name=".admin.referentiel.client.activity.CRUDCustomerActivity"
             android:label="@string/title_activity_crudcustomer"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
