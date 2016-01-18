@@ -6,7 +6,7 @@
     android:background="@color/colorPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="pds.isintheair.fr.crm_tab.admin.referentiel.client.display.hc.fragment.DetailIndepFragment">
+    tools:context="pds.isintheair.fr.crmtab.admin.referentiel.client.display.hc.fragment.DetailIndepFragment">
 
 
     <android.support.v7.widget.CardView
