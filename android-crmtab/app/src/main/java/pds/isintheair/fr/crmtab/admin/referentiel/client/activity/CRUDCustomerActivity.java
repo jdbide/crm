@@ -4,11 +4,12 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
+
+import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.CreateCustomerAlertDialog;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
-import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
 
 public class CRUDCustomerActivity extends AppCompatActivity implements CreateCustomerAlertDialog.AlertPositiveListener,
         ListCustomerFragment.OnListFragmentInteractionListener {
@@ -68,5 +69,9 @@ public class CRUDCustomerActivity extends AppCompatActivity implements CreateCus
             getFragmentManager().popBackStack();
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
     }
 }

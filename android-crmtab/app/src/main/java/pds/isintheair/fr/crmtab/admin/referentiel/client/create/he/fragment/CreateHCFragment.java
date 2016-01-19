@@ -1,15 +1,12 @@
 package pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.fragment;
 
 import android.app.AlertDialog;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.design.widget.Snackbar;
-
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +16,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
 
 import com.mobsandgeeks.saripaar.QuickRule;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -33,21 +29,21 @@ import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
 
-import pds.isintheair.fr.crmtab.admin.referentiel.client.FormatValidator;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.HealthCenter;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.message.MessageRestCustomer;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding$Table;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral$Table;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.enums.EtablishmentType;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.message.ResponseRestCustomer;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.FormatValidator;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.HealthCenter;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding$Table;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral$Table;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.enums.EtablishmentType;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.message.MessageRestCustomer;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.message.ResponseRestCustomer;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -221,7 +217,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
      * @param radioGroup
      * @return int
      */
-   private int getIntFromRadiogroup(RadioGroup radioGroup) {
+   public int getIntFromRadiogroup(RadioGroup radioGroup) {
       return Integer.decode(((RadioButton) getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))
               .getText().toString());
     }
@@ -230,7 +226,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
      * Method called to initialise a new Health Center with values from the view
      * @return HealthCenter
      */
-    private HealthCenter initHC() {
+    public HealthCenter initHC() {
         HealthCenter healthCenter = new HealthCenter();
         healthCenter.setName(name.getText().toString());
         healthCenter.setSiretNumber(Long.decode(siretNumber.getText().toString()));
@@ -263,7 +259,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     /**
      * Initialise spinner before displaying the view
      */
-    private void initSpinner() {
+    public void initSpinner() {
          holdings = new Select(Holding$Table.NAME).from(Holding.class).queryList();
         holding.setAdapter(new ArrayAdapter<Holding>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view,holdings));
