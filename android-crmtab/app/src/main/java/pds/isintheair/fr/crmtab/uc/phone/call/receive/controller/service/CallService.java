@@ -6,11 +6,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import de.tavendo.autobahn.WebSocketConnection;
-import de.tavendo.autobahn.WebSocketException;
-import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.websocket.CallWebSocketHandler;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
-import pds.isintheair.fr.crmtab.uc.phone.call.receive.util.Constant;
 
 public class CallService extends Service {
     @Nullable
@@ -25,18 +21,7 @@ public class CallService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        WebSocketConnection webSocketConnection = new WebSocketConnection();
-        CallWebSocketHandler callWebSocketHandler = new CallWebSocketHandler();
-
-        WebSocketConnectionHandlerSingleton.getInstance()
-                                           .setWebSocketConnection(webSocketConnection);
-
-        try {
-            webSocketConnection.connect(Constant.WS_URL, callWebSocketHandler);
-        }
-        catch (WebSocketException e) {
-            //TODO handle exception
-        }
+        WebSocketConnectionHandlerSingleton.getInstance().connect();
 
         return START_STICKY;
     }
