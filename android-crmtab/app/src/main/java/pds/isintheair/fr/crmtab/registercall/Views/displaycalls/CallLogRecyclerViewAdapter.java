@@ -9,18 +9,14 @@ import java.util.List;
 
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment.OnListFragmentInteractionListener;
-
-import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
-
 
 
 public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecyclerViewAdapter.ViewHolder> {
 
     private final List<Cra> liste;
-    private final OnListFragmentInteractionListener mListener;
+    private final DisplayCallLogFragment.OnListFragmentInteractionListener mListener;
 
-    public CallLogRecyclerViewAdapter(List<Cra> items, OnListFragmentInteractionListener listener) {
+    public CallLogRecyclerViewAdapter(List<Cra> items, DisplayCallLogFragment.OnListFragmentInteractionListener listener) {
         liste = items;
         mListener = listener;
     }

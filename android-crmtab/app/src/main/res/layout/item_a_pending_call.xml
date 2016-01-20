@@ -54,6 +54,7 @@
             android:id="@+id/no"
             android:background="@drawable/no_tick"/>
 
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

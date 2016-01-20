@@ -2,7 +2,7 @@ package pds.isintheair.fr.crmtab.registercall.Rest;
 
 import java.util.List;
 
-
+import pds.isintheair.fr.crmtab.User;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 import retrofit.Call;
 import retrofit.http.Body;
@@ -24,8 +24,8 @@ public interface Methods {
     Call<Boolean> createcra(@Body Cra cra) ;
 
 
-    //@POST("login")
-  //  Call<User> basicLogin(@Body User user);
+    @POST("login")
+    Call<User> basicLogin(@Body User user);
 
 
 

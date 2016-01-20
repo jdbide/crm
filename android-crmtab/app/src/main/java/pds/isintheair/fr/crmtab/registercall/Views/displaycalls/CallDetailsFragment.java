@@ -17,7 +17,6 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pds.isintheair.fr.crmtab.R;
-
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 
 /**

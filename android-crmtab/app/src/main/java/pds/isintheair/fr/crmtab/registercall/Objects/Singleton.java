@@ -8,7 +8,6 @@ import java.util.List;
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 
-
 /**
  * Created by j-d on 21/12/2015.
  */
@@ -52,7 +51,7 @@ public class Singleton {
 
     public void setPopUpDisplayed(boolean state){
 
-        popupdisplayed = state;
+         popupdisplayed = state;
     }
 
     public  Bus getCurrentBusInstance(){
@@ -71,7 +70,7 @@ public class Singleton {
 
     public void setCraListForUser(List<Cra> liste){
 
-        CraListForUser = liste;
+            CraListForUser = liste;
 
     }
 

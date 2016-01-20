@@ -41,11 +41,6 @@
             android:label="@string/title_activity_start_call_register"
              />
         <activity
-            android:name="pds.isintheair.fr.crmtab.registercall.StartCallRegisterActivity"
-            android:label="@string/title_activity_start_call_register"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.view.activity.ContactDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"

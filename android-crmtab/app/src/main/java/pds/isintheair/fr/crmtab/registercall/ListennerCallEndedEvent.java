@@ -1,23 +1,35 @@
 package pds.isintheair.fr.crmtab.registercall;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.List;
+
+import pds.isintheair.fr.crmtab.MainActivity;
+import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.registercall.Objects.CallType;
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
-import pds.isintheair.fr.crmtab.registercall.Objects.Events.PendingCallEndedEventListUpdated;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.PendingCallLogEvent;
 import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
-import pds.isintheair.fr.crmtab.registercall.Views.registeracall.RegisterCallActivity;
 
 /**
  * Created by j-d on 21/12/2015.
  */
 public class ListennerCallEndedEvent extends Service {
+
+    private static final int notification_id = 10000;
+    private NotificationManager mNM;
+    private int numMessages;
 
 
     @Override
@@ -28,6 +40,7 @@ public class ListennerCallEndedEvent extends Service {
     @Override
     public void onCreate() {
         //registering service for events on the bus
+        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Singleton.getInstance().getCurrentBusInstance().register(this);
     }
 
@@ -66,19 +79,89 @@ public class ListennerCallEndedEvent extends Service {
         //if no popup displayed show
         if(!Singleton.getInstance().isPopUpDisplayed()) {
             Singleton.getInstance().setPopUpDisplayed(true);
-            Intent intent = new Intent(this, RegisterCallActivity.class);
+            /*Intent intent = new Intent(this, RegisterCallActivity.class);
             intent.putExtra("idcontact", event.getIdcontact());
             intent.putExtra("date", event.getDate());
             intent.putExtra("duration", event.getDuration());
             intent.putExtra("calltype", event.getCalltype() == CallType.INCOMING ? "Reçu" : "Emis");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            startActivity(intent);*/
+//sendMessage(event);
+            Singleton.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(event));
         }else{  //else add to job
             //add event to pending list
             Singleton.getInstance().getPendingCallList().add(event);
             //tell subscribers that list has been updated
-            Singleton.getInstance().getCurrentBusInstance().post(new PendingCallEndedEventListUpdated());
+            Singleton.getInstance().getCurrentBusInstance().post(new PendingCallLogEvent());
         }
+    }
+
+    private void sendMessage(CallEndedEvent event) {
+        Intent intent = new Intent("my-event");
+        // add data
+        intent.putExtra("idcontact", event.getIdcontact());
+        intent.putExtra("date", event.getDate());
+        intent.putExtra("duration", event.getDuration());
+        intent.putExtra("calltype", event.getCalltype() == CallType.INCOMING ? "Reçu" : "Emis");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+    /**
+     * Shows notifications if popup already displayed
+     */
+    @Subscribe
+    public void notifyLocally(PendingCallLogEvent pop) {
+
+        List<CallEndedEvent> liste = Singleton.getInstance().getPendingCallList();
+
+        // Set the info for the views that show in the notification panel.
+        NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.logo)  // the status icon
+                .setTicker("Nouvel appel à historiser")  // the status text
+                        //.setWhen(System.currentTimeMillis())  // the time stamp
+                .setContentTitle("Title")  // the label of the entry
+                .setContentText("text");
+
+        // the contents of the entry
+        //.setContentIntent(contentIntent)  // The intent to send when the entry is clicked
+        //.build();
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+        // The PendingIntent to launch our activity if the user selects this notification
+          // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.putExtra("msg","notification");
+        //TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        //stackBuilder.addParentStack(NotificationView.class);
+         // Adds the Intent that starts the Activity to the top of the stack
+        //stackBuilder.addNextIntent(resultIntent);
+        //PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        notification.setContentIntent(resultPendingIntent);
+
+        notification.setNumber(++numMessages);
+        String[] events = new String[liste.size()];
+        for (int i=0; i < liste.size(); i++) {
+            events[i] = "A Historiser :" + liste.get(i).getIdcontact();
+        }
+        // Sets a title for the Inbox in expanded layout
+        inboxStyle.setBigContentTitle("Vous avez des appels à historiser");
+
+        // Moves events into the expanded layout
+        for (int i=0; i < events.length; i++) {
+
+            inboxStyle.addLine(events[i]);
+        }
+        // Moves the expanded layout object into the notification object.
+        notification.setStyle(inboxStyle);
+
+        // Send the notification.
+        mNM.notify(notification_id, notification.build());
     }
 
 }

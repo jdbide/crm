@@ -19,12 +19,10 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 import pds.isintheair.fr.crmtab.registercall.Rest.Methods;
-
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;

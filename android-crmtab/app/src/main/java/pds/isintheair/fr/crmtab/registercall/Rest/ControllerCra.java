@@ -11,7 +11,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import pds.isintheair.fr.crmtab.R;
-
+import pds.isintheair.fr.crmtab.User;
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.RemoveFragmentEvent;
 import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
@@ -97,7 +97,7 @@ public class ControllerCra {
         //((RegisterCallActivity)(getActivity())).showCallLogList();
     }
 
-   /* public static void hasAccount(User user, final Activity context) {
+    public static void hasAccount(User user, final Activity context) {
 
         User result = null;
 
@@ -136,5 +136,5 @@ public class ControllerCra {
         });
 
 
-    }*/
+    }
 }
