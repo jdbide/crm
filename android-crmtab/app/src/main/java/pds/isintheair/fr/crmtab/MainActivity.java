@@ -1,25 +1,24 @@
 package pds.isintheair.fr.crmtab;
 
-import android.view.MenuItem;
-
-
-
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import java.util.Calendar;
 
+import pds.isintheair.fr.crmtab.crv.view.ClientListFragment;
 import pds.isintheair.fr.crmtab.registercall.ListennerCallEndedEvent;
 import pds.isintheair.fr.crmtab.registercall.Objects.CallType;
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
@@ -114,6 +113,11 @@ public class MainActivity extends AppCompatActivity
             //DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
             //ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
         } else if (id == R.id.nav_editer_crv) {
+            ClientListFragment clientListFragment = new ClientListFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, clientListFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
 
         } else if (id == R.id.nav_ref_client) {
 
