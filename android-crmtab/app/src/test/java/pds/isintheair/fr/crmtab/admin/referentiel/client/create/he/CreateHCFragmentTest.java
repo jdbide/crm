@@ -1,7 +1,10 @@
 package pds.isintheair.fr.crmtab.admin.referentiel.client.create.he;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.media.midi.MidiOutputPort;
 import android.os.Build;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -9,15 +12,22 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowAlertDialog;
+import org.robolectric.shadows.ShadowToast;
 
 import java.lang.reflect.Field;
 
@@ -28,6 +38,13 @@ import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Heal
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.message.MessageRestCustomer;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.message.ResponseRestCustomer;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.rest.CustomerService;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -45,8 +62,22 @@ public class CreateHCFragmentTest {
     PurchasingCentral purchasingCentralAucune;
     PurchasingCentral purchasingCentralCAHPP;
 
+
+    @Captor
+    private ArgumentCaptor<Callback<ResponseRestCustomer>> cbrrc;
+
+    @Captor
+    private ArgumentCaptor<Callback<MessageRestCustomer>> cbmrc;
+
+    @Captor
+    private ArgumentCaptor<MessageRestCustomer> messageRestCustomerFragment;
+
+    @Mock
+    CustomerService customerService;
+
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         activity = Robolectric.setupActivity(CRUDCustomerActivity.class);
 
         initDb();
@@ -80,7 +111,7 @@ public class CreateHCFragmentTest {
                 (CreateHCFragment) activity.getFragmentManager().findFragmentById(R.id.create_customer_fragment_container);
 
         assertEquals(Integer.decode(radioButton0.getText().toString()).intValue()
-                ,createHCFragment.getIntFromRadiogroup(radioGroup));
+                , createHCFragment.getIntFromRadiogroup(radioGroup));
 
     }
 
@@ -140,7 +171,69 @@ public class CreateHCFragmentTest {
     @Test
     public void testOnValidationSucceedded() throws Exception {
        // Mockito.verify(CustomerService.class).;
-        // TODO: 19/01/2016  
+        // TODO: 19/01/2016
+
+        int j = (int) new Select().count().from(HealthCenter.class).count();
+        System.out.println("j = "+j);
+
+
+        final String nameTest = "testName";
+        final String siretNumberTest = "26770008600056";
+        final String finessNumberTest = "234735732";
+        final String streetNumberTest = "1";
+        final String streetNameTest = "rue de chalautre";
+        final String townNameTest = "Provins";
+        final String zipCodeTest = "77160";
+        final String bedNumberTest = "200";
+        final String webSiteNameTest = "www.test.com";
+        EditText name = (EditText) activity.findViewById(R.id.create_he_fragment_name);
+        name.setText(nameTest);
+        RadioButton isPublicYes = (RadioButton) activity.findViewById(R.id.create_he_fragment_is_public_yes_radio_button);
+        isPublicYes.setChecked(true);
+        EditText siretNumber = (EditText) activity.findViewById(R.id.create_he_fragment_siret_number);
+        EditText finessNumber = (EditText) activity.findViewById(R.id.create_he_fragment_finess_number);
+        EditText streetNumber = (EditText) activity.findViewById(R.id.create_he_fragment_street_number);
+        EditText streetName = (EditText) activity.findViewById(R.id.create_he_fragment_street_name);
+        EditText townName = (EditText) activity.findViewById(R.id.create_he_fragment_town_name);
+        EditText zipCode = (EditText) activity.findViewById(R.id.create_he_fragment_zip_code);
+        EditText bedNumber = (EditText) activity.findViewById(R.id.create_he_fragment_bed_number);
+        EditText webSite = (EditText) activity.findViewById(R.id.create_he_fragment_web_site);
+        siretNumber.setText(siretNumberTest);
+        finessNumber.setText(finessNumberTest);
+        streetNumber.setText(streetNumberTest);
+        streetName.setText(streetNameTest);
+        townName.setText(townNameTest);
+        zipCode.setText(zipCodeTest);
+        bedNumber.setText(bedNumberTest);
+        webSite.setText(webSiteNameTest);
+        CreateHCFragment createHCFragment =
+                (CreateHCFragment) activity.getFragmentManager().findFragmentById(R.id.create_customer_fragment_container);
+        createHCFragment.onValidationSucceeded();
+    /*    CreateHCFragment createHCFragment1 = Mockito.mock(createHCFragment.getClass());
+        createHCFragment1.onValidationSucceeded();*/
+
+        MessageRestCustomer messageRestCustomerFragment = createHCFragment.getMessageRestCustomer();
+        ArgumentCaptor<MessageRestCustomer> messageRestCustomerArgumentCaptor
+                = ArgumentCaptor.forClass(MessageRestCustomer.class);
+        HealthCenter healthCenter = createHCFragment.initHC();
+        customerService.createHealthCenter(messageRestCustomerFragment);
+       // MessageRestCustomer messageRestCustomer = new MessageRestCustomer(0,healthCenter);
+        MessageRestCustomer messageRestCustomer = Mockito.mock(MessageRestCustomer.class);
+       // CustomerService mockedClients = Mockito.mock(CustomerService.class);
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        responseRestCustomer.setIsInserted(true);
+      //  Response<ResponseRestCustomer> response = Mockito.mock(Response.class);
+      //  Mockito.when(response.body().getIsInserted()).thenReturn(true);
+        createHCFragment.onValidationSucceeded();
+
+     //   Mockito.verify(customerService).createHealthCenter(messageRestCustomerArgumentCaptor.capture());
+       // createHCFragment.onValidationSucceeded();
+        Response<ResponseRestCustomer> response1 = Response.success(responseRestCustomer);
+
+       // cb.capture();
+       // AppMemory.doneSignal.countDown();
+        // Retrofit retrofit = new Retrofit();
+//        cbrrc.getValue().onResponse(response1, null);
 
     }
 
