@@ -42,7 +42,7 @@ public class CrvMorphiaDao {
 			
 			/**** Get database ****/
 			// if database doesn't exists, MongoDB will create it for you
-			datastore = morphia.createDatastore(mongo, "CRM");
+			datastore = morphia.createDatastore(mongo, "crm");
 			return true;
 
 		} catch (UnknownHostException e) {
