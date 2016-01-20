@@ -61,6 +61,7 @@ dependencies {
 
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'org.osmdroid:osmdroid-android:5.0.1@aar'
+    compile 'net.hockeyapp.android:HockeySDK:3.5.0'
 
 }
 
