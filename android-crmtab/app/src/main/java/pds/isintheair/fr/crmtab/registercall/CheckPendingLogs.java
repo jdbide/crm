@@ -50,11 +50,11 @@ public class CheckPendingLogs extends Service {
     @Subscribe
     public void showNotification(PendingCallEndedEventListUpdated pop) {
 
-        List<CallEndedEvent> liste = Singleton.getInstance().getCallEndedList();
+        List<CallEndedEvent> liste = Singleton.getInstance().getPendingCallList();
 
         Log.v("ok", "ok");
         // Set the info for the views that show in the notification panel.
-        android.support.v7.app.NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo)  // the status icon
                 .setTicker("Nouvel appel à historiser")  // the status text
                         //.setWhen(System.currentTimeMillis())  // the time stamp

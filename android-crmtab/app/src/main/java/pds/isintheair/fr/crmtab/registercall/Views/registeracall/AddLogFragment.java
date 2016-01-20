@@ -40,12 +40,11 @@ public class AddLogFragment extends Fragment {
     @Bind(R.id.edittextcomments) EditText comments;
     @Bind(R.id.edittextsubject) EditText subject;
     @Bind(R.id.edittextdate) EditText date;
-    @Bind(R.id.edittextiduser) EditText iduser;
     @Bind(R.id.edittextcalltype) EditText calltype;
     @Bind(R.id.buttonregistercra)  Button validation;
 
 
-    static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype) {
+    public static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype) {
         AddLogFragment f = new AddLogFragment();
         // Supply num input as an argument.
         Bundle args = new Bundle();
@@ -77,7 +76,6 @@ public class AddLogFragment extends Fragment {
         date.setText(getArguments().getString("date"));
         duration.setText(getArguments().getString("duration"));
         calltype.setText(getArguments().getString("calltype"));
-        iduser.setText("1");
         //idcontact.setText(getArguments().getString("idcontact"));
         //should be taken from a request
         contactname.setText("nom contactttt");
@@ -103,7 +101,7 @@ public class AddLogFragment extends Fragment {
         newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
         newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
         newCra.setSubject(subject.getText().toString());
-        newCra.setIduser(Long.parseLong(iduser.getText().toString()));
+        newCra.setIduser(Long.parseLong("012345678"));
 
         //Interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

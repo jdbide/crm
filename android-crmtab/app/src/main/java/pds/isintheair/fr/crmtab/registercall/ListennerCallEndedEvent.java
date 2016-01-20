@@ -75,7 +75,7 @@ public class ListennerCallEndedEvent extends Service {
             startActivity(intent);
         }else{  //else add to job
             //add event to pending list
-            Singleton.getInstance().getCallEndedList().add(event);
+            Singleton.getInstance().getPendingCallList().add(event);
             //tell subscribers that list has been updated
             Singleton.getInstance().getCurrentBusInstance().post(new PendingCallEndedEventListUpdated());
         }
