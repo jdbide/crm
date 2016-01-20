@@ -1,4 +1,4 @@
-package miage.pds.registercallmodel;
+package miage.pds.registercall.model;
 
 import java.util.ArrayList;
 import java.util.List;

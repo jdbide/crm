@@ -24,8 +24,8 @@ public class Singleton {
     private Singleton(){
         currentBusInstance = new Bus();
         popupdisplayed = false;
-        BASE_URL = "http://192.168.43.131:8080/api/";
-        //BASE_URL = "http://192.168.1.16:8080/api/";
+        //BASE_URL = "http://192.168.43.131:8080/api/";
+        BASE_URL = "http://192.168.1.68:8080/api/";
         pendigCallList = new ArrayList<CallEndedEvent>();
         CraListForUser = new ArrayList<Cra>();
 

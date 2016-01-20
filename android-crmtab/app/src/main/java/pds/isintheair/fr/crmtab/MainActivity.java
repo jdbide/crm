@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        
+
+        //
         if(getIntent().hasExtra("msg"))
             showNotificationListFrag();
     }
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         pend = PendingLogsFragment.newInstance(1);
         ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").addToBackStack(null).commit();
     }
+
     @Subscribe
     public void showaddlogfrag(DisplayAddLogFragment event) {
         android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -149,12 +151,6 @@ public class MainActivity extends AppCompatActivity
         pop.setCancelable(false);
     }
 
-    public void updateRecycler(int pos) {
-        //Fragment fragment = getSupportFragmentManager().findFragmentByTag("FRAGMENT_LISTE_NOTIF");
-        //if(pend != null)
-        //pend.notifyDataChanged();
-        showNotificationListFrag();
-    }
 
     @Override
     public void update() {

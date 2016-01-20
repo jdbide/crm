@@ -60,10 +60,6 @@ public class PendingLogsFragment extends Fragment {
         }
     }
 
-    @UiThread
-    public void notifyDataChanged(){
-        adapter.notifyDataSetChanged();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

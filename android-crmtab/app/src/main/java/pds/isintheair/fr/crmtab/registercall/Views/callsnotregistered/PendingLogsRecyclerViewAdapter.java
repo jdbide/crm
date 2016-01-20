@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Objects.CallType;
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
 import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 
 
@@ -43,7 +46,13 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
         holder.yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("ok", "ok");
+
+
+               Singleton.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(new CallEndedEvent(
+                       mValues.get(position).getCalltype(),
+                       mValues.get(position).getDate(),
+                       mValues.get(position).getDuration(),
+                       mValues.get(position).getIdcontact())));
             }
         });
 
@@ -51,6 +60,7 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
                 @Override
                 public void onClick(View v) {
                     Singleton.getInstance().removeItemFromPendingCallList(position);
+                    notifyDataSetChanged();
                 }
         });
     }

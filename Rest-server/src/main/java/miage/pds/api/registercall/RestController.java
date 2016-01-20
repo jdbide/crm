@@ -1,12 +1,12 @@
-package miage.pds.api;
+package miage.pds.api.registercall;
 
 
 
 import java.util.List;
 
 import miage.pds.api.registercall.dao.DAO;
-import miage.pds.registercallmodel.Cra;
-import miage.pds.registercallmodel.ListCra;
+import miage.pds.registercall.model.Cra;
+import miage.pds.registercall.model.ListCra;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +36,7 @@ public class RestController {
 	 * Simply returns a status string.
 	 */
 	
-	@RequestMapping(value = "/listcra",method = RequestMethod.GET)
+	@RequestMapping(value = "cra/listcra",method = RequestMethod.GET)
 	public @ResponseBody List<Cra> getListCraForUser(@RequestParam("iduser") int iduser){
 
 		List<Cra> liste = dao.getListCraForUser(iduser);
@@ -44,7 +44,7 @@ public class RestController {
 		return liste;
 	}
 
-	@RequestMapping(value = "/createcra", method = RequestMethod.POST)
+	@RequestMapping(value = "/cra/create", method = RequestMethod.POST)
 	public @ResponseBody Boolean createCra(@RequestBody Cra cra) {
 		boolean status = false;  
 		status = dao.createCra(cra);

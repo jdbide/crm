@@ -16,11 +16,11 @@ import retrofit.http.Query;
 public interface Methods {
 
 
-    @GET("listcra")
+    @GET("cra/listcra")
     Call<List<Cra>> listcraforuser(@Query("iduser") int iduser) ;
 
 
-    @POST("createcra")
+    @POST("cra/create")
     Call<Boolean> createcra(@Body Cra cra) ;
 
 
