@@ -3,8 +3,6 @@ package pds.isintheair.fr.crmtab;
 
 import android.content.Context;
 
-package pds.isintheair.fr.crm_tab;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
