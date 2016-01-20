@@ -57,7 +57,7 @@ import retrofit.Retrofit;
 
 public class CreateHCFragment extends Fragment implements ValidationListener {
 
-
+    MessageRestCustomer messageRestCustomer;
 
     @Bind(R.id.create_he_fragment_name)
     @Order(1)
@@ -279,7 +279,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     public void onValidationSucceeded() {
         final HealthCenter healthCenter = initHC();
 
-        MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
+        messageRestCustomer = new MessageRestCustomer(1, healthCenter);
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                 .createHealthCenter(messageRestCustomer);
         healthCenter.save();
@@ -350,5 +350,9 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     public void onStop() {
         super.onStop();
         if(createCalled) Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG).show();
+    }
+
+   public MessageRestCustomer getMessageRestCustomer() {
+        return messageRestCustomer;
     }
 }
