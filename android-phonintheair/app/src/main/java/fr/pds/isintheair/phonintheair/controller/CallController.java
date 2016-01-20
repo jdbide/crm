@@ -6,15 +6,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
-import fr.pds.isintheair.phonintheair.PhointheairApp;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import fr.pds.isintheair.phonintheair.PhonintheairApp;
+
 public class CallController {
     public static void call(String phoneNumber) {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        Context applicationContext = PhointheairApp.context;
+        Intent  callIntent         = new Intent(Intent.ACTION_CALL);
+        Context applicationContext = PhonintheairApp.context;
 
         callIntent.setData(Uri.parse("tel:" + phoneNumber));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -25,7 +26,7 @@ public class CallController {
     }
 
     public static void endCall() {
-        TelephonyManager tm = (TelephonyManager) PhointheairApp.context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) PhonintheairApp.context.getSystemService(Context.TELEPHONY_SERVICE);
 
         try {
             Class c = Class.forName(tm.getClass().getName());
@@ -42,6 +43,7 @@ public class CallController {
             m.invoke(telephonyService);
         }
         catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            //TODO handle exception
             e.printStackTrace();
         }
     }

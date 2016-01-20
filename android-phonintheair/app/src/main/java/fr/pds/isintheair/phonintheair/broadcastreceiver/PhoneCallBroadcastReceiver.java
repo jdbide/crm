@@ -17,10 +17,11 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_NEW_OUTGOING_CALL.equals(intent.getAction())) {
-            //TODO send call
-        }
-        else {
+            Log.d(TAG, "Outgoing call");
+        } else {
             String state = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
+
+            Log.d(TAG, "State : " + state);
 
             if (state != null && state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 String phoneNumber = intent.getExtras()
@@ -29,7 +30,8 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
                 Log.d(TAG, "Receiving call from : " + phoneNumber);
 
                 MessageController.sendCallReceivedMessage(phoneNumber);
-            }
+            } else if (state != null && state.equals(TelephonyManager.EXTRA_STATE_IDLE))
+                MessageController.sendEndCallMessage();
         }
     }
 }

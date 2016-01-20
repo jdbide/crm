@@ -2,8 +2,11 @@ package fr.pds.isintheair.phonintheair;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
-public class PhointheairApp extends Application {
+import fr.pds.isintheair.phonintheair.service.CallService;
+
+public class PhonintheairApp extends Application {
     public static Context context;
 
     @Override
@@ -11,5 +14,9 @@ public class PhointheairApp extends Application {
         super.onCreate();
 
         context = getApplicationContext();
+
+        final Intent intent = new Intent(this, CallService.class);
+
+        startService(intent);
     }
 }

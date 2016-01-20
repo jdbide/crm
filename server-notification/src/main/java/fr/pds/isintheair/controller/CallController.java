@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import fr.pds.isintheair.entity.Call;
 import fr.pds.isintheair.entity.Message;
 import fr.pds.isintheair.entity.MessageMeta;
+import fr.pds.isintheair.enumeration.DeviceType;
 import fr.pds.isintheair.enumeration.MessageType;
 
 import javax.websocket.Session;
@@ -24,13 +25,23 @@ public class CallController {
         }
     }
 
-    public static void endCall(Session tabletSession) {
-        Session phoneSession = PeerController.getPhoneSession(tabletSession);
+    public static void endCall(DeviceType deviceType, Session session) {
+        Session peerSession = null;
+
+        switch (deviceType) {
+            case PHONE:
+                peerSession = PeerController.getTabletSession(session);
+                break;
+            case TABLET:
+                peerSession = PeerController.getPhoneSession(session);
+
+        }
+
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_END).build();
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
 
         try {
-            phoneSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
+            peerSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
         }
         catch (IOException e) {
             //TODO handle failed calls

@@ -4,7 +4,9 @@ import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
+import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.entity.Message;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.util.Constant;
+import pds.isintheair.fr.crmtab.uc.phone.call.receive.util.JSONHelper;
 
 public class WebSocketConnectionHandlerSingleton {
     private static WebSocketConnectionHandlerSingleton INSTANCE            = null;
@@ -35,7 +37,9 @@ public class WebSocketConnectionHandlerSingleton {
         }
     }
 
-    public void sendMessage(String message) {
-        webSocketConnection.sendTextMessage(message);
+    public void sendMessage(Message message) {
+        String serializedMessage = JSONHelper.serialize(message, Message.class);
+        Log.d(TAG, "Sending : " + serializedMessage);
+        webSocketConnection.sendTextMessage(serializedMessage);
     }
 }

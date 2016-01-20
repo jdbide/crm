@@ -1,7 +1,10 @@
 package fr.pds.isintheair.phonintheair.entity;
 
+import fr.pds.isintheair.phonintheair.enumeration.DeviceType;
+
 public class Message {
-    private Call call;
+    DeviceType deviceType;
+    private Call        call;
     private MessageMeta messageMeta;
     private Register    register;
 
@@ -35,8 +38,16 @@ public class Message {
         this.call = call;
     }
 
+    public DeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
+    }
+
     public static class MessageBuilder {
-        public Call call;
+        public Call        call;
         public MessageMeta messageMeta;
         public Register    register;
 

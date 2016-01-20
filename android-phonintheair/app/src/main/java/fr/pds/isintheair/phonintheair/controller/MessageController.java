@@ -4,6 +4,7 @@ import fr.pds.isintheair.phonintheair.entity.Call;
 import fr.pds.isintheair.phonintheair.entity.Message;
 import fr.pds.isintheair.phonintheair.entity.MessageMeta;
 import fr.pds.isintheair.phonintheair.entity.Register;
+import fr.pds.isintheair.phonintheair.enumeration.DeviceType;
 import fr.pds.isintheair.phonintheair.enumeration.MessageType;
 import fr.pds.isintheair.phonintheair.websocket.WebSocketConnectionHandlerSingleton;
 
@@ -28,6 +29,19 @@ public class MessageController {
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta)
                                                       .addCall(call)
                                                       .build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
+    public static void sendEndCallMessage() {
+        MessageType messageType = MessageType.CALL_END;
+
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(messageType)
+                                                                      .build();
+
+        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta)
+                                                      .build();
+        message.setDeviceType(DeviceType.PHONE);
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }

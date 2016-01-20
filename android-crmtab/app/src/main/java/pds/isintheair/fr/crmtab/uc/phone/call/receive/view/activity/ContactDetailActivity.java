@@ -8,7 +8,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.CallController;
-import pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.service.CallService;
 
 public class ContactDetailActivity extends Activity {
     @OnClick(R.id.phone_imageview)
@@ -23,6 +22,5 @@ public class ContactDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_contact);
         ButterKnife.bind(this);
-        startService(new Intent(this, CallService.class));
     }
 }

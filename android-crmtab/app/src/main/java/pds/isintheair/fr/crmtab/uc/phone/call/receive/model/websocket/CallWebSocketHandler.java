@@ -1,29 +1,34 @@
 package pds.isintheair.fr.crmtab.uc.phone.call.receive.model.websocket;
 
+import android.util.Log;
+
 import de.tavendo.autobahn.WebSocketConnectionHandler;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.MessageController;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.entity.Message;
-import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.entity.MessageFactory;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.util.JSONHelper;
-import pds.isintheair.fr.crmtab.uc.phone.call.receive.util.enumeration.MessageType;
 
 public class CallWebSocketHandler extends WebSocketConnectionHandler {
+    private String TAG = getClass().getSimpleName();
+
     @Override
     public void onOpen() {
-        WebSocketConnectionHandlerSingleton.getInstance()
-                                           .sendMessage(JSONHelper.serialize(MessageFactory.buildMessage(
-                                                   MessageType.REGISTER_TABLET,
-                                                   null), Message.class));
+        Log.d(TAG, "Session opened");
+
+        MessageController.sendRegisterMessage();
     }
 
     @Override
     public void onClose(int code, String reason) {
+        Log.d(TAG, "Session closed with code : " + code + " with reason : " + reason);
         //TODO Handle close reasons
     }
 
     @Override
     public void onTextMessage(String payload) {
-        if (!payload.isEmpty())
+        Log.d(TAG, "Message received : " + payload);
+
+        //TODO Remove "Bonjour" -> here to test that server responds in dev environnement
+        if (!payload.isEmpty() && !payload.equals("Bonjour"))
             MessageController.handleMessage((Message) JSONHelper.deserialize(payload,
                                                                              Message.class));
     }

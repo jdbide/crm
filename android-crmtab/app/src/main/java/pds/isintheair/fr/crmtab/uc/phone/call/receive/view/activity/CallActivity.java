@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.CallController;
+import pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.MessageController;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.bus.BusHandlerSingleton;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.bus.event.PhoneCallBegunEvent;
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.model.bus.event.PhoneCallEndedEvent;
@@ -21,7 +22,7 @@ public class CallActivity extends Activity {
 
     @OnClick(R.id.phone_imageview)
     public void onPhoneClick() {
-        CallController.endCall();
+        MessageController.sendEndCallMessage();
 
         finish();
     }

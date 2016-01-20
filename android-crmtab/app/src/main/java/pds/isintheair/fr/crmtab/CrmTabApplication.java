@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
-import com.raizlabs.android.dbflow.config.FlowManager;
-
 import pds.isintheair.fr.crmtab.uc.phone.call.receive.controller.service.CallService;
 
 public class CrmTabApplication extends Application {
@@ -14,7 +12,7 @@ public class CrmTabApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FlowManager.init(this);
+        // FlowManager.init(this);
 
         context = getApplicationContext();
 
