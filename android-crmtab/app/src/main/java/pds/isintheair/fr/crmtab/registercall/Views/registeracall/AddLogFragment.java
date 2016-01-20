@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,8 +15,10 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crmtab.registercall.Rest.ControllerCra;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
+import pds.isintheair.fr.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment;
 
 public class AddLogFragment extends Fragment {
 
@@ -87,7 +90,7 @@ public class AddLogFragment extends Fragment {
                 newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
                 newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
                 newCra.setSubject(subject.getText().toString());
-                newCra.setIduser((long) 1);
+                newCra.setIduser((long) Singleton.getInstance().getCurrentUser().getTel());
 
                 ControllerCra.registerCra(newCra,getActivity());
             }
@@ -105,8 +108,35 @@ public class AddLogFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.addlogmenu, menu);
-
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+
+        switch(item.getItemId())
+        {
+            case R.id.item1:
+
+                /*bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111"));
+                bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333"));
+                bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "5555555"));
+                bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "7777777777"));*/
+
+                return true;
+
+            case R.id.item2:
+                DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
+                ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
     @Override public void onDestroyView() {
         super.onDestroyView();

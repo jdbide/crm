@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".registercall.Views.registeracall.AddLogFragment">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/item1" android:title="Créer un compte-rendu"></item>
+    <item android:id="@+id/item2" android:titleCondensed="Item 2" android:title="Lister les cra"></item>
 </menu>

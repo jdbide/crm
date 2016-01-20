@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity
         startService(new Intent(this, ListennerCallEndedEvent.class));
         bus = Singleton.getInstance().getCurrentBusInstance();
         bus.register(this);
+        User user = new User();
+        user.setTel(01234567);
+        Singleton.getInstance().setCurrentUser(user);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

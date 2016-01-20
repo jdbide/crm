@@ -18,10 +18,10 @@ public class User {
     private String mdp;
     @SerializedName("tel")
     @Expose
-    private String tel;
+    private int tel;
 
 
-    public String getTel() {
+    public int getTel() {
         return tel;
     }
 
@@ -49,7 +49,7 @@ public class User {
         this.mdp = mdp;
     }
 
-    public void setTel(String tel) {
+    public void setTel(int tel) {
         this.tel = tel;
     }
 

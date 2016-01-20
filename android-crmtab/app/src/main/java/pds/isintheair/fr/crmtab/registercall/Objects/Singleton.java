@@ -5,6 +5,7 @@ import com.squareup.otto.Bus;
 import java.util.ArrayList;
 import java.util.List;
 
+import pds.isintheair.fr.crmtab.User;
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 
@@ -14,7 +15,7 @@ import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 public class Singleton {
     private  static Singleton instance = null;
     private String BASE_URL ;
-
+    private User currentUser;
     private  Bus currentBusInstance;
     private  Boolean popupdisplayed;
     private List<CallEndedEvent> pendigCallList;
@@ -23,6 +24,7 @@ public class Singleton {
 
     private Singleton(){
         currentBusInstance = new Bus();
+        currentUser = new User();
         popupdisplayed = false;
         //BASE_URL = "http://192.168.43.131:8080/api/";
         BASE_URL = "http://192.168.1.68:8080/api/";
@@ -74,6 +76,12 @@ public class Singleton {
 
     }
 
+    public void setCurrentUser(User user){
+
+        currentUser = user;
+
+    }
+
     public List<Cra> getCraListForUser(){
 
         if(CraListForUser == null)
@@ -90,6 +98,11 @@ public class Singleton {
             pendigCallList = new ArrayList<CallEndedEvent>();
         }
         return pendigCallList;
+    }
+
+    public User getCurrentUser(){
+
+        return currentUser;
     }
 
     public void removeItemFromPendingCallList(int position){
