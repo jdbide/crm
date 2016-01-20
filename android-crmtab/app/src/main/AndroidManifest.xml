@@ -12,13 +12,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
-
     <application
         android:name=".CrmTabApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -28,15 +26,22 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme" />
+
+        <activity
+            android:name="pds.isintheair.fr.crmtab.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="pds.isintheair.fr.crmtab.registercall.Views.displaycalls.LaunchDisplayLogFragment"
             android:label="@string/title_activity_start_call_register"
              />
         <activity
-            android:name="pds.isintheair.fr.crmtab.registercall.StartCallRegisterActivity"
-            android:label="@string/title_activity_start_call_register"
-            android:theme="@style/AppTheme.NoActionBar">
-
             android:name="pds.isintheair.fr.crmtab.uc.phone.call.receive.view.activity.ContactDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
@@ -84,11 +89,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 

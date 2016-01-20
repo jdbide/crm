@@ -9,15 +9,14 @@ import java.util.List;
 
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment.OnListFragmentInteractionListener;
 
 
 public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecyclerViewAdapter.ViewHolder> {
 
     private final List<Cra> liste;
-    private final OnListFragmentInteractionListener mListener;
+    private final DisplayCallLogFragment.OnListFragmentInteractionListener mListener;
 
-    public CallLogRecyclerViewAdapter(List<Cra> items, OnListFragmentInteractionListener listener) {
+    public CallLogRecyclerViewAdapter(List<Cra> items, DisplayCallLogFragment.OnListFragmentInteractionListener listener) {
         liste = items;
         mListener = listener;
     }
@@ -32,7 +31,7 @@ public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = liste.get(position);
-        holder.mIdView.setText(liste.get(position).getDate());
+        holder.mIdView.setText(Integer.toString(position+1));
         holder.mDate.setText(liste.get(position).getDate());
         holder.mContact.setText(liste.get(position).getContactname());
         holder.mClient.setText(liste.get(position).getClientname());
@@ -75,12 +74,9 @@ public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecy
             mSubject = (TextView) view.findViewById(R.id.showsubject);
             mClient = (TextView) view.findViewById(R.id.showclient);
             mContact = (TextView) view.findViewById(R.id.showcontact);
+            mItem = new Cra();
 
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mSubject.getText() + "'";
-        }
     }
 }

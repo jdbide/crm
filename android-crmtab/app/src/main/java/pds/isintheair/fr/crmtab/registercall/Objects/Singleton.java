@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
 
 /**
  * Created by j-d on 21/12/2015.
@@ -16,15 +17,18 @@ public class Singleton {
 
     private  Bus currentBusInstance;
     private  Boolean popupdisplayed;
-    private List<CallEndedEvent> callEndedEventList;
-    //private List<CallEndedEvent> callEndedEventList;
+    private List<CallEndedEvent> pendigCallList;
+    private List<Cra> CraListForUser;
+
 
     private Singleton(){
         currentBusInstance = new Bus();
         popupdisplayed = false;
-        //BASE_URL = "http://192.168.43.193:8080/api/";
-        BASE_URL = "http://192.168.1.16:8080/api/";
-        callEndedEventList = new ArrayList<CallEndedEvent>();
+        //BASE_URL = "http://192.168.43.131:8080/api/";
+        BASE_URL = "http://192.168.1.68:8080/api/";
+        pendigCallList = new ArrayList<CallEndedEvent>();
+        CraListForUser = new ArrayList<Cra>();
+
     }
 
     public static Singleton getInstance(){
@@ -61,20 +65,39 @@ public class Singleton {
 
     public  String getBaseUrl(){
 
-        if(BASE_URL == null)
-        {
-            BASE_URL = "http://192.168.1.16:8080/api/";
-        }
         return BASE_URL;
     }
 
-    public List<CallEndedEvent> getCallEndedList(){
+    public void setCraListForUser(List<Cra> liste){
 
-        if(callEndedEventList == null)
-        {
-            callEndedEventList = new ArrayList<CallEndedEvent>();
-        }
-        return callEndedEventList;
+            CraListForUser = liste;
+
     }
+
+    public List<Cra> getCraListForUser(){
+
+        if(CraListForUser == null)
+        {
+            CraListForUser = new ArrayList<Cra>();
+        }
+        return CraListForUser;
+    }
+
+    public List<CallEndedEvent> getPendingCallList(){
+
+        if(pendigCallList == null)
+        {
+            pendigCallList = new ArrayList<CallEndedEvent>();
+        }
+        return pendigCallList;
+    }
+
+    public void removeItemFromPendingCallList(int position){
+
+        pendigCallList.remove(position);
+
+    }
+
+
 
 }

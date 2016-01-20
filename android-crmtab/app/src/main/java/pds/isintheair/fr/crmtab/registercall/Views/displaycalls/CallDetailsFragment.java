@@ -33,10 +33,10 @@ public class CallDetailsFragment extends Fragment {
     @Bind(R.id.edittextcomments) EditText comments;
     @Bind(R.id.edittextsubject) EditText subject;
     @Bind(R.id.edittextdate) EditText date;
-    @Bind(R.id.edittextiduser) EditText iduser;
     @Bind(R.id.edittextcalltype) EditText calltype;
     @Bind(R.id.buttonregistercra)
     Button validation;
+    @Bind(R.id.vocalcomment)  Button mic;
 
 
     public static CallDetailsFragment newInstance(Cra cra) {
@@ -74,17 +74,19 @@ public class CallDetailsFragment extends Fragment {
         date.setText(getArguments().getString("date"));
         duration.setText(getArguments().getString("duration"));
         calltype.setText(getArguments().getString("calltype"));
-        iduser.setText(getArguments().getString("idcontact"));
         contactnumber.setText(getArguments().getString("idcontact"));
+
         contactname.setText(getArguments().getString("contactname"));
         clientname.setText(getArguments().getString("clientname"));
-        validation.setVisibility(View.GONE);
+
+
         //Disable subjects and comments fields
         subject.setEnabled(false);
         comments.setEnabled(false);
-
         subject.setText(getArguments().getString("subject"));
         comments.setText(getArguments().getString("comments"));
+        mic.setVisibility(View.GONE);
+        validation.setVisibility(View.GONE);
 
         return view;
     }

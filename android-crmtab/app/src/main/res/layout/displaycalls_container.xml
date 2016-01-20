@@ -14,7 +14,7 @@
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="#ff0101"
+    android:background="#7b7a7a"
 
     >
     <TextView

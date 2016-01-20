@@ -22,7 +22,7 @@ import java.util.List;
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 import pds.isintheair.fr.crmtab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crmtab.registercall.Rest.ServiceGenerator;
+import pds.isintheair.fr.crmtab.registercall.Rest.Methods;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -41,6 +41,7 @@ public class DisplayCallLogFragment extends Fragment {
     private int mColumnCount;
     private List<Cra> listecra;
     private OnListFragmentInteractionListener mListener;
+    private CallLogRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,16 +63,16 @@ public class DisplayCallLogFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listecra = new ArrayList<Cra>();
+        adapter = new CallLogRecyclerViewAdapter(listecra, mListener);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        Gson gson = new GsonBuilder().create();
 
+        Gson gson = new GsonBuilder().create();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         OkHttpClient httpClient = new OkHttpClient();
         // add logging as last interceptor
         httpClient.interceptors().add(logging);
@@ -82,16 +83,15 @@ public class DisplayCallLogFragment extends Fragment {
                 .client(httpClient)
                 .build();
 
-        ServiceGenerator service = retrofit.create(ServiceGenerator.class);
+        Methods service = retrofit.create(Methods.class);
         Call<List<Cra>> call = service.listcraforuser(1);
-
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
 
                     List<Cra> liste = response.body();
-                    for(int i =0;i<liste.size();i++) {
+                    for (int i = 0; i < liste.size(); i++) {
                         Cra cra = new Cra();
                         cra.setCalltype(liste.get(i).getCalltype());
                         cra.setClientname(liste.get(i).getClientname());
@@ -104,16 +104,19 @@ public class DisplayCallLogFragment extends Fragment {
                         cra.setIduser(liste.get(i).getIduser());
                         listecra.add(cra);
                     }
+                    adapter.notifyDataSetChanged();
+
                 } else {
                     Log.v("listcraforuser", "no rep");
                     //Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
                 }
+
             }
 
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("listcraforuser Failure",t.getMessage());
+                Log.v("listcraforuser Failure", t.getMessage());
             }
         });
     }
@@ -137,13 +140,14 @@ public class DisplayCallLogFragment extends Fragment {
             //add line divider
             recyclerView.addItemDecoration(new LineDivider(
                     getActivity()));
+            //set adapter
+            recyclerView.setAdapter(adapter);
 
-            recyclerView.setAdapter(new CallLogRecyclerViewAdapter(listecra, mListener));
+
+            //Singleton.getInstance().setRecyclerListLogsForUser(adapter);
         }
         return view;
     }
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -160,6 +164,10 @@ public class DisplayCallLogFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public CallLogRecyclerViewAdapter  getAdapter(){
+        return adapter;
     }
 
     /**

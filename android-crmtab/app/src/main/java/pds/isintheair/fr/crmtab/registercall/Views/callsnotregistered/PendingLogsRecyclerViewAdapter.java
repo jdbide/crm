@@ -1,24 +1,29 @@
 package pds.isintheair.fr.crmtab.registercall.Views.callsnotregistered;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.registercall.Objects.CallType;
 import pds.isintheair.fr.crmtab.registercall.Objects.Events.CallEndedEvent;
+import pds.isintheair.fr.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
+import pds.isintheair.fr.crmtab.registercall.Objects.Singleton;
 
 
-public class APendingCallRegisteredRecyclerViewAdapter extends RecyclerView.Adapter<APendingCallRegisteredRecyclerViewAdapter.ViewHolder> {
+public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<PendingLogsRecyclerViewAdapter.ViewHolder> {
 
     private final List<CallEndedEvent> mValues;
-    private final APendingCallFragment.OnListFragmentInteractionListener mListener;
+    private final PendingLogsFragment.OnListFragmentInteractionListener mListener;
 
-    public APendingCallRegisteredRecyclerViewAdapter(List<CallEndedEvent> items, APendingCallFragment.OnListFragmentInteractionListener listener) {
+    public PendingLogsRecyclerViewAdapter(List<CallEndedEvent> items, PendingLogsFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -26,12 +31,12 @@ public class APendingCallRegisteredRecyclerViewAdapter extends RecyclerView.Adap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_a_pending_call, parent, false);
+                .inflate(R.layout.item_a_pending_call, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getDate());
         holder.mDate.setText(mValues.get(position).getDate());
@@ -41,23 +46,22 @@ public class APendingCallRegisteredRecyclerViewAdapter extends RecyclerView.Adap
         holder.yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+
+
+               Singleton.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(new CallEndedEvent(
+                       mValues.get(position).getCalltype(),
+                       mValues.get(position).getDate(),
+                       mValues.get(position).getDuration(),
+                       mValues.get(position).getIdcontact())));
             }
         });
 
         holder.no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                @Override
+                public void onClick(View v) {
+                    Singleton.getInstance().removeItemFromPendingCallList(position);
+                    notifyDataSetChanged();
                 }
-            }
         });
     }
 
@@ -85,13 +89,7 @@ public class APendingCallRegisteredRecyclerViewAdapter extends RecyclerView.Adap
             mClient = (TextView) view.findViewById(R.id.showclient1);
             yes = (Button) view.findViewById(R.id.yes);
             no = (Button) view.findViewById(R.id.no);
-
-
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mIdView.getText() + "'";
-        }
     }
 }
