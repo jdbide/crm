@@ -152,10 +152,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void update() {
-        showNotificationListFrag();
-    }
 
     @Override
     public void onListFragmentInteraction(Cra cra) {
