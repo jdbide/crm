@@ -12,6 +12,7 @@
         android:layout_marginBottom="5dp"
         card_view:cardCornerRadius="16dp"
         card_view:cardBackgroundColor="@android:color/white"
+        android:elevation="7sp"
         android:gravity="center">
 
         <ScrollView

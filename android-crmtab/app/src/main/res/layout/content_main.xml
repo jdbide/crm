@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="pds.isintheair.fr.crmtab.MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:background="#b7b2b2">
+    android:background="#d1d1d1">
 
     <FrameLayout
         android:id="@+id/container"
@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="#b7b2b2"
+
         >
     </FrameLayout>
 
