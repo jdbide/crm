@@ -113,7 +113,6 @@ public class PendingLogsFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(CallEndedEvent item);
-        void update();
     }
 
 

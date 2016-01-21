@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity
         startService(new Intent(this, ListennerCallEndedEvent.class));
         bus = Singleton.getInstance().getCurrentBusInstance();
         bus.register(this);
+        User user = new User();
+        user.setTel(01234567);
+        Singleton.getInstance().setCurrentUser(user);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -105,10 +108,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_passer_appel) {
             // Handle the camera action
         } else if (id == R.id.nav_historiser_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111"));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "5555555"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "7777777777"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111",true));
+            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333",true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "5555555",true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "7777777777",true));
 
             //DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
             //ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
@@ -144,22 +147,22 @@ public class MainActivity extends AppCompatActivity
     public void showaddlogfrag(DisplayAddLogFragment event) {
         android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
-        PopUpFragment pop = PopUpFragment.newInstance(getIntent().getStringExtra("idcontact"));
+
         AddLogFragment fragment = AddLogFragment.newInstance(event.getCallEndedEvent().getIdcontact()
                 , event.getCallEndedEvent().getDate()
                 , event.getCallEndedEvent().getDuration()
-                , event.getCallEndedEvent().getCalltype().toString());
+                , event.getCallEndedEvent().getCalltype()==CallType.INCOMING?"Entrant":"Sortant",event.getCallEndedEvent().getDisplaypopUp());
         ft.add(R.id.container, fragment, "FRAGMENT_AJOUT").commit();
-        pop.show(getFragmentManager(), "dialog");
-        //make popup not cancellable
-        pop.setCancelable(false);
+
+        if(event.getCallEndedEvent().getDisplaypopUp()) {
+            PopUpFragment pop = PopUpFragment.newInstance(getIntent().getStringExtra("idcontact"));
+            pop.show(getFragmentManager(), "dialog");
+            //make popup not cancellable
+            pop.setCancelable(false);
+        }
     }
 
 
-    @Override
-    public void update() {
-        showNotificationListFrag();
-    }
 
     @Override
     public void onListFragmentInteraction(Cra cra) {

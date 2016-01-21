@@ -36,7 +36,7 @@ public class RestController {
 	 * Simply returns a status string.
 	 */
 	
-	@RequestMapping(value = "cra/listcra",method = RequestMethod.GET)
+	@RequestMapping(value = "/cra/listcra",method = RequestMethod.GET)
 	public @ResponseBody List<Cra> getListCraForUser(@RequestParam("iduser") int iduser){
 
 		List<Cra> liste = dao.getListCraForUser(iduser);
@@ -49,7 +49,7 @@ public class RestController {
 		boolean status = false;  
 		status = dao.createCra(cra);
 		if(status) logger.info("Cra registered :)");
-		else logger.info("Cra not r egistered :)");
+		else logger.info("Cra not registered :)");
 		return status;
 	}
 	

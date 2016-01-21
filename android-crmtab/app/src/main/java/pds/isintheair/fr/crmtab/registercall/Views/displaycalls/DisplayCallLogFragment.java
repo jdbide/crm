@@ -84,7 +84,7 @@ public class DisplayCallLogFragment extends Fragment {
                 .build();
 
         Methods service = retrofit.create(Methods.class);
-        Call<List<Cra>> call = service.listcraforuser(1);
+        Call<List<Cra>> call = service.listcraforuser(Singleton.getInstance().getCurrentUser().getTel());
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
