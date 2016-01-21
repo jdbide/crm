@@ -175,7 +175,7 @@ public class RestCustomerController {
     public static Datastore getDataStore() {
         if(datastore == null ) {
             try {
-                datastore = morphia.createDatastore(new MongoClient(MongoConfig.LOCAL_MONGO_IP,MongoConfig.LOCAL_PORT)
+                datastore = morphia.createDatastore(new MongoClient(MongoConfig.DEV_IP,MongoConfig.DEV_PORT)
                         , SpringMongoConfig.DB_NAME);
             } catch (UnknownHostException e) {
                 e.printStackTrace();

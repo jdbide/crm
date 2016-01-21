@@ -1,6 +1,7 @@
 package api.admin.customer.crud.controller;
 
 import com.mongodb.MongoClient;
+import miage.pds.api.MongoConfig;
 import miage.pds.api.admin.customer.crud.controller.RestCustomerController;
 import miage.pds.api.admin.customer.crud.createhc.dao.HealthCenterDAO;
 import miage.pds.api.admin.customer.crud.createhc.entities.HealthCenter;
@@ -57,7 +58,7 @@ public class RestCustomerControllerTest {
       public void setUp() throws UnknownHostException {
             request = new MockHttpServletRequest();
              response = new MockHttpServletResponse();
-        this.mongoClient    = new MongoClient("192.168.20.3",8071);
+        this.mongoClient    = new MongoClient(MongoConfig.DEV_IP,MongoConfig.DEV_PORT);
         this.morphia        = new Morphia();
         this.morphia.map(HealthCenter.class);
         this.datastore      = this.morphia.createDatastore(mongoClient,dbName);
