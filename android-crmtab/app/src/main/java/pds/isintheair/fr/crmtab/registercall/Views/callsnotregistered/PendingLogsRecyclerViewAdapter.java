@@ -52,7 +52,7 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
                        mValues.get(position).getCalltype(),
                        mValues.get(position).getDate(),
                        mValues.get(position).getDuration(),
-                       mValues.get(position).getIdcontact())));
+                       mValues.get(position).getIdcontact(),false)));
             }
         });
 

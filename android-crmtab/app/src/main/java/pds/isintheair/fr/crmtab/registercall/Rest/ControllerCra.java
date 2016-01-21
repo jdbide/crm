@@ -67,7 +67,7 @@ public class ControllerCra {
                     alertDialog.setMessage("Compte-rendu enregistré");
 
                     // Setting Icon to Dialog
-                    alertDialog.setIcon(R.drawable.tick);
+                    alertDialog.setIcon(R.drawable.tick1);
 
                     // Setting OK Button
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -84,6 +84,29 @@ public class ControllerCra {
                     //request not successful (like 400,401,403 etc)
                     //Handle errors
                     Log.v("rest", "no rep" + response.message());
+                    Log.v("ok", "cra enregistre");
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            context).create();
+
+                    // Setting Dialog Title
+                    alertDialog.setTitle("Statut Compte-rendu");
+
+                    // Setting Dialog Message
+                    alertDialog.setMessage("Compte-rendu non enregistré");
+
+                    // Setting Icon to Dialog
+                    alertDialog.setIcon(R.drawable.no_tick);
+
+                    // Setting OK Button
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Write your code here to execute after dialog closed
+                            Singleton.getInstance().getCurrentBusInstance().post(new RemoveFragmentEvent());
+                        }
+                    });
+
+                    // Showing Alert Message
+                    alertDialog.show();
 
                 }
             }
