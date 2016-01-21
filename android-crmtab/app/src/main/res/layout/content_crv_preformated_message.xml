@@ -9,7 +9,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_crv_preformated_message"
-    tools:context="pds.isintheair.fr.crmtab.crv.view.CrvPreformatedMessage">
+    tools:context=".crv.view.CrvPreformatedMessage">
 
     <ListView
         android:id="@+id/list"

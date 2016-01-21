@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>android-phonintheair</module>
         <module>server-notification</module>
     </modules>
 

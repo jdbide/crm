@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="pds.isintheair.fr.crmtab.registercall.Views.callsnotregistered.APendingCallFragment"
+    tools:context=".registercall.Views.callsnotregistered.APendingCallFragment"
     tools:listitem="@layout/fragment_a_pending_call" />
