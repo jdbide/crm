@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crmtab.crv.adapter;
+package fr.pds.isintheair.crmtab.crv.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,11 +18,10 @@ import fr.pds.isintheair.crmtab.crv.model.Report;
  */
 public class ReportAdapter extends ArrayAdapter<Report> {
 
-    TextView title, infos, infos2, lblCount;
-    private Context      context;
+    private  Context context;
     private List<Report> objects;
-
-    public ReportAdapter(Context context, List<Report> objects) {
+    TextView title, infos , infos2, lblCount;
+    public ReportAdapter(Context context,  List<Report> objects) {
         super(context, R.layout.reportlist_layout, objects);
         this.context = context;
         this.objects = objects;
@@ -47,6 +46,6 @@ public class ReportAdapter extends ArrayAdapter<Report> {
         infos2.setText("Client satisfait? " + objects.get(position).getSatisfaction());
         lblCount.setText(objects.get(position).getDate());
 
-        return rowView;
+        return  rowView;
     }
 }

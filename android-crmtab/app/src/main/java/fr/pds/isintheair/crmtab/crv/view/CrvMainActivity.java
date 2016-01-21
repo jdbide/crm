@@ -17,24 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.crv.adapter.ReportAdapter;
+import fr.pds.isintheair.crmtab.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.crv.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.crv.model.Client;
 import fr.pds.isintheair.crmtab.crv.model.Report;
-import pds.isintheair.fr.crmtab.crv.adapter.ReportAdapter;
-import pds.isintheair.fr.crmtab.crv.controller.CrvController;
 
 
 public class CrvMainActivity extends AppCompatActivity {
 
     Client client;
-
-    Report        report;
-    int           clientId;
-    ListView      reportListView;
+    Report report;
+    int clientId;
+    ListView reportListView;
     ReportAdapter adapter;
     private List<Report> reportList = new ArrayList<Report>();
-    private List<String> infos      = new ArrayList<String>();
-
+    private List<String> infos = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +44,12 @@ public class CrvMainActivity extends AppCompatActivity {
         //get list viw object
         reportListView = (ListView) findViewById(R.id.listReport);
 
-        client = (Client) getIntent().getSerializableExtra("ClientObject");
-
         try {
             client = (Client) getIntent().getSerializableExtra("ClientObject");
             reportList = (ArrayList<Report>) (getIntent().getBundleExtra("listReport").getSerializable("list"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         clientId = client.getClientId();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -107,9 +101,9 @@ public class CrvMainActivity extends AppCompatActivity {
 
     }
 
-    public void edit(View v, final int position) {
+    public void edit(View v, final int position){
         final Report itemValue = (Report) reportListView.getItemAtPosition(position);
-        Intent       intent    = new Intent(CrvMainActivity.this, CreateCrvActivity.class);
+        Intent intent = new Intent(CrvMainActivity.this, CreateCrvActivity.class);
         intent.putExtra("ClientObject", client);
         intent.putExtra("report", itemValue);
         startActivity(intent);
@@ -146,7 +140,7 @@ public class CrvMainActivity extends AppCompatActivity {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
                         finish();
-                        new CrvController().deleteReport(itemValue.getId(), client, CrvMainActivity.this);
+                        new CrvController().deleteReport(itemValue.getId(),client, CrvMainActivity.this);
 
                     }
                 });
@@ -158,7 +152,12 @@ public class CrvMainActivity extends AppCompatActivity {
         alertDialog.show();
 
 
+
+
     }
+
+
+
 
 
     @Override
@@ -177,11 +176,9 @@ public class CrvMainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 }

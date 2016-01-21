@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crmtab.crv.controller;
+package fr.pds.isintheair.crmtab.crv.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,8 +29,7 @@ import retrofit.Retrofit;
 public class CrvController {
     List<Report> reports = new ArrayList<Report>();
     Boolean status;
-
-    public List<Report> getAllReportForClient(String idClient, final Client client, final Context context) {
+    public List<Report> getAllReportForClient(String idClient , final Client client, final Context context){
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
                 .create();
@@ -41,8 +40,8 @@ public class CrvController {
                 .build();
 
 
-        Service            iService = retrofit.create(Service.class);
-        Call<List<Report>> call     = iService.getReportList(idClient);
+        Service iService = retrofit.create(Service.class);
+        Call<List<Report>> call = iService.getReportList(idClient);
         call.enqueue(new Callback<List<Report>>() {
 
             @Override
@@ -61,14 +60,14 @@ public class CrvController {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d("onFailure", "onFailure()");
+                Log.d("onFailure","onFailure()");
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return reports;
     }
 
-    public Boolean deleteReport(String id, final Client client, final Context context) {
+    public Boolean deleteReport(String id, final Client client, final Context context){
 
 
         Gson gson = new GsonBuilder()
@@ -80,23 +79,23 @@ public class CrvController {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        Service       iService = retrofit.create(Service.class);
-        Call<Boolean> call     = iService.deleteReport(id);
+        Service iService = retrofit.create(Service.class);
+        Call<Boolean> call = iService.deleteReport(id);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
+                if(response.isSuccess()){
                     status = true;
-                    getAllReportForClient(Integer.toString(client.getClientId()), client, context);
+                    getAllReportForClient(Integer.toString(client.getClientId()),client,context);
 
-                } else {
+                }else{
                     status = false;
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                status = false;
+                    status = false;
             }
         });
 

@@ -1,6 +1,5 @@
 package fr.pds.isintheair.crmtab.crv.retrofit;
 
-
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.crv.model.Report;

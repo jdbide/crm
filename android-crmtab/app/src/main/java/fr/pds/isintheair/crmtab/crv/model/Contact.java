@@ -1,4 +1,4 @@
-package pds.isintheair.fr.crmtab.crv.model;
+package fr.pds.isintheair.crmtab.crv.model;
 
 /**
  * Created by Muthu on 08/01/2016.

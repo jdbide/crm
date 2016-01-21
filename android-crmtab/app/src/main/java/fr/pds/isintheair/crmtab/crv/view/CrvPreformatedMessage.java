@@ -21,12 +21,12 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.crv.cache.CacheDao;
 
+
 public class CrvPreformatedMessage extends AppCompatActivity {
-    ListView             listView;
+    ListView listView ;
     ArrayAdapter<String> adapter;
     List<String> messages = new ArrayList<String>();
     CacheDao dao;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,7 @@ public class CrvPreformatedMessage extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
 
         adapter = new ArrayAdapter<String>(this,
-                                           android.R.layout.simple_list_item_1, android.R.id.text1, messages);
+                android.R.layout.simple_list_item_1, android.R.id.text1, messages);
 
 
         // Assign adapter to ListView
@@ -86,46 +86,46 @@ public class CrvPreformatedMessage extends AppCompatActivity {
     protected void showInputDialog() {
 
         // get prompts.xml view
-        LayoutInflater      layoutInflater     = LayoutInflater.from(CrvPreformatedMessage.this);
-        final View          promptView         = layoutInflater.inflate(R.layout.input_dialog, null);
+        LayoutInflater layoutInflater = LayoutInflater.from(CrvPreformatedMessage.this);
+        final View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CrvPreformatedMessage.this);
         alertDialogBuilder.setView(promptView);
 
         final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
-                          .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                              public void onClick(DialogInterface dialog, int id) {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
 
-                                  if (!messages.contains(editText.getText().toString())) {
-                                      //add to messages list
-                                      dao.insertMessage(editText.getText().toString());
-                                      //messages.add();
-                                      adapter.notifyDataSetChanged();
-                                      // Refresh main activity upon close of dialog box
-                                      Intent refresh = new Intent(CrvPreformatedMessage.this, CrvPreformatedMessage.class);
-                                      startActivity(refresh);
-                                      CrvPreformatedMessage.this.finish(); //
-                                  } else {
-                                      Toast.makeText(CrvPreformatedMessage.this, "Ce message existe déjà!", Toast.LENGTH_LONG).show();
-                                  }
+                        if (!messages.contains(editText.getText().toString())) {
+                            //add to messages list
+                            dao.insertMessage(editText.getText().toString());
+                            //messages.add();
+                            adapter.notifyDataSetChanged();
+                            // Refresh main activity upon close of dialog box
+                            Intent refresh = new Intent(CrvPreformatedMessage.this, CrvPreformatedMessage.class);
+                            startActivity(refresh);
+                            CrvPreformatedMessage.this.finish(); //
+                        } else {
+                            Toast.makeText(CrvPreformatedMessage.this,"Ce message existe déjà!",Toast.LENGTH_LONG).show();
+                        }
 
 
-                              }
-                          })
-                          .setNegativeButton("Cancel",
-                                             new DialogInterface.OnClickListener() {
-                                                 public void onClick(DialogInterface dialog, int id) {
-                                                     dialog.cancel();
-                                                 }
-                                             });
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
 
-    public void showDialogBox(final String message) {
+    public void showDialogBox(final String message){
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
@@ -136,8 +136,8 @@ public class CrvPreformatedMessage extends AppCompatActivity {
         // set dialog message
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
                         // if this button is clicked, close
                         dao.deleteMessage(message);
 
@@ -148,8 +148,8 @@ public class CrvPreformatedMessage extends AppCompatActivity {
                         CrvPreformatedMessage.this.finish();
                     }
                 })
-                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                .setNegativeButton("Non",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
                         dialog.cancel();

@@ -1,9 +1,10 @@
-package pds.isintheair.fr.crmtab.crv.mock;
+package fr.pds.isintheair.crmtab.crv.mock;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pds.isintheair.fr.crmtab.crv.model.Contact;
+import fr.pds.isintheair.crmtab.crv.model.Contact;
+
 
 /**
  * Created by Muthu on 08/01/2016.

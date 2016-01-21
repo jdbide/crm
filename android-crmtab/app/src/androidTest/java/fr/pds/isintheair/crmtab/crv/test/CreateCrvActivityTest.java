@@ -4,7 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import pds.isintheair.fr.crmtab.R;
+import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.crv.view.CreateCrvActivity;
 
 /**
