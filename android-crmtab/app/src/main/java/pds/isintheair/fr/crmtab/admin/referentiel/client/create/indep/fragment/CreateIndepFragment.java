@@ -322,7 +322,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                 ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
+                        .replace(R.id.container, listCustomerFragment).commit();
             }
             /**
              * Called when a bad HTTP response is return

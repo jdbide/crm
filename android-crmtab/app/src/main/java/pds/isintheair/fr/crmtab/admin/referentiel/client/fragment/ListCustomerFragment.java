@@ -114,7 +114,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
             case 0 :
                 CreateHCFragment createHCFragment = new CreateHCFragment();
                 getActivity().getFragmentManager().beginTransaction().addToBackStack("createHc")
-                    .replace(R.id.create_customer_fragment_container, createHCFragment)
+                    .replace(R.id.container, createHCFragment)
                         .commit();
                     break;
             //Independant is selected
@@ -122,7 +122,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
                 CreateIndepFragment createIndepFragment = new CreateIndepFragment();
                 getActivity().getFragmentManager().beginTransaction().addToBackStack("createIndep")
-                        .replace(R.id.create_customer_fragment_container, createIndepFragment)
+                        .replace(R.id.container, createIndepFragment)
                         .commit();
                     break;
         }

@@ -299,7 +299,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                 ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
+                        .replace(R.id.container, listCustomerFragment).commit();
             }
 
             /**

@@ -18,6 +18,10 @@ import com.squareup.otto.Subscribe;
 
 import java.util.Calendar;
 
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.CreateCustomerAlertDialog;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
 import pds.isintheair.fr.crmtab.crv.view.ClientListFragment;
 import pds.isintheair.fr.crmtab.registercall.ListennerCallEndedEvent;
 import pds.isintheair.fr.crmtab.registercall.Objects.CallType;
@@ -32,7 +36,9 @@ import pds.isintheair.fr.crmtab.registercall.Views.registeracall.AddLogFragment;
 import pds.isintheair.fr.crmtab.registercall.Views.registeracall.PopUpFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,DisplayCallLogFragment.OnListFragmentInteractionListener,PendingLogsFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,DisplayCallLogFragment.OnListFragmentInteractionListener,
+        PendingLogsFragment.OnListFragmentInteractionListener,CreateCustomerAlertDialog.AlertPositiveListener,
+        ListCustomerFragment.OnListFragmentInteractionListener {
 
     private Bus bus;
 
@@ -64,7 +70,7 @@ public class MainActivity extends AppCompatActivity
             showNotificationListFrag();
     }
 
-    @Override
+ /**   @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -73,7 +79,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -120,6 +126,12 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.nav_ref_client) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+            setSupportActionBar(toolbar);
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.container,new ListCustomerFragment());
+            fragmentTransaction.addToBackStack("menu");
+            fragmentTransaction.commit();
 
         } else if (id == R.id.nav_envoyer_sms) {
 
@@ -195,8 +207,9 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    /*@Override
+    @Override
     public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
         } else {
@@ -205,6 +218,32 @@ public class MainActivity extends AppCompatActivity
             finish();
             startActivity(intent);
         }
-    }*/
+    }
+
+
+    @Override
+    public void onPositiveClick(int position) {
+        switch (position) {
+            case 0 :
+                CreateHCFragment createHCFragment = new CreateHCFragment();
+                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+                toolbar.setTitle(R.string.create_he_fragment_title_action_bar);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.create_customer_fragment_container, createHCFragment).commit();
+                break;
+            case 1 :
+
+                CreateIndepFragment createIndepFragment = new CreateIndepFragment();
+                Toolbar toolbarindep = (Toolbar) findViewById(R.id.toolbar1);
+                toolbarindep.setTitle(R.string.create_indep_fragment_title_action_bar);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.create_customer_fragment_container, createIndepFragment)
+                        .commit();
+                break;
+
+        }
+    }
+
+
 }
 
