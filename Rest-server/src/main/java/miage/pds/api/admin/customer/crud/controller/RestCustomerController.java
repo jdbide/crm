@@ -33,10 +33,7 @@ import java.util.List;
 
 /**
  * Created by tlacouque on 16/12/2015.
-<<<<<<< HEAD
-=======
  * Rest controller used to handle message from commercials tablet.
->>>>>>> dev
  */
 
 @Controller
