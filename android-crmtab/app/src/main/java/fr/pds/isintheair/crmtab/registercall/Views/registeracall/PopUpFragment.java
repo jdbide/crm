@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
+
 
 /**
  * Created by j-d on 18/12/2015.
@@ -21,7 +23,7 @@ public class PopUpFragment extends DialogFragment {
      * Create a new instance of MyDialogFragment, with  the callEnded event params
      * as arguments.
      */
-    static PopUpFragment newInstance(String idcontact) {
+    public static PopUpFragment newInstance(String idcontact) {
         PopUpFragment f = new PopUpFragment();
 
         // Supply num input as an argument.
@@ -64,7 +66,8 @@ public class PopUpFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Singleton.getInstance().setPopUpDisplayed(false);
                         //remove addlogactivity (popup fragment & addlogfragment
-                        getActivity().finish();
+                        //getActivity().onBackPressed();
+                        startActivity(new Intent(getActivity(), MainActivity.class));
                     }
                 }).show();
 

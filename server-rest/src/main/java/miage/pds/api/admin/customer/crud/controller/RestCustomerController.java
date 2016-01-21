@@ -1,6 +1,7 @@
 package miage.pds.api.admin.customer.crud.controller;
 
 import com.mongodb.MongoClient;
+
 import miage.pds.api.admin.customer.crud.createhc.dao.HealthCenterDAO;
 import miage.pds.api.admin.customer.crud.createhc.dao.HoldingDAO;
 import miage.pds.api.admin.customer.crud.createhc.dao.PurchasingCentralDAO;
@@ -10,12 +11,15 @@ import miage.pds.api.admin.customer.crud.createhc.entities.PurchasingCentral;
 import miage.pds.api.admin.customer.crud.createindep.dao.CompanyDAO;
 import miage.pds.api.admin.customer.crud.createindep.dao.IndependantDAO;
 import miage.pds.api.admin.customer.crud.createindep.dao.SpecialtyDAO;
+
 import miage.pds.api.admin.customer.crud.createindep.entities.Company;
 import miage.pds.api.admin.customer.crud.createindep.entities.Independant;
 import miage.pds.api.admin.customer.crud.createindep.entities.Specialty;
 import miage.pds.api.admin.customer.crud.message.MessageRestCustomer;
 import miage.pds.api.admin.customer.crud.message.ResponseRestCustomer;
+
 import miage.pds.api.admin.customer.crud.SpringMongoConfig;
+
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
@@ -79,6 +83,7 @@ public class RestCustomerController {
     public @ResponseBody ResponseRestCustomer getHoldings() {
         final List<Holding> holdings = new HoldingDAO(getDataStore()).findAll();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+
         responseRestCustomer.setHoldings(holdings);
         return responseRestCustomer;
     }
@@ -92,6 +97,7 @@ public class RestCustomerController {
     public @ResponseBody ResponseRestCustomer getPurchasingCentrals() {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setPurchasingCentrals(new PurchasingCentralDAO(getDataStore()).findAll());
+
         return responseRestCustomer;
     }
 

@@ -22,7 +22,7 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
 import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.registercall.Rest.ServiceGenerator;
+import pds.isintheair.fr.crmtab.registercall.Rest.Methods;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -41,6 +41,7 @@ public class DisplayCallLogFragment extends Fragment {
     private int                               mColumnCount;
     private List<Cra>                         listecra;
     private OnListFragmentInteractionListener mListener;
+    private CallLogRecyclerViewAdapter        adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,16 +63,16 @@ public class DisplayCallLogFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listecra = new ArrayList<Cra>();
+        adapter = new CallLogRecyclerViewAdapter(listecra, mListener);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        Gson gson = new GsonBuilder().create();
 
+        Gson                   gson    = new GsonBuilder().create();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         OkHttpClient httpClient = new OkHttpClient();
         // add logging as last interceptor
         httpClient.interceptors().add(logging);
@@ -82,8 +83,9 @@ public class DisplayCallLogFragment extends Fragment {
                 .client(httpClient)
                 .build();
 
-        ServiceGenerator service = retrofit.create(ServiceGenerator.class);
-        Call<List<Cra>>  call    = service.listcraforuser(1);
+
+        Methods         service = retrofit.create(Methods.class);
+        Call<List<Cra>> call    = service.listcraforuser(Singleton.getInstance().getCurrentUser().getTel());
 
         call.enqueue(new Callback<List<Cra>>() {
             @Override
@@ -104,10 +106,13 @@ public class DisplayCallLogFragment extends Fragment {
                         cra.setIduser(liste.get(i).getIduser());
                         listecra.add(cra);
                     }
+                    adapter.notifyDataSetChanged();
+
                 } else {
                     Log.v("listcraforuser", "no rep");
                     //Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
                 }
+
             }
 
             @Override
@@ -137,14 +142,17 @@ public class DisplayCallLogFragment extends Fragment {
             //add line divider
             recyclerView.addItemDecoration(new LineDivider(
                     getActivity()));
+            //set adapter
+            recyclerView.setAdapter(adapter);
 
-            recyclerView.setAdapter(new CallLogRecyclerViewAdapter(listecra, mListener));
+
+            //Singleton.getInstance().setRecyclerListLogsForUser(adapter);
         }
         return view;
     }
 
-
     @Override
+
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
@@ -159,6 +167,10 @@ public class DisplayCallLogFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public CallLogRecyclerViewAdapter getAdapter() {
+        return adapter;
     }
 
     /**

@@ -55,6 +55,7 @@ import retrofit.Retrofit;
 
 public class CreateHCFragment extends Fragment implements ValidationListener {
 
+    MessageRestCustomer messageRestCustomer;
 
     @Bind(R.id.create_he_fragment_name)
     @Order(1)
@@ -206,7 +207,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
      * @param radioGroup
      * @return int
      */
-    private int getIntFromRadiogroup(RadioGroup radioGroup) {
+    public int getIntFromRadiogroup(RadioGroup radioGroup) {
         return Integer.decode(((RadioButton) getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))
                                       .getText().toString());
     }
@@ -216,7 +217,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
      *
      * @return HealthCenter
      */
-    private HealthCenter initHC() {
+    public HealthCenter initHC() {
         HealthCenter healthCenter = new HealthCenter();
         healthCenter.setName(name.getText().toString());
         healthCenter.setSiretNumber(Long.decode(siretNumber.getText().toString()));
@@ -247,7 +248,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     /**
      * Initialise spinner before displaying the view
      */
-    private void initSpinner() {
+    public void initSpinner() {
         holdings = new Select(Holding_Table.name).from(Holding.class).queryList();
         holding.setAdapter(new ArrayAdapter<Holding>
                                    (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, holdings));
@@ -267,7 +268,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     public void onValidationSucceeded() {
         final HealthCenter healthCenter = initHC();
 
-        MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
+        messageRestCustomer = new MessageRestCustomer(1, healthCenter);
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                                                                       .createHealthCenter(messageRestCustomer);
         healthCenter.save();
@@ -287,7 +288,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                 ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
                 getFragmentManager().beginTransaction()
-                                    .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
+                                    .replace(R.id.container, listCustomerFragment).commit();
             }
 
             /**
@@ -339,6 +340,10 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     public void onStop() {
         super.onStop();
         if (createCalled) Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG).show();
+    }
+
+    public MessageRestCustomer getMessageRestCustomer() {
+        return messageRestCustomer;
     }
 
     /**

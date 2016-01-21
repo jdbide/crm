@@ -28,7 +28,7 @@
 
     <string name="sujet">Entrez un sujet ici</string>
     <string name="contact">Contact :</string>
-    <string name="textViewNumero">Num�ro</string>
+    <string name="textViewNumero">Numéro</string>
     <string name="textviewcommentaire">Commentaire</string>
     <string name="textaddcalllog">Ajout d\'un compte-rendu d\'appel</string>
 
@@ -37,6 +37,8 @@
     <string name="title_activity_start_call_register">StartCallRegisterActivity</string>
     <string name="title_activity_call_log_main">CallLogMainActivity</string>
 
+
+    <!--Strings related to customer list fragment -->
     <string name="customer_list_title">Liste des clients</string>
     <string name="customer_list_add">Ajouter un client</string>
     <string name="customer_list_dialog_title">Choisir un type de client : </string>
@@ -107,4 +109,9 @@
 
     <string name="title_activity_abstract">AbstractActivity</string>
 
+
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

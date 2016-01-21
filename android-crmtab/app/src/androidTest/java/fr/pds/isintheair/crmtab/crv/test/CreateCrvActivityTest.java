@@ -28,7 +28,7 @@ public class CreateCrvActivityTest extends ActivityInstrumentationTestCase2<Crea
 
     public void testTextViewNotNull() throws Exception {
         TextView lblInfoClient = (TextView) activity.findViewById(R.id.lblInfoClient);
-        EditText txtUsername = (EditText) activity.findViewById(R.id.txtUsername);
+       // EditText txtUsername = (EditText) activity.findViewById(R.id.txtUsername);
         EditText txtDate = (EditText) activity.findViewById(R.id.txtDate);
         EditText txtContact = (EditText) activity.findViewById(R.id.txtContact);
         EditText txtTel = (EditText) activity.findViewById(R.id.txtTel);
@@ -36,7 +36,7 @@ public class CreateCrvActivityTest extends ActivityInstrumentationTestCase2<Crea
 
 
         assertNotNull(lblInfoClient);
-        assertNotNull(txtUsername);
+       // assertNotNull(txtUsername);
         assertNotNull(txtDate);
         assertNotNull(txtContact);
         assertNotNull(txtTel);

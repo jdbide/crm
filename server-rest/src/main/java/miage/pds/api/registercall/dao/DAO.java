@@ -3,9 +3,9 @@ package miage.pds.api.registercall.dao;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import miage.pds.api.RestController;
-import miage.pds.registercallmodel.Cra;
-import miage.pds.registercallmodel.ListCra;
+import miage.pds.api.registercall.RestController;
+import miage.pds.registercall.model.Cra;
+import miage.pds.registercall.model.ListCra;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;

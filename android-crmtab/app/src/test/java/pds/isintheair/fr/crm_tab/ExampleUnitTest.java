@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
 package pds.isintheair.fr.crmtab;
 
 import android.content.Context;

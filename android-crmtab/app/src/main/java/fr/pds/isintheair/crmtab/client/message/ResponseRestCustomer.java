@@ -2,12 +2,14 @@ package fr.pds.isintheair.crmtab.client.message;
 
 import java.util.List;
 
+import fr.pds.isintheair.crmtab.client.create.he.entities.Customer;
 import fr.pds.isintheair.crmtab.client.create.he.entities.HealthCenter;
 import fr.pds.isintheair.crmtab.client.create.he.entities.Holding;
 import fr.pds.isintheair.crmtab.client.create.he.entities.PurchasingCentral;
 import fr.pds.isintheair.crmtab.client.create.indep.entities.Company;
 import fr.pds.isintheair.crmtab.client.create.indep.entities.Independant;
 import fr.pds.isintheair.crmtab.client.create.indep.entities.Specialty;
+
 
 /**
  * Created by tlacouque on 17/12/2015.
@@ -29,6 +31,7 @@ public class ResponseRestCustomer {
 
     private List<Independant> independants;
 
+    private List<Customer> customers;
 
 
     public boolean getIsInserted() {

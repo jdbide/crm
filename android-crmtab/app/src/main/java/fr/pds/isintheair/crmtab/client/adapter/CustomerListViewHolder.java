@@ -85,10 +85,11 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
         bundle.putParcelable(DetailHCFragment.KEY_HC_ARGS, healthCenter);
         DetailHCFragment detailHCFragment = new DetailHCFragment();
         detailHCFragment.setArguments(bundle);
+
         ((AppCompatActivity) context).getSupportActionBar()
                                      .setTitle(R.string.display_hc_fragment_title_action_bar);
-        ((AppCompatActivity) context).getFragmentManager().beginTransaction().addToBackStack("list")
-                                     .replace(R.id.create_customer_fragment_container, detailHCFragment).commit();
+        ((AppCompatActivity) context).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                                     .replace(R.id.container, detailHCFragment).commit();
     }
 
     /**
@@ -102,10 +103,11 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
         bundle.putParcelable(DetailIndepFragment.KEY_INDEP_ARGS, independant);
         DetailIndepFragment detailIndepFragment = new DetailIndepFragment();
         detailIndepFragment.setArguments(bundle);
+
         ((AppCompatActivity) context).getSupportActionBar()
                                      .setTitle(R.string.display_independant_fragment_title_action_bar);
-        ((AppCompatActivity) context).getFragmentManager().beginTransaction().addToBackStack("list")
-                                     .replace(R.id.create_customer_fragment_container, detailIndepFragment).commit();
+        ((AppCompatActivity) context).getFragmentManager().beginTransaction().addToBackStack("detailIndep")
+                                     .replace(R.id.container, detailIndepFragment).commit();
     }
 
 

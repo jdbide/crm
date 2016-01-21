@@ -241,7 +241,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
      *
      * @return HealthCenter
      */
-    private Independant initIndep() {
+    public Independant initIndep() {
 
         Independant independant = new Independant();
         independant.setName(name.getText().toString());
@@ -309,7 +309,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                 ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
                 getFragmentManager().beginTransaction()
-                                    .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
+                                    .replace(R.id.container, listCustomerFragment).commit();
             }
 
             /**

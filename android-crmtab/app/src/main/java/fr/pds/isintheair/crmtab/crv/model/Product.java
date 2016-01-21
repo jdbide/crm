@@ -1,9 +1,11 @@
 package fr.pds.isintheair.crmtab.crv.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Muthu on 30/12/2015.
  */
-public class Product {
+public class Product implements Serializable{
 
 
     private String id;

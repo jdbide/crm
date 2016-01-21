@@ -23,7 +23,7 @@ public class CacheDao extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table if not exists "+TABLE_NAME+"(id integer primary key autoincrement, message varchar);");
+        sqLiteDatabase.execSQL("create table if not exists " + TABLE_NAME + "(id integer primary key autoincrement, message varchar);");
     }
 
     @Override
@@ -38,6 +38,7 @@ public class CacheDao extends SQLiteOpenHelper {
         return true;
 
     }
+
 
     public Integer deleteMessage (String message)
     {

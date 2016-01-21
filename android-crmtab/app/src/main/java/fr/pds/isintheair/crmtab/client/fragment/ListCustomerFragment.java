@@ -107,16 +107,18 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
             // Health center is selected
             case 0:
                 CreateHCFragment createHCFragment = new CreateHCFragment();
-                getActivity().getFragmentManager().beginTransaction()
-                             .replace(R.id.create_customer_fragment_container, createHCFragment)
+
+                getActivity().getFragmentManager().beginTransaction().addToBackStack("createHc")
+                             .replace(R.id.container, createHCFragment)
                              .commit();
                 break;
             //Independant is selected
             case 1:
 
                 CreateIndepFragment createIndepFragment = new CreateIndepFragment();
-                getActivity().getFragmentManager().beginTransaction()
-                             .replace(R.id.create_customer_fragment_container, createIndepFragment)
+
+                getActivity().getFragmentManager().beginTransaction().addToBackStack("createIndep")
+                             .replace(R.id.container, createIndepFragment)
                              .commit();
                 break;
         }

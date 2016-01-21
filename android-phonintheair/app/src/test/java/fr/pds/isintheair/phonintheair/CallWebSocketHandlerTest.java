@@ -1,9 +1,12 @@
 package fr.pds.isintheair.phonintheair;
 
 import org.junit.Test;
+<<<<<<< HEAD
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+=======
+>>>>>>> dev
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.DEFAULT, sdk = 21, packageName = "fr.pds.isintheair")
@@ -13,6 +16,7 @@ public class CallWebSocketHandlerTest {
         /* WebSocketConnectionHandlerSingleton.getInstance().connect();
         assertTrue(WebSocketConnectionHandlerSingleton.getInstance().isConnected); */
     }
+<<<<<<< HEAD
 
     @Test
     public void testRegisterCalledOnOpen() {
@@ -33,4 +37,6 @@ public class CallWebSocketHandlerTest {
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
         Mockito.verify(webSocketConnectionHandlerSingleton, Mockito.times(1)).sendMessage(message); */
     }
+=======
+>>>>>>> dev
 }
