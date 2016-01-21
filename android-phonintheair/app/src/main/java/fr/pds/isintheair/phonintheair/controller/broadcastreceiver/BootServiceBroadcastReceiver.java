@@ -4,6 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import fr.pds.isintheair.phonintheair.controller.service.CallService;
+
+/**
+ * Allows to launch service at android startup
+ */
 public class BootServiceBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

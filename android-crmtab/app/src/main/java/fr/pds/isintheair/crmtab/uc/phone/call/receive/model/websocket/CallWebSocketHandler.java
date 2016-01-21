@@ -1,11 +1,11 @@
-package fr.pds.isintheair.phonintheair.model.websocket;
+package fr.pds.isintheair.crmtab.uc.phone.call.receive.model.websocket;
 
 import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnectionHandler;
-import fr.pds.isintheair.phonintheair.controller.MessageController;
-import fr.pds.isintheair.phonintheair.helper.JSONHelper;
-import fr.pds.isintheair.phonintheair.model.entity.Message;
+import fr.pds.isintheair.crmtab.uc.phone.call.receive.controller.MessageController;
+import fr.pds.isintheair.crmtab.uc.phone.call.receive.helper.JSONHelper;
+import fr.pds.isintheair.crmtab.uc.phone.call.receive.model.entity.Message;
 
 public class CallWebSocketHandler extends WebSocketConnectionHandler {
     private String TAG = getClass().getSimpleName();
@@ -13,20 +13,13 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
     @Override
     public void onOpen() {
         Log.d(TAG, "Session opened");
+
         MessageController.sendRegisterMessage();
     }
 
     @Override
     public void onClose(int code, String reason) {
         Log.d(TAG, "Session closed with code : " + code + " with reason : " + reason);
-
-        try {
-            Thread.sleep(10000);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         WebSocketConnectionHandlerSingleton.getInstance().connect();
     }
 
