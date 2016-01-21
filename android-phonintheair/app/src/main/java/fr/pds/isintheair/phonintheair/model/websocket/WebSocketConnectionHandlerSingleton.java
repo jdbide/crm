@@ -1,12 +1,12 @@
-package fr.pds.isintheair.phonintheair.websocket;
+package fr.pds.isintheair.phonintheair.model.websocket;
 
 import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
-import fr.pds.isintheair.phonintheair.entity.Message;
-import fr.pds.isintheair.phonintheair.util.Constant;
-import fr.pds.isintheair.phonintheair.util.JSONHelper;
+import fr.pds.isintheair.phonintheair.model.entity.Message;
+import fr.pds.isintheair.phonintheair.model.constant.Constant;
+import fr.pds.isintheair.phonintheair.helper.JSONHelper;
 
 public class WebSocketConnectionHandlerSingleton {
     private static WebSocketConnectionHandlerSingleton INSTANCE            = null;

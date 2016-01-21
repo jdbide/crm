@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.util;
+package fr.pds.isintheair.phonintheair.helper;
 
 import com.google.gson.Gson;
 

@@ -1,6 +1,6 @@
-package fr.pds.isintheair.phonintheair.entity;
+package fr.pds.isintheair.phonintheair.model.entity;
 
-import fr.pds.isintheair.phonintheair.enumeration.MessageType;
+import fr.pds.isintheair.phonintheair.model.enumeration.MessageType;
 
 public class MessageMeta {
     private MessageType messageType;

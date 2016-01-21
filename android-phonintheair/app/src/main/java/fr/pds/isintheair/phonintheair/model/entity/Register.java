@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.entity;
+package fr.pds.isintheair.phonintheair.model.entity;
 
 public class Register {
     private Integer userId;

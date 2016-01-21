@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.enumeration;
+package fr.pds.isintheair.phonintheair.model.enumeration;
 
 public enum MessageType {
     CALL,

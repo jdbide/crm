@@ -1,6 +1,6 @@
-package fr.pds.isintheair.phonintheair.entity;
+package fr.pds.isintheair.phonintheair.model.entity;
 
-import fr.pds.isintheair.phonintheair.enumeration.DeviceType;
+import fr.pds.isintheair.phonintheair.model.enumeration.DeviceType;
 
 public class Message {
     DeviceType deviceType;

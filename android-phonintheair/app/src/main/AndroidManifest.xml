@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.DashboardActivity">
+        <activity android:name=".view.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -22,14 +22,14 @@
         </activity>
 
         <receiver
-            android:name=".broadcastreceiver.BootServiceBroadcastReceiver"
+            android:name=".controller.broadcastreceiver.BootServiceBroadcastReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".broadcastreceiver.PhoneCallBroadcastReceiver"
+            android:name=".controller.broadcastreceiver.PhoneCallBroadcastReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
@@ -37,6 +37,6 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".service.CallService"/>
+        <service android:name=".controller.service.CallService"/>
     </application>
 </manifest>

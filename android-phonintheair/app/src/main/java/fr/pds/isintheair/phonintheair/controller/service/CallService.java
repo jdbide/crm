@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.service;
+package fr.pds.isintheair.phonintheair.controller.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-import fr.pds.isintheair.phonintheair.websocket.WebSocketConnectionHandlerSingleton;
+import fr.pds.isintheair.phonintheair.model.websocket.WebSocketConnectionHandlerSingleton;
 
 public class CallService extends Service {
     private String TAG = getClass().getName();

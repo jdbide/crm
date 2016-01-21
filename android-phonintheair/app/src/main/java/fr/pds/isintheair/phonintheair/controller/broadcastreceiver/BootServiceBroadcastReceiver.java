@@ -1,10 +1,8 @@
-package fr.pds.isintheair.phonintheair.broadcastreceiver;
+package fr.pds.isintheair.phonintheair.controller.broadcastreceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
-import fr.pds.isintheair.phonintheair.service.CallService;
 
 public class BootServiceBroadcastReceiver extends BroadcastReceiver {
     @Override

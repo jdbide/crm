@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
-import fr.pds.isintheair.phonintheair.service.CallService;
+import fr.pds.isintheair.phonintheair.controller.service.CallService;
 
 public class PhonintheairApp extends Application {
     public static Context context;

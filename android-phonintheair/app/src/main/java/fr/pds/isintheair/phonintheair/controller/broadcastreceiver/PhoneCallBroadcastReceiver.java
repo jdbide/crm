@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.broadcastreceiver;
+package fr.pds.isintheair.phonintheair.controller.broadcastreceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,7 +18,8 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_NEW_OUTGOING_CALL.equals(intent.getAction())) {
             Log.d(TAG, "Outgoing call");
-        } else {
+        }
+        else {
             String state = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
 
             Log.d(TAG, "State : " + state);
@@ -30,7 +31,9 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
                 Log.d(TAG, "Receiving call from : " + phoneNumber);
 
                 MessageController.sendCallReceivedMessage(phoneNumber);
-            } else if (state != null && state.equals(TelephonyManager.EXTRA_STATE_IDLE))
+            }
+
+            else if (state != null && state.equals(TelephonyManager.EXTRA_STATE_IDLE))
                 MessageController.sendEndCallMessage();
         }
     }
