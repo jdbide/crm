@@ -15,6 +15,8 @@ public class ContactDetailActivity extends Activity {
         CallController.call("0610772364");
 
         startActivity(new Intent(this, CallActivity.class));
+
+        //coucou
     }
 
     @Override
