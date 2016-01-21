@@ -69,13 +69,8 @@ public class ProspectController {
                 userListHashMap.put(userKey, newProspectList);
             }
         }
-        logger.info("Before analyze by Relation lv: /n " );
-        logger.info(userListHashMap.toString());
         analyzeProspectByRelationLv(userListHashMap);
-        logger.info("After: /n");
-        logger.info(userListHashMap.toString());
         analyzeProspectByPlaceNumber(userListHashMap);
-        logger.info("Finally: /n");
         logger.info(userListHashMap.toString());
         return userListHashMap;
     }
@@ -86,6 +81,7 @@ public class ProspectController {
      * @return userListHashMap
      */
     public HashMap<User, ArrayList<Prospect>> getProspectListForEachUser() {
+        logger.info("Get the first prospects list is launching ...");
         HashMap<User, ArrayList<Prospect>>  userListHashMap = new HashMap<User, ArrayList<Prospect>>();
         List<User>                          userList        = userDAO.getAllUsers();
 
@@ -103,6 +99,7 @@ public class ProspectController {
             }
             userListHashMap.put(user, prospectList);
         }
+        logger.info("End of the function");
         return userListHashMap;
     }
 
@@ -118,8 +115,8 @@ public class ProspectController {
      * @return userHashMap
      */
     public HashMap<User, ArrayList<Prospect>> analyzeProspectBySales(HashMap<User, ArrayList<Prospect>> userHashMap) {
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userHashMap.entrySet().iterator();
         logger.info("The function analyze prospect by Sales volume is launching ...");
+        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userHashMap.entrySet().iterator();
 
         // The date 6 month before
         Calendar calendar = Calendar.getInstance();
@@ -183,6 +180,8 @@ public class ProspectController {
      * @return userHashMap
      */
     public HashMap<User, ArrayList<Prospect>> analyzeProspectByRelationLv(HashMap<User, ArrayList<Prospect>> userHashMap){
+        logger.info("The function analyze prospect by Relation level is launching ...");
+
         Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userHashMap.entrySet().iterator();
 
         // Analyze the HashMap<User, ArrayList<Prospect>>
@@ -200,7 +199,6 @@ public class ProspectController {
                     prospectLongHashMap.put(prospect, count);
                 }
                 long max = Collections.max(prospectLongHashMap.values());
-                logger.info("The max value of relationship level is " + max);
                 // Compare all prospects in the list with the max value of relationship level
                 for (Map.Entry<Prospect, Long> prospectLongEntry : prospectLongHashMap.entrySet()){
                     if (prospectLongEntry.getValue() != max){
@@ -209,6 +207,8 @@ public class ProspectController {
                 }
             }
         }
+        logger.info("End of the function");
+
         return userHashMap;
     }
 
@@ -220,6 +220,7 @@ public class ProspectController {
      * @return userHashMap
      */
     public HashMap<User, ArrayList<Prospect>> analyzeProspectByPlaceNumber(HashMap<User, ArrayList<Prospect>> userHashMap){
+        logger.info("The function analyze prospect by place number is launching ...");
         Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userHashMap.entrySet().iterator();
 
         // Analyze the map
@@ -236,7 +237,6 @@ public class ProspectController {
                     placeList.add(prospect.getPlace());
                 }
                 int maxPlace = Collections.max(placeList);
-                logger.info("The max value of place: " + maxPlace);
                 Iterator<Prospect> prospectIterator = prospects.iterator();
 
                 // Remove the prospect if out of condition
@@ -248,7 +248,7 @@ public class ProspectController {
                 }
             }
         }
-
+        logger.info("End of the function");
         return userHashMap;
     }
 

@@ -53,8 +53,8 @@ public class ProspectControllerTest {
         List<User>                          list        = userDAO.getAllUsers();
         for (User user: list){
             ArrayList<Prospect>                 arrayList   = new ArrayList<Prospect>();
-            List<Prospect>                  prospectList= prospectDAO.getAllProspect();
-            for (Prospect prospect: prospectList){
+            List<Prospect>                  prospectListl= prospectDAO.getAllProspect();
+            for (Prospect prospect: prospectListl){
                 if (userClientRelationDAO.checkRelation(user.getId(), prospect.getId()) == false){
                     arrayList.add(prospect);
                 }
