@@ -6,14 +6,17 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -144,6 +147,39 @@ public class HttpRequestTask extends AsyncTask<String, Void, Void> {
             e.printStackTrace();
         }
         return result;
+    }
+    public void getCrv(){
+
+
+        URL url;
+        Log.d("rest_service", "entered");
+
+        try {
+            url = new URL("http://ama-gestion-clients.appspot.com/rest/client");
+
+
+
+        HttpURLConnection urlConnection;
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader input = new BufferedReader(new InputStreamReader(in));
+
+			/*Toast toast = Toast.makeText(this, result, Toast.LENGTH_LONG);
+				toast.show();*/
+            //Log.d("RESULT",result);
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 }

@@ -1,9 +1,11 @@
 package pds.isintheair.fr.crmtab.crv.view;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -30,7 +32,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.crv.cache.CacheDao;
@@ -59,8 +63,10 @@ public class CreateCrvActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     List<String> presentedProducts = new ArrayList<String>();
     ArrayAdapter<String> adapter;
+    RadioButton satisfaction;
+    Report report;
     CacheDao dao;
-
+    private final int REQ_CODE_SPEECH_INPUT = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +91,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         lstProducts = (ListView) findViewById(R.id.lstProducts);
         btnList = (Button) findViewById(R.id.btnList);
 
+
         ch1 = (CheckBox) findViewById(R.id.chk1);
         ch2 = (CheckBox) findViewById(R.id.chk2);
         ch3 = (CheckBox) findViewById(R.id.chk3);
@@ -95,6 +102,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         Client cl = (Client)intent.getSerializableExtra("ClientObject");
+        report = (Report) intent.getSerializableExtra("report");
 
 
         //if "presentation prosuit" selected, enable product list button to show mocked product list
@@ -129,14 +137,14 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
             //Mock a visit
-            int rand = RandomInformation.randInt(1,4);
+            int rand = RandomInformation.randInt(1, 4);
 
             client.setText(cl.getClientSurname() +" "+cl.getClientName()+" -- "+cl.getClientAddress());
             clientId =  Integer.toString(cl.getClientId());
             userId = "1";
             conatcId = Integer.toString(rand);
             visitId = Integer.toString(rand);
-
+            date.setText(getDate());
 
             //Select a random visit report subject
             if(rand == 1){
@@ -159,7 +167,35 @@ public class CreateCrvActivity extends AppCompatActivity {
 
             }
 
+            if(report != null){
+                Product[] products = report.getProduct();
+                if(products != null){
+                    for(int i =0; i< products.length; i++){
+                        presentedProducts.add(products[i].getName());
+                        comment.setText(report.getComment());
+                        String sat = report.getSatisfaction();
+                    }
+                }
 
+
+                date.setText(report.getDate());
+
+                //get array of radio buttons from radio group
+                int count = radioGroup.getChildCount();
+                ArrayList<RadioButton> listOfRadioButtons = new ArrayList<RadioButton>();
+                for (int j=0;j<count;j++) {
+                    View o = radioGroup.getChildAt(j);
+                    if (o instanceof RadioButton) {
+                        listOfRadioButtons.add((RadioButton)o);
+                    }
+                }
+                for(RadioButton rd : listOfRadioButtons){
+                    if(rd.getText().toString().equalsIgnoreCase(report.getSatisfaction())){
+                        rd.setChecked(true);
+                        break;
+                    }
+                }
+            }
 
             //Init presented Product list
             // Define a new Adapter
@@ -363,6 +399,9 @@ public class CreateCrvActivity extends AppCompatActivity {
         alert.show();
 
     }
+    public String getDate(){
+        return java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+    }
 
     public void createReport(){
         Gson gson = new GsonBuilder()
@@ -370,7 +409,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.53:8080/api/crv/")
+                .baseUrl("http://192.168.20.3:8070/api/crv/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -379,9 +418,6 @@ public class CreateCrvActivity extends AppCompatActivity {
 
         //create reporting object
 
-        int selectedID = radioGroup.getCheckedRadioButtonId();
-
-        RadioButton satisfaction = (RadioButton)findViewById(selectedID);
 
 
         Reporting reporting = new Reporting();
@@ -401,17 +437,29 @@ public class CreateCrvActivity extends AppCompatActivity {
 
         }
 
-        Report report = new Report();
-        report.setId("");
-        report.setCommercial(userId);
-        report.setDate(Long.toString(System.currentTimeMillis()));
-        report.setSatisfaction(satisfaction.getText().toString());
-        report.setComment(comment.getText().toString());
-        report.setClient(clientId);
-        report.setContact(conatcId);
-        report.setVisit(visitId);
-        report.setProduct(products);
-        reporting.setReport(report);
+
+
+            int selectedID = radioGroup.getCheckedRadioButtonId();
+
+            satisfaction = (RadioButton)findViewById(selectedID);
+            Report crv = new Report();
+            if(report != null) {
+                crv.setId(report.getId());
+            }else{
+                crv.setId("");
+            }
+
+            crv.setCommercial(userId);
+            crv.setDate(date.getText().toString());
+            crv.setSatisfaction(satisfaction.getText().toString());
+            crv.setComment(comment.getText().toString());
+            crv.setClient(clientId);
+            crv.setContact(conatcId);
+            crv.setVisit(visitId);
+            crv.setProduct(products);
+            reporting.setReport(crv);
+
+
 
         Call<Boolean> call = iService.createReport(reporting);
         call.enqueue(new Callback<Boolean>() {
@@ -432,35 +480,44 @@ public class CreateCrvActivity extends AppCompatActivity {
         });
     }
 
-    public String createJson(){
-        JSONObject data = new JSONObject();
-        JSONObject mock = new JSONObject();
 
-        int selectedID = radioGroup.getCheckedRadioButtonId();
 
-        RadioButton satisfaction = (RadioButton)findViewById(selectedID);
-
+    public void launchVoiceRec(View v){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Dites quelque chose...");
         try {
-            data.put("id", userId);
-            data.put("commercial", userId);
-            data.put("date", System.currentTimeMillis());
-
-            data.put("satisfaction", satisfaction.getText());
-            data.put("comment", comment.getText().toString());
-            data.put("contact", conatcId);
-            data.put("client", clientId);
-            data.put("visit", visitId);
-
-            mock.put("mock", data);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    "Speech not supported",
+                    Toast.LENGTH_SHORT).show();
         }
-
-        return mock.toString();
     }
 
+    /**
+     * Receiving speech input
+     * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    comment.append(result.get(0));
+                }
+                break;
+            }
+
+        }
+    }
     //this method enables first block in UI to edit fields
     public void editInfo(View view){
        // commercial.setEnabled(true);
