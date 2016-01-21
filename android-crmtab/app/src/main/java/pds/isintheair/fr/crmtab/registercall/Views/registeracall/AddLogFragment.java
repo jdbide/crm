@@ -35,7 +35,7 @@ public class AddLogFragment extends Fragment {
     @Bind(R.id.vocalcomment)  Button mic;
 
 
-    public static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype) {
+    public static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype,boolean showmic) {
         AddLogFragment f = new AddLogFragment();
         // Supply num input as an argument.
         Bundle args = new Bundle();
@@ -43,6 +43,7 @@ public class AddLogFragment extends Fragment {
         args.putString("duration", duration);
         args.putString("date", date);
         args.putString("calltype", calltype);
+        args.putBoolean("showmic", showmic);
         f.setArguments(args);
         return f;
     }
@@ -61,12 +62,13 @@ public class AddLogFragment extends Fragment {
         View view = inflater.inflate(R.layout.log_informations_fragment, container, false);
         ButterKnife.bind(this, view);
 
+
         /*User user = new User();
         user.setTel("0123456789");
         user.setMdp("password");
          ControllerCra.hasAccount(user, getActivity());*/
         //Log.v("account?",b.toString());
-
+        if(getArguments().getBoolean("showmic")) mic.setBackground(getResources().getDrawable(R.drawable.mic1));
 
 
         formtitle.setText("Ajout d'un compte-rendu");

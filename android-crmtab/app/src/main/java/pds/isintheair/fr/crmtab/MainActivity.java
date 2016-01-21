@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
         AddLogFragment fragment = AddLogFragment.newInstance(event.getCallEndedEvent().getIdcontact()
                 , event.getCallEndedEvent().getDate()
                 , event.getCallEndedEvent().getDuration()
-                , event.getCallEndedEvent().getCalltype().toString());
+                , event.getCallEndedEvent().getCalltype()==CallType.INCOMING?"Entrant":"Sortant",event.getCallEndedEvent().getDisplaypopUp());
         ft.add(R.id.container, fragment, "FRAGMENT_AJOUT").commit();
 
         if(event.getCallEndedEvent().getDisplaypopUp()) {
