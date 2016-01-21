@@ -14,11 +14,31 @@ import pds.isintheair.fr.crmtab.OrmTabDataBase;
 /**
  * Created by j-d on 22/12/2015.
  */
-@Table(databaseName = OrmTabDataBase.DBNAME)
-public class Cra extends BaseModel {
+//@Table(databaseName = OrmTabDataBase.DBNAME)
+public class Cra  {
 
 
-    @PrimaryKey(autoincrement = true)
+    //public int id;
+
+    private String calltype;
+    private String clientname;
+
+    private String comments;
+
+    private String contactname;
+
+    private String date;
+
+    private Long duration;
+
+    private Long idcontact;
+
+    private Long iduser;
+
+    private String subject;
+
+
+    /*@PrimaryKey(autoincrement = true)
     @Column
     public int id;
     @Column
@@ -38,7 +58,7 @@ public class Cra extends BaseModel {
     @Column
     private Long iduser;
     @Column
-    private String subject;
+    private String subject;*/
 
     /**
      *
@@ -202,7 +222,5 @@ public class Cra extends BaseModel {
         this.subject = subject;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 }
