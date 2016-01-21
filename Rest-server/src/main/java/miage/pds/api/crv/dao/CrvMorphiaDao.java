@@ -7,7 +7,6 @@ import java.util.List;
 import miage.pds.api.crv.model.Product;
 import miage.pds.api.crv.model.Report;
 import miage.pds.api.crv.model.Reporting;
-
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +41,7 @@ public class CrvMorphiaDao {
 			
 			/**** Get database ****/
 			// if database doesn't exists, MongoDB will create it for you
-			datastore = morphia.createDatastore(mongo, "CRM");
+			datastore = morphia.createDatastore(mongo, "crm");
 			return true;
 
 		} catch (UnknownHostException e) {

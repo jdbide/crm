@@ -39,7 +39,7 @@ public class DAO {
 
 		/**** Get database ****/
 		// if database doesn't exists, MongoDB will create it for you
-		datastore = morphia.createDatastore(mongo, "CRM");
+		datastore = morphia.createDatastore(mongo, "crm");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
