@@ -57,10 +57,11 @@ public class RestCustomerControllerTest {
       public void setUp() throws UnknownHostException {
             request = new MockHttpServletRequest();
              response = new MockHttpServletResponse();
-        this.mongoClient    = new MongoClient();
+        this.mongoClient    = new MongoClient("192.168.20.3",8071);
         this.morphia        = new Morphia();
         this.morphia.map(HealthCenter.class);
         this.datastore      = this.morphia.createDatastore(mongoClient,dbName);
+
 
         restCustomerController = new RestCustomerController();
 
@@ -72,7 +73,9 @@ public class RestCustomerControllerTest {
                 HealthCenter healthCenter = new HealthCenter();
                 healthCenter.setSiretNumber(1L);
                 healthCenter.setName("TestHc");
+
                 MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1,healthCenter);
+                List<HealthCenter> list= new HealthCenterDAO(datastore).find().asList();
                 int nbHCbeforeTest = new HealthCenterDAO(datastore).find().asList().size();
                 nbHCbeforeTest = nbHCbeforeTest +1;
                 ResponseRestCustomer responseRestCustomer = restCustomerController.createHealthCenter(messageRestCustomer);
