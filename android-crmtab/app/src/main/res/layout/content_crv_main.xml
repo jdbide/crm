@@ -9,9 +9,13 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_create_crv" tools:context=".CreateCrvActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <ListView
+        android:id="@+id/listReport"
         android:layout_height="wrap_content"
-        android:text="TODO list of reports"/>
+        android:layout_width="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="@null">
+    </ListView>
 
 </RelativeLayout>

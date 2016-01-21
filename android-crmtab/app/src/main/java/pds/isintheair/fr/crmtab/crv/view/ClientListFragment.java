@@ -3,7 +3,6 @@ package pds.isintheair.fr.crmtab.crv.view;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pds.isintheair.fr.crmtab.R;
+import pds.isintheair.fr.crmtab.crv.controller.CrvController;
 import pds.isintheair.fr.crmtab.crv.mock.MockClient;
 import pds.isintheair.fr.crmtab.crv.model.Client;
 
@@ -66,8 +66,22 @@ public class ClientListFragment extends ListFragment {
 
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View promptView = layoutInflater.inflate(R.layout.options_layout, null);
+
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptView);
+
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(true)
+
+                .setNegativeButton("Fermer",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        final AlertDialog alert = alertDialogBuilder.create();
 
         // Get ListView object from xml
         listView = (ListView) promptView.findViewById(R.id.lstOptions);
@@ -93,27 +107,16 @@ public class ClientListFragment extends ListFragment {
                 String itemValue = (String) listView.getItemAtPosition(position);
 
                 if(itemValue.equalsIgnoreCase("crv")){
-                    Intent intent = new Intent(getActivity(), CrvMainActivity.class);
-                    intent.putExtra("ClientObject", client);
-                    startActivity(intent);
+
+                    new CrvController().getAllReportForClient(Integer.toString(client.getClientId()), client, getActivity());
+                    alert.cancel();
 
                 }
             }
 
         });
 
-        // setup a dialog window
-        alertDialogBuilder.setCancelable(true)
 
-                .setNegativeButton("Fermer",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        // create an alert dialog
-        AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 
     }
