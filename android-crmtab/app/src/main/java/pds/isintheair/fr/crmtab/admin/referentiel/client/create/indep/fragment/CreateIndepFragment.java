@@ -36,13 +36,13 @@ import butterknife.OnClick;
 import pds.isintheair.fr.crmtab.R;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.FormatValidator;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Company;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Company$Table;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Independant;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty;
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty$Table;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.enums.IndependantType;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.message.MessageRestCustomer;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Company$Table;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty$Table;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.message.ResponseRestCustomer;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
@@ -252,7 +252,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
      * Method called to initialise a new Independant with values from the view
      * @return HealthCenter
      */
-    private Independant initIndep() {
+    public Independant initIndep() {
 
         Independant independant = new Independant();
         independant.setName(name.getText().toString());
@@ -322,7 +322,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                 ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.create_customer_fragment_container, listCustomerFragment).commit();
+                        .replace(R.id.container, listCustomerFragment).commit();
             }
             /**
              * Called when a bad HTTP response is return

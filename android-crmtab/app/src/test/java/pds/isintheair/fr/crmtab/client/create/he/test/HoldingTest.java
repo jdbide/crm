@@ -1,10 +1,6 @@
-package pds.isintheair.fr.crm_tab.client.create.he.test;
-
-import com.raizlabs.android.dbflow.sql.language.Select;
+package pds.isintheair.fr.crmtab.client.create.he.test;
 
 import org.junit.Test;
-
-import pds.isintheair.fr.crm_tab.admin.referentiel.client.create.he.entities.Holding;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

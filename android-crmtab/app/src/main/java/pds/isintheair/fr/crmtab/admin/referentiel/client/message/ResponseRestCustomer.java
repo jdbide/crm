@@ -2,6 +2,7 @@ package pds.isintheair.fr.crmtab.admin.referentiel.client.message;
 
 import java.util.List;
 
+import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Customer;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.HealthCenter;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding;
 import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral;
@@ -28,6 +29,8 @@ public class ResponseRestCustomer {
     private List<HealthCenter> healthCenters;
 
     private List<Independant> independants;
+
+    private List<Customer> customers;
 
 
 

@@ -16,7 +16,7 @@ import retrofit.Retrofit;
 public class RESTCustomerHandlerSingleton {
 
     private static RESTCustomerHandlerSingleton mInstance;
-    private final pds.isintheair.fr.crmtab.admin.referentiel.client.rest.CustomerService customerService;
+    private final CustomerService customerService;
 
     private RESTCustomerHandlerSingleton() {
         Gson gson = new GsonBuilder()
@@ -34,11 +34,11 @@ public class RESTCustomerHandlerSingleton {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(pds.isintheair.fr.crmtab.admin.referentiel.client.rest.CustomerService.BASE_URL)
+                .baseUrl(CustomerService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        customerService = retrofit.create(pds.isintheair.fr.crmtab.admin.referentiel.client.rest.CustomerService.class);
+        customerService = retrofit.create(CustomerService.class);
     }
 
     public static synchronized RESTCustomerHandlerSingleton getInstance() {
@@ -49,7 +49,7 @@ public class RESTCustomerHandlerSingleton {
         return mInstance;
     }
 
-    public pds.isintheair.fr.crmtab.admin.referentiel.client.rest.CustomerService getCustomerService() {
+    public CustomerService getCustomerService() {
         return customerService;
     }
 
