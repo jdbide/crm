@@ -2,6 +2,8 @@ package miage.pds.api.admin.customer.crud.controller;
 
 import com.mongodb.MongoClient;
 
+
+import miage.pds.api.MongoConfig;
 import miage.pds.api.admin.customer.crud.createhc.dao.HealthCenterDAO;
 import miage.pds.api.admin.customer.crud.createhc.dao.HoldingDAO;
 import miage.pds.api.admin.customer.crud.createhc.dao.PurchasingCentralDAO;
@@ -55,10 +57,12 @@ public class RestCustomerController {
     public @ResponseBody
     ResponseRestCustomer createHealthCenter(@RequestBody MessageRestCustomer messageRestCustomer) {
         new HealthCenterDAO(getDataStore()).save(messageRestCustomer.getHealthCenter());
+
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIsInserted(true);
         return responseRestCustomer;
     }
+
 
     /**
      * Take a messageRestCustomer (dto) in parameter with an independant in it.
@@ -75,6 +79,7 @@ public class RestCustomerController {
         return responseRestCustomer;
     }
 
+
     /**
      * Used to initialise holding in crm tab. It return a list of holding with a ResponseRestCustomer (dto)
      * @return ResponseRestCustomer
@@ -83,7 +88,6 @@ public class RestCustomerController {
     public @ResponseBody ResponseRestCustomer getHoldings() {
         final List<Holding> holdings = new HoldingDAO(getDataStore()).findAll();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-
         responseRestCustomer.setHoldings(holdings);
         return responseRestCustomer;
     }
@@ -167,10 +171,12 @@ public class RestCustomerController {
      * Used to return datastore to do sql operation
      * @return Datastore
      */
+
     public static Datastore getDataStore() {
         if(datastore == null ) {
             try {
-                datastore = morphia.createDatastore(new MongoClient(), SpringMongoConfig.DB_NAME);
+                datastore = morphia.createDatastore(new MongoClient(MongoConfig.PRE_PROD_IP,MongoConfig.PRE_PROD_PORT)
+                        , SpringMongoConfig.DB_NAME);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }

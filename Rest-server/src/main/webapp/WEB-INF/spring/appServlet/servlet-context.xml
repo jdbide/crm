@@ -22,9 +22,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+
 	<context:component-scan base-package="miage.pds" />
 
 	<beans:bean class="org.mongodb.morphia.Morphia">
 	</beans:bean>
+
 	
 </beans:beans>
