@@ -1,37 +1,43 @@
 package pds.isintheair.fr.crmtab.registercall.Rest.Model;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import pds.isintheair.fr.crmtab.OrmTabDataBase;
+
 /**
  * Created by j-d on 22/12/2015.
  */
-public class Cra {
+@Table(databaseName = OrmTabDataBase.DBNAME)
+public class Cra extends BaseModel {
 
-    @SerializedName("calltype")
-    @Expose
+
+    @PrimaryKey(autoincrement = true)
+    @Column
+    public int id;
+    @Column
     private String calltype;
-    @SerializedName("clientname")
-    @Expose
+    @Column
     private String clientname;
-    @SerializedName("comments")
-    @Expose
+    @Column
     private String comments;
-    @SerializedName("contactname")
-    @Expose
+    @Column
     private String contactname;
-    @SerializedName("date")
-    @Expose
+    @Column
     private String date;
-    @SerializedName("duration")
-    @Expose
+    @Column
     private Long duration;
-    @SerializedName("idcontact")
-    @Expose
+    @Column
     private Long idcontact;
-    @SerializedName("iduser")
-    @Expose
+    @Column
     private Long iduser;
-    @SerializedName("subject")
-    @Expose
+    @Column
     private String subject;
 
     /**
@@ -196,62 +202,7 @@ public class Cra {
         this.subject = subject;
     }
 
-   /* private long iduser;
-    private long idcontact;
-    private String clientname;
-    private String contactname;
-    private String comments;
-    private String subject;
-    private String date;
-    private int duration;
-    private String calltype;
-
-
-    public Cra(long iduser, long idcontact, String clientname, String contactname, String comments, String subject, String date, int duration,String calltype) {
-        this.iduser = iduser;
-        this.idcontact = idcontact;
-        this.clientname = clientname;
-        this.contactname = contactname;
-        this.comments = comments;
-        this.subject = subject;
-        this.date = date;
-        this.duration = duration;
-        this.calltype = calltype;
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public String getContactname() {
-        return contactname;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public String getClientname() {
-        return clientname;
-    }
-
-    public long getIdcontact() {
-        return idcontact;
-    }
-
-    public long getIduser() {
-        return iduser;
-    }
-
-    public String getCalltype() {
-        return calltype;
-    }*/
 }

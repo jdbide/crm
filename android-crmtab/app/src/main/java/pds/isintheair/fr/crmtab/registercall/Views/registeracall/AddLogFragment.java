@@ -93,7 +93,10 @@ public class AddLogFragment extends Fragment {
                 newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
                 newCra.setSubject(subject.getText().toString());
                 newCra.setIduser((long) Singleton.getInstance().getCurrentUser().getTel());
-
+                //local save
+                newCra.setId(0);
+                //newCra.save();
+                //save on server
                 ControllerCra.registerCra(newCra,getActivity());
             }
         });
