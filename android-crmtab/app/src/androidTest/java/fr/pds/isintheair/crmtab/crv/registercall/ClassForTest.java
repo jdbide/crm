@@ -3,7 +3,7 @@ package fr.pds.isintheair.crmtab.crv.registercall;
 import android.app.Fragment;
 import android.test.ActivityInstrumentationTestCase2;
 
-import fr.pds.isintheair.crmtab.MainActivity;
+import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.registercall.Views.callsnotregistered.PendingLogsFragment;
 import fr.pds.isintheair.crmtab.registercall.Views.registeracall.AddLogFragment;

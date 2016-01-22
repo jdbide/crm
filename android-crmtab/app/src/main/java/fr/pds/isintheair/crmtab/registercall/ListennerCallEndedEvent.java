@@ -14,7 +14,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.MainActivity;
+import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.registercall.Objects.CallType;
 import fr.pds.isintheair.crmtab.registercall.Objects.Constants;

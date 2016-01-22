@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
-import fr.pds.isintheair.crmtab.MainActivity;
+import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
 
 /**
