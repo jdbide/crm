@@ -1,6 +1,7 @@
 package fr.pds.isintheair.crmtab.uc.phone.call.receive;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import butterknife.ButterKnife;
@@ -12,6 +13,7 @@ public class ContactDetailActivity extends Activity {
     @OnClick(R.id.phone_imageview)
     public void onPhoneClick() {
         CallController.call("0610772364");
+        startActivity(new Intent(this, CallActivity.class));
     }
 
     @Override
