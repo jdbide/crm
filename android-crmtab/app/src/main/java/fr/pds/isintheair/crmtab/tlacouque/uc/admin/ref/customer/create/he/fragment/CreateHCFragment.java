@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mobsandgeeks.saripaar.QuickRule;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -116,7 +117,9 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     List<PurchasingCentral> purchasingCentrals;
     Validator               validator;
     View                    view;
-    boolean                 createCalled;
+    boolean                 createCalledisOk;
+    boolean                 createCalledisNOk;
+    boolean                 errorServRest;
 
 
     private OnFragmentInteractionListener mListener;
@@ -255,9 +258,9 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         purchasingCentrals = new Select(PurchasingCentral_Table.name)
                 .from(PurchasingCentral.class).queryList();
         purshasingCentral.setAdapter(new ArrayAdapter<PurchasingCentral>
-                                             (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, purchasingCentrals));
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, purchasingCentrals));
         etablishmentType.setAdapter(new ArrayAdapter<EtablishmentType>
-                                            (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, EtablishmentType.values()));
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, EtablishmentType.values()));
     }
 
     /**
@@ -280,15 +283,18 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
              */
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                if (response.body().getIsInserted()) {
-                    healthCenter.save();
-                    createCalled = true;
+                if (response.errorBody() != null) {
+                    createCalledisNOk = true;
+                } else {
+                    if (response.body().getIsInserted()) {
+                        healthCenter.save();
+                        createCalledisOk = true;
+                    } else {
+                        errorServRest = true;
+                    }
                 }
+                returnToListCustomer();
 
-                ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
-                getFragmentManager().beginTransaction()
-                                    .replace(R.id.container, listCustomerFragment).commit();
             }
 
             /**
@@ -297,6 +303,8 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
              */
             @Override
             public void onFailure(Throwable t) {
+                errorServRest = true;
+                returnToListCustomer();
             }
         });
     }
@@ -322,11 +330,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
         alertDialog.setMessage(errorString);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                              new DialogInterface.OnClickListener() {
-                                  public void onClick(DialogInterface dialog, int which) {
-                                      dialog.dismiss();
-                                  }
-                              });
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
         alertDialog.show();
 
     }
@@ -339,7 +347,16 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     @Override
     public void onStop() {
         super.onStop();
-        if (createCalled) Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG).show();
+        if (createCalledisOk) {
+            Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG).show();
+        } else if(createCalledisNOk || errorServRest) {
+            Snackbar snackbar = Snackbar.make(view, R.string.create_he_fragment_message_customer_not_created_first_part,
+                    Snackbar.LENGTH_LONG);
+            ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+
+            snackbar.show();
+        }
+
     }
 
     public MessageRestCustomer getMessageRestCustomer() {
@@ -359,5 +376,12 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
     public interface OnFragmentInteractionListener {
 
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void returnToListCustomer() {
+        ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, listCustomerFragment).commit();
     }
 }
