@@ -18,9 +18,9 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.registercall.Objects.CallType;
 import fr.pds.isintheair.crmtab.registercall.Objects.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
-import pds.isintheair.fr.crmtab.MainActivity;
-import pds.isintheair.fr.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
-import pds.isintheair.fr.crmtab.registercall.Objects.Events.PendingCallLogEvent;
+import fr.pds.isintheair.crmtab.MainActivity;
+import fr.pds.isintheair.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.registercall.Objects.Events.PendingCallLogEvent;
 
 
 /**
