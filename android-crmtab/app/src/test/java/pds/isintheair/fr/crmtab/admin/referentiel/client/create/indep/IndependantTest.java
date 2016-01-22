@@ -14,9 +14,9 @@ import org.robolectric.annotation.Config;
 import java.lang.reflect.Field;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
-import fr.pds.isintheair.crmtab.client.create.indep.entities.Company;
-import fr.pds.isintheair.crmtab.client.create.indep.entities.Independant;
-import fr.pds.isintheair.crmtab.client.create.indep.entities.Specialty;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Company;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Specialty;
 
 import static org.junit.Assert.assertEquals;
 

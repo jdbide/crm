@@ -1,7 +1,7 @@
 package miage.pds;
 
 import com.mongodb.MongoClient;
-import miage.pds.api.admin.customer.crud.SpringMongoConfig;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.SpringMongoConfig;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 

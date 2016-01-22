@@ -21,8 +21,8 @@ import org.robolectric.shadows.ShadowNetworkInfo;
 import java.lang.reflect.Field;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
-import fr.pds.isintheair.crmtab.client.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.client.rest.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.rest.CheckInternetConnexion;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

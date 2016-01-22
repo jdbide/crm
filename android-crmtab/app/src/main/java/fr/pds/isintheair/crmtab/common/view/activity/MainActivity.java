@@ -19,10 +19,10 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.client.create.he.fragment.CreateHCFragment;
-import fr.pds.isintheair.crmtab.client.create.indep.fragment.CreateIndepFragment;
-import fr.pds.isintheair.crmtab.client.fragment.CreateCustomerAlertDialog;
-import fr.pds.isintheair.crmtab.client.fragment.ListCustomerFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.fragment.CreateHCFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.CreateCustomerAlertDialog;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
 import fr.pds.isintheair.crmtab.crv.view.ClientListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.CallType;

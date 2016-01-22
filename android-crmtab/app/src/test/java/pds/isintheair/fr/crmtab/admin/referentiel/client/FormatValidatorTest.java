@@ -8,7 +8,7 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
-import fr.pds.isintheair.crmtab.client.FormatValidator;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -21,11 +21,11 @@ import java.lang.reflect.Field;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.client.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.client.create.indep.entities.Company;
-import fr.pds.isintheair.crmtab.client.create.indep.entities.Independant;
-import fr.pds.isintheair.crmtab.client.create.indep.entities.Specialty;
-import fr.pds.isintheair.crmtab.client.create.indep.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Company;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Specialty;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.fragment.CreateIndepFragment;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
