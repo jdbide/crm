@@ -5,7 +5,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -22,14 +21,14 @@ import org.robolectric.shadows.ShadowNetworkInfo;
 
 import java.lang.reflect.Field;
 
-import pds.isintheair.fr.crmtab.BuildConfig;
-import pds.isintheair.fr.crmtab.R;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.activity.CRUDCustomerActivity;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.HealthCenter;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Independant;
+import fr.pds.isintheair.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by tlacouque on 20/01/2016.

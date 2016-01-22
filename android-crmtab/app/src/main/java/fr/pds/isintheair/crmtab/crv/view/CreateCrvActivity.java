@@ -179,7 +179,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
                 date.setText(report.getDate());
-
+                comment.setText(comment.getText());
                 //get array of radio buttons from radio group
                 int count = radioGroup.getChildCount();
                 ArrayList<RadioButton> listOfRadioButtons = new ArrayList<RadioButton>();

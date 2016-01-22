@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
-import fr.pds.isintheair.crmtab.uc.phone.call.receive.controller.service.CallService;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CallService;
 
 public class CrmTabApplication extends Application {
     public static Context context;

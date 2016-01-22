@@ -30,11 +30,11 @@
         </activity>
 
         <activity
-            android:name="fr.pds.isintheair.crmtab.uc.phone.call.receive.ContactDetailActivity"
+            android:name=".jdatour.receive.ContactDetailActivity"
             android:theme="@style/FullscreenTheme"/>
 
         <activity
-            android:name="fr.pds.isintheair.crmtab.MainActivity"
+            android:name=".common.view.activity.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
@@ -48,13 +48,13 @@
         <activity android:name="net.hockeyapp.android.UpdateActivity"/>
 
         <activity
-            android:name=".client.activity.CRUDCustomerActivity"
+            android:name=".tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
         <activity
-            android:name="fr.pds.isintheair.crmtab.common.view.activity.AbstractActivity"
+            android:name=".common.view.activity.AbstractActivity"
             android:label="@string/title_activity_abstract">
         </activity>
 
@@ -72,7 +72,7 @@
         </activity>
 
 
-        <activity android:name=".uc.phone.call.receive.CallActivity"/>
+        <activity android:name=".jdatour.receive.CallActivity"/>
 
         <activity
             android:name=".crv.view.CrvPreformatedMessage"
@@ -81,7 +81,7 @@
         </activity>
 
         <receiver
-            android:name="fr.pds.isintheair.crmtab.uc.phone.call.receive.controller.broadcastreceiver.BootServiceBrodcastReceiver"
+            android:name=".jdatour.uc.phone.call.receive.controller.broadcastreceiver.BootServiceBrodcastReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -89,9 +89,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="fr.pds.isintheair.crmtab.uc.phone.call.receive.controller.service.CallService"/>
-        <service android:name=".registercall.ListennerCallEndedEvent"/>
-        <service android:name=".registercall.ListenerPendingLogs"/>
+        <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>
+        <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
+        <service android:name=".jbide.uc.registercall.ListenerPendingLogs"/>
 
     </application>
 

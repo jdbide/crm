@@ -3,9 +3,7 @@ package pds.isintheair.fr.crmtab.admin.referentiel.client.rest;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -15,23 +13,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.internal.ShadowExtractor;
 import org.robolectric.shadows.ShadowConnectivityManager;
 import org.robolectric.shadows.ShadowNetworkInfo;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-import pds.isintheair.fr.crmtab.BuildConfig;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.rest.CheckInternetConnexion;
 
-import android.net.wifi.WifiManager;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

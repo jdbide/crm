@@ -1,10 +1,7 @@
 package pds.isintheair.fr.crmtab.admin.referentiel.client.create.he;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.media.midi.MidiOutputPort;
 import android.os.Build;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -12,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Method;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import org.junit.After;
@@ -27,24 +25,21 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowAlertDialog;
-import org.robolectric.shadows.ShadowToast;
 
 import java.lang.reflect.Field;
 
-import pds.isintheair.fr.crmtab.BuildConfig;
-import pds.isintheair.fr.crmtab.R;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.activity.CRUDCustomerActivity;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.HealthCenter;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.Holding;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.PurchasingCentral;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.message.MessageRestCustomer;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.message.ResponseRestCustomer;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.rest.CustomerService;
+import fr.pds.isintheair.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.Holding;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.PurchasingCentral;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.fragment.CreateHCFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message.MessageRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.rest.CustomerService;
 import retrofit.Callback;
 import retrofit.Response;
-import retrofit.Retrofit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -173,7 +168,7 @@ public class CreateHCFragmentTest {
        // Mockito.verify(CustomerService.class).;
         // TODO: 19/01/2016
 
-        int j = (int) new Select().count().from(HealthCenter.class).count();
+        int j = (int) new Select(Method.count()).from(HealthCenter.class).count();
         System.out.println("j = "+j);
 
 
