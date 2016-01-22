@@ -3,10 +3,13 @@ package fr.pds.isintheair.crmtab.common.view.activity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,12 +24,17 @@ import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
  */
 
 public class LoginActivity extends Activity {
-    @Bind(R.id.email)
+    @Bind(R.id.loginemail)
     EditText mail;
-    @Bind(R.id.password)
+    @Bind(R.id.loginpassword)
     EditText pass;
     @Bind(R.id.btnSuivant)
-    EditText con;
+    Button con;
+    @Bind(R.id.loadingPanel)
+    RelativeLayout loading;
+    @Bind(R.id.LogincoordinatorLayout)
+    CoordinatorLayout coordlayout;
+
 
 
     @Override
@@ -37,6 +45,7 @@ public class LoginActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        loading.setVisibility(View.GONE);
 
         con.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +53,8 @@ public class LoginActivity extends Activity {
                 User user = new User();
                 user.setEmail(pass.getText().toString());
                 user.setPassword(pass.getText().toString());
-                login(user);
+                login(user,getApplicationContext(),loading,coordlayout);
+                loading.setVisibility(View.VISIBLE);
             }
         });
 

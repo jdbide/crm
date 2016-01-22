@@ -4,7 +4,11 @@ package fr.pds.isintheair.crmtab.common.controller;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +29,7 @@ import retrofit.Retrofit;
  */
 public class LoginService {
 
-    public static void login(User user,final Context context) {
+    public static void login(User user,final Context context,final RelativeLayout anim,final CoordinatorLayout coordlayout) {
 
         //Interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -63,9 +67,13 @@ public class LoginService {
                 editor.putString("password", rep.getMdp());
                 editor.commit();
 
+                    anim.setVisibility(View.GONE);
+
                 } else {
+                    Snackbar
+                            .make(coordlayout, "Echec de connectio", Snackbar.LENGTH_LONG).show();
 
-
+                    anim.setVisibility(View.GONE);
                 }
             }
 
@@ -73,6 +81,10 @@ public class LoginService {
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
                 Log.v("Failure", t.getMessage());
+               Snackbar
+                        .make(coordlayout, "Echec de connection", Snackbar.LENGTH_LONG).show();
+
+                anim.setVisibility(View.GONE);
 
             }
         });
