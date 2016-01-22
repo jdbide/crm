@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> dev
 package pds.isintheair.fr.crmtab;
 
 import android.content.Context;
@@ -27,7 +31,7 @@ public class ExampleUnitTest {
     @Test
     public void readStringFromContext_LocalizedString() {
         // Given a mocked Context injected into the object under test...
-        when(mMockContext.getString(R.string.hello_word))
+        when(mMockContext.getString(R.string.hello_world))
                 .thenReturn(FAKE_STRING);
         ClassUnderTest myObjectUnderTest = new ClassUnderTest(mMockContext);
 

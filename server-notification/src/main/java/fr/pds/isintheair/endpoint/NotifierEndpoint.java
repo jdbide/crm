@@ -19,7 +19,8 @@ public class NotifierEndpoint {
     public void onOpen(Session session) {
         try {
             session.getBasicRemote().sendText("Bonjour");
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -30,14 +31,12 @@ public class NotifierEndpoint {
     }
 
     @OnMessage
-    public String onMessage(String body, Session session) {
+    public void onMessage(String body, Session session) {
         Message message = gson.fromJson(body, Message.class);
 
         logger.info("Received message : " + body);
 
         MessageController.handleMessage(message, session);
-
-        return "";
     }
 
     @OnClose

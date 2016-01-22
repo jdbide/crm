@@ -1,14 +1,10 @@
 package pds.isintheair.fr.crmtab.admin.referentiel.client.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -25,18 +21,12 @@ import org.robolectric.shadows.ShadowNetworkInfo;
 
 import java.lang.reflect.Field;
 
-import pds.isintheair.fr.crmtab.BuildConfig;
-import pds.isintheair.fr.crmtab.R;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.activity.CRUDCustomerActivity;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.entities.HealthCenter;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.he.fragment.CreateHCFragment;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Independant;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.display.hc.fragment.DetailHCFragment;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.display.indep.fragment.DetailIndepFragment;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.fragment.ListCustomerFragment;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import fr.pds.isintheair.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.client.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.client.create.he.entities.HealthCenter;
+import fr.pds.isintheair.crmtab.client.create.indep.entities.Independant;
+import fr.pds.isintheair.crmtab.client.fragment.ListCustomerFragment;
 
 /**
  * Created by tlacouque on 20/01/2016.

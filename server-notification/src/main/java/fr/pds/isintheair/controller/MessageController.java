@@ -18,7 +18,7 @@ public class MessageController {
                 CallController.call(session, message.getCall().getPhoneNumber());
                 break;
             case CALL_END:
-                CallController.endCall(session);
+                CallController.endCall(message.getDeviceType(), session);
                 break;
             case CALL_RECEIVED:
                 CallController.notifyCallReceived(session, message.getCall().getPhoneNumber());

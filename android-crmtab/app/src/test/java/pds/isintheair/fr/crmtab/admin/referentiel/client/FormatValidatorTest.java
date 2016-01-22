@@ -7,7 +7,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import pds.isintheair.fr.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.client.FormatValidator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,7 +28,7 @@ public class FormatValidatorTest {
         String urlWithoutHTTP = "www.url.com";
         String http = "http://";
 
-        assertEquals(http+urlWithoutHTTP,FormatValidator.formatUrl(urlWithoutHTTP));
+        assertEquals(http+urlWithoutHTTP, FormatValidator.formatUrl(urlWithoutHTTP));
         assertNotEquals(urlWithoutHTTP, FormatValidator.formatUrl(urlWithoutHTTP));
         assertEquals(http+urlWithoutHTTP,FormatValidator.formatUrl(http+urlWithoutHTTP));
     }

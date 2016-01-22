@@ -19,13 +19,13 @@ import org.robolectric.shadows.ShadowAlertDialog;
 
 import java.lang.reflect.Field;
 
-import pds.isintheair.fr.crmtab.BuildConfig;
-import pds.isintheair.fr.crmtab.R;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.activity.CRUDCustomerActivity;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Company;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Independant;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.client.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.client.create.indep.entities.Company;
+import fr.pds.isintheair.crmtab.client.create.indep.entities.Independant;
+import fr.pds.isintheair.crmtab.client.create.indep.entities.Specialty;
+import fr.pds.isintheair.crmtab.client.create.indep.fragment.CreateIndepFragment;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,7 +40,7 @@ public class CreateIndepFragmentTest {
     private CRUDCustomerActivity activity;
     private Specialty specialtyAucune;
     Specialty specialtyCardio;
-    Company  companyAucune;
+    Company companyAucune;
     Company  companyDenfert;
 
 

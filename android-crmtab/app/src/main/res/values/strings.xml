@@ -11,12 +11,9 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_preformated_message">Messages pré-formaté</string>
@@ -34,7 +31,6 @@
     <string name="textViewNumero">Numéro</string>
     <string name="textviewcommentaire">Commentaire</string>
     <string name="textaddcalllog">Ajout d\'un compte-rendu d\'appel</string>
-
 
 
     <string name="stringregistercalldialogbox">Voulez-vous enregistrer l\'appel?</string>
@@ -111,6 +107,7 @@
     <string name="display_independant_fragment_title_action_bar">Détail d\'un indépendant</string>
     <string name="display_indep_fragment_title_textview">Détail d\'un indépendant</string>
 
+    <string name="title_activity_abstract">AbstractActivity</string>
 
 
     <string name="title_activity_main">MainActivity</string>
