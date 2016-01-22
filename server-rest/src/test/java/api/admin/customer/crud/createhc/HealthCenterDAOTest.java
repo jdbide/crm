@@ -1,6 +1,7 @@
 package api.admin.customer.crud.createhc;
 
 import com.mongodb.MongoClient;
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.admin.customer.crud.createhc.dao.HealthCenterDAO;
 import miage.pds.api.admin.customer.crud.createhc.entities.HealthCenter;
 import miage.pds.prospect.controller.ProspectDAOImpl;
@@ -28,11 +29,8 @@ public class HealthCenterDAOTest {
 
     @Before
     public void setUp() throws Exception {
-        this.mongoClient    = new MongoClient();
-        this.morphia        = new Morphia();
-        this.morphia.map(Prospect.class);
-        this.datastore      = this.morphia.createDatastore(mongoClient,dbName);
-        healthCenterDAO         = new HealthCenterDAO(datastore);
+
+        healthCenterDAO         = new HealthCenterDAO(MongoDatastoreConfig.getDataStore());
     }
 
     @Test

@@ -1,6 +1,7 @@
 package api.admin.customer.crud.createindep;
 
 import com.mongodb.MongoClient;
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.admin.customer.crud.createhc.dao.HealthCenterDAO;
 import miage.pds.api.admin.customer.crud.createhc.entities.HealthCenter;
 import miage.pds.api.admin.customer.crud.createindep.dao.IndependantDAO;
@@ -29,11 +30,8 @@ public class IndependantDAOTest {
 
     @Before
     public void setUp() throws Exception {
-        this.mongoClient    = new MongoClient();
-        this.morphia        = new Morphia();
-        this.morphia.map(Prospect.class);
-        this.datastore      = this.morphia.createDatastore(mongoClient,dbName);
-        independantDAO = new IndependantDAO(datastore);
+
+        independantDAO = new IndependantDAO(MongoDatastoreConfig.getDataStore());
     }
 
     @Test

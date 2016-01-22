@@ -1,6 +1,7 @@
 package api.admin.customer.crud.createindep;
 
 import com.mongodb.MongoClient;
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.admin.customer.crud.createhc.dao.PurchasingCentralDAO;
 import miage.pds.api.admin.customer.crud.createhc.entities.PurchasingCentral;
 import miage.pds.api.admin.customer.crud.createindep.dao.CompanyDAO;
@@ -31,11 +32,8 @@ public class CompanyDAOTest {
 
     @Before
     public void setUp() throws Exception {
-        this.mongoClient    = new MongoClient();
-        this.morphia        = new Morphia();
-        this.morphia.map(Prospect.class);
-        this.datastore      = this.morphia.createDatastore(mongoClient,dbName);
-        companyDAO = new CompanyDAO(datastore);
+
+        companyDAO = new CompanyDAO(MongoDatastoreConfig.getDataStore());
 
     }
 
