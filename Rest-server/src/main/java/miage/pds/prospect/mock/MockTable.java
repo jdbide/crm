@@ -50,6 +50,7 @@ public class MockTable {
      *
      */
     public void mockUserTable(){
+
         for (int i = 0; i < 100; i++){
             User user = new User(i, "test" + i + "@gmail.com");
             log.info("The user " + i);
