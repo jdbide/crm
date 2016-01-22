@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Method;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import org.junit.After;
@@ -167,7 +168,7 @@ public class CreateHCFragmentTest {
        // Mockito.verify(CustomerService.class).;
         // TODO: 19/01/2016
 
-        int j = (int) new Select().from(HealthCenter.class).count();
+        int j = (int) new Select(Method.count()).from(HealthCenter.class).count();
         System.out.println("j = "+j);
 
 

@@ -1,5 +1,6 @@
 package fr.pds.isintheair.crmtab.client.rest;
 
+import com.raizlabs.android.dbflow.sql.language.Method;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import fr.pds.isintheair.crmtab.client.create.he.entities.Holding;
@@ -29,7 +30,7 @@ public final class InitValue {
      * Initialise Holding if there is no holdings in the database
      */
     private static void initHolding() {
-        if (new Select().from(Holding.class).count() == 0) {
+        if (new Select(Method.count()).from(Holding.class).count() == 0L) {
 
             Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService().getHoldings();
 
@@ -54,7 +55,7 @@ public final class InitValue {
      */
     private static void initPurchasingCentral() {
 
-        if (new Select().from(PurchasingCentral.class).count() == 0) {
+        if (new Select(Method.count()).from(PurchasingCentral.class).count() == 0) {
 
             Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService().getPurchasingCentral();
 
@@ -79,7 +80,7 @@ public final class InitValue {
      */
     private static void initCompanies() {
 
-        if (new Select().from(Company.class).count() == 0) {
+        if (new Select(Method.count()).from(Company.class).count() == 0) {
 
             Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService().getCompanies();
 
@@ -104,7 +105,7 @@ public final class InitValue {
      */
     private static void initSpecialties() {
 
-        if (new Select().from(Specialty.class).count() == 0) {
+        if (new Select(Method.count()).from(Specialty.class).count() == 0) {
 
             Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
                                                                           .getCustomerService().getSpecialties();
