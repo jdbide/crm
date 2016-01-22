@@ -30,7 +30,7 @@ public class Constants {
         popupdisplayed = false;
         //BASE_URL = "http://192.168.43.131:8080/api/";
         //BASE_URL = "http://192.168.1.68:8080/api/";
-        //BASE_URL = "http://192.168.20.3:8070/api/";
+        BASE_URL = "http://192.168.20.3:8070/api/";
         pendigCallList = new ArrayList<CallEndedEvent>();
         CraListForUser = new ArrayList<Cra>();
 
