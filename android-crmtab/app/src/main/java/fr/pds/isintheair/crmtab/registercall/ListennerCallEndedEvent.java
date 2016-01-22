@@ -14,11 +14,11 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
+import fr.pds.isintheair.crmtab.MainActivity;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.registercall.Objects.CallType;
+import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
 import fr.pds.isintheair.crmtab.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
-import fr.pds.isintheair.crmtab.MainActivity;
 import fr.pds.isintheair.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
 import fr.pds.isintheair.crmtab.registercall.Objects.Events.PendingCallLogEvent;
 
@@ -30,7 +30,7 @@ public class ListennerCallEndedEvent extends Service {
 
     private static final int notification_id = 10000;
     private NotificationManager mNM;
-    private int                 numMessages;
+    private int numMessages;
 
 
     @Override
@@ -42,7 +42,7 @@ public class ListennerCallEndedEvent extends Service {
     public void onCreate() {
         //registering service for events on the bus
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Singleton.getInstance().getCurrentBusInstance().register(this);
+        Constants.getInstance().getCurrentBusInstance().register(this);
     }
 
     @Override
@@ -78,8 +78,8 @@ public class ListennerCallEndedEvent extends Service {
     @Subscribe
     public void showPopup(CallEndedEvent event) {
         //if no popup displayed show
-        if (!Singleton.getInstance().isPopUpDisplayed()) {
-            Singleton.getInstance().setPopUpDisplayed(true);
+        if(!Constants.getInstance().isPopUpDisplayed()) {
+            Constants.getInstance().setPopUpDisplayed(true);
             /*Intent intent = new Intent(this, RegisterCallActivity.class);
             intent.putExtra("idcontact", event.getIdcontact());
             intent.putExtra("date", event.getDate());
@@ -87,13 +87,13 @@ public class ListennerCallEndedEvent extends Service {
             intent.putExtra("calltype", event.getCalltype() == CallType.INCOMING ? "Reçu" : "Emis");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);*/
-            //sendMessage(event);
-            Singleton.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(event));
-        } else {  //else add to job
+//sendMessage(event);
+            Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(event));
+        }else{  //else add to job
             //add event to pending list
-            Singleton.getInstance().getPendingCallList().add(event);
+            Constants.getInstance().getPendingCallList().add(event);
             //tell subscribers that list has been updated
-            Singleton.getInstance().getCurrentBusInstance().post(new PendingCallLogEvent());
+            Constants.getInstance().getCurrentBusInstance().post(new PendingCallLogEvent());
         }
     }
 
@@ -106,14 +106,13 @@ public class ListennerCallEndedEvent extends Service {
         intent.putExtra("calltype", event.getCalltype() == CallType.INCOMING ? "Reçu" : "Emis");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
-
     /**
      * Shows notifications if popup already displayed
      */
     @Subscribe
     public void notifyLocally(PendingCallLogEvent pop) {
 
-        List<CallEndedEvent> liste = Singleton.getInstance().getPendingCallList();
+        List<CallEndedEvent> liste = Constants.getInstance().getPendingCallList();
 
         // Set the info for the views that show in the notification panel.
         NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
@@ -129,12 +128,12 @@ public class ListennerCallEndedEvent extends Service {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
         // The PendingIntent to launch our activity if the user selects this notification
-        // Creates an explicit intent for an Activity in your app
+          // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, MainActivity.class);
-        resultIntent.putExtra("msg", "notification");
+        resultIntent.putExtra("msg","notification");
         //TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         //stackBuilder.addParentStack(NotificationView.class);
-        // Adds the Intent that starts the Activity to the top of the stack
+         // Adds the Intent that starts the Activity to the top of the stack
         //stackBuilder.addNextIntent(resultIntent);
         //PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent resultPendingIntent =
@@ -148,14 +147,14 @@ public class ListennerCallEndedEvent extends Service {
 
         notification.setNumber(++numMessages);
         String[] events = new String[liste.size()];
-        for (int i = 0; i < liste.size(); i++) {
+        for (int i=0; i < liste.size(); i++) {
             events[i] = "A Historiser :" + liste.get(i).getIdcontact();
         }
         // Sets a title for the Inbox in expanded layout
         inboxStyle.setBigContentTitle("Vous avez des appels à historiser");
 
         // Moves events into the expanded layout
-        for (int i = 0; i < events.length; i++) {
+        for (int i=0; i < events.length; i++) {
 
             inboxStyle.addLine(events[i]);
         }

@@ -3,7 +3,6 @@ package fr.pds.isintheair.crmtab.registercall.Views.displaycalls;
 /**
  * Created by j-d on 28/12/2015.
  */
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
 
+
 /**
  * Created by j-d on 28/12/2015.
  */
@@ -27,27 +27,17 @@ public class CallDetailsFragment extends Fragment {
 
     @Bind(R.id.formtitle)
     TextView formtitle;
-
-    @Bind(R.id.edittextcontatctname)
-    EditText contactname;
-    @Bind(R.id.edittextclientname)
-    EditText clientname;
-    @Bind(R.id.edittextcontatctnumber)
-    EditText contactnumber;
-    @Bind(R.id.edittextduration)
-    EditText duration;
-    @Bind(R.id.edittextcomments)
-    EditText comments;
-    @Bind(R.id.edittextsubject)
-    EditText subject;
-    @Bind(R.id.edittextdate)
-    EditText date;
-    @Bind(R.id.edittextcalltype)
-    EditText calltype;
+    @Bind(R.id.edittextcontatctname) EditText contactname;
+    @Bind(R.id.edittextclientname) EditText clientname;
+    @Bind(R.id.edittextcontatctnumber) EditText contactnumber;
+    @Bind(R.id.edittextduration) EditText duration;
+    @Bind(R.id.edittextcomments) EditText comments;
+    @Bind(R.id.edittextsubject) EditText subject;
+    @Bind(R.id.edittextdate) EditText date;
+    @Bind(R.id.edittextcalltype) EditText calltype;
     @Bind(R.id.buttonregistercra)
     Button validation;
-    @Bind(R.id.vocalcomment)
-    Button mic;
+    @Bind(R.id.vocalcomment)  Button mic;
 
 
     public static CallDetailsFragment newInstance(Cra cra) {
@@ -103,6 +93,7 @@ public class CallDetailsFragment extends Fragment {
     }
 
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -117,8 +108,7 @@ public class CallDetailsFragment extends Fragment {
     }
 
 
-    @Override
-    public void onDestroyView() {
+    @Override public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }

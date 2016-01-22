@@ -2,7 +2,6 @@ package fr.pds.isintheair.crmtab.registercall.Views.registeracall;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,56 +11,32 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
+import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.registercall.Rest.ControllerCra;
 import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.registercall.Rest.ServiceGenerator;
 import fr.pds.isintheair.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment;
-import pds.isintheair.fr.crmtab.registercall.Rest.ControllerCra;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 
 public class AddLogFragment extends Fragment {
 
-    @Bind(R.id.formtitle)
-    TextView formtitle;
-    @Bind(R.id.edittextcontatctname)
-    EditText contactname;
-    @Bind(R.id.edittextclientname)
-    EditText clientname;
-    @Bind(R.id.edittextcontatctnumber)
-    EditText contactnumber;
-    @Bind(R.id.edittextduration)
-    EditText duration;
-    @Bind(R.id.edittextcomments)
-    EditText comments;
-    @Bind(R.id.edittextsubject)
-    EditText subject;
-    @Bind(R.id.edittextdate)
-    EditText date;
-    @Bind(R.id.edittextcalltype)
-    EditText calltype;
-    @Bind(R.id.buttonregistercra)
-    Button   validation;
-    @Bind(R.id.vocalcomment)
-    Button   mic;
+    @Bind(R.id.formtitle) TextView formtitle;
+    @Bind(R.id.edittextcontatctname) EditText contactname;
+    @Bind(R.id.edittextclientname) EditText clientname;
+    @Bind(R.id.edittextcontatctnumber) EditText contactnumber;
+    @Bind(R.id.edittextduration) EditText duration;
+    @Bind(R.id.edittextcomments) EditText comments;
+    @Bind(R.id.edittextsubject) EditText subject;
+    @Bind(R.id.edittextdate) EditText date;
+    @Bind(R.id.edittextcalltype) EditText calltype;
+    @Bind(R.id.buttonregistercra)  Button validation;
+    @Bind(R.id.vocalcomment)  Button mic;
 
 
-    public static AddLogFragment newInstance(String idcontact, String date, String duration, String calltype, boolean showmic) {
-
+    public static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype,boolean showmic) {
         AddLogFragment f = new AddLogFragment();
         // Supply num input as an argument.
         Bundle args = new Bundle();
@@ -94,7 +69,7 @@ public class AddLogFragment extends Fragment {
         user.setMdp("password");
          ControllerCra.hasAccount(user, getActivity());*/
         //Log.v("account?",b.toString());
-        if (getArguments().getBoolean("showmic")) mic.setBackground(getResources().getDrawable(R.drawable.mic1));
+        if(getArguments().getBoolean("showmic")) mic.setBackground(getResources().getDrawable(R.drawable.mic1));
 
 
         formtitle.setText("Ajout d'un compte-rendu");
@@ -118,7 +93,7 @@ public class AddLogFragment extends Fragment {
                 newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
                 newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
                 newCra.setSubject(subject.getText().toString());
-                newCra.setIduser((long) Singleton.getInstance().getCurrentUser().getTel());
+                newCra.setIduser((long) Constants.getInstance().getCurrentUser().getTel());
                 //local save
                 //newCra.setId(0);
                 //newCra.save();
@@ -129,95 +104,7 @@ public class AddLogFragment extends Fragment {
         return view;
     }
 
-    private void sendForm() {
-
-        Cra newCra = new Cra();
-        newCra.setCalltype(calltype.getText().toString());
-        newCra.setClientname(clientname.getText().toString());
-        newCra.setComments(comments.getText().toString());
-        newCra.setContactname(contactname.getText().toString());
-        newCra.setDate(date.getText().toString());
-        newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
-        newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
-        newCra.setSubject(subject.getText().toString());
-        newCra.setIduser(Long.parseLong(iduser.getText().toString()));
-
-        //Interceptor
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient httpClient = new OkHttpClient();
-        // add logging as last interceptor
-        httpClient.interceptors().add(logging);
-
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Singleton.getInstance().getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(httpClient)
-                .build();
-
-        ServiceGenerator service = retrofit.create(ServiceGenerator.class);
-        Call<Boolean>    call    = service.createcra(newCra);
-
-
-        /*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Singleton.getInstance().getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(httpClient)
-                .build();
-
-        ServiceGenerator service = retrofit.create(ServiceGenerator.class);
-        Call<String> call = service.createcro(new Cro("o"));
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Response<String> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-
-                    Log.v("ok", "ok");
-
-                } else {
-                    Log.v("ok", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });*/
-
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Response<Boolean> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-
-                    Log.v("ok", "cra enregistre");
-
-                } else {
-                    //request not successful (like 400,401,403 etc)
-                    //Handle errors
-                    Log.v("rest", "no rep" + response.message());
-                    Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("Failure", t.getMessage());
-            }
-        });
-        //Redirect to Call log list view
-        //((RegisterCallActivity)(getActivity())).showCallLogList();
-    }
-
-
     @Override
-
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
@@ -234,7 +121,8 @@ public class AddLogFragment extends Fragment {
         android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
 
-        switch (item.getItemId()) {
+        switch(item.getItemId())
+        {
             case R.id.item1:
 
                 /*bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111"));
@@ -245,7 +133,7 @@ public class AddLogFragment extends Fragment {
                 return true;
 
             case R.id.item2:
-                DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1);
+                DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
                 ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
 
                 return true;
@@ -254,8 +142,9 @@ public class AddLogFragment extends Fragment {
     }
 
 
-    @Override
-    public void onDestroyView() {
+
+
+    @Override public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }

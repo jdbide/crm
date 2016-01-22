@@ -19,10 +19,11 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
+import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.registercall.Rest.Methods;
 import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
-import pds.isintheair.fr.crmtab.registercall.Rest.Methods;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -38,10 +39,10 @@ import retrofit.Retrofit;
 public class DisplayCallLogFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private int                               mColumnCount;
-    private List<Cra>                         listecra;
+    private int mColumnCount;
+    private List<Cra> listecra;
     private OnListFragmentInteractionListener mListener;
-    private CallLogRecyclerViewAdapter        adapter;
+    private CallLogRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,7 +54,7 @@ public class DisplayCallLogFragment extends Fragment {
     // initialization
     public static DisplayCallLogFragment newInstance(int columnCount) {
         DisplayCallLogFragment fragment = new DisplayCallLogFragment();
-        Bundle                 args     = new Bundle();
+        Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
@@ -69,7 +70,7 @@ public class DisplayCallLogFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        Gson                   gson    = new GsonBuilder().create();
+        Gson gson = new GsonBuilder().create();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -78,15 +79,13 @@ public class DisplayCallLogFragment extends Fragment {
         httpClient.interceptors().add(logging);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Singleton.getInstance().getBaseUrl())
+                .baseUrl(Constants.getInstance().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
-
-        Methods         service = retrofit.create(Methods.class);
-        Call<List<Cra>> call    = service.listcraforuser(Singleton.getInstance().getCurrentUser().getTel());
-
+        Methods service = retrofit.create(Methods.class);
+        Call<List<Cra>> call = service.listcraforuser(Constants.getInstance().getCurrentUser().getTel());
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
@@ -139,27 +138,21 @@ public class DisplayCallLogFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            //add line divider
-            recyclerView.addItemDecoration(new LineDivider(
-                    getActivity()));
             //set adapter
             recyclerView.setAdapter(adapter);
 
-
-            //Singleton.getInstance().setRecyclerListLogsForUser(adapter);
         }
         return view;
     }
 
     @Override
-
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                                               + " must implement OnListFragmentInteractionListener");
+                    + " must implement OnListFragmentInteractionListener");
         }
     }
 
@@ -169,7 +162,7 @@ public class DisplayCallLogFragment extends Fragment {
         mListener = null;
     }
 
-    public CallLogRecyclerViewAdapter getAdapter() {
+    public CallLogRecyclerViewAdapter  getAdapter(){
         return adapter;
     }
 

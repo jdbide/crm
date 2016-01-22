@@ -15,7 +15,7 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.registercall.Objects.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.registercall.Objects.Events.PendingCallEndedEventListUpdated;
-import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
+import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
 
 /**
  * Created by j-d on 29/12/2015.
@@ -24,13 +24,13 @@ public class ListenerPendingLogs extends Service {
 
     private static final int notification_id = 10000;
     private NotificationManager mNM;
-    private int                 numMessages;
+    private int numMessages;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Singleton.getInstance().getCurrentBusInstance().register(this);
+        Constants.getInstance().getCurrentBusInstance().register(this);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ListenerPendingLogs extends Service {
     @Subscribe
     public void showNotification(PendingCallEndedEventListUpdated pop) {
 
-        List<CallEndedEvent> liste = Singleton.getInstance().getPendingCallList();
+        List<CallEndedEvent> liste = Constants.getInstance().getPendingCallList();
 
         Log.v("ok", "ok");
         // Set the info for the views that show in the notification panel.
@@ -68,7 +68,7 @@ public class ListenerPendingLogs extends Service {
 
         // The PendingIntent to launch our activity if the user selects this notification
         //PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-        //       new Intent(this, RegisterCallActivity.class), 0);
+         //       new Intent(this, RegisterCallActivity.class), 0);
           /* Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, NotificationView.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
@@ -79,14 +79,14 @@ public class ListenerPendingLogs extends Service {
         mBuilder.setContentIntent(resultPendingIntent);*/
         notification.setNumber(++numMessages);
         String[] events = new String[liste.size()];
-        for (int i = 0; i < liste.size(); i++) {
+        for (int i=0; i < liste.size(); i++) {
             events[i] = "A Historiser :" + liste.get(i).getIdcontact();
         }
         // Sets a title for the Inbox in expanded layout
         inboxStyle.setBigContentTitle("Vous avez des appels à historiser");
 
         // Moves events into the expanded layout
-        for (int i = 0; i < events.length; i++) {
+        for (int i=0; i < events.length; i++) {
 
             inboxStyle.addLine(events[i]);
         }

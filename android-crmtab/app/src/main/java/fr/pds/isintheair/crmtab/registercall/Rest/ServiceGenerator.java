@@ -10,10 +10,9 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 
-import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
+import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
-
 
 /**
  * Created by bide2 on 19/01/2016.
@@ -21,11 +20,14 @@ import retrofit.Retrofit;
 public class ServiceGenerator {
 
 
-    private static OkHttpClient     httpClient = new OkHttpClient();
-    private static Retrofit.Builder builder    =
+
+    private static OkHttpClient httpClient = new OkHttpClient();
+    private static Retrofit.Builder builder =
             new Retrofit.Builder()
-                    .baseUrl(Singleton.getInstance().getBaseUrl())
+                    .baseUrl(Constants.getInstance().getBaseUrl())
                     .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()));
+
+
 
 
     public static <S> S createService(Class<S> serviceClass) {
@@ -41,7 +43,7 @@ public class ServiceGenerator {
         httpClient.interceptors().add(logging);
 
 
-        if (password != null) {
+        if ( password != null) {
             String credentials = username + ":" + password;
             final String basic =
                     "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
@@ -53,7 +55,7 @@ public class ServiceGenerator {
                     Request original = chain.request();
 
                     Request.Builder requestBuilder = original.newBuilder()
-                                                             .header("Authorization", basic);
+                            .header("Authorization", basic);
                     original.newBuilder().header("Accept", "applicaton/json");
                     //original.newBuilder().method(original.method(), original.body());
 

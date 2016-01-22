@@ -1,5 +1,4 @@
 package fr.pds.isintheair.crmtab.registercall.Views.displaycalls;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,8 @@ import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
 
 public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecyclerViewAdapter.ViewHolder> {
 
-
-    private final List<Cra>                                                liste;
+    private final List<Cra> liste;
     private final DisplayCallLogFragment.OnListFragmentInteractionListener mListener;
-
 
     public CallLogRecyclerViewAdapter(List<Cra> items, DisplayCallLogFragment.OnListFragmentInteractionListener listener) {
         liste = items;
@@ -27,14 +24,14 @@ public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                                  .inflate(R.layout.item_calllog_fragment, parent, false);
+                .inflate(R.layout.item_calllog_fragment, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = liste.get(position);
-        holder.mIdView.setText(Integer.toString(position + 1));
+        holder.mIdView.setText(Integer.toString(position+1));
         holder.mDate.setText(liste.get(position).getDate());
         holder.mContact.setText(liste.get(position).getContactname());
         holder.mClient.setText(liste.get(position).getClientname());
@@ -59,14 +56,14 @@ public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        // @Bind(R.id.showsubject) TextView mSubjet;
-        public final View     mView;
+       // @Bind(R.id.showsubject) TextView mSubjet;
+        public final View mView;
         public final TextView mIdView;
         public final TextView mDate;
         public final TextView mContact;
         public final TextView mClient;
         public final TextView mSubject;
-        public       Cra      mItem;
+        public Cra mItem;
 
         public ViewHolder(View view) {
             super(view);

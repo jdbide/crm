@@ -18,7 +18,7 @@ RandomInformation randomInformation;
         randomInformation = new RandomInformation();
     }
 
-    //test if the random info generator returns a valid json mocked object
+    //ClassForTest if the random info generator returns a valid json mocked object
     @Test
     public void testGetRandomInfo() throws Exception {
         String mock = randomInformation.getRandomInfo();
@@ -28,7 +28,7 @@ RandomInformation randomInformation;
         assertEquals(true, obj.isJsonObject());
     }
 
-    //test if the random number generator works properly
+    //ClassForTest if the random number generator works properly
     @Test
     public void testRandInt() throws Exception {
         int random = RandomInformation.randInt(0,4) ;

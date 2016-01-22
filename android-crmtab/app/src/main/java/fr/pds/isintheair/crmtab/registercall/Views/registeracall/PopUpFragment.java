@@ -8,8 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import fr.pds.isintheair.crmtab.registercall.Objects.Singleton;
 
+import fr.pds.isintheair.crmtab.MainActivity;
+import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
 
 /**
  * Created by j-d on 18/12/2015.
@@ -60,11 +61,11 @@ public class PopUpFragment extends DialogFragment {
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //hide popup , addlog fragment  is below
-                        Singleton.getInstance().setPopUpDisplayed(false);
+                        Constants.getInstance().setPopUpDisplayed(false);
                     }
                 }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Singleton.getInstance().setPopUpDisplayed(false);
+                        Constants.getInstance().setPopUpDisplayed(false);
                         //remove addlogactivity (popup fragment & addlogfragment
                         //getActivity().onBackPressed();
                         startActivity(new Intent(getActivity(), MainActivity.class));

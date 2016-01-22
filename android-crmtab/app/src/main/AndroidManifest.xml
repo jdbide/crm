@@ -26,23 +26,15 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
 
-        <activity
-            android:name=".registercall.StartCallRegisterActivity"
-            android:label="@string/title_activity_start_call_register"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        </activity>
 
         <activity
             android:name="fr.pds.isintheair.crmtab.uc.phone.call.receive.ContactDetailActivity"
             android:theme="@style/FullscreenTheme"/>
 
         <activity
-            android:name="pds.isintheair.fr.crmtab.MainActivity"
+            android:name="fr.pds.isintheair.crmtab.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
@@ -52,11 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".registercall.Views.displaycalls.LaunchDisplayLogFragment"
-            android:label="@string/title_activity_start_call_register"
-            />
 
         <activity android:name="net.hockeyapp.android.UpdateActivity"/>
 
@@ -82,17 +69,8 @@
         <activity
             android:name=".crv.view.CrvHomeActivity"
             android:label="CRM-tab">
-
-
         </activity>
 
-
-        <activity
-            android:name=".registercall.Views.registeracall.RegisterCallActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_call_log_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
 
         <activity android:name=".uc.phone.call.receive.CallActivity"/>
 
