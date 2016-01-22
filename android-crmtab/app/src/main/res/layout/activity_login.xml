@@ -18,7 +18,7 @@
         android:src="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -29,7 +29,7 @@
         android:textColor="#134b01" />
 
     <EditText
-        android:id="@+id/txtPhone"
+        android:id="@+id/password"
         android:layout_marginTop="50dp"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -49,14 +49,20 @@
         android:ems="10"
         />
 
-
+    <RelativeLayout
+        style="@style/GenericProgressBackground"
+        android:id="@+id/loadingPanel"
+        >
+        <ProgressBar
+            style="@style/GenericProgressIndicator"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnSuivant"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Suivant"
+        android:text="Connexion"
 
         android:layout_gravity="center_horizontal" />
 

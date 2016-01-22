@@ -9,6 +9,8 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import fr.pds.isintheair.crmtab.client.create.he.entities.Holding_Table;
+import fr.pds.isintheair.crmtab.client.create.he.entities.PurchasingCentral_Table;
 import fr.pds.isintheair.crmtab.common.model.OrmTabDataBase;
 
 

@@ -2,6 +2,7 @@ package fr.pds.isintheair.crmtab.common.view.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;

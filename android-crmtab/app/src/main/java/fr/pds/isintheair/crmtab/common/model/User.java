@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab.common.model;
 /**
  * Created by bide2 on 19/01/2016.
  */
+
 public class User {
 
     private String fname;
@@ -15,9 +16,19 @@ public class User {
 
     private String email;
 
+    private String password;
+
 
     public int getTel() {
         return tel;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getMdp() {

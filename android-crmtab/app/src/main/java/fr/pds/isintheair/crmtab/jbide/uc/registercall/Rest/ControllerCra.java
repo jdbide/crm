@@ -139,46 +139,6 @@ public class ControllerCra {
             }
         });
 
-    }
-
-    public static void hasAccount(User user, final Activity context) {
-
-        User result = null;
-
-        //Interceptor
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient httpClient = new OkHttpClient();
-        // add logging as last interceptor
-        httpClient.interceptors().add(logging);
-
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.getInstance().getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(httpClient)
-                .build();
-
-        Methods service = retrofit.create(Methods.class);
-        Call<User> call = service.basicLogin(user);
-
-
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Response<User> response, Retrofit retrofit) {
-                User result = response.body();
-                Log.v("result", "ooooooook");
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.v("fail", "fail");
-            }
-        });
-
 
     }
 }

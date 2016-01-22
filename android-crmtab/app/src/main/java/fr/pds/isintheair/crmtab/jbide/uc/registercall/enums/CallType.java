@@ -1,7 +1,7 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.enums;
 
 /**
- * Created by j-d on 24/12/2015.
+ * Created by jbide on 24/12/2015.
  */
 public enum CallType {
         INCOMING,
