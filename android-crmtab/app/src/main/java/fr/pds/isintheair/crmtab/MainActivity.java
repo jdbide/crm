@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.nav_ref_client) {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-            setSupportActionBar(toolbar);
+           // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+           // setSupportActionBar(toolbar);
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.container,new ListCustomerFragment());
             fragmentTransaction.addToBackStack("menu");
