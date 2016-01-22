@@ -7,17 +7,13 @@ import com.google.gson.annotations.SerializedName;
  * Created by bide2 on 19/01/2016.
  */
 public class User {
-    @SerializedName("fname")
-    @Expose
+
     private String fname;
-    @SerializedName("lname")
-    @Expose
+
     private String lname;
-    @SerializedName("mdp")
-    @Expose
+
     private String mdp;
-    @SerializedName("tel")
-    @Expose
+
     private int tel;
 
 
