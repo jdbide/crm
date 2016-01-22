@@ -2,6 +2,7 @@ package miage.pds.api.admin.customer.crud.controller;
 
 import com.mongodb.MongoClient;
 
+import miage.pds.MongoConfig;
 import miage.pds.api.admin.customer.crud.createhc.dao.HealthCenterDAO;
 import miage.pds.api.admin.customer.crud.createhc.dao.HoldingDAO;
 import miage.pds.api.admin.customer.crud.createhc.dao.PurchasingCentralDAO;
@@ -170,7 +171,8 @@ public class RestCustomerController {
     public static Datastore getDataStore() {
         if(datastore == null ) {
             try {
-                datastore = morphia.createDatastore(new MongoClient(), SpringMongoConfig.DB_NAME);
+                datastore = morphia.createDatastore(new MongoClient(MongoConfig.PROD_IP,MongoConfig.PROD_PORT),
+                        SpringMongoConfig.DB_NAME);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
