@@ -1,8 +1,7 @@
-package prospect.Controller;
+package api.ctruong.uc.prospect.suggest.Controller;
 
 import com.mongodb.MongoClient;
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.*;
-import miage.pds.prospect.controller.*;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.User;

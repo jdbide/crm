@@ -1,4 +1,4 @@
-package prospect.dao;
+package api.ctruong.uc.prospect.suggest.dao;
 
 import com.mongodb.MongoClient;
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.ProspectDAOImpl;
