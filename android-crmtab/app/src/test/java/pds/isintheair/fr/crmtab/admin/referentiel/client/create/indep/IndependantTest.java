@@ -13,10 +13,10 @@ import org.robolectric.annotation.Config;
 
 import java.lang.reflect.Field;
 
-import pds.isintheair.fr.crmtab.BuildConfig;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Company;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Independant;
-import pds.isintheair.fr.crmtab.admin.referentiel.client.create.indep.entities.Specialty;
+import fr.pds.isintheair.crmtab.BuildConfig;
+import fr.pds.isintheair.crmtab.client.create.indep.entities.Company;
+import fr.pds.isintheair.crmtab.client.create.indep.entities.Independant;
+import fr.pds.isintheair.crmtab.client.create.indep.entities.Specialty;
 
 import static org.junit.Assert.assertEquals;
 
