@@ -1,6 +1,6 @@
-package fr.pds.isintheair.crmtab.registercall.Objects.Events;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events;
 
-import fr.pds.isintheair.crmtab.registercall.Objects.CallType;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.CallType;
 
 /**
  * Created by j-d on 20/12/2015.

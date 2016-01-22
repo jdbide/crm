@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Rest;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest;
 
 import android.util.Base64;
 
@@ -10,7 +10,7 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 
-import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 

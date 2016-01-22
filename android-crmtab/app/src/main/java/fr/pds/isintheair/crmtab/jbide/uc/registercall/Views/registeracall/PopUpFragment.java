@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Views.registeracall;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall;
 
 
 import android.app.AlertDialog;
@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
-import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
 
 /**
  * Created by j-d on 18/12/2015.

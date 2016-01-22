@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Views.callsnotregistered;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.DisplayAddLogFragment;
 
 
 public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<PendingLogsRecyclerViewAdapter.ViewHolder> {

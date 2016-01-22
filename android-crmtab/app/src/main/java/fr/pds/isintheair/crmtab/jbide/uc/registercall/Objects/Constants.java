@@ -1,15 +1,15 @@
-package fr.pds.isintheair.crmtab.registercall.Objects;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects;
 
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.registercall.User;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
 
 
-import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 
 /**
  * Created by j-d on 21/12/2015.

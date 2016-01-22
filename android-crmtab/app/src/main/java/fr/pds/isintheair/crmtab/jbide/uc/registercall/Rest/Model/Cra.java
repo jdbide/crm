@@ -1,14 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Rest.Model;
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.PrimaryKey;
-import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
-
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model;
 
 
 /**

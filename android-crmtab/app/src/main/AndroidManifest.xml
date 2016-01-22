@@ -90,8 +90,8 @@
         </receiver>
 
         <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>
-        <service android:name=".registercall.ListennerCallEndedEvent"/>
-        <service android:name=".registercall.ListenerPendingLogs"/>
+        <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
+        <service android:name=".jbide.uc.registercall.ListenerPendingLogs"/>
 
     </application>
 

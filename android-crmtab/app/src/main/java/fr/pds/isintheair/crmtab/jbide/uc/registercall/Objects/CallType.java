@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Objects;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects;
 
 /**
  * Created by j-d on 24/12/2015.

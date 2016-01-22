@@ -1,7 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
 /**
  * Created by bide2 on 19/01/2016.

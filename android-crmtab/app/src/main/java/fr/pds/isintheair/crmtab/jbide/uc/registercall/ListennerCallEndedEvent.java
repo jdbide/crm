@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,11 +16,11 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Objects.CallType;
-import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.registercall.Objects.Events.DisplayAddLogFragment;
-import fr.pds.isintheair.crmtab.registercall.Objects.Events.PendingCallLogEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.CallType;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.PendingCallLogEvent;
 
 
 /**

@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Views.callsnotregistered;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
 
 /**
  * A fragment representing a list of Items.

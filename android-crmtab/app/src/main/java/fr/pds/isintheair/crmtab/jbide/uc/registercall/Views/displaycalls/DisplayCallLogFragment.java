@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Views.displaycalls;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -21,9 +21,9 @@ import java.util.List;
 
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.registercall.Rest.Methods;
-import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Methods;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;

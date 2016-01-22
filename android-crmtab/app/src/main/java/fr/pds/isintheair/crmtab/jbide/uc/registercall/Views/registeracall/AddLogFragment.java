@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.registercall.Views.registeracall;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -15,10 +15,10 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.registercall.Rest.ControllerCra;
-import fr.pds.isintheair.crmtab.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.ControllerCra;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
 
 
 public class AddLogFragment extends Fragment {

@@ -5,8 +5,8 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.registercall.Views.callsnotregistered.PendingLogsFragment;
-import fr.pds.isintheair.crmtab.registercall.Views.registeracall.AddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLogFragment;
 
 /**
  * Created by bide2 on 21/01/2016.
