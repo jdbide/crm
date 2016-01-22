@@ -1,10 +1,11 @@
 package miage.pds.prospect.service;
 
+
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mongodb.morphia.logging.Logger;
+import org.mongodb.morphia.logging.MorphiaLoggerFactory;
 
 import java.net.UnknownHostException;
 
@@ -19,7 +20,7 @@ public class MongoService {
 
     private Morphia morphia;
     private Datastore datastore;
-    private static Logger logger = LoggerFactory.getLogger(MongoService.class);
+    private static Logger logger = MorphiaLoggerFactory.get(MongoService.class);
     private static final String DATABASE_NAME = "crm";
 
     public MongoService() {
