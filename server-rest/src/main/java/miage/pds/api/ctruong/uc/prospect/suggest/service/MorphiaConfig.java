@@ -1,4 +1,4 @@
-package miage.pds.prospect.service;
+package miage.pds.api.ctruong.uc.prospect.suggest.service;
 
 /**
  * The interface to declare the host and the port of crm database

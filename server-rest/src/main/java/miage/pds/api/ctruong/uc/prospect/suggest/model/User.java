@@ -1,4 +1,4 @@
-package miage.pds.prospect.model;
+package miage.pds.api.ctruong.uc.prospect.suggest.model;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;

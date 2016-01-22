@@ -1,9 +1,9 @@
-package miage.pds.prospect.controller;
+package miage.pds.api.ctruong.uc.prospect.suggest.controller;
 
 
 import com.mongodb.MongoClient;
-import miage.pds.prospect.dao.ProspectDAO;
-import miage.pds.prospect.model.Prospect;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.ProspectDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;

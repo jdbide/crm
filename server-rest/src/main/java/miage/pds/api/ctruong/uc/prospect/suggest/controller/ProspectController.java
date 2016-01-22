@@ -1,14 +1,14 @@
-package miage.pds.prospect.controller;
+package miage.pds.api.ctruong.uc.prospect.suggest.controller;
 
-import miage.pds.prospect.dao.ProspectDAO;
-import miage.pds.prospect.dao.SalesDAO;
-import miage.pds.prospect.dao.UserClientRelationDAO;
-import miage.pds.prospect.dao.UserDAO;
-import miage.pds.prospect.model.Prospect;
-import miage.pds.prospect.model.Sales;
-import miage.pds.prospect.model.User;
-import miage.pds.prospect.model.UserClientRelation;
-import miage.pds.prospect.service.MongoService;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.SalesDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.ProspectDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserClientRelationDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.mongodb.morphia.logging.Logger;
 import org.mongodb.morphia.logging.MorphiaLoggerFactory;
 
@@ -25,7 +25,7 @@ public class ProspectController {
 
     private MongoService            mongoService;
     private ProspectDAO             prospectDAO;
-    private SalesDAO                salesDAO;
+    private SalesDAO salesDAO;
     private UserClientRelationDAO   userClientRelationDAO;
     private UserDAO                 userDAO;
     private static Logger           logger = MorphiaLoggerFactory.get(ProspectController.class);

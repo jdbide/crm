@@ -1,8 +1,8 @@
 package prospect.dao;
 
 import com.mongodb.MongoClient;
-import miage.pds.prospect.controller.SalesDAOImpl;
-import miage.pds.prospect.model.Sales;
+import miage.pds.api.ctruong.uc.prospect.suggest.controller.SalesDAOImpl;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

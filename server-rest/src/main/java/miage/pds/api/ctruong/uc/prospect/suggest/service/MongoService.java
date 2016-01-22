@@ -1,4 +1,4 @@
-package miage.pds.prospect.service;
+package miage.pds.api.ctruong.uc.prospect.suggest.service;
 
 
 import com.mongodb.MongoClient;

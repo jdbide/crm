@@ -1,7 +1,7 @@
-package miage.pds.prospect.controller;
+package miage.pds.api.ctruong.uc.prospect.suggest.controller;
 
-import miage.pds.prospect.dao.UserClientRelationDAO;
-import miage.pds.prospect.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserClientRelationDAO;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;

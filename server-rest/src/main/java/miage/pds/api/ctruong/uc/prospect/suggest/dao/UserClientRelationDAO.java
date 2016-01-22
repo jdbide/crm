@@ -1,6 +1,6 @@
-package miage.pds.prospect.dao;
+package miage.pds.api.ctruong.uc.prospect.suggest.dao;
 
-import miage.pds.prospect.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
 
 import java.util.List;
 

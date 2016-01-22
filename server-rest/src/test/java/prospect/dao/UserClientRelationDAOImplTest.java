@@ -1,8 +1,8 @@
 package prospect.dao;
 
 import com.mongodb.MongoClient;
-import miage.pds.prospect.controller.UserClientRelationDAOImpl;
-import miage.pds.prospect.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserClientRelationDAOImpl;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;

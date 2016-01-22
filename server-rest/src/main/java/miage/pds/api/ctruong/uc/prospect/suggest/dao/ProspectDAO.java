@@ -1,8 +1,6 @@
-package miage.pds.prospect.dao;
+package miage.pds.api.ctruong.uc.prospect.suggest.dao;
 
-import miage.pds.prospect.model.Prospect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 
 import java.util.List;
 

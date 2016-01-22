@@ -1,13 +1,12 @@
-package miage.pds.prospect.controller;
+package miage.pds.api.ctruong.uc.prospect.suggest.controller;
 
-import miage.pds.prospect.dao.SalesDAO;
-import miage.pds.prospect.model.Sales;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.SalesDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ import java.util.List;
  * @version 1.1.19
  * @serial 111912202015
  */
-public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO{
+public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO {
 
     private static final String ID_CLIENT       = "idClient";
     private static final String VALUE           = "value";
