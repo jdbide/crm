@@ -3,7 +3,7 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
+import fr.pds.isintheair.crmtab.common.model.User;
 
 
 import retrofit.Call;

@@ -11,10 +11,10 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.RemoveFragmentEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.RemoveFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
+import fr.pds.isintheair.crmtab.common.model.User;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;

@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.jbide.uc.registercall;
+package fr.pds.isintheair.crmtab.common.model;
 
 /**
  * Created by bide2 on 19/01/2016.

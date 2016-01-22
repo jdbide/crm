@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".jdatour.receive.ContactDetailActivity"
+            android:name=".jdatour.uc.phone.call.receive.ContactDetailActivity"
             android:theme="@style/FullscreenTheme"/>
 
         <activity
@@ -91,7 +91,6 @@
 
         <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>
         <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
-        <service android:name=".jbide.uc.registercall.ListenerPendingLogs"/>
 
     </application>
 

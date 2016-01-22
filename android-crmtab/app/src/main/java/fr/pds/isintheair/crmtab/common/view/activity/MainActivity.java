@@ -25,12 +25,12 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.CreateC
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
 import fr.pds.isintheair.crmtab.crv.view.ClientListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.CallType;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
+import fr.pds.isintheair.crmtab.common.model.User;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDetailsFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
