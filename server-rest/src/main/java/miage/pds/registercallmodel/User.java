@@ -1,13 +1,6 @@
-package fr.pds.isintheair.crmtab.registercall;
+package miage.pds.registercallmodel;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-/**
- * Created by bide2 on 19/01/2016.
- */
 public class User {
-
     private String fname;
 
     private String lname;
