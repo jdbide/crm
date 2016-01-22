@@ -1,10 +1,10 @@
 import com.mongodb.MongoClient;
+import miage.pds.api.ctruong.uc.prospect.suggest.controller.*;
 import miage.pds.prospect.controller.*;
-import miage.pds.prospect.dao.ProspectDAO;
-import miage.pds.prospect.model.Prospect;
-import miage.pds.prospect.model.Sales;
-import miage.pds.prospect.model.User;
-import miage.pds.prospect.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
@@ -26,13 +26,13 @@ public class ProspectControllerTest {
     private static final Logger         log = LoggerFactory.getLogger(ProspectControllerTest.class);
     private MongoClient                 mongoClient;
     private Morphia                     morphia;
-    private ProspectController          prospectController;
-    private SalesDAOImpl                salesDAO;
-    private UserDAOImpl                 userDAO;
+    private ProspectController prospectController;
+    private SalesDAOImpl salesDAO;
+    private UserDAOImpl userDAO;
     private final String                dbname      = "crm";
     private Datastore                   datastore;
-    private ProspectDAOImpl             prospectDAO;
-    private UserClientRelationDAOImpl   userClientRelationDAO;
+    private ProspectDAOImpl prospectDAO;
+    private UserClientRelationDAOImpl userClientRelationDAO;
 
 
     @Before
