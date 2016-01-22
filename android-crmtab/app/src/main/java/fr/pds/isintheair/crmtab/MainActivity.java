@@ -35,6 +35,7 @@ import fr.pds.isintheair.crmtab.registercall.Views.displaycalls.CallDetailsFragm
 import fr.pds.isintheair.crmtab.registercall.Views.displaycalls.DisplayCallLogFragment;
 import fr.pds.isintheair.crmtab.registercall.Views.registeracall.AddLogFragment;
 import fr.pds.isintheair.crmtab.registercall.Views.registeracall.PopUpFragment;
+import fr.pds.isintheair.crmtab.uc.phone.call.receive.ContactDetailActivity;
 
 
 public class MainActivity extends AppCompatActivity
@@ -115,7 +116,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_passer_appel) {
-            // Handle the camera action
+            Intent intentContact = new Intent(MainActivity.this, ContactDetailActivity.class);
+            startActivity(intentContact);
         } else if (id == R.id.nav_historiser_appel) {
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111",true));
             bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333",true));
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity
            // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
            // setSupportActionBar(toolbar);
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.container,new ListCustomerFragment());
+            fragmentTransaction.replace(R.id.container,new ListCustomerFragment());
             fragmentTransaction.addToBackStack("menu");
             fragmentTransaction.commit();
 
