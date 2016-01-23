@@ -46,18 +46,20 @@ public class MainActivity extends AppCompatActivity
         PendingLogsFragment.OnListFragmentInteractionListener, CreateCustomerAlertDialog.AlertPositiveListener,
         ListCustomerFragment.OnListFragmentInteractionListener {
 
-    private Bus                 bus;
+
     // UC Register a call
     private PendingLogsFragment pend;
+
+    private Bus bus;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-
-
+        toolbar.setTitle("Crm Tab");
         //start local services
         startService(new Intent(this, ListennerCallEndedEvent.class));
         bus = Constants.getInstance().getCurrentBusInstance();
@@ -88,6 +90,11 @@ public class MainActivity extends AppCompatActivity
         //
         if (getIntent().hasExtra("msg"))
             showNotificationListFrag();
+        MainLogoFragment mainLogoFragment = new MainLogoFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.container, mainLogoFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     /**
@@ -132,6 +139,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_passer_appel) {
             fragment = new ContactListFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.commit();
 
         } else if (id == R.id.nav_historiser_appel) {
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111", true));
@@ -160,9 +170,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.commit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
