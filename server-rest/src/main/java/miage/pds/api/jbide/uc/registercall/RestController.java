@@ -34,10 +34,10 @@ public class RestController {
 	 */
 
 	@RequestMapping(value = "/cra/listcra",method = RequestMethod.GET)
-	public @ResponseBody List<Cra> getListCraForUser(@RequestParam("iduser") int iduser){
+	public @ResponseBody List<Cra> getListCraForUser(@RequestParam("iduser") String iduser){
 
 		List<Cra> liste = dao.getListCraForUser(iduser);
-		System.out.println("response list size :" + liste.size());
+		logger.info("Liste Cra for user " + iduser +"response list size :" + liste.size());
 		return liste;
 	}
 
@@ -52,11 +52,8 @@ public class RestController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public @ResponseBody Boolean createCra() {
-		boolean status = false;  
-		//status = dao.createCra(cra);
-		//if(status) logger.info("Cra registered :)");
-		//else logger.info("Cra not registered :)");
-		return status;
+
+		return true;
 	}
 	
 }

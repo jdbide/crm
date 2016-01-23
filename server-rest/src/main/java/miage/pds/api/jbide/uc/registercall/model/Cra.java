@@ -6,227 +6,184 @@ package miage.pds.api.jbide.uc.registercall.model;
  */
 public class Cra {
 
-    //public int id;
 
-    private String calltype;
-    private String clientname;
+	private String calltype;
 
-    private String comments;
+	private String clientname;
 
-    private String contactname;
+	private String comments;
 
-    private String date;
+	private String contactname;
 
-    private Long duration;
+	private String date;
 
-    private Long idcontact;
+	private Integer duration;
 
-    private String iduser;
+	private Integer idcontact;
 
-    private String subject;
+	private String iduser;
 
-    /**
-     *
-     * @return
-     * The calltype
-     */
-    public String getCalltype() {
-        return calltype;
-    }
+	private String subject;
 
-    /**
-     *
-     * @param calltype
-     * The calltype
-     */
-    public void setCalltype(String calltype) {
-        this.calltype = calltype;
-    }
+	/**
+	* 
+	* @return
+	* The calltype
+	*/
+	public String getCalltype() {
+	return calltype;
+	}
 
-    /**
-     *
-     * @return
-     * The clientname
-     */
-    public String getClientname() {
-        return clientname;
-    }
+	/**
+	* 
+	* @param calltype
+	* The calltype
+	*/
+	public void setCalltype(String calltype) {
+	this.calltype = calltype;
+	}
 
-    /**
-     *
-     * @param clientname
-     * The clientname
-     */
-    public void setClientname(String clientname) {
-        this.clientname = clientname;
-    }
+	/**
+	* 
+	* @return
+	* The clientname
+	*/
+	public String getClientname() {
+	return clientname;
+	}
 
-    /**
-     *
-     * @return
-     * The comments
-     */
-    public String getComments() {
-        return comments;
-    }
+	/**
+	* 
+	* @param clientname
+	* The clientname
+	*/
+	public void setClientname(String clientname) {
+	this.clientname = clientname;
+	}
 
-    /**
-     *
-     * @param comments
-     * The comments
-     */
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+	/**
+	* 
+	* @return
+	* The comments
+	*/
+	public String getComments() {
+	return comments;
+	}
 
-    /**
-     *
-     * @return
-     * The contactname
-     */
-    public String getContactname() {
-        return contactname;
-    }
+	/**
+	* 
+	* @param comments
+	* The comments
+	*/
+	public void setComments(String comments) {
+	this.comments = comments;
+	}
 
-    /**
-     *
-     * @param contactname
-     * The contactname
-     */
-    public void setContactname(String contactname) {
-        this.contactname = contactname;
-    }
+	/**
+	* 
+	* @return
+	* The contactname
+	*/
+	public String getContactname() {
+	return contactname;
+	}
 
-    /**
-     *
-     * @return
-     * The date
-     */
-    public String getDate() {
-        return date;
-    }
+	/**
+	* 
+	* @param contactname
+	* The contactname
+	*/
+	public void setContactname(String contactname) {
+	this.contactname = contactname;
+	}
 
-    /**
-     *
-     * @param date
-     * The date
-     */
-    public void setDate(String date) {
-        this.date = date;
-    }
+	/**
+	* 
+	* @return
+	* The date
+	*/
+	public String getDate() {
+	return date;
+	}
 
-    /**
-     *
-     * @return
-     * The duration
-     */
-    public Long getDuration() {
-        return duration;
-    }
+	/**
+	* 
+	* @param date
+	* The date
+	*/
+	public void setDate(String date) {
+	this.date = date;
+	}
 
-    /**
-     *
-     * @param duration
-     * The duration
-     */
-    public void setDuration(Long duration) {
-        this.duration = duration;
-    }
+	/**
+	* 
+	* @return
+	* The duration
+	*/
+	public Integer getDuration() {
+	return duration;
+	}
 
-    /**
-     *
-     * @return
-     * The idcontact
-     */
-    public Long getIdcontact() {
-        return idcontact;
-    }
+	/**
+	* 
+	* @param duration
+	* The duration
+	*/
+	public void setDuration(Integer duration) {
+	this.duration = duration;
+	}
 
-    /**
-     *
-     * @param idcontact
-     * The idcontact
-     */
-    public void setIdcontact(Long idcontact) {
-        this.idcontact = idcontact;
-    }
+	/**
+	* 
+	* @return
+	* The idcontact
+	*/
+	public Integer getIdcontact() {
+	return idcontact;
+	}
 
+	/**
+	* 
+	* @param idcontact
+	* The idcontact
+	*/
+	public void setIdcontact(Integer idcontact) {
+	this.idcontact = idcontact;
+	}
 
+	/**
+	* 
+	* @return
+	* The iduser
+	*/
+	public String getIduser() {
+	return iduser;
+	}
 
-    /**
-     *
-     * @return
-     * The subject
-     */
-    public String getSubject() {
-        return subject;
-    }
+	/**
+	* 
+	* @param iduser
+	* The iduser
+	*/
+	public void setIduser(String iduser) {
+	this.iduser = iduser;
+	}
 
-    /**
-     *
-     * @param subject
-     * The subject
-     */
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+	/**
+	* 
+	* @return
+	* The subject
+	*/
+	public String getSubject() {
+	return subject;
+	}
 
-   /* private long iduser;
-    private long idcontact;
-    private String clientname;
-    private String contactname;
-    private String comments;
-    private String subject;
-    private String date;
-    private int duration;
-    private String calltype;
-
-
-    public Cra(long iduser, long idcontact, String clientname, String contactname, String comments, String subject, String date, int duration,String calltype) {
-        this.iduser = iduser;
-        this.idcontact = idcontact;
-        this.clientname = clientname;
-        this.contactname = contactname;
-        this.comments = comments;
-        this.subject = subject;
-        this.date = date;
-        this.duration = duration;
-        this.calltype = calltype;
-    }
-
-    public String getContactname() {
-        return contactname;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public String getClientname() {
-        return clientname;
-    }
-
-    public long getIdcontact() {
-        return idcontact;
-    }
-
-    public long getIduser() {
-        return iduser;
-    }
-
-    public String getCalltype() {
-        return calltype;
-    }*/
+	/**
+	* 
+	* @param subject
+	* The subject
+	*/
+	public void setSubject(String subject) {
+	this.subject = subject;
+	}
 }

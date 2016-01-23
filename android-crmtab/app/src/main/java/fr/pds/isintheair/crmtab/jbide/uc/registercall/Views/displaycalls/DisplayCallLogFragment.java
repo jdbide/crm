@@ -118,7 +118,7 @@ public class DisplayCallLogFragment extends Fragment {
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("listcraforuser Failure", t.getMessage());
+                Log.v("listcraforuser Failure", "msg = " + t.getMessage());
             }
         });
     }

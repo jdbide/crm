@@ -84,7 +84,6 @@ public class ControllerCra {
                     //request not successful (like 400,401,403 etc)
                     //Handle errors
                     Log.v("rest", "no rep" + response.message());
-                    Log.v("ok", "cra enregistre");
                     AlertDialog alertDialog = new AlertDialog.Builder(
                             context).create();
 
@@ -114,7 +113,7 @@ public class ControllerCra {
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("Failure", t.getMessage());
+                Log.v("Failure", "msg = " + t.getMessage());
                 AlertDialog alertDialog = new AlertDialog.Builder(
                         context).create();
 

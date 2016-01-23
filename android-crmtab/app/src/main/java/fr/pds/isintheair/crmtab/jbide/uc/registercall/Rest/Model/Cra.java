@@ -1,6 +1,9 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model;
 
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by j-d on 22/12/2015.
  */
@@ -8,47 +11,33 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model;
 public class Cra  {
 
 
-    //public int id;
-
+    @SerializedName("calltype")
+    @Expose
     private String calltype;
+    @SerializedName("clientname")
+    @Expose
     private String clientname;
-
+    @SerializedName("comments")
+    @Expose
     private String comments;
-
+    @SerializedName("contactname")
+    @Expose
     private String contactname;
-
+    @SerializedName("date")
+    @Expose
     private String date;
-
-    private Long duration;
-
-    private Long idcontact;
-
+    @SerializedName("duration")
+    @Expose
+    private Integer duration;
+    @SerializedName("idcontact")
+    @Expose
+    private Integer idcontact;
+    @SerializedName("iduser")
+    @Expose
     private String iduser;
-
+    @SerializedName("subject")
+    @Expose
     private String subject;
-
-
-    /*@PrimaryKey(autoincrement = true)
-    @Column
-    public int id;
-    @Column
-    private String calltype;
-    @Column
-    private String clientname;
-    @Column
-    private String comments;
-    @Column
-    private String contactname;
-    @Column
-    private String date;
-    @Column
-    private Long duration;
-    @Column
-    private Long idcontact;
-    @Column
-    private Long iduser;
-    @Column
-    private String subject;*/
 
     /**
      *
@@ -145,7 +134,7 @@ public class Cra  {
      * @return
      * The duration
      */
-    public Long getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
@@ -154,7 +143,7 @@ public class Cra  {
      * @param duration
      * The duration
      */
-    public void setDuration(Long duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -163,7 +152,7 @@ public class Cra  {
      * @return
      * The idcontact
      */
-    public Long getIdcontact() {
+    public Integer getIdcontact() {
         return idcontact;
     }
 
@@ -172,7 +161,7 @@ public class Cra  {
      * @param idcontact
      * The idcontact
      */
-    public void setIdcontact(Long idcontact) {
+    public void setIdcontact(Integer idcontact) {
         this.idcontact = idcontact;
     }
 
@@ -211,6 +200,4 @@ public class Cra  {
     public void setSubject(String subject) {
         this.subject = subject;
     }
-
-
 }

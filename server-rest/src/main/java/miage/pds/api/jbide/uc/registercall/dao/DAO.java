@@ -63,7 +63,7 @@ public class DAO {
 		return state;
 	}
 
-	public List<Cra> getListCraForUser(int iduser) {
+	public List<Cra> getListCraForUser(String iduser) {
 		List<Cra> liste = null;
 		if (ConnectDB()) {
 		liste =  datastore.createQuery(Cra.class).field("iduser").equal(iduser).asList();
