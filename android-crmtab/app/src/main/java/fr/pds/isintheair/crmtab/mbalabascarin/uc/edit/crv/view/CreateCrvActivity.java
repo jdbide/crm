@@ -156,7 +156,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             visitId = Integer.toString(rand);
             date.setText(getDate());
 
-            
+
 
             //Select a random visit report subject
             if(rand == 1){
