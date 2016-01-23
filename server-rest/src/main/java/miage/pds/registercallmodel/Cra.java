@@ -7,6 +7,7 @@ package miage.pds.registercallmodel;
 public class Cra {
 
     //public int id;
+
     private String calltype;
     private String clientname;
 
