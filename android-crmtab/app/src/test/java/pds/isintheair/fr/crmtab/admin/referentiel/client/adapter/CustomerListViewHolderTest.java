@@ -37,12 +37,12 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCus
 public class CustomerListViewHolderTest {
     ListCustomerFragment listCustomerFragment;
     CRUDCustomerActivity activity;
-    HealthCenter healthCenter;
-    Independant independant;
+    HealthCenter         healthCenter;
+    Independant          independant;
 
-    ConnectivityManager cm;
+    ConnectivityManager       cm;
     ShadowConnectivityManager shadowCM;
-    ShadowNetworkInfo shadowOfActiveNetworkInfo;
+    ShadowNetworkInfo         shadowOfActiveNetworkInfo;
 
 
     @Before
@@ -66,39 +66,38 @@ public class CustomerListViewHolderTest {
 
     @Test
     public void testClickOnHealthCenter() throws Exception {
-         final RecyclerView recyclerView =
+        final RecyclerView recyclerView =
                 (RecyclerView) activity.findViewById(R.id.list_customer_recycler_view);
-      /** int i = recyclerView.getAdapter().getItemCount();
+        /** int i = recyclerView.getAdapter().getItemCount();
 
-        RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) recyclerView.getLayoutParams();
-        int j = lp.getViewAdapterPosition();
-
-
-       CustomerListViewHolder viewHolder =
-               (CustomerListViewHolder) recyclerView.findViewHolderForLayoutPosition(0);
-        viewHolder.onClick(viewHolder.itemView);
-       // Thread.sleep(5000);
-        //recyclerView.findViewHolderForPosition(0).itemView.performClick();
-//        recyclerView.getChildAt(0).performClick();
+         RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) recyclerView.getLayoutParams();
+         int j = lp.getViewAdapterPosition();
 
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView.getChildAt(0).performClick();
-                recyclerView.scrollToPosition(0);
-                Fragment detailHCFragment =
-                        activity.getFragmentManager().findFragmentById(R.id.create_customer_fragment_container);
-                boolean bool = false;
-                if (detailHCFragment instanceof DetailHCFragment) {
-                    bool = true;
-                }
-                assertFalse(bool);
-            }
+         CustomerListViewHolder viewHolder =
+         (CustomerListViewHolder) recyclerView.findViewHolderForLayoutPosition(0);
+         viewHolder.onClick(viewHolder.itemView);
+         // Thread.sleep(5000);
+         //recyclerView.findViewHolderForPosition(0).itemView.performClick();
+         //        recyclerView.getChildAt(0).performClick();
+
+
+         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+        @Override public void run() {
+        recyclerView.getChildAt(0).performClick();
+        recyclerView.scrollToPosition(0);
+        Fragment detailHCFragment =
+        activity.getFragmentManager().findFragmentById(R.id.create_customer_fragment_container);
+        boolean bool = false;
+        if (detailHCFragment instanceof DetailHCFragment) {
+        bool = true;
+        }
+        assertFalse(bool);
+        }
         }, 500);
 
 
-       */
+         */
 
 
     }

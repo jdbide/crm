@@ -28,16 +28,18 @@ public class Contact extends BaseModel implements Parcelable {
             return new Contact[size];
         }
     };
+
     @Column
     @PrimaryKey
     public String phoneNumber;
+
     @Column
     public String firstName;
+
     @Column
     public String lastName;
 
     public Contact() {
-
     }
 
     public Contact(String phoneNumber, String firstName, String lastName) {

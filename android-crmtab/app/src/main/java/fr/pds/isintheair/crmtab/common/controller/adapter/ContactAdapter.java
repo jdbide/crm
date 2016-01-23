@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.ContactDetailActivity;
+import fr.pds.isintheair.crmtab.common.view.activity.ContactDetailActivity;
 
 /******************************************
  * Created by        : jdatour            *
