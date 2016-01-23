@@ -11,10 +11,10 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.RemoveFragmentEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.RemoveFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
+import fr.pds.isintheair.crmtab.common.model.User;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -136,46 +136,6 @@ public class ControllerCra {
 
                 // Showing Alert Message
                 alertDialog.show();
-            }
-        });
-
-    }
-
-    public static void hasAccount(User user, final Activity context) {
-
-        User result = null;
-
-        //Interceptor
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient httpClient = new OkHttpClient();
-        // add logging as last interceptor
-        httpClient.interceptors().add(logging);
-
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.getInstance().getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(httpClient)
-                .build();
-
-        Methods service = retrofit.create(Methods.class);
-        Call<User> call = service.basicLogin(user);
-
-
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Response<User> response, Retrofit retrofit) {
-                User result = response.body();
-                Log.v("result", "ooooooook");
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.v("fail", "fail");
             }
         });
 

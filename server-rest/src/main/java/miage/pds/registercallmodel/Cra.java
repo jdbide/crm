@@ -6,15 +6,23 @@ package miage.pds.registercallmodel;
  */
 public class Cra {
 
-    public int id;
+    //public int id;
+
     private String calltype;
     private String clientname;
+
     private String comments;
+
     private String contactname;
+
     private String date;
+
     private Long duration;
+
     private Long idcontact;
-    private Long iduser;
+
+    private String iduser;
+
     private String subject;
 
     /**
@@ -143,23 +151,7 @@ public class Cra {
         this.idcontact = idcontact;
     }
 
-    /**
-     *
-     * @return
-     * The iduser
-     */
-    public Long getIduser() {
-        return iduser;
-    }
 
-    /**
-     *
-     * @param iduser
-     * The iduser
-     */
-    public void setIduser(Long iduser) {
-        this.iduser = iduser;
-    }
 
     /**
      *

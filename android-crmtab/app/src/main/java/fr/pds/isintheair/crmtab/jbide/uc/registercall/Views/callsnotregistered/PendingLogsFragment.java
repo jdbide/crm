@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 
 /**
  * A fragment representing a list of Items.

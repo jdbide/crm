@@ -1,27 +1,34 @@
-package fr.pds.isintheair.crmtab.jbide.uc.registercall;
+package fr.pds.isintheair.crmtab.common.model;
 
 /**
- * Created by bide2 on 19/01/2016.
+ * Created by jbide on 19/01/2016.
  */
+
 public class User {
+
+    private String id;
 
     private String fname;
 
     private String lname;
 
-    private String mdp;
-
-    private int tel;
+    private String tel;
 
     private String email;
 
+    private String password;
 
-    public int getTel() {
+
+    public String getTel() {
         return tel;
     }
 
-    public String getMdp() {
-        return mdp;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getLname() {
@@ -40,11 +47,15 @@ public class User {
         this.lname = lname;
     }
 
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
+    public String getId() {
+        return id;
     }
 
-    public void setTel(int tel) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTel(String tel) {
         this.tel = tel;
     }
 
