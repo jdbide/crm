@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message;
+package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto;
 
 import java.util.List;
 

@@ -24,7 +24,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.adapter.Lis
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.InitValue;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.RESTCustomerHandlerSingleton;

@@ -7,7 +7,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Hol
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;

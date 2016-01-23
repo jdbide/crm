@@ -1,7 +1,7 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest;
 
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message.MessageRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
