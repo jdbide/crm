@@ -21,6 +21,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -68,7 +69,7 @@ public class RestCustomerControllerTest {
 
                 MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1,healthCenter);
                 List<HealthCenter> list= new HealthCenterDAO(datastore).find().asList();
-                int nbHCbeforeTest = new HealthCenterDAO(datastore).find().asList().size();
+               int nbHCbeforeTest = new HealthCenterDAO(datastore).find().asList().size();
                 nbHCbeforeTest = nbHCbeforeTest +1;
                 ResponseRestCustomer responseRestCustomer = restCustomerController.createHealthCenter(messageRestCustomer);
                 int nbHCAfterTest = new HealthCenterDAO(datastore).find().asList().size();

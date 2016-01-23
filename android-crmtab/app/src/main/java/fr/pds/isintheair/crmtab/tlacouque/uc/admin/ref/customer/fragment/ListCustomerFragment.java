@@ -188,18 +188,20 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                for (HealthCenter healthCenter : response.body().getHealthCenters()) {
-                    customers.add(healthCenter);
-                }
-                for (Independant independant : response.body().getIndependants()) {
-                    customers.add(independant);
+                if(response.errorBody() == null) {
+                    for (HealthCenter healthCenter : response.body().getHealthCenters()) {
+                        customers.add(healthCenter);
+                    }
+                    for (Independant independant : response.body().getIndependants()) {
+                        customers.add(independant);
+                    }
                 }
                 initAdapter(customers);
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                initAdapter(customers);
             }
         });
     }
@@ -213,9 +215,6 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
 
         ListCustomerFragment.this.customers = customers;
         recyclerView.setAdapter(new ListCustomerAdapter(customers, this.getActivity()));
-       /* ListCustomerAdapter customerAdapter =
-                new ListCustomerAdapter(ListCustomerFragment.this.getActivity().getApplicationContext(),0,customers);
-        ListCustomerFragment.this.setListAdapter(customerAdapter);*/
     }
 
     public interface OnListFragmentInteractionListener {

@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mobsandgeeks.saripaar.QuickRule;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -111,7 +112,9 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
     List<Company>   companies;
     Validator       validator;
     View            view;
-    boolean         createCalled;
+    boolean         createCalledisOk;
+    boolean         createCalledisNOk;
+    boolean         errorServRest;
 
 
     private OnFragmentInteractionListener mListener;
@@ -293,6 +296,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, independant);
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                                                                       .createIndependant(messageRestCustomer);
+        independant.save();
         call.enqueue(new Callback<ResponseRestCustomer>() {
             /**
              * Called when a good HTTP response is return
@@ -301,15 +305,17 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
              */
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                if (response.body().getIsInserted()) {
-                    independant.save();
-                    createCalled = true;
+                if (response.errorBody() != null) {
+                    createCalledisNOk = true;
+                } else {
+                    if (response.body().getIsInserted()) {
+                        independant.save();
+                        createCalledisOk = true;
+                    } else {
+                        errorServRest = true;
+                    }
                 }
-
-                ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
-                getFragmentManager().beginTransaction()
-                                    .replace(R.id.container, listCustomerFragment).commit();
+                returnToListCustomer();
             }
 
             /**
@@ -318,6 +324,8 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
              */
             @Override
             public void onFailure(Throwable t) {
+                errorServRest = true;
+                returnToListCustomer();
             }
         });
     }
@@ -357,7 +365,14 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
     @Override
     public void onStop() {
         super.onStop();
-        if (createCalled) Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG).show();
+        if (createCalledisOk) {
+            Snackbar.make(view, R.string.create_he_fragment_toast_validation, Snackbar.LENGTH_LONG).show();
+        } else if(createCalledisNOk || errorServRest) {
+            Snackbar snackbar = Snackbar.make(view, R.string.create_he_fragment_message_customer_not_created_first_part,
+                    Snackbar.LENGTH_LONG);
+            ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+            snackbar.show();
+        }
     }
 
     /**
@@ -373,6 +388,13 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
     public interface OnFragmentInteractionListener {
 
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void returnToListCustomer() {
+        ListCustomerFragment listCustomerFragment = new ListCustomerFragment();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.customer_list_title);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, listCustomerFragment).commit();
     }
 
 

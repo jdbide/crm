@@ -87,7 +87,7 @@
         " Il le sera à votre prochaine connexion au service en ligne</string>
     <string name="create_he_fragment_message_customer">Le client a bien été créé</string>
     <string name="create_he_fragment_message_customer_not_created_first_part">Client non enregistré du a une erreur
-    du système.\n L\'enregistrement se fera ultérieurement automatiquement</string>
+    du système.\n L\' enregistrement se fera ultérieurement automatiquement</string>
 
 
     <!-- Strings related to the creation of an  independant customer -->
