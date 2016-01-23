@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Vos messages personnalisés"
-        android:id="@+id/textView" />
+        android:id="@+id/textViewMessage" />
 
     <Button
         android:layout_width="50dp"
@@ -27,6 +27,16 @@
 </LinearLayout>
 
 
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+
+        android:layout_marginTop="20dp"
+        android:hint="Rechercher...">
+        <requestFocus />
+    </AutoCompleteTextView>
    <ListView
        android:layout_marginTop="20dp"
        android:layout_width="match_parent"

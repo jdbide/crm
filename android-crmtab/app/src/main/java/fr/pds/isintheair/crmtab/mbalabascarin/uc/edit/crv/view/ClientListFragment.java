@@ -33,6 +33,7 @@ public class ClientListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         //get 5 mocked clients
         mockClient = new MockClient();
         mockedClients = mockClient.getClients();
@@ -60,7 +61,7 @@ public class ClientListFragment extends ListFragment {
         //create option list
         final List<String> options = new ArrayList<String>();
         options.add("Contact");
-        options.add("CRV");
+        options.add("Visite");
         options.add("Agenda");
         options.add("Tâches");
         options.add("Information");
@@ -107,7 +108,9 @@ public class ClientListFragment extends ListFragment {
                 // ListView Clicked item value
                 String itemValue = (String) listView.getItemAtPosition(position);
 
-                if(itemValue.equalsIgnoreCase("crv")){
+                if(itemValue.equalsIgnoreCase("visite")){
+
+
 
                     new CrvController().getAllReportForClient(Integer.toString(client.getClientId()), client, getActivity());
                     alert.cancel();
@@ -121,5 +124,6 @@ public class ClientListFragment extends ListFragment {
         alert.show();
 
     }
+
 
 }
