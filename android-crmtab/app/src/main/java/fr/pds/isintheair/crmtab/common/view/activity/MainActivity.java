@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity
         PendingLogsFragment.OnListFragmentInteractionListener, CreateCustomerAlertDialog.AlertPositiveListener,
         ListCustomerFragment.OnListFragmentInteractionListener {
 
-
     // UC Register a call
     private PendingLogsFragment pend;
 
@@ -87,14 +86,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //
-        if (getIntent().hasExtra("msg"))
-            showNotificationListFrag();
         MainLogoFragment mainLogoFragment = new MainLogoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.container, mainLogoFragment);
+        transaction.replace(R.id.container, mainLogoFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
+        if (getIntent().hasExtra("msg"))
+            showNotificationListFrag();
     }
 
     /**
@@ -144,14 +143,21 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.nav_historiser_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111", true));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333", true));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "5555555", true));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "7777777777", true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "062464621334", true));
+            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "06206754321", true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0696396908", true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0662542968", true));
 
-            //DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
-            //ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
-        } else if (id == R.id.nav_editer_crv) {
+        }
+        else if (id == R.id.nav_lister_appel) {
+
+            fragment = DisplayCallLogFragment.newInstance(this) ;
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+            ft.replace(R.id.container, fragment, "FRAGMENT_LISTE_CRA").addToBackStack(null).commit();
+
+
+        }else if (id == R.id.nav_editer_crv) {
             ClientListFragment clientListFragment = new ClientListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.container, clientListFragment);
@@ -179,23 +185,16 @@ public class MainActivity extends AppCompatActivity
     public void showNotificationListFrag() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+        getFragmentManager().popBackStack();
         pend = PendingLogsFragment.newInstance(1);
         ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").addToBackStack(null).commit();
     }
 
     @Subscribe
-    public void showaddlogfrag(DisplayAddLogFragment event) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
-
-        AddLogFragment fragment = AddLogFragment.newInstance(event.getCallEndedEvent().getIdcontact()
-                , event.getCallEndedEvent().getDate()
-                , event.getCallEndedEvent().getDuration()
-                , event.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant", event.getCallEndedEvent().getDisplaypopUp());
-        ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").commit();
+    public void showpopup(DisplayAddLogFragment event) {
 
         if (event.getCallEndedEvent().getDisplaypopUp()) {
-            PopUpFragment pop = PopUpFragment.newInstance(getIntent().getStringExtra("idcontact"));
+            PopUpFragment pop = PopUpFragment.newInstance(event);
             pop.show(getFragmentManager(), "dialog");
             //make popup not cancellable
             pop.setCancelable(false);
@@ -208,21 +207,13 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
-        /*Fragment prev = getFragmentManager().findFragmentByTag("FRAGMENT_AJOUT");
-        if (prev != null) {
-            ft.remove(prev);
-        }*/
-
         ft.addToBackStack(null);
         CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra);
         ft.replace(R.id.container, fragment).addToBackStack(null).commit();
 
     }
 
-    @Override
-    public void onListFragmentInteraction(CallEndedEvent item) {
 
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -232,14 +223,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
+        if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-            Intent intent = new Intent(this, MainActivity.class);
-            finish();
-            startActivity(intent);
+        }else{
+
+            MainLogoFragment mainLogoFragment = new MainLogoFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, mainLogoFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
         }
     }
 

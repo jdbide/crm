@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -108,12 +109,14 @@ public class ControllerCra {
                     alertDialog.show();
 
                 }
+                Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
                 Log.v("Failure", "msg = " + t.getMessage());
+
                 AlertDialog alertDialog = new AlertDialog.Builder(
                         context).create();
 
@@ -121,7 +124,7 @@ public class ControllerCra {
                 alertDialog.setTitle("Statut Compte-rendu");
 
                 // Setting Dialog Message
-                alertDialog.setMessage("Compte-rendu non enregistré : Serveur indisponible");
+                alertDialog.setMessage("Compte-rendu non enregistré : Serveur injoignable");
                 // Setting Icon to Dialog
                 alertDialog.setIcon(R.drawable.no_tick);
 
