@@ -2,6 +2,7 @@ package miage.pds.api.registercall.dao;
 
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.UUID;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -10,10 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
 import miage.pds.api.common.model.User;
 import miage.pds.registercallmodel.Cra;
+/**
+ * Created by jbide on 20/12/2015.
+ */
 
 public class DAO {
 
@@ -68,13 +73,12 @@ public class DAO {
 
 	public User logUser(User user) {
 		User u = new User();
-		Query<User> q;
 
 		if (ConnectDB()) {
 			u =   datastore.createQuery(User.class)
 					.field("email").equal(user.getEmail())
 					.field("password").equal(user.getPassword()).get();
-			logger.info("result" + u.getEmail());
+			//logger.info("result" + u.getEmail());
 			}
 		if(u.getId()!=null)
 		return u;
@@ -88,6 +92,30 @@ public class DAO {
 			datastore.save(u);
 			state = true;
 		}
+		logger.info("ADDED USER : " + u.getLname());
 		return state;		
+	}
+	
+	public String getUniqueUid(){
+	
+		User u = new User();
+		boolean unique = false;
+		String uid = "" ;
+		if (ConnectDB()) {
+		do{
+			uid = UUID.randomUUID().toString();
+			u = datastore.createQuery(User.class).field("id").equal(uid).get();			
+			if(u==null) unique = true;
+		}while(unique=false);
+		}
+		//logger.info(uid);
+		return uid;	
+	}
+	
+	public void dropTables(){
+		if (ConnectDB()) {
+			datastore.getCollection(User.class).drop();
+		}
+		logger.info("DROPPED TABLE USER");
 	}
 }

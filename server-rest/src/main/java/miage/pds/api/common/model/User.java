@@ -1,5 +1,9 @@
 package miage.pds.api.common.model;
 
+/**
+ * Created by jbide on 19/01/2016.
+ */
+
 public class User {
 	
 	private String id;

@@ -3,6 +3,7 @@ package miage.pds.api.common;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,26 +25,30 @@ import miage.pds.registercallmodel.Cra;
 @Controller
 public class LoggingRestController {
 	private static final Logger logger = LoggerFactory.getLogger(RestController.class);
+	
 	DAO dao = new DAO();
+	
+	
 
 	public LoggingRestController() {
+		
+		dao.dropTables();
+		
 		User u = new User();
 		u.setEmail("datour@crm.fr");
 		u.setFname("Julien");
-		u.setLname("Datour");
-		u.setId("");
+		u.setLname("DATOUR");
 		u.setPassword("password");
 		u.setTel("");
-		
+		u.setId(dao.getUniqueUid());
 		dao.addUser(u);
 		
 		u.setEmail("bide@crm.fr");
 		u.setFname("Jean-Daniel");
 		u.setLname("BIDE");
-		u.setId("0762506058");
+		u.setId(dao.getUniqueUid());
 		u.setPassword("password");
-		u.setTel("");
-		
+		u.setTel("0762506058");
 		dao.addUser(u);
 		
 	}
@@ -55,7 +60,7 @@ public class LoggingRestController {
 		String data = null;
 		try {
 			data = new String(Base64.getDecoder().decode(user.getPassword()),"UTF-8");
-			logger.info("Server : Data received for login : " + data);
+			logger.info("Server : Encrypted msg for login : " + user.getPassword());
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
