@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -277,14 +278,34 @@ public class CreateCrvActivity extends AppCompatActivity {
     public void launchInputDialogProduct(View v){
 
         List<String> products = new ArrayList<String>();
-        for(int i=0; i<20 ; i++){
-            products.add("Product "+i);
-        }
+
+        //mock small number of products
+        products.add("Seringue");
+        products.add("Spatules");
+        products.add("Compresses");
+        products.add("Robinet à 3 voies");
+        products.add("Champs stérile");
+        products.add("aiguille trocart");
+        products.add("Garot");
+        products.add("Pansemants");
+        products.add("Absorbex");
+        products.add("Laryngoscope");
+        products.add("Stethescope");
+        products.add("Ballon autoremplisseur à valve unidirectionnel");
+
         LayoutInflater layoutInflater = LayoutInflater.from(CreateCrvActivity.this);
         View promptView = layoutInflater.inflate(R.layout.msg_layout, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCrvActivity.this);
         alertDialogBuilder.setView(promptView);
 
+        TextView txtTitle = (TextView) promptView.findViewById(R.id.textViewMessage);
+        Button btnMessage = (Button) promptView.findViewById(R.id.btnAddMessage);
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) promptView.findViewById(R.id.autoCompleteTextView1);
+
+
+
+        txtTitle.setText("Choisir les produits présentés");
+        btnMessage.setVisibility(View.INVISIBLE);
         // Get ListView object from xml
         listView = (ListView) promptView.findViewById(R.id.lstMessages);
 
@@ -296,6 +317,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         // Assign adapter to ListView
         listView.setAdapter(adapter1);
 
+        autoCompleteTextView.setAdapter(adapter1);
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -350,7 +372,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
         // Get ListView object from xml
         listView = (ListView) promptView.findViewById(R.id.lstMessages);
-
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) promptView.findViewById(R.id.autoCompleteTextView1);
         // Define a new Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, messages);
@@ -358,7 +380,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
         // Assign adapter to ListView
         listView.setAdapter(adapter);
-
+        autoCompleteTextView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         // ListView Item Click Listener
