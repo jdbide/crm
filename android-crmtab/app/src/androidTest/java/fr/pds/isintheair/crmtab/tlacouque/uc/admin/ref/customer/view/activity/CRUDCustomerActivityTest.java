@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity;
+package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity;
 
 import android.app.Fragment;
 import android.test.ActivityInstrumentationTestCase2;
@@ -76,4 +76,8 @@ public class CRUDCustomerActivityTest extends ActivityInstrumentationTestCase2<C
         assertTrue(bool);
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        activity.finish();
+    }
 }

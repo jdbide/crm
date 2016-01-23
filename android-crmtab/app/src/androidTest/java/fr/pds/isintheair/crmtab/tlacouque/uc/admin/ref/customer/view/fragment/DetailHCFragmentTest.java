@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.display.hc;
+package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -121,4 +121,9 @@ public class DetailHCFragmentTest extends ActivityInstrumentationTestCase2<CRUDC
         healthCenter.setHoldingId(0);
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        activity.finish();
+        cleanDb();
+    }
 }
