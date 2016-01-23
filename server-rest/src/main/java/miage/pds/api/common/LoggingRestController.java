@@ -51,6 +51,14 @@ public class LoggingRestController {
 		u.setTel("0762506058");
 		dao.addUser(u);
 		
+		u.setEmail("test@crm.fr");
+		u.setFname("testFname");
+		u.setLname("testLname");
+		u.setId(dao.getUniqueUid());
+		u.setPassword("password");
+		u.setTel("0762506058");
+		dao.addUser(u);
+		
 	}
 	
 
