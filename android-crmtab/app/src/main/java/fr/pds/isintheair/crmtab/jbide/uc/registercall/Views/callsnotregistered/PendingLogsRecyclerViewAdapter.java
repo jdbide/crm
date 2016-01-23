@@ -37,8 +37,8 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getDate());
         holder.mDate.setText(mValues.get(position).getDate());
-        holder.mContact.setText("name cont"/*mValues.get(position).getContactname()*/);
-        holder.mClient.setText("name client"/*mValues.get(position).getClientname()*/);
+        holder.mContact.setText("firstName cont"/*mValues.get(position).getContactname()*/);
+        holder.mClient.setText("firstName client"/*mValues.get(position).getClientname()*/);
 
         holder.yes.setOnClickListener(new View.OnClickListener() {
             @Override
