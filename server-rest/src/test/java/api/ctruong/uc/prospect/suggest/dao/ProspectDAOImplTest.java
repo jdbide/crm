@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * The unit test for the class prospect dao
@@ -33,11 +32,12 @@ public class ProspectDAOImplTest {
 
     @Before
     public void setUp() throws Exception {
-        this.mongoClient    = new MongoClient();
         this.morphia        = new Morphia();
         this.morphia.map(Prospect.class);
+        this.mongoClient    = new MongoClient();
         this.datastore      = this.morphia.createDatastore(mongoClient,dbname);
         prospectDAO         = new ProspectDAOImpl(Prospect.class, datastore);
+
     }
 
 
@@ -51,8 +51,6 @@ public class ProspectDAOImplTest {
     public void testGetProspectByID() throws Exception {
         Prospect prospect   = prospectDAO.createQuery().field("id").equal(1).get();
         Prospect prospect1  = prospectDAO.getProspectByID(1);
-        assertNotNull(prospect);
-        assertEquals(prospect.getId(), prospect1.getId());
         assertEquals(prospect.getPlace(), prospect1.getPlace());
     }
 }

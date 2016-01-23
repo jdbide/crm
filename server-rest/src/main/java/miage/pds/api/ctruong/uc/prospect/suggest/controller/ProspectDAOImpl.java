@@ -49,7 +49,7 @@ public class ProspectDAOImpl extends BasicDAO<Prospect, ObjectId> implements Pro
      */
     @Override
     public List<Prospect> getAllProspect() {
-        Query<Prospect> query = createQuery().order(ID);
+        Query<Prospect> query = createQuery();
         return query.asList();
     }
 
