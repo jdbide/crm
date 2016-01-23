@@ -1,18 +1,20 @@
-package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive;
+package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.squareup.otto.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact_Table;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.MessageController;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.BusHandlerSingleton;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallBegunEvent;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallEndedEvent;
 
 public class CallActivity extends Activity {
@@ -22,7 +24,6 @@ public class CallActivity extends Activity {
     @OnClick(R.id.phone_imageview)
     public void onPhoneClick() {
         MessageController.sendEndCallMessage();
-
         finish();
     }
 
@@ -33,14 +34,20 @@ public class CallActivity extends Activity {
         ButterKnife.bind(this);
         BusHandlerSingleton.getInstance().getBus().register(this);
 
-        //TODO Remove hard coded string
-        phoneStateTextview.setText("Appel ...");
-    }
+        String  phoneNumber                  = getIntent().getStringExtra("phoneNumber");
+        Contact associatedPhoneNumberContact = new Select().from(Contact.class).where(Contact_Table.phoneNumber.is(phoneNumber)).querySingle();
+        String  phoneStateMessage            = null;
 
-    @Subscribe
-    public void onPhoneCallBegunEvent(PhoneCallBegunEvent phoneCallBegunEvent) {
-        //TODO Remove hard coded string
-        phoneStateTextview.setText("Appel en cours ...");
+        if (associatedPhoneNumberContact != null) {
+            String fullContactName = associatedPhoneNumberContact.getFirstName() + " " + associatedPhoneNumberContact.getLastName();
+            phoneStateMessage = "Appel de " + fullContactName + " en cours...";
+        }
+
+        else {
+            phoneStateMessage = "Appel de " + phoneNumber + " en cours...";
+        }
+
+        phoneStateTextview.setText(phoneStateMessage);
     }
 
     @Subscribe

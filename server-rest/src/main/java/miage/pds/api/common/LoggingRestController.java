@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.api.common.model.User;
-import miage.pds.api.jbide.uc.registercall.RestController;
+import miage.pds.api.jbide.uc.registercall.CraRestController;
 import miage.pds.api.jbide.uc.registercall.dao.DAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 
@@ -24,7 +24,7 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
  */
 @Controller
 public class LoggingRestController {
-	private static final Logger logger = LoggerFactory.getLogger(RestController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CraRestController.class);
 	
 	DAO dao = new DAO();
 	

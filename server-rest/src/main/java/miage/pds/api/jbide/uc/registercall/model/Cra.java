@@ -6,7 +6,6 @@ package miage.pds.api.jbide.uc.registercall.model;
  */
 public class Cra {
 
-
 	private String calltype;
 
 	private String clientname;
@@ -17,9 +16,9 @@ public class Cra {
 
 	private String date;
 
-	private Integer duration;
+	private Long duration;
 
-	private Integer idcontact;
+	private Long idcontact;
 
 	private String iduser;
 
@@ -120,7 +119,7 @@ public class Cra {
 	* @return
 	* The duration
 	*/
-	public Integer getDuration() {
+	public Long getDuration() {
 	return duration;
 	}
 
@@ -129,7 +128,7 @@ public class Cra {
 	* @param duration
 	* The duration
 	*/
-	public void setDuration(Integer duration) {
+	public void setDuration(Long duration) {
 	this.duration = duration;
 	}
 
@@ -138,7 +137,7 @@ public class Cra {
 	* @return
 	* The idcontact
 	*/
-	public Integer getIdcontact() {
+	public Long getIdcontact() {
 	return idcontact;
 	}
 
@@ -147,7 +146,7 @@ public class Cra {
 	* @param idcontact
 	* The idcontact
 	*/
-	public void setIdcontact(Integer idcontact) {
+	public void setIdcontact(Long idcontact) {
 	this.idcontact = idcontact;
 	}
 

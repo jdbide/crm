@@ -46,18 +46,20 @@ public class MainActivity extends AppCompatActivity
         PendingLogsFragment.OnListFragmentInteractionListener, CreateCustomerAlertDialog.AlertPositiveListener,
         ListCustomerFragment.OnListFragmentInteractionListener {
 
-    private Bus                 bus;
+
     // UC Register a call
     private PendingLogsFragment pend;
+
+    private Bus bus;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-
-
+        toolbar.setTitle("Crm Tab");
         //start local services
         startService(new Intent(this, ListennerCallEndedEvent.class));
         bus = Constants.getInstance().getCurrentBusInstance();
@@ -88,6 +90,11 @@ public class MainActivity extends AppCompatActivity
         //
         if (getIntent().hasExtra("msg"))
             showNotificationListFrag();
+        MainLogoFragment mainLogoFragment = new MainLogoFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.container, mainLogoFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     /**

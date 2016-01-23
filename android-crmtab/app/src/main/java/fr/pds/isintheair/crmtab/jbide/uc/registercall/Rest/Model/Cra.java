@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName;
 //@Table(databaseName = OrmTabDataBase.DBNAME)
 public class Cra  {
 
-
     @SerializedName("calltype")
     @Expose
     private String calltype;
@@ -28,10 +27,10 @@ public class Cra  {
     private String date;
     @SerializedName("duration")
     @Expose
-    private Integer duration;
+    private Long duration;
     @SerializedName("idcontact")
     @Expose
-    private Integer idcontact;
+    private Long idcontact;
     @SerializedName("iduser")
     @Expose
     private String iduser;
@@ -134,7 +133,7 @@ public class Cra  {
      * @return
      * The duration
      */
-    public Integer getDuration() {
+    public Long getDuration() {
         return duration;
     }
 
@@ -143,7 +142,7 @@ public class Cra  {
      * @param duration
      * The duration
      */
-    public void setDuration(Integer duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
     }
 
@@ -152,7 +151,7 @@ public class Cra  {
      * @return
      * The idcontact
      */
-    public Integer getIdcontact() {
+    public Long getIdcontact() {
         return idcontact;
     }
 
@@ -161,7 +160,7 @@ public class Cra  {
      * @param idcontact
      * The idcontact
      */
-    public void setIdcontact(Integer idcontact) {
+    public void setIdcontact(Long idcontact) {
         this.idcontact = idcontact;
     }
 

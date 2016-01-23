@@ -115,7 +115,9 @@ public class DAO {
 	public void dropTables(){
 		if (ConnectDB()) {
 			datastore.getCollection(User.class).drop();
+			datastore.getCollection(Cra.class).drop();
 		}
-		logger.info("DROPPED TABLE USER");
+		logger.info("DROPPED TABLE User");
+		logger.info("DROPPED TABLE Cra");
 	}
 }

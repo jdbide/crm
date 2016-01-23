@@ -21,12 +21,12 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
  * Handles requests for the application home page.
  */
 @Controller
-public class RestController {
+public class CraRestController {
 
-	private static final Logger logger = LoggerFactory.getLogger(RestController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CraRestController.class);
 	DAO dao = new DAO();
 
-	public RestController() {
+	public CraRestController() {
 	}
 	
 	/**
