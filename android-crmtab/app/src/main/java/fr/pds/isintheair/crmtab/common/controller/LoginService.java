@@ -75,14 +75,15 @@ public class LoginService {
                     editor.putString("id", rep.getId());
                     editor.commit();
                 }
-                    context.startActivity(new Intent(context, MainActivity.class));
+
+                    context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     Snackbar
                             .make(coordlayout, "connection succeed", Snackbar.LENGTH_LONG).show();
                 anim.setVisibility(View.GONE);
 
                 } else {
                     Snackbar
-                            .make(coordlayout, "response not success", Snackbar.LENGTH_LONG).show();
+                            .make(coordlayout, "response but not success", Snackbar.LENGTH_LONG).show();
 
                     anim.setVisibility(View.GONE);
                 }
@@ -101,50 +102,4 @@ public class LoginService {
         });
 
     }
-    /*private static OkHttpClient httpClient = new OkHttpClient();
-    private static Retrofit.Builder builder =
-            new Retrofit.Builder()
-                    .baseUrl(Constants.getInstance().getBaseUrl())
-                    .addConverterFactory(GsonConverterFactory.create());
-
-    public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null, null);
-    }
-
-    HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-    // set your desired log level
-
-
-    public static <S> S createService(Class<S> serviceClass, String username, String password) {
-        if (username != null && password != null) {
-            String credentials = username + ":" + password;
-            final String basic =
-                    "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-
-            // add logging as last interceptor
-            httpClient.interceptors().add(logging);
-            httpClient.interceptors().clear();
-            httpClient.interceptors().add(new Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                    Request original = chain.request();
-
-                    Request.Builder requestBuilder = original.newBuilder()
-                            .header("Authorization", basic);
-                    requestBuilder.header("Accept", "applicaton/json");
-                    requestBuilder.method(original.method(), original.body());
-
-                    Request request = requestBuilder.build();
-                    return chain.proceed(request);
-                }
-            });
-        }
-
-        Retrofit retrofit = builder.client(httpClient).build();
-        return retrofit.create(serviceClass);
-    }*/
 }

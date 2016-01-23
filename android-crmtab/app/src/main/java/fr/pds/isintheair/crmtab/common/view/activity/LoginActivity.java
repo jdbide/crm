@@ -1,8 +1,10 @@
 package fr.pds.isintheair.crmtab.common.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 
 import android.util.Base64;
@@ -50,6 +52,14 @@ public class LoginActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        //Test if user is already logged(data id is in sharedpreferences)
+        if(prefs.getString("id","")!="")
+            startActivity(new Intent(this, MainActivity.class));
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
         loading.setVisibility(View.GONE);
@@ -64,7 +74,6 @@ public class LoginActivity extends Activity {
                         Base64.encodeToString(data, Base64.NO_WRAP);
                 user.setPassword(basic);
                 login(user, getApplicationContext(), loading, coordlayout);
-                //LoginService.createService(LoginService.class,mail.getText().toString(),pass.getText().toString());
                 loading.setVisibility(View.VISIBLE);
             }
         });
