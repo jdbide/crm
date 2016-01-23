@@ -117,4 +117,5 @@
     <string name="title_activity_contact_detail">ContactDetailActivity</string>
     <string name="activity_contact_detail_sms_content_description">Send sms</string>
     <string name="activity_contact_detail_phone_content_description">Phone call</string>
+    <string name="call_activity_phone_state_message">Communication en cours</string>
 </resources>

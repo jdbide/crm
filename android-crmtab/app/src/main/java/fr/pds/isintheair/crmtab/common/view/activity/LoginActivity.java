@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
-
-import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,16 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import java.nio.charset.StandardCharsets;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.controller.LoginService;
-import fr.pds.isintheair.crmtab.common.model.User;
-
-import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 
 /**
@@ -33,16 +24,15 @@ import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 public class LoginActivity extends Activity {
     @Bind(R.id.loginemail)
-    EditText mail;
+    EditText          mail;
     @Bind(R.id.loginpassword)
-    EditText pass;
+    EditText          pass;
     @Bind(R.id.btnSuivant)
-    Button con;
+    Button            con;
     @Bind(R.id.loadingPanel)
-    RelativeLayout loading;
+    RelativeLayout    loading;
     @Bind(R.id.LogincoordinatorLayout)
     CoordinatorLayout coordlayout;
-
 
 
     @Override
@@ -50,14 +40,14 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         //Test if user is already logged(data id is in sharedpreferences)
-        if(prefs.getString("id","")!="")
+        if (prefs.getString("id", "") != "")
             startActivity(new Intent(this, MainActivity.class));
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -67,6 +57,7 @@ public class LoginActivity extends Activity {
         con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 User user = new User();
                 String credentials = mail.getText().toString()+":" + pass.getText().toString();
                 byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
@@ -75,6 +66,10 @@ public class LoginActivity extends Activity {
                 user.setPassword(basic);
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
+                */
+
+                //TODO Remove it and uncomment
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
 

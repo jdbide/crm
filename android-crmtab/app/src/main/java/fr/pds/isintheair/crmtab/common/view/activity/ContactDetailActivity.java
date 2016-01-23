@@ -1,7 +1,6 @@
 package fr.pds.isintheair.crmtab.common.view.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -11,7 +10,6 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view.CallActivity;
 
 /******************************************
  * Created by        : jdatour            *
@@ -35,7 +33,6 @@ public class ContactDetailActivity extends Activity {
     public void onPhoneClick() {
         if (currentContact != null) {
             CallController.call(currentContact.getPhoneNumber());
-            startActivity(new Intent(this, CallActivity.class));
         }
     }
 
@@ -45,7 +42,7 @@ public class ContactDetailActivity extends Activity {
         setContentView(R.layout.activity_contact_detail);
         ButterKnife.bind(this);
 
-        currentContact = savedInstanceState.getParcelable("contact");
+        currentContact = getIntent().getParcelableExtra("contact");
 
         if (currentContact != null) {
             String callInformations = currentContact.getFirstName() + " " + currentContact.getLastName() + " - " + currentContact.getPhoneNumber();
@@ -53,5 +50,4 @@ public class ContactDetailActivity extends Activity {
             callInformationTextview.setText(callInformations);
         }
     }
-
 }
