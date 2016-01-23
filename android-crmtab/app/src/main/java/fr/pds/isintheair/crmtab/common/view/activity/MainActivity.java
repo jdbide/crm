@@ -25,7 +25,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.fragme
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.fragment.CreateIndepFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
-import fr.pds.isintheair.crmtab.crv.view.ClientListFragment;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.ClientListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
