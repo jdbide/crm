@@ -33,6 +33,7 @@ public class ClientListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         //get 5 mocked clients
         mockClient = new MockClient();
         mockedClients = mockClient.getClients();
@@ -123,5 +124,6 @@ public class ClientListFragment extends ListFragment {
         alert.show();
 
     }
+
 
 }
