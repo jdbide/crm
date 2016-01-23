@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -38,6 +40,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.User;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
@@ -72,6 +75,12 @@ public class CreateCrvActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_crv);
+
+
+        //get session user id
+        User currentUser = new User();
+        SharedPreferences prefs       = PreferenceManager.getDefaultSharedPreferences(this);
+        currentUser.setId(prefs.getString("id", null));
 
 
         //get all preformatted messages from cache
@@ -142,7 +151,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
             client.setText(cl.getClientSurname() +" "+cl.getClientName()+" -- "+cl.getClientAddress());
             clientId =  Integer.toString(cl.getClientId());
-            userId = "1";
+            userId = currentUser.getId();
             conatcId = Integer.toString(rand);
             visitId = Integer.toString(rand);
             date.setText(getDate());
