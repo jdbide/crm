@@ -132,6 +132,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_passer_appel) {
             fragment = new ContactListFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.commit();
 
         } else if (id == R.id.nav_historiser_appel) {
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111", true));
@@ -159,10 +162,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_envoyer_sms) {
 
         }
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
