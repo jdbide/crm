@@ -73,7 +73,7 @@ public class HealthCenter implements Customer {
     int holdingId;
 
     @Property
-    int idUser;
+    String idUser;
 
 
     public HealthCenter() {
@@ -247,11 +247,11 @@ public class HealthCenter implements Customer {
         return holding;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 }

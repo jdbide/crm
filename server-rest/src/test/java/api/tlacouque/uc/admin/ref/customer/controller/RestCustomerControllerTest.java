@@ -15,8 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
+
 
 import java.net.UnknownHostException;
 import java.util.List;
@@ -32,8 +31,8 @@ import static org.junit.Assert.assertTrue;
 
 public class RestCustomerControllerTest {
 
-    private MockHttpServletRequest request;
-    private MockHttpServletResponse response;
+    //private MockHttpServletRequest request;
+    //private MockHttpServletResponse response;
     RestCustomerController restCustomerController;
  /**   @Autowired
          private HandlerAdapter handlerAdapter;
@@ -117,23 +116,23 @@ public class RestCustomerControllerTest {
 
     @Test
     public void testGetHealthCenters() throws Exception {
-        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithoutUserId(1).size();
-        ResponseRestCustomer responseRestCustomer = restCustomerController.getHealthCenters(1);
+        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithoutUserId("1").size();
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getHealthCenters("1");
         assertEquals(healthCentersNumber,responseRestCustomer.getHealthCenters().size());
     }
 
     @Test
     public void testGetIndependants() throws Exception {
-        int independantNumber = new IndependantDAO(datastore).findAllWithoutUserId(1).size();
-        ResponseRestCustomer responseRestCustomer = restCustomerController.getIndependants(1);
+        int independantNumber = new IndependantDAO(datastore).findAllWithoutUserId("1").size();
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getIndependants("1");
         assertEquals(independantNumber,responseRestCustomer.getIndependants().size());
     }
 
     @Test
     public void testGetCustomers() throws Exception {
-        int independantNumber = new IndependantDAO(datastore).findAllWithoutUserId(1).size();
-        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithoutUserId(1).size();
-        ResponseRestCustomer responseRestCustomer = restCustomerController.getCustomers(1);
+        int independantNumber = new IndependantDAO(datastore).findAllWithoutUserId("1").size();
+        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithoutUserId("1").size();
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getCustomers("1");
         assertEquals(healthCentersNumber,responseRestCustomer.getHealthCenters().size());
         assertEquals(independantNumber,responseRestCustomer.getIndependants().size());
     }

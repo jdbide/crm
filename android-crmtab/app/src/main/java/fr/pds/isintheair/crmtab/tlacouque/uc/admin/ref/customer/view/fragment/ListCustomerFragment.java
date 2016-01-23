@@ -38,7 +38,7 @@ import retrofit.Retrofit;
  */
 public class ListCustomerFragment extends Fragment implements CreateCustomerAlertDialog.AlertPositiveListener {
 
-    public static int idUser = 1;
+    public String idUser = "1";
     public List<Customer> customers;
     @Bind(R.id.list_customer_recycler_view)
     RecyclerView recyclerView;
@@ -181,7 +181,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
     private void callRest(final List<Customer> customers) {
 
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
-                                                                      .getCustomerService().getCustomers(ListCustomerFragment.idUser);
+                                                                      .getCustomerService().getCustomers(this.idUser);
 
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override

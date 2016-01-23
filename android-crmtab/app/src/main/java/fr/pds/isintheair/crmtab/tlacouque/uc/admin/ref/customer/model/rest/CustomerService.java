@@ -14,7 +14,7 @@ import retrofit.http.Path;
  */
 public interface CustomerService {
 
-   static String BASE_URL = "http://192.168.20.3:8070";
+   static String BASE_URL = "http://192.168.0.15:8080";
    // static String BEGIN_URL = "/SpringRESTapi";
 
 
@@ -43,6 +43,6 @@ public interface CustomerService {
     Call<ResponseRestCustomer> getIndependants(@Path("iduser") int iduser);
 
     @GET("/api/customer/{iduser}")
-    Call<ResponseRestCustomer> getCustomers(@Path("iduser") int iduser);
+    Call<ResponseRestCustomer> getCustomers(@Path("iduser") String iduser);
 
 }

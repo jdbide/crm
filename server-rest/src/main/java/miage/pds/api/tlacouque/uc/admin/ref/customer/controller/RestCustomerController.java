@@ -151,7 +151,7 @@ public class RestCustomerController {
      * @return ResponseRestCustomer
      */
     @RequestMapping(value = "/customer/healthcenter/{iduser}", method = RequestMethod.GET)
-    public @ResponseBody ResponseRestCustomer getHealthCenters(@PathVariable int iduser) {
+    public @ResponseBody ResponseRestCustomer getHealthCenters(@PathVariable String iduser) {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
@@ -168,7 +168,7 @@ public class RestCustomerController {
      * @return
      */
     @RequestMapping(value = "/customer/independant/{iduser}", method = RequestMethod.GET)
-    public @ResponseBody ResponseRestCustomer getIndependants(@PathVariable int iduser) {
+    public @ResponseBody ResponseRestCustomer getIndependants(@PathVariable String iduser) {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
@@ -185,7 +185,7 @@ public class RestCustomerController {
      * @return
      */
     @RequestMapping(value = "/customer/{iduser}", method = RequestMethod.GET)
-    public @ResponseBody ResponseRestCustomer getCustomers(@PathVariable int iduser) {
+    public @ResponseBody ResponseRestCustomer getCustomers(@PathVariable String iduser) {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
