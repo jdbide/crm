@@ -258,12 +258,19 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         independant.setIndependantType(independantType.getSelectedItem().toString());
         independant.setLongTermFidelity(getIntFromRadiogroup(longTermFidelity));
         independant.setIdUser(ListCustomerFragment.idUser);
-        Specialty specialtyInit = new Select().from(Specialty.class)
-                                              .where(Specialty_Table.name.is(specialty.getSelectedItem().toString())).querySingle();
-        Company companyInit = new Select().from(Company.class)
-                                          .where(Company_Table.name.is(company.getSelectedItem().toString())).querySingle();
-        independant.setCompanyId(companyInit.getId());
-        independant.setSpecialtyId(specialtyInit.getId());
+        if(specialty.getSelectedItem() != null) {
+            Specialty specialtyInit = new Select().from(Specialty.class)
+                    .where(Specialty_Table.name.is(specialty.getSelectedItem().toString())).querySingle();
+            independant.setSpecialtyId(specialtyInit.getId());
+
+        }
+        if(company.getSelectedItem() != null) {
+            Company companyInit = new Select().from(Company.class)
+                    .where(Company_Table.name.is(company.getSelectedItem().toString())).querySingle();
+            independant.setCompanyId(companyInit.getId());
+        }
+
+
         return independant;
     }
 

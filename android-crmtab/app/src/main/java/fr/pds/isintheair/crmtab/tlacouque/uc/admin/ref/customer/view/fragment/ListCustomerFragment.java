@@ -186,13 +186,20 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                List<HealthCenter> healthCenters = response.body().getHealthCenters();
+                List<Independant> independants = response.body().getIndependants();
                 if(response.errorBody() == null) {
-                    for (HealthCenter healthCenter : response.body().getHealthCenters()) {
-                        customers.add(healthCenter);
-                    }
-                    for (Independant independant : response.body().getIndependants()) {
-                        customers.add(independant);
-                    }
+
+                        if(healthCenters != null) {
+                            for (HealthCenter healthCenter : response.body().getHealthCenters()) {
+                                customers.add(healthCenter);
+                            }
+                        }
+                        if(independants != null) {
+                            for (Independant independant : response.body().getIndependants()) {
+                                customers.add(independant);
+                            }
+                        }
                 }
                 initAdapter(customers);
             }

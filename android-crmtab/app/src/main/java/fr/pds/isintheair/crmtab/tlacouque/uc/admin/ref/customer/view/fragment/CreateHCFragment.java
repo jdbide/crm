@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -238,12 +239,19 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         else healthCenter.setIsPublic(false);
         healthCenter.setDifficultyHavingContact(getIntFromRadiogroup(difficultyHavingContact));
         healthCenter.setServiceBuildingImage(getIntFromRadiogroup(serviceBuilding));
-        Holding holdingInit = new Select().from(Holding.class)
-                                          .where(Holding_Table.name.is(holding.getSelectedItem().toString())).querySingle();
-        PurchasingCentral pcInit = new Select().from(PurchasingCentral.class)
-                                               .where(PurchasingCentral_Table.name.is(purshasingCentral.getSelectedItem().toString())).querySingle();
-        healthCenter.setHoldingId(holdingInit.getId());
-        healthCenter.setPurchasingCentralId(pcInit.getId());
+        if(holding.getSelectedItem() != null) {
+            Holding holdingInit = new Select().from(Holding.class)
+                    .where(Holding_Table.name.is(holding.getSelectedItem().toString())).querySingle();
+            healthCenter.setHoldingId(holdingInit.getId());
+
+        }
+        if(holding.getSelectedItem() != null) {
+            PurchasingCentral pcInit = new Select().from(PurchasingCentral.class)
+                    .where(PurchasingCentral_Table.name.is(purshasingCentral.getSelectedItem().toString())).querySingle();
+            healthCenter.setPurchasingCentralId(pcInit.getId());
+        }
+
+
         return healthCenter;
     }
 

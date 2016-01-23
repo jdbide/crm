@@ -154,8 +154,14 @@ public class DetailHCFragment extends Fragment {
         bedNumber.setText(String.valueOf(healthCenter.getBedNumber()));
         webSite.setText(healthCenter.getWebSite());
         etablishmentType.setText(healthCenter.getEtablishmentType());
-        purshasingCentral.setText(healthCenter.getPurchasingCentral().getName());
-        holding.setText(healthCenter.getHolding().getName());
+
+        if(healthCenter.getPurchasingCentral() != null) {
+            purshasingCentral.setText(healthCenter.getPurchasingCentral().getName());
+        }
+        if(healthCenter.getHolding() != null) {
+            holding.setText(healthCenter.getHolding().getName());
+        }
+
         difficultyHavingContact.setText(String.valueOf(healthCenter.getDifficultyHavingContact()));
         serviceBuilding.setText(String.valueOf(healthCenter.getServiceBuildingImage()));
     }

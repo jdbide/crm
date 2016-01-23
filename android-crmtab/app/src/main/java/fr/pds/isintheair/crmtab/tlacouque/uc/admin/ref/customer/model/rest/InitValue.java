@@ -37,14 +37,18 @@ public final class InitValue {
             call.enqueue(new Callback<ResponseRestCustomer>() {
                 @Override
                 public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                    for (Holding holding : response.body().getHoldings()) {
-                        holding.save();
+                    if(response.errorBody() == null) {
+                        if(response.body().getHoldings() != null) {
+                            for (Holding holding : response.body().getHoldings()) {
+                                holding.save();
+                            }
+                        }
                     }
+
                 }
 
                 @Override
                 public void onFailure(Throwable t) {
-
                 }
             });
         }
@@ -62,9 +66,14 @@ public final class InitValue {
             call.enqueue(new Callback<ResponseRestCustomer>() {
                 @Override
                 public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                    for (PurchasingCentral purchasingCentral : response.body().getPurchasingCentrals()) {
-                        purchasingCentral.save();
+                    if(response.errorBody() == null) {
+                        if(response.body().getPurchasingCentrals() != null) {
+                            for (PurchasingCentral purchasingCentral : response.body().getPurchasingCentrals()) {
+                                purchasingCentral.save();
+                            }
+                        }
                     }
+
                 }
 
                 @Override
@@ -87,14 +96,17 @@ public final class InitValue {
             call.enqueue(new Callback<ResponseRestCustomer>() {
                 @Override
                 public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                    for (Company company : response.body().getCompanies()) {
-                        company.save();
+                    if(response.errorBody() == null) {
+                        if(response.body().getCompanies() != null) {
+                            for (Company company : response.body().getCompanies()) {
+                                company.save();
+                            }
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Throwable t) {
-
                 }
             });
         }
@@ -113,9 +125,14 @@ public final class InitValue {
             call.enqueue(new Callback<ResponseRestCustomer>() {
                 @Override
                 public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                    for (Specialty specialty : response.body().getSpecialties()) {
-                        specialty.save();
+                    if(response.errorBody() == null) {
+                        if(response.body().getSpecialties() != null) {
+                            for (Specialty specialty : response.body().getSpecialties()) {
+                                specialty.save();
+                            }
+                        }
                     }
+
                 }
 
                 @Override

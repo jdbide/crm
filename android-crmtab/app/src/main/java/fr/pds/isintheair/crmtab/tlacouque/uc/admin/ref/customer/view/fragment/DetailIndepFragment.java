@@ -114,8 +114,12 @@ public class DetailIndepFragment extends Fragment {
         zipCode.setText(String.valueOf(independant.getZipCode()));
         webSite.setText(independant.getWebSite());
         independantType.setText(independant.getIndependantType());
-        company.setText(independant.getCompany().getName());
-        specialty.setText(independant.getSpecialty().getName());
+        if(independant.getCompany() != null) {
+            company.setText(independant.getCompany().getName());
+        }
+        if(independant.getSpecialty() != null) {
+            specialty.setText(independant.getSpecialty().getName());
+        }
         longTermFidelity.setText(String.valueOf(independant.getLongTermFidelity()));
     }
 
