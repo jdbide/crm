@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -93,7 +94,7 @@ public class AddLogFragment extends Fragment {
                 newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
                 newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
                 newCra.setSubject(subject.getText().toString());
-                newCra.setIduser((long) Constants.getInstance().getCurrentUser().getTel());
+                newCra.setIduser(Constants.getInstance().getCurrentUser().getId());
                 //local save
                 //newCra.setId(0);
                 //newCra.save();

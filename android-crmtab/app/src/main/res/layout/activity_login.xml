@@ -51,8 +51,8 @@
         android:layout_marginTop="50dp"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="phone"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
         android:layout_gravity="center_horizontal"
         android:ems="10"
         />

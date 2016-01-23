@@ -19,7 +19,7 @@ public interface Methods {
 
 
     @GET("cra/listcra")
-    Call<List<Cra>> listcraforuser(@Query("iduser") int iduser) ;
+    Call<List<Cra>> listcraforuser(@Query("iduser") String iduser) ;
 
 
     @POST("cra/create")

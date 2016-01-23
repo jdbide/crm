@@ -1,5 +1,7 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
+import android.preference.PreferenceManager;
+
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
@@ -17,22 +19,22 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 public class Constants {
     private  static Constants instance = null;
     private String BASE_URL ;
-    private User currentUser;
     private  Bus currentBusInstance;
     private  Boolean popupdisplayed;
     private List<CallEndedEvent> pendigCallList;
     private List<Cra> CraListForUser;
+    private User currentUser;
 
 
     private Constants(){
         currentBusInstance = new Bus();
-        currentUser = new User();
         popupdisplayed = false;
         //BASE_URL = "http://192.168.43.131:8080/api/";
         BASE_URL = "http://192.168.1.68:8080/api/";
         //BASE_URL = "http://192.168.20.3:8070/api/";
         pendigCallList = new ArrayList<CallEndedEvent>();
         CraListForUser = new ArrayList<Cra>();
+        currentUser = new User();
 
     }
 
@@ -79,11 +81,6 @@ public class Constants {
 
     }
 
-    public void setCurrentUser(User user){
-
-        currentUser = user;
-
-    }
 
     public List<Cra> getCraListForUser(){
 
@@ -103,10 +100,7 @@ public class Constants {
         return pendigCallList;
     }
 
-    public User getCurrentUser(){
 
-        return currentUser;
-    }
 
     public void removeItemFromPendingCallList(int position){
 
@@ -115,5 +109,11 @@ public class Constants {
     }
 
 
+    public void setCurrentUser(User currentuser) {
+        currentUser = currentuser;
+    }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }

@@ -23,7 +23,7 @@ public class Cra  {
 
     private Long idcontact;
 
-    private Long iduser;
+    private String iduser;
 
     private String subject;
 
@@ -181,7 +181,7 @@ public class Cra  {
      * @return
      * The iduser
      */
-    public Long getIduser() {
+    public String getIduser() {
         return iduser;
     }
 
@@ -190,7 +190,7 @@ public class Cra  {
      * @param iduser
      * The iduser
      */
-    public void setIduser(Long iduser) {
+    public void setIduser(String iduser) {
         this.iduser = iduser;
     }
 

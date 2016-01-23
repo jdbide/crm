@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -60,9 +61,18 @@ public class MainActivity extends AppCompatActivity
         bus = Constants.getInstance().getCurrentBusInstance();
         bus.register(this);
 
-        User user = new User();
-        user.setTel(01234567);
-        Constants.getInstance().setCurrentUser(user);
+        User currentUser = new User();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        currentUser.setEmail(prefs.getString("email", null));
+        currentUser.setPassword(prefs.getString("password", null));
+        currentUser.setTel(prefs.getString("tel", null));
+        currentUser.setFname(prefs.getString("fname", null));
+        currentUser.setId(prefs.getString("id",null));
+        currentUser.setLname(prefs.getString("lname", null));
+
+        Constants.getInstance().setCurrentUser(currentUser);
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
