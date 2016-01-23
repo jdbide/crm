@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import miage.pds.api.common.LoggingRestController;
 import miage.pds.api.jbide.uc.registercall.dao.DAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 
@@ -27,6 +28,7 @@ public class CraRestController {
 	DAO dao = new DAO();
 
 	public CraRestController() {
+		
 	}
 	
 	/**
