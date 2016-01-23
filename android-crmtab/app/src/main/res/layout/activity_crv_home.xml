@@ -9,7 +9,7 @@
     tools:context=".crv.view.CrvHomeActivity">
 
     <fragment
-        android:name="fr.pds.isintheair.crmtab.crv.view.ClientListFragment"
+        android:name="fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.ClientListFragment"
         android:id="@+id/fragment_place"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
