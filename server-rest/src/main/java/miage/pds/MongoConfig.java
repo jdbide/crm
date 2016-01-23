@@ -9,7 +9,7 @@ import javax.print.DocFlavor;
 
 public interface MongoConfig {
 
-    // IP + PORT Adress Prod instancce
+    // IP + PORT Adress Prod instance
     public static String PROD_IP = "192.168.20.3";
     public static int PROD_PORT = 8086;
 

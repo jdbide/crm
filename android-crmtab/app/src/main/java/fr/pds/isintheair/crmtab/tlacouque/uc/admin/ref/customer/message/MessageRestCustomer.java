@@ -1,7 +1,7 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message;
 
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Independant;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 
 /**
  * Created by tlacouque on 17/12/2015.

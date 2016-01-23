@@ -4,9 +4,10 @@ import android.app.Fragment;
 import android.test.ActivityInstrumentationTestCase2;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.fragment.CreateHCFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.fragment.CreateIndepFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.ListCustomerFragment;
 
 
 /**

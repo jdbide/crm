@@ -2,13 +2,13 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.message;
 
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.Customer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.HealthCenter;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.Holding;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.PurchasingCentral;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Company;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Independant;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Specialty;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty;
 
 
 /**

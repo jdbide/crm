@@ -8,11 +8,11 @@ import android.widget.TextView;
 import org.osmdroid.views.MapView;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.HealthCenter;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.Holding;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.PurchasingCentral;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.display.hc.fragment.DetailHCFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailHCFragment;
 
 /**
  * Created by tlacouque on 20/01/2016.

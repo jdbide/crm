@@ -3,6 +3,7 @@ package api.tlacouque.uc.admin.ref.customer.controller;
 import com.mongodb.MongoClient;
 
 import miage.pds.MongoConfig;
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.controller.RestCustomerController;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HealthCenterDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.HealthCenter;
@@ -48,12 +49,8 @@ public class RestCustomerControllerTest {
 
     @Before
       public void setUp() throws UnknownHostException {
-            request = new MockHttpServletRequest();
-             response = new MockHttpServletResponse();
-        this.mongoClient    = new MongoClient(MongoConfig.PROD_IP,MongoConfig.PROD_PORT);
-        this.morphia        = new Morphia();
-        this.morphia.map(HealthCenter.class);
-        this.datastore      = this.morphia.createDatastore(mongoClient,dbName);
+
+        this.datastore      = MongoDatastoreConfig.getDataStore();
 
 
         restCustomerController = new RestCustomerController();

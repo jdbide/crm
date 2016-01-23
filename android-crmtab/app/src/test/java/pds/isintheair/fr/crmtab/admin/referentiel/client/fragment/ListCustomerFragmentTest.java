@@ -23,10 +23,10 @@ import java.lang.reflect.Field;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.entities.HealthCenter;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.entities.Independant;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.ListCustomerFragment;
 
 import static org.junit.Assert.assertEquals;
 
