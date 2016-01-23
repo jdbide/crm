@@ -86,8 +86,6 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
         DetailHCFragment detailHCFragment = new DetailHCFragment();
         detailHCFragment.setArguments(bundle);
 
-        ((AppCompatActivity) context).getSupportActionBar()
-                                     .setTitle(R.string.display_hc_fragment_title_action_bar);
         ((AppCompatActivity) context).getFragmentManager().beginTransaction().addToBackStack("detailHc")
                                      .replace(R.id.container, detailHCFragment).commit();
     }
@@ -104,8 +102,6 @@ public class CustomerListViewHolder extends RecyclerView.ViewHolder implements V
         DetailIndepFragment detailIndepFragment = new DetailIndepFragment();
         detailIndepFragment.setArguments(bundle);
 
-        ((AppCompatActivity) context).getSupportActionBar()
-                                     .setTitle(R.string.display_independant_fragment_title_action_bar);
         ((AppCompatActivity) context).getFragmentManager().beginTransaction().addToBackStack("detailIndep")
                                      .replace(R.id.container, detailIndepFragment).commit();
     }

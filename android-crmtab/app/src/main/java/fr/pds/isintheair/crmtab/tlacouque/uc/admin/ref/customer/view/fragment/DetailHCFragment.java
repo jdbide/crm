@@ -9,8 +9,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +82,9 @@ public class DetailHCFragment extends Fragment {
 
     @Bind(R.id.detail_hc_fragment_service_building)
     TextView serviceBuilding;
+
+    @Bind(R.id.detail_hc_fragment_scrollView)
+    ScrollView scrollView;
 
     @Bind(R.id.detail_hc_fragment_map)
     MapView map;
@@ -167,6 +172,29 @@ public class DetailHCFragment extends Fragment {
         mapController.setZoom(10);
         GeoPoint startPoint = new GeoPoint(48.8534100, 2.3488000);
         mapController.setCenter(startPoint);
+
+        map.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                scrollView.requestDisallowInterceptTouchEvent(true);
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                        break;
+                }
+                return map.onTouchEvent(event);
+            }
+        });
         map.invalidate();
     }
 
@@ -245,6 +273,9 @@ public class DetailHCFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 
 
 }
