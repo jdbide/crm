@@ -14,14 +14,22 @@
     android:background="#d1d1d1">
 
     <FrameLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="#dedcdc"
+
+        >
+    <FrameLayout
         android:id="@+id/container"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
         >
+        </FrameLayout>
     </FrameLayout>
 
 
