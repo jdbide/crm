@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".jdatour.receive.ContactDetailActivity"
+            android:name=".jdatour.uc.phone.call.receive.ContactDetailActivity"
             android:theme="@style/FullscreenTheme"/>
 
         <activity
@@ -72,7 +72,7 @@
         </activity>
 
 
-        <activity android:name=".jdatour.receive.CallActivity"/>
+        <activity android:name=".jdatour.uc.phone.call.receive.CallActivity"/>
 
         <activity
             android:name=".crv.view.CrvPreformatedMessage"

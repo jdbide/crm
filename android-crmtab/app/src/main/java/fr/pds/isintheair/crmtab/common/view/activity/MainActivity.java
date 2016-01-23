@@ -1,10 +1,10 @@
 package fr.pds.isintheair.crmtab.common.view.activity;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,10 +19,6 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.fragment.CreateHCFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.fragment.CreateIndepFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.CreateCustomerAlertDialog;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
 import fr.pds.isintheair.crmtab.crv.view.ClientListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.CallType;
@@ -36,15 +32,21 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDet
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.ContactDetailActivity;
+import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.fragment.CreateHCFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.CreateCustomerAlertDialog;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.ListCustomerFragment;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,DisplayCallLogFragment.OnListFragmentInteractionListener,
-        PendingLogsFragment.OnListFragmentInteractionListener,CreateCustomerAlertDialog.AlertPositiveListener,
+        implements NavigationView.OnNavigationItemSelectedListener, DisplayCallLogFragment.OnListFragmentInteractionListener,
+        PendingLogsFragment.OnListFragmentInteractionListener, CreateCustomerAlertDialog.AlertPositiveListener,
         ListCustomerFragment.OnListFragmentInteractionListener {
 
-    private Bus bus;
+    private Bus                 bus;
+    // UC Register a call
+    private PendingLogsFragment pend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +76,20 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //
-        if(getIntent().hasExtra("msg"))
+        if (getIntent().hasExtra("msg"))
             showNotificationListFrag();
     }
 
- /**   @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-*/
+    /**
+     * @Override public void onBackPressed() {
+     * DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+     * if (drawer.isDrawerOpen(GravityCompat.START)) {
+     * drawer.closeDrawer(GravityCompat.START);
+     * } else {
+     * super.onBackPressed();
+     * }
+     * }
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -116,14 +118,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment fragment = null;
+
         if (id == R.id.nav_passer_appel) {
-            Intent intentContact = new Intent(MainActivity.this, ContactDetailActivity.class);
-            startActivity(intentContact);
+            fragment = new ContactListFragment();
+
         } else if (id == R.id.nav_historiser_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111",true));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333",true));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "5555555",true));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "7777777777",true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111", true));
+            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333", true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "5555555", true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "7777777777", true));
 
             //DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
             //ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
@@ -135,10 +139,10 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.nav_ref_client) {
-           // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-           // setSupportActionBar(toolbar);
+            // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+            // setSupportActionBar(toolbar);
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container,new ListCustomerFragment());
+            fragmentTransaction.replace(R.id.container, new ListCustomerFragment());
             fragmentTransaction.addToBackStack("menu");
             fragmentTransaction.commit();
 
@@ -146,13 +150,15 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.commit();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
-
-    // UC Register a call
-    private PendingLogsFragment pend;
 
     public void showNotificationListFrag() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -169,17 +175,16 @@ public class MainActivity extends AppCompatActivity
         AddLogFragment fragment = AddLogFragment.newInstance(event.getCallEndedEvent().getIdcontact()
                 , event.getCallEndedEvent().getDate()
                 , event.getCallEndedEvent().getDuration()
-                , event.getCallEndedEvent().getCalltype()==CallType.INCOMING?"Entrant":"Sortant",event.getCallEndedEvent().getDisplaypopUp());
+                , event.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant", event.getCallEndedEvent().getDisplaypopUp());
         ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").commit();
 
-        if(event.getCallEndedEvent().getDisplaypopUp()) {
+        if (event.getCallEndedEvent().getDisplaypopUp()) {
             PopUpFragment pop = PopUpFragment.newInstance(getIntent().getStringExtra("idcontact"));
             pop.show(getFragmentManager(), "dialog");
             //make popup not cancellable
             pop.setCancelable(false);
         }
     }
-
 
 
     @Override
@@ -193,7 +198,7 @@ public class MainActivity extends AppCompatActivity
         }*/
 
         ft.addToBackStack(null);
-        CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra) ;
+        CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra);
         ft.replace(R.id.container, fragment).addToBackStack(null).commit();
 
     }
@@ -201,12 +206,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(CallEndedEvent item) {
 
-    }
-
-    public void removefrag(String fragtag) {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragtag);
-        if(fragment != null)
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
     }
 
     @Override
@@ -222,7 +221,7 @@ public class MainActivity extends AppCompatActivity
             getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             finish();
             startActivity(intent);
         }
@@ -232,26 +231,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPositiveClick(int position) {
         switch (position) {
-            case 0 :
+            case 0:
                 CreateHCFragment createHCFragment = new CreateHCFragment();
                 Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
                 toolbar.setTitle(R.string.create_he_fragment_title_action_bar);
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.create_customer_fragment_container, createHCFragment).commit();
+                                    .replace(R.id.create_customer_fragment_container, createHCFragment).commit();
                 break;
-            case 1 :
+            case 1:
 
                 CreateIndepFragment createIndepFragment = new CreateIndepFragment();
                 Toolbar toolbarindep = (Toolbar) findViewById(R.id.toolbar1);
                 toolbarindep.setTitle(R.string.create_indep_fragment_title_action_bar);
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.create_customer_fragment_container, createIndepFragment)
-                        .commit();
+                                    .replace(R.id.create_customer_fragment_container, createIndepFragment)
+                                    .commit();
                 break;
 
         }
     }
-
 
 
 }

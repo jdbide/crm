@@ -54,7 +54,7 @@ public class HttpRequestTask extends AsyncTask<String, Void, Void> {
     /*
         It sends:
          id of the report
-         Commercial name
+         Commercial firstName
          date of report creation
          Client satisfaction
          comment content

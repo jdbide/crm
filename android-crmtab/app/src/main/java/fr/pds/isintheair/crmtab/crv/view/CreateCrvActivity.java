@@ -132,7 +132,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             JSONObject mockObject = new JSONObject(json.getJSONObject("mock").toString());
             commercial.setText(mockObject.get("user").toString());
             contact.setText(mockObject.get("contact").toString());
-            tel.setText(mockObject.get("tel").toString());
+            tel.setText(mockObject.get("phoneNumber").toString());
 
 
 

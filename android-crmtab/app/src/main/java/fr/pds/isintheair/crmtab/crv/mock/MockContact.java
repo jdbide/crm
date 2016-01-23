@@ -1,15 +1,9 @@
 package fr.pds.isintheair.crmtab.crv.mock;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import fr.pds.isintheair.crmtab.crv.model.Contact;
-
-
 /**
  * Created by Muthu on 08/01/2016.
  */
-public class MockContact {
+/* public class MockContact {
 
     public List<Contact> getContacts() {
         List<Contact> contacts = new ArrayList<Contact>();
@@ -31,4 +25,4 @@ public class MockContact {
 
         return contacts;
     }
-}
+    }*/
