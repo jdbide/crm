@@ -173,5 +173,5 @@ public class RestCustomerController {
         responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
         return responseRestCustomer;
     }
-    
+
 }
