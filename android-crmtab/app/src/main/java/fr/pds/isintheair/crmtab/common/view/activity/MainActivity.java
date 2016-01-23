@@ -3,7 +3,9 @@ package fr.pds.isintheair.crmtab.common.view.activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,20 +21,20 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.crv.view.ClientListFragment;
+import fr.pds.isintheair.crmtab.common.model.User;
+import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.CallType;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.DisplayAddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDetailsFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
-import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.ClientListFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.he.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.create.indep.fragment.CreateIndepFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.fragment.CreateCustomerAlertDialog;
@@ -61,9 +63,17 @@ public class MainActivity extends AppCompatActivity
         bus = Constants.getInstance().getCurrentBusInstance();
         bus.register(this);
 
-        User user = new User();
-        user.setTel(01234567);
-        Constants.getInstance().setCurrentUser(user);
+        User              currentUser = new User();
+        SharedPreferences prefs       = PreferenceManager.getDefaultSharedPreferences(this);
+
+        currentUser.setEmail(prefs.getString("email", null));
+        currentUser.setPassword(prefs.getString("password", null));
+        currentUser.setTel(prefs.getString("tel", null));
+        currentUser.setFname(prefs.getString("fname", null));
+        currentUser.setId(prefs.getString("id", null));
+        currentUser.setLname(prefs.getString("lname", null));
+
+        Constants.getInstance().setCurrentUser(currentUser);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

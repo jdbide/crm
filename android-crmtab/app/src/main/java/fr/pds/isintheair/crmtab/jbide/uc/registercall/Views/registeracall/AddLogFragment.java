@@ -1,21 +1,29 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall;
 
 import android.app.Fragment;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.ControllerCra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
@@ -81,6 +89,13 @@ public class AddLogFragment extends Fragment {
         contactname.setText("nom contactttt");
         clientname.setText("nom client");
         mic.setBackground(getResources().getDrawable(R.drawable.mic1));
+        mic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchvocalcomment(new View(getActivity()));
+            }
+        });
+
         validation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +108,7 @@ public class AddLogFragment extends Fragment {
                 newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
                 newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
                 newCra.setSubject(subject.getText().toString());
-                newCra.setIduser((long) Constants.getInstance().getCurrentUser().getTel());
+                newCra.setIduser(Constants.getInstance().getCurrentUser().getId());
                 //local save
                 //newCra.setId(0);
                 //newCra.save();
@@ -134,14 +149,48 @@ public class AddLogFragment extends Fragment {
 
             case R.id.item2:
                 DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
-                ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
+                ft.replace(R.id.container, fragment, "FRAGMENT_LISTE").addToBackStack(null).commit();
 
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void launchvocalcomment(View v){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Parlez ...");
+        try {
+            startActivityForResult(intent, 100);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getActivity(),
+                    "Speech not supported",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    /**
+     * Receiving speech input
+     * */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 100: {
+                if (resultCode == -1 && null != data) {
+
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    comments.append(result.get(0));
+                }
+                break;
+            }
+
+        }
+    }
 
 
     @Override public void onDestroyView() {

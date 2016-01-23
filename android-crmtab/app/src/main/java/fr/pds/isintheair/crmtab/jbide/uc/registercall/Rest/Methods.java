@@ -3,7 +3,7 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
+import fr.pds.isintheair.crmtab.common.model.User;
 
 
 import retrofit.Call;
@@ -19,7 +19,7 @@ public interface Methods {
 
 
     @GET("cra/listcra")
-    Call<List<Cra>> listcraforuser(@Query("iduser") int iduser) ;
+    Call<List<Cra>> listcraforuser(@Query("iduser") String iduser) ;
 
 
     @POST("cra/create")

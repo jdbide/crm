@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +22,7 @@ import java.util.List;
 
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Methods;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import retrofit.Call;
@@ -85,7 +86,7 @@ public class DisplayCallLogFragment extends Fragment {
                 .build();
 
         Methods service = retrofit.create(Methods.class);
-        Call<List<Cra>> call = service.listcraforuser(Constants.getInstance().getCurrentUser().getTel());
+        Call<List<Cra>> call = service.listcraforuser(Constants.getInstance().getCurrentUser().getId());
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {

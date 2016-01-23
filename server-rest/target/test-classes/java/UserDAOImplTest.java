@@ -1,6 +1,6 @@
 import com.mongodb.MongoClient;
-import miage.pds.prospect.controller.UserDAOImpl;
-import miage.pds.prospect.model.User;
+import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserDAOImpl;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
