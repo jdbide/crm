@@ -149,7 +149,7 @@ public class AddLogFragment extends Fragment {
 
             case R.id.item2:
                 DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
-                ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
+                ft.replace(R.id.container, fragment, "FRAGMENT_LISTE").addToBackStack(null).commit();
 
                 return true;
         }
@@ -191,8 +191,6 @@ public class AddLogFragment extends Fragment {
 
         }
     }
-
-
 
 
     @Override public void onDestroyView() {
