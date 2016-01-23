@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.api.common.model.User;
-import miage.pds.api.registercall.RestController;
-import miage.pds.api.registercall.dao.DAO;
-import miage.pds.registercallmodel.Cra;
+import miage.pds.api.jbide.uc.registercall.RestController;
+import miage.pds.api.jbide.uc.registercall.dao.DAO;
+import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 /**
  * Created by jbide on 19/01/2016.

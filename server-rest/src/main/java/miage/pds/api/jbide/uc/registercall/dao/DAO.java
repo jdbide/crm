@@ -1,4 +1,4 @@
-package miage.pds.api.registercall.dao;
+package miage.pds.api.jbide.uc.registercall.dao;
 
 import java.net.UnknownHostException;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
 import miage.pds.api.common.model.User;
-import miage.pds.registercallmodel.Cra;
+import miage.pds.api.jbide.uc.registercall.model.Cra;
 /**
  * Created by jbide on 20/12/2015.
  */

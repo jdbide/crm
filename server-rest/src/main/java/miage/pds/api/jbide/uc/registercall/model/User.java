@@ -1,4 +1,4 @@
-package miage.pds.registercallmodel;
+package miage.pds.api.jbide.uc.registercall.model;
 
 public class User {
     private String fname;

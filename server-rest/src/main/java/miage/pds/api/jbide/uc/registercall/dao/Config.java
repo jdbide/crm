@@ -1,4 +1,4 @@
-package miage.pds.api.registercall.dao;
+package miage.pds.api.jbide.uc.registercall.dao;
 
 public interface Config {
 

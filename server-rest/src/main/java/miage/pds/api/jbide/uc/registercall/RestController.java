@@ -1,4 +1,4 @@
-package miage.pds.api.registercall;
+package miage.pds.api.jbide.uc.registercall;
 
 
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import miage.pds.api.registercall.dao.DAO;
-import miage.pds.registercallmodel.Cra;
+import miage.pds.api.jbide.uc.registercall.dao.DAO;
+import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 
 /**
