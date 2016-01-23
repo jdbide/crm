@@ -5,7 +5,7 @@ import android.content.Intent;
 import fr.pds.isintheair.crmtab.common.CrmTabApplication;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallEndedEvent;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.CallActivity;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view.CallActivity;
 
 public class CallController {
     public static void call(String phoneNumber) {

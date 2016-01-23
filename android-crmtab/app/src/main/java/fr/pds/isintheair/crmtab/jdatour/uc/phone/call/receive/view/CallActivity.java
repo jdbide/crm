@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive;
+package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view;
 
 import android.app.Activity;
 import android.os.Bundle;
