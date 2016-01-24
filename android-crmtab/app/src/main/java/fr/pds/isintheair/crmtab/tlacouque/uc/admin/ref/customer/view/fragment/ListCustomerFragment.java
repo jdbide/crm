@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.adapter.ListCustomerAdapter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
@@ -38,7 +39,7 @@ import retrofit.Retrofit;
  */
 public class ListCustomerFragment extends Fragment implements CreateCustomerAlertDialog.AlertPositiveListener {
 
-    public String idUser = "1";
+    public String idUser = Constants.getInstance().getCurrentUser().getId();
     public List<Customer> customers;
     @Bind(R.id.list_customer_recycler_view)
     RecyclerView recyclerView;
