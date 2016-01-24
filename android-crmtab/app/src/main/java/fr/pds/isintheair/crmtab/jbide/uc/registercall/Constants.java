@@ -1,13 +1,11 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
-import android.preference.PreferenceManager;
-
 import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.common.model.User;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 
 

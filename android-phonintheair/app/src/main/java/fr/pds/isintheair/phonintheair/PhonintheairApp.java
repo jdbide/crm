@@ -15,8 +15,6 @@ public class PhonintheairApp extends Application {
 
         context = getApplicationContext();
 
-        final Intent intent = new Intent(this, CallService.class);
 
-        startService(intent);
     }
 }

@@ -15,7 +15,6 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.RemoveFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.common.model.User;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;

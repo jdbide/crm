@@ -3,11 +3,14 @@ package fr.pds.isintheair.crmtab.common.view.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.helper.NetworkHelper;
+import fr.pds.isintheair.crmtab.common.helper.ResourceHelper;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
 
@@ -32,7 +35,13 @@ public class ContactDetailActivity extends Activity {
     @OnClick(R.id.phone_imageview)
     public void onPhoneClick() {
         if (currentContact != null) {
-            CallController.call(currentContact.getPhoneNumber());
+            if (NetworkHelper.isNetworkAvailable()) {
+                CallController.call(currentContact.getPhoneNumber());
+            }
+
+            else {
+                Toast.makeText(this, ResourceHelper.getString(R.string.message_failed_no_internet), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -46,7 +55,6 @@ public class ContactDetailActivity extends Activity {
 
         if (currentContact != null) {
             String callInformations = currentContact.getFirstName() + " " + currentContact.getLastName() + " - " + currentContact.getPhoneNumber();
-
             callInformationTextview.setText(callInformations);
         }
     }

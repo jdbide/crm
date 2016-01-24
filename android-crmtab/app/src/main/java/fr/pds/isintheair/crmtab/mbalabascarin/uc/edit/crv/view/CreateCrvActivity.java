@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.User;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
@@ -56,21 +56,22 @@ import retrofit.Retrofit;
 
 public class CreateCrvActivity extends AppCompatActivity {
 
+    private final int REQ_CODE_SPEECH_INPUT = 100;
     //Init all var
     TextView commercial, date, contact, tel, comment, client;
     CheckBox ch1, ch2, ch3, ch4;
     Button btnMessageList, btnList;
-    ListView listView , lstProducts;
+    ListView listView, lstProducts;
     CardView card;
     List<String> messages = new ArrayList<String>();
     String userId, clientId, conatcId, visitId;
     RadioGroup radioGroup;
     List<String> presentedProducts = new ArrayList<String>();
     ArrayAdapter<String> adapter;
-    RadioButton satisfaction;
-    Report report;
-    CacheDao dao;
-    private final int REQ_CODE_SPEECH_INPUT = 100;
+    RadioButton          satisfaction;
+    Report               report;
+    CacheDao             dao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
         //get session user id
-        User currentUser = new User();
+        User              currentUser = new User();
         SharedPreferences prefs       = PreferenceManager.getDefaultSharedPreferences(this);
         currentUser.setId(prefs.getString("id", null));
 
@@ -89,12 +90,12 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
         //get all views
-        commercial = (TextView)findViewById(R.id.txtName);
-        date = (TextView)findViewById(R.id.txtDate);
-        contact = (TextView)findViewById(R.id.txtContact);
-        tel = (TextView)findViewById(R.id.txtTel);
+        commercial = (TextView) findViewById(R.id.txtName);
+        date = (TextView) findViewById(R.id.txtDate);
+        contact = (TextView) findViewById(R.id.txtContact);
+        tel = (TextView) findViewById(R.id.txtTel);
         comment = (EditText) findViewById(R.id.txtComment);
-        btnMessageList =(Button) findViewById(R.id.btnMessageList);
+        btnMessageList = (Button) findViewById(R.id.btnMessageList);
         card = (CardView) findViewById(R.id.card_view2);
         client = (TextView) findViewById(R.id.lblInfoClient);
         radioGroup = (RadioGroup) findViewById(R.id.grpSatisfaction);
@@ -111,7 +112,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         //get mocked client object
         Intent intent = getIntent();
 
-        Client cl = (Client)intent.getSerializableExtra("ClientObject");
+        Client cl = (Client) intent.getSerializableExtra("ClientObject");
         report = (Report) intent.getSerializableExtra("report");
 
 
@@ -123,7 +124,8 @@ public class CreateCrvActivity extends AppCompatActivity {
                 if (compoundButton.isChecked()) {
                     //checked
                     btnList.setEnabled(true);
-                } else {
+                }
+                else {
                     //not checked
                     btnList.setEnabled(false);
                     presentedProducts.clear();
@@ -132,7 +134,6 @@ public class CreateCrvActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         try {
@@ -145,12 +146,11 @@ public class CreateCrvActivity extends AppCompatActivity {
             tel.setText(mockObject.get("phoneNumber").toString());
 
 
-
             //Mock a visit
             int rand = RandomInformation.randInt(1, 4);
 
-            client.setText(cl.getClientSurname() +" "+cl.getClientName()+" -- "+cl.getClientAddress());
-            clientId =  Integer.toString(cl.getClientId());
+            client.setText(cl.getClientSurname() + " " + cl.getClientName() + " -- " + cl.getClientAddress());
+            clientId = Integer.toString(cl.getClientId());
             userId = currentUser.getId();
             conatcId = Integer.toString(rand);
             visitId = Integer.toString(rand);
@@ -158,30 +158,30 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
             //Select a random visit report subject
-            if(rand == 1){
+            if (rand == 1) {
                 ch1.setChecked(true);
 
 
             }
-            else if(rand == 2){
+            else if (rand == 2) {
                 ch2.setChecked(true);
 
             }
-            else if(rand == 3){
+            else if (rand == 3) {
                 ch3.setChecked(true);
 
             }
-            else if(rand == 4){
+            else if (rand == 4) {
                 ch4.setChecked(true);
-              //  lstProducts.setVisibility(View.VISIBLE);
+                //  lstProducts.setVisibility(View.VISIBLE);
                 btnList.setEnabled(true);
 
             }
 
-            if(report != null){
+            if (report != null) {
                 Product[] products = report.getProduct();
-                if(products != null){
-                    for(int i =0; i< products.length; i++){
+                if (products != null) {
+                    for (int i = 0; i < products.length; i++) {
                         presentedProducts.add(products[i].getName());
                         comment.setText(report.getComment());
                         String sat = report.getSatisfaction();
@@ -194,14 +194,14 @@ public class CreateCrvActivity extends AppCompatActivity {
                 //get array of radio buttons from radio group
                 int count = radioGroup.getChildCount();
                 ArrayList<RadioButton> listOfRadioButtons = new ArrayList<RadioButton>();
-                for (int j=0;j<count;j++) {
+                for (int j = 0; j < count; j++) {
                     View o = radioGroup.getChildAt(j);
                     if (o instanceof RadioButton) {
-                        listOfRadioButtons.add((RadioButton)o);
+                        listOfRadioButtons.add((RadioButton) o);
                     }
                 }
-                for(RadioButton rd : listOfRadioButtons){
-                    if(rd.getText().toString().equalsIgnoreCase(report.getSatisfaction())){
+                for (RadioButton rd : listOfRadioButtons) {
+                    if (rd.getText().toString().equalsIgnoreCase(report.getSatisfaction())) {
                         rd.setChecked(true);
                         break;
                     }
@@ -210,8 +210,8 @@ public class CreateCrvActivity extends AppCompatActivity {
 
             //Init presented Product list
             // Define a new Adapter
-             adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, presentedProducts);
+            adapter = new ArrayAdapter<String>(this,
+                                               android.R.layout.simple_list_item_1, android.R.id.text1, presentedProducts);
 
 
             // Assign adapter to ListView
@@ -239,17 +239,16 @@ public class CreateCrvActivity extends AppCompatActivity {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
 
     }
 
     //Dialog box that enables the option to delete a product in the list
-    public void showDialogBox(final int position){
+    public void showDialogBox(final int position) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCrvActivity.this);
 
         // set title
@@ -284,8 +283,8 @@ public class CreateCrvActivity extends AppCompatActivity {
     }
 
 
-//Init mocked product lsit
-    public void launchInputDialogProduct(View v){
+    //Init mocked product lsit
+    public void launchInputDialogProduct(View v) {
 
         List<String> products = new ArrayList<String>();
 
@@ -303,15 +302,14 @@ public class CreateCrvActivity extends AppCompatActivity {
         products.add("Stethescope");
         products.add("Ballon autoremplisseur à valve unidirectionnel");
 
-        LayoutInflater layoutInflater = LayoutInflater.from(CreateCrvActivity.this);
-        View promptView = layoutInflater.inflate(R.layout.msg_layout, null);
+        LayoutInflater      layoutInflater     = LayoutInflater.from(CreateCrvActivity.this);
+        View                promptView         = layoutInflater.inflate(R.layout.msg_layout, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCrvActivity.this);
         alertDialogBuilder.setView(promptView);
 
-        TextView txtTitle = (TextView) promptView.findViewById(R.id.textViewMessage);
-        Button btnMessage = (Button) promptView.findViewById(R.id.btnAddMessage);
+        TextView             txtTitle             = (TextView) promptView.findViewById(R.id.textViewMessage);
+        Button               btnMessage           = (Button) promptView.findViewById(R.id.btnAddMessage);
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) promptView.findViewById(R.id.autoCompleteTextView1);
-
 
 
         txtTitle.setText("Choisir les produits présentés");
@@ -320,8 +318,8 @@ public class CreateCrvActivity extends AppCompatActivity {
         listView = (ListView) promptView.findViewById(R.id.lstMessages);
 
         // Define a new Adapter
-         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, products);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                                                                 android.R.layout.simple_list_item_1, android.R.id.text1, products);
 
 
         // Assign adapter to ListView
@@ -357,12 +355,12 @@ public class CreateCrvActivity extends AppCompatActivity {
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
 
-                .setNegativeButton("Fermer",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                          .setNegativeButton("Fermer",
+                                             new DialogInterface.OnClickListener() {
+                                                 public void onClick(DialogInterface dialog, int id) {
+                                                     dialog.cancel();
+                                                 }
+                                             });
 
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
@@ -372,11 +370,11 @@ public class CreateCrvActivity extends AppCompatActivity {
     }
 
     // launch dialog box with pre formated message list
-    public void launchInputDialog(View v){
+    public void launchInputDialog(View v) {
         messages = dao.getAllMessages();
         // get prompts.xml view
-        LayoutInflater layoutInflater = LayoutInflater.from(CreateCrvActivity.this);
-        View promptView = layoutInflater.inflate(R.layout.msg_layout, null);
+        LayoutInflater      layoutInflater     = LayoutInflater.from(CreateCrvActivity.this);
+        View                promptView         = layoutInflater.inflate(R.layout.msg_layout, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCrvActivity.this);
         alertDialogBuilder.setView(promptView);
 
@@ -385,7 +383,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) promptView.findViewById(R.id.autoCompleteTextView1);
         // Define a new Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, messages);
+                                                                android.R.layout.simple_list_item_1, android.R.id.text1, messages);
 
 
         // Assign adapter to ListView
@@ -419,23 +417,24 @@ public class CreateCrvActivity extends AppCompatActivity {
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
 
-                .setNegativeButton("Fermer",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                          .setNegativeButton("Fermer",
+                                             new DialogInterface.OnClickListener() {
+                                                 public void onClick(DialogInterface dialog, int id) {
+                                                     dialog.cancel();
+                                                 }
+                                             });
 
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
 
     }
-    public String getDate(){
+
+    public String getDate() {
         return java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
     }
 
-    public void createReport(){
+    public void createReport() {
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
                 .create();
@@ -451,17 +450,16 @@ public class CreateCrvActivity extends AppCompatActivity {
         //create reporting object
 
 
-
         Reporting reporting = new Reporting();
 
 
-        int count = presentedProducts.size();
+        int       count    = presentedProducts.size();
         Product[] products = new Product[count];
-        if(count>0){
+        if (count > 0) {
 
             Product p;
 
-            for(int i=0; i<count; i++){
+            for (int i = 0; i < count; i++) {
                 p = new Product();
                 p.setName(presentedProducts.get(i));
                 products[i] = p;
@@ -470,69 +468,69 @@ public class CreateCrvActivity extends AppCompatActivity {
         }
 
 
+        int selectedID = radioGroup.getCheckedRadioButtonId();
 
-            int selectedID = radioGroup.getCheckedRadioButtonId();
+        satisfaction = (RadioButton) findViewById(selectedID);
+        Report crv = new Report();
+        if (report != null) {
+            crv.setId(report.getId());
+        }
+        else {
+            crv.setId("");
+        }
 
-            satisfaction = (RadioButton)findViewById(selectedID);
-            Report crv = new Report();
-            if(report != null) {
-                crv.setId(report.getId());
-            }else{
-                crv.setId("");
-            }
-
-            crv.setCommercial(userId);
-            crv.setDate(date.getText().toString());
-            crv.setSatisfaction(satisfaction.getText().toString());
-            crv.setComment(comment.getText().toString());
-            crv.setClient(clientId);
-            crv.setContact(conatcId);
-            crv.setVisit(visitId);
-            crv.setProduct(products);
-            reporting.setReport(crv);
-
+        crv.setCommercial(userId);
+        crv.setDate(date.getText().toString());
+        crv.setSatisfaction(satisfaction.getText().toString());
+        crv.setComment(comment.getText().toString());
+        crv.setClient(clientId);
+        crv.setContact(conatcId);
+        crv.setVisit(visitId);
+        crv.setProduct(products);
+        reporting.setReport(crv);
 
 
         Call<Boolean> call = iService.createReport(reporting);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
-                if(response.isSuccess()){
+                if (response.isSuccess()) {
                     Log.i("rest response", "Report created");
                     Toast.makeText(CreateCrvActivity.this, "Compte rendu de visite a bien été crée :)", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(CreateCrvActivity.this, "Response: "+response.message(), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(CreateCrvActivity.this, "Response: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                    Log.e("rest response", t.toString());
+                Log.e("rest response", t.toString());
             }
         });
     }
 
 
-
-    public void launchVoiceRec(View v){
+    public void launchVoiceRec(View v) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                "Dites quelque chose...");
+                        "Dites quelque chose...");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
-        } catch (ActivityNotFoundException a) {
+        }
+        catch (ActivityNotFoundException a) {
             Toast.makeText(getApplicationContext(),
-                    "Speech not supported",
-                    Toast.LENGTH_SHORT).show();
+                           "Speech not supported",
+                           Toast.LENGTH_SHORT).show();
         }
     }
 
     /**
      * Receiving speech input
-     * */
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -550,19 +548,22 @@ public class CreateCrvActivity extends AppCompatActivity {
 
         }
     }
+
     //this method enables first block in UI to edit fields
-    public void editInfo(View view){
-       // commercial.setEnabled(true);
+    public void editInfo(View view) {
+        // commercial.setEnabled(true);
         date.setEnabled(true);
         contact.setEnabled(true);
         tel.setEnabled(true);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_create_crv, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -574,15 +575,15 @@ public class CreateCrvActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == R.id.action_save){
+        if (id == R.id.action_save) {
 
             //call HttpRequestTask to send json to REST server
-           // HttpRequestTask request = new HttpRequestTask();
+            // HttpRequestTask request = new HttpRequestTask();
 
             //tell that it comes from create report activity to send
             //json to correct url end point
 
-           // request.setActivity("create");
+            // request.setActivity("create");
             //request.setRequestJson(createJson());
             //request.execute();
             createReport();
@@ -595,7 +596,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
     //Launch launchPreformattedMessageActivity
-    public void launchPreformattedMessageActivity(View view){
+    public void launchPreformattedMessageActivity(View view) {
         Intent intent = new Intent(this, CrvPreformatedMessage.class);
         startActivity(intent);
     }

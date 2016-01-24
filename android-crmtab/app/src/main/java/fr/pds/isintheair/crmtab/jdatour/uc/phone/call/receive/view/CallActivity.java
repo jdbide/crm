@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.squareup.otto.Subscribe;
@@ -16,6 +17,7 @@ import fr.pds.isintheair.crmtab.common.model.database.entity.Contact_Table;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.MessageController;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallEndedEvent;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallFailedEvent;
 
 public class CallActivity extends Activity {
     @Bind(R.id.phone_state_textview)
@@ -52,6 +54,12 @@ public class CallActivity extends Activity {
 
     @Subscribe
     public void onPhoneCallEndedEvent(PhoneCallEndedEvent phoneCallEndedEvent) {
+        finish();
+    }
+
+    @Subscribe
+    public void onPhoneCallFailedEvent(PhoneCallFailedEvent phoneCallFailedEvent) {
+        Toast.makeText(this, "Impossible de passer un appel : " + phoneCallFailedEvent.getFailReason(), Toast.LENGTH_LONG).show();
         finish();
     }
 }

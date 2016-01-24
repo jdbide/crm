@@ -1,12 +1,14 @@
 package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller;
 
+import fr.pds.isintheair.crmtab.common.model.database.dao.UserDAO;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.Call;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.Message;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.MessageMeta;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.Register;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.DeviceType;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
 
 public class MessageController {
     public static void handleMessage(Message message) {
@@ -56,7 +58,8 @@ public class MessageController {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_TABLET)
                                                                       .build();
 
-        Register register = new Register(42);
+        User     currentUser = UserDAO.getCurrentUser();
+        Register register    = new Register(currentUser.getEmail().hashCode());
 
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(
                 register).build();
