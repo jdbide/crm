@@ -5,7 +5,7 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import fr.pds.isintheair.crmtab.common.model.OrmTabDataBase;
+import fr.pds.isintheair.crmtab.common.model.database.OrmTabDataBase;
 
 /**
  * Created by tlacouque on 12/12/2015.

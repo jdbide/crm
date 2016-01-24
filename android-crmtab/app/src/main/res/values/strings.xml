@@ -2,6 +2,9 @@
     <string name="app_name">CRM-tab</string>
     <string name="title_activity_login">Sign in</string>
 
+    <!-- jdatour.uc.phone.call.receive -->
+    <string name="message_failed_no_internet">pas de connection internet</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -106,12 +109,8 @@
     <!-- Strings related to the display of an independant customer -->
     <string name="display_independant_fragment_title_action_bar">Détail d\'un indépendant</string>
     <string name="display_indep_fragment_title_textview">Détail d\'un indépendant</string>
-
     <string name="title_activity_abstract">AbstractActivity</string>
-
-
     <string name="title_activity_main">CRM-TAB</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_contact_detail">ContactDetailActivity</string>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,9 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import java.nio.charset.StandardCharsets;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
+
+import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 
 /**
@@ -47,31 +53,34 @@ public class LoginActivity extends Activity {
         SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         //Test if user is already logged(data id is in sharedpreferences)
-        if (prefs.getString("id", "") != "")
+        if (!prefs.getString("id", "").equals(""))
             startActivity(new Intent(this, MainActivity.class));
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        ButterKnife.bind(this);
-        loading.setVisibility(View.GONE);
+        else {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            ButterKnife.bind(this);
+            loading.setVisibility(View.GONE);
 
-        con.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                User user = new User();
-                String credentials = mail.getText().toString()+":" + pass.getText().toString();
-                byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
-                final String basic =
-                        Base64.encodeToString(data, Base64.NO_WRAP);
-                user.setPassword(basic);
-                login(user, getApplicationContext(), loading, coordlayout);
-                loading.setVisibility(View.VISIBLE);
-                */
+            con.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                //TODO Remove it and uncomment
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            }
-        });
+                    User   user        = new User();
+                    String credentials = mail.getText().toString() + ":" + pass.getText().toString();
+                    byte[] data        = credentials.getBytes(StandardCharsets.UTF_8);
+                    final String basic =
+                            Base64.encodeToString(data, Base64.NO_WRAP);
+                    user.setPassword(basic);
+                    login(user, getApplicationContext(), loading, coordlayout);
 
+                    user.setEmail(mail.getText().toString());
+                    user.save();
+
+                    loading.setVisibility(View.VISIBLE);
+                }
+            });
+
+        }
     }
+
 }

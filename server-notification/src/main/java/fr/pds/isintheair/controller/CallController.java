@@ -13,6 +13,19 @@ import java.io.IOException;
 public class CallController {
     public static void call(Session tabletSession, String phoneNumber) {
         Session phoneSession = PeerController.getPhoneSession(tabletSession);
+
+        if (phoneSession == null) {
+            MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_FAILED).build();
+            Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
+
+            try {
+                tabletSession.getBasicRemote().sendText(new Gson().toJson(message, Message.class));
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL).build();
         Call call = new Call(phoneNumber);
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();

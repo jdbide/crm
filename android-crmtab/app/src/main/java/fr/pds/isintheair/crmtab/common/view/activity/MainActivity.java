@@ -21,7 +21,7 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.User;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;

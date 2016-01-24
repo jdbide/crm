@@ -9,8 +9,8 @@ import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view.CallActivity;
 
 public class CallController {
     public static void call(String phoneNumber) {
-        MessageController.sendCallMessage(phoneNumber);
         startCallActivity(phoneNumber);
+        MessageController.sendCallMessage(phoneNumber);
     }
 
     public static void endCall() {
