@@ -29,6 +29,6 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
 
         if (!payload.isEmpty())
             MessageController.handleMessage((Message) JSONHelper.deserialize(payload,
-                                                                             Message.class));
-    }
+    Message.class));
+}
 }
