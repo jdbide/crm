@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
  * @serial 111912202015
  */
 public class ProspectDAOImplTest {
-    private final static Logger log         = LoggerFactory.getLogger(ProspectDAOImplTest.class);
+/*    private final static Logger log         = LoggerFactory.getLogger(ProspectDAOImplTest.class);
     private MongoClient         mongoClient;
     private Morphia             morphia;
     private ProspectDAOImpl     prospectDAO;
@@ -52,5 +52,5 @@ public class ProspectDAOImplTest {
         Prospect prospect   = prospectDAO.createQuery().field("id").equal(1).get();
         Prospect prospect1  = prospectDAO.getProspectByID(1);
         assertEquals(prospect.getPlace(), prospect1.getPlace());
-    }
+    } */
 }
