@@ -1,13 +1,9 @@
-package pds.isintheair.fr.tlacouque.uc.admin.ref.customer.view.fragment;
+package tlacouque.uc.admin.ref.customer.fragment;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import retrofit.Response;
 
 import static org.junit.Assert.assertFalse;
@@ -17,10 +13,10 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by tlacouque on 23/01/2016.
  */
-public class CreateIndepFragmentTest {
+public class CreateHCFragmentTest {
 
     @Test
-    public void testCreateIndepWithValidHTTPResponse() throws Exception {
+    public void testCreateHCWithValidHTTPResponse() throws Exception {
 
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIsInserted(true);
@@ -30,7 +26,7 @@ public class CreateIndepFragmentTest {
         boolean         createCalledisOk;
         boolean         createCalledisNOk;
         boolean         errorServRest;
-        Independant independant = mock(Independant.class);
+        HealthCenter independant = mock(HealthCenter.class);
 
         createCalledisNOk = false;
         createCalledisOk = false;
@@ -51,6 +47,7 @@ public class CreateIndepFragmentTest {
         assertTrue(createCalledisOk);
         assertFalse(createCalledisNOk);
         assertFalse(errorServRest);
-
     }
+
+
 }

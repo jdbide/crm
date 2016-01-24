@@ -1,9 +1,8 @@
-package pds.isintheair.fr.tlacouque.uc.admin.ref.customer.view.fragment;
+package tlacouque.uc.admin.ref.customer.fragment;
 
 import org.junit.Test;
 
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
 import retrofit.Response;
 
@@ -14,10 +13,10 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by tlacouque on 23/01/2016.
  */
-public class CreateHCFragmentTest {
+public class CreateIndepFragmentTest {
 
     @Test
-    public void testCreateHCWithValidHTTPResponse() throws Exception {
+    public void testCreateIndepWithValidHTTPResponse() throws Exception {
 
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIsInserted(true);
@@ -27,7 +26,7 @@ public class CreateHCFragmentTest {
         boolean         createCalledisOk;
         boolean         createCalledisNOk;
         boolean         errorServRest;
-        HealthCenter independant = mock(HealthCenter.class);
+        Independant independant = mock(Independant.class);
 
         createCalledisNOk = false;
         createCalledisOk = false;
@@ -48,7 +47,6 @@ public class CreateHCFragmentTest {
         assertTrue(createCalledisOk);
         assertFalse(createCalledisNOk);
         assertFalse(errorServRest);
+
     }
-
-
 }

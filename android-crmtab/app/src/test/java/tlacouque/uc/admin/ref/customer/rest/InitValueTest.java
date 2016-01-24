@@ -1,4 +1,4 @@
-package pds.isintheair.fr.tlacouque.uc.admin.ref.customer.model.rest;
+package tlacouque.uc.admin.ref.customer.rest;
 
 import com.squareup.okhttp.ResponseBody;
 
@@ -16,7 +16,6 @@ import retrofit.Response;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by tlacouque on 23/01/2016.

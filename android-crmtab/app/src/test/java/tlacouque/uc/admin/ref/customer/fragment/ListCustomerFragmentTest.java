@@ -1,4 +1,4 @@
-package pds.isintheair.fr.tlacouque.uc.admin.ref.customer.view.fragment;
+package tlacouque.uc.admin.ref.customer.fragment;
 
 import org.junit.Test;
 
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
