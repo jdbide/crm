@@ -77,12 +77,11 @@ public class LoginActivity extends Activity {
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
 
-
+                //TODO Remove it and uncomment
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
 
-        //TODO Remove it and uncomment
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         NotificationEventReceiver.setUpAlarm(getApplicationContext());
 
     }
