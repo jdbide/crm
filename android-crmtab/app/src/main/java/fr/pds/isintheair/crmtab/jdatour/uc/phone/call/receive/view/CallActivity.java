@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
+
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact_Table;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.MessageController;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.BusHandlerSingleton;

@@ -48,9 +48,6 @@
 
             android:theme="@style/FullscreenTheme"></activity>
 
-
-        android:theme="@style/FullscreenTheme" />
-
         <activity
             android:name=".common.view.activity.MainActivity"
             android:configChanges="orientation"

@@ -19,7 +19,7 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver{
 
     private static final String ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE";
     private static final String ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION";
-    private static final int NOTIFICATION_INTERVAL = 2;
+    private static final int NOTIFICATION_INTERVAL = 5;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -42,7 +42,7 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver{
     public static void setUpAlarm(Context context){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = getStartPendingIntent(context);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getTriggerAt(new Date()), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getTriggerAt(new Date()), NOTIFICATION_INTERVAL*AlarmManager.INTERVAL_HOUR, pendingIntent);
     }
 
     private static PendingIntent getStartPendingIntent(Context context){
