@@ -24,39 +24,31 @@ public class MessageController {
 
     public static void sendCallReceivedMessage(String phoneNumber) {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_RECEIVED).build();
-
-        Call call = new Call(phoneNumber);
-
-        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
+        Call        call        = new Call(phoneNumber);
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
 
     public static void sendCallPassedMessage(String phoneNumber) {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_PASSED).build();
-
-        Call call = new Call(phoneNumber);
-
-        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
+        Call        call        = new Call(phoneNumber);
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
 
     public static void sendEndCallMessage() {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_ENDED).addDeviceType(DeviceType.PHONE).build();
-
-        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
 
-    public static void sendRegisterMessage() {
+    public static void sendRegisterMessage(Integer userId) {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_PHONE).build();
-
-        Integer  userId   = SharedPreferencesHelper.readInteger("userId", 0);
-        Register register = new Register(userId);
-
-        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
+        Register    register    = new Register(userId);
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
