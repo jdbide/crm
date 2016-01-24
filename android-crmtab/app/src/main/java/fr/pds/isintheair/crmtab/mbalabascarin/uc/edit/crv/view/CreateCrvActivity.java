@@ -157,8 +157,6 @@ public class CreateCrvActivity extends AppCompatActivity {
             date.setText(getDate());
 
 
-
-            
             //Select a random visit report subject
             if(rand == 1){
                 ch1.setChecked(true);
