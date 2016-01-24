@@ -13,7 +13,6 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.RemoveFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import retrofit.Call;
 import retrofit.Callback;
@@ -73,7 +72,6 @@ public class ControllerCra {
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Write your code here to execute after dialog closed
-                            Constants.getInstance().getCurrentBusInstance().post(new RemoveFragmentEvent());
                         }
                     });
 
@@ -100,7 +98,6 @@ public class ControllerCra {
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Write your code here to execute after dialog closed
-                            Constants.getInstance().getCurrentBusInstance().post(new RemoveFragmentEvent());
                         }
                     });
 
@@ -131,7 +128,6 @@ public class ControllerCra {
                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Write your code here to execute after dialog closed
-                        Constants.getInstance().getCurrentBusInstance().post(new RemoveFragmentEvent());
                     }
                 });
 
