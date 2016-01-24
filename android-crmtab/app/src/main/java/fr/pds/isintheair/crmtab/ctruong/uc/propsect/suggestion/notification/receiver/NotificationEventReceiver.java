@@ -19,7 +19,7 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver{
 
     private static final String ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE";
     private static final String ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION";
-    private static final int NOTIFICATION_INTERVAL = 7;
+    private static final int NOTIFICATION_INTERVAL = 5;
 
     @Override
     public void onReceive(Context context, Intent intent) {
