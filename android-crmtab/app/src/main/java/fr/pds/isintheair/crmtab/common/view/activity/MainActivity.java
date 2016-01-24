@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_passer_appel) {
             fragment = new ContactListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.container, fragment);
+            transaction.replace(R.id.container, fragment).addToBackStack(null);
             transaction.commit();
 
         } else if (id == R.id.nav_historiser_appel) {
