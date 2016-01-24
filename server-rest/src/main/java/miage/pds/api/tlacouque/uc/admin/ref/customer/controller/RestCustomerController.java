@@ -21,6 +21,8 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.SpringMongoConfig;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +38,8 @@ import java.util.List;
 @Controller
 public class RestCustomerController {
 
+    private static final Logger logger = LoggerFactory.getLogger(RestCustomerController.class);
+
     public RestCustomerController() {
     }
 
@@ -48,6 +52,7 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/hc/create/", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestCustomer createHealthCenter(@RequestBody MessageRestCustomer messageRestCustomer) {
+        logger.info("Create HealthCenter is called");
         boolean customerInserted = true;
         try {
             new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).save(messageRestCustomer.getHealthCenter());
@@ -56,6 +61,7 @@ public class RestCustomerController {
         }
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIsInserted(customerInserted);
+        logger.info("Is the healthcenter inserted : "+customerInserted);
         return responseRestCustomer;
     }
 
@@ -69,6 +75,7 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/indep/create/", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestCustomer createIndependant(@RequestBody MessageRestCustomer messageRestCustomer) {
+        logger.info("Create independant is called");
         boolean customerInserted = true;
         try {
             new IndependantDAO(MongoDatastoreConfig.getDataStore()).save(messageRestCustomer.getIndependant());
@@ -77,6 +84,7 @@ public class RestCustomerController {
     }
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         responseRestCustomer.setIsInserted(customerInserted);
+        logger.info("Is the independant inserted : "+customerInserted);
         return responseRestCustomer;
     }
 
@@ -87,13 +95,16 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/holding", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getHoldings() {
+        logger.info("Get holdings is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             final List<Holding> holdings = new HoldingDAO(MongoDatastoreConfig.getDataStore()).findAll();
             responseRestCustomer.setHoldings(holdings);
+            logger.info("Number of holding returned : "+responseRestCustomer.getHoldings().size());
         } catch (Exception e) {
             responseRestCustomer.setHoldings(null);
         }
+
         return responseRestCustomer;
     }
 
@@ -104,9 +115,11 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/purchasingcentral", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getPurchasingCentrals() {
+        logger.info("Get purchasing central is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setPurchasingCentrals(new PurchasingCentralDAO(MongoDatastoreConfig.getDataStore()).findAll());
+            logger.info("Number of purchasing central returned : "+responseRestCustomer.getPurchasingCentrals().size());
         } catch (Exception e) {
             responseRestCustomer.setPurchasingCentrals(null);
         }
@@ -120,12 +133,15 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/company", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getCompanies() {
+        logger.info("Get company is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setCompanies(new CompanyDAO(MongoDatastoreConfig.getDataStore()).findAll());
+            logger.info("Number of company returned : "+responseRestCustomer.getCompanies().size());
         } catch (Exception e) {
             responseRestCustomer.setCompanies(null);
         }
+
         return responseRestCustomer;
     }
 
@@ -135,12 +151,15 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/specialty", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getSpecialties() {
+        logger.info("Get specialty is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setSpecialties(new SpecialtyDAO(MongoDatastoreConfig.getDataStore()).findAll());
+            logger.info("Number of specialty returned : "+responseRestCustomer.getSpecialties().size());
         } catch (Exception e) {
             responseRestCustomer.setSpecialties(null);
         }
+
         return responseRestCustomer;
     }
 
@@ -152,12 +171,15 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/healthcenter/{iduser}", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getHealthCenters(@PathVariable String iduser) {
+        logger.info("Get health center is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            logger.info("Number of health center returned : "+responseRestCustomer.getHealthCenters().size());
         } catch (Exception e) {
             responseRestCustomer.setHealthCenters(null);
         }
+
         return responseRestCustomer;
     }
 
@@ -169,12 +191,15 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/independant/{iduser}", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getIndependants(@PathVariable String iduser) {
+        logger.info("Get independant is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            logger.info("Number of independant returned : "+responseRestCustomer.getIndependants().size());
         } catch (Exception e) {
             responseRestCustomer.setIndependants(null);
         }
+
          return responseRestCustomer;
     }
 
@@ -186,14 +211,17 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/{iduser}", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getCustomers(@PathVariable String iduser) {
+        logger.info("Get customers is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
             responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            logger.info("Number of independant returned : "+responseRestCustomer.getIndependants().size());
         } catch (Exception e) {
             responseRestCustomer.setHealthCenters(null);
             responseRestCustomer.setIndependants(null);
         }
+
        return responseRestCustomer;
     }
 
