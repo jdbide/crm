@@ -1,16 +1,20 @@
 package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity;
 
+
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.DeviceType;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
 
 public class MessageMeta {
+    private DeviceType  deviceType;
+    private String      errorDescription;
     private MessageType messageType;
-    private Integer statusCode;
-    private String errorDescription;
+    private Integer     statusCode;
 
     public MessageMeta(MessageMetaBuilder messageMetaBuilder) {
+        this.deviceType = messageMetaBuilder.deviceType;
+        this.errorDescription = messageMetaBuilder.errorDescription;
         this.messageType = messageMetaBuilder.messageType;
         this.statusCode = messageMetaBuilder.statusCode;
-        this.errorDescription = messageMetaBuilder.errorDescription;
     }
 
     public Integer getStatusCode() {
@@ -37,10 +41,31 @@ public class MessageMeta {
         this.messageType = messageType;
     }
 
+    public DeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
+    }
+
     public static class MessageMetaBuilder {
+        private DeviceType  deviceType;
+        private String      errorDescription;
         private MessageType messageType;
-        private Integer statusCode;
-        private String errorDescription;
+        private Integer     statusCode;
+
+        public MessageMetaBuilder addDeviceType(DeviceType deviceType) {
+            this.deviceType = deviceType;
+
+            return this;
+        }
+
+        public MessageMetaBuilder addErrorDescription(String errorDescription) {
+            this.errorDescription = errorDescription;
+
+            return this;
+        }
 
         public MessageMetaBuilder addMessageType(MessageType messageType) {
             this.messageType = messageType;
@@ -50,12 +75,6 @@ public class MessageMeta {
 
         public MessageMetaBuilder addStatusCode(Integer statusCode) {
             this.statusCode = statusCode;
-
-            return this;
-        }
-
-        public MessageMetaBuilder addErrorDescription(String errorDescription) {
-            this.errorDescription = errorDescription;
 
             return this;
         }

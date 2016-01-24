@@ -1,18 +1,15 @@
-package fr.pds.isintheair.controller;
+package fr.pds.isintheair.jdatour.uc.phone.call.receive.controller;
 
-import fr.pds.isintheair.PeerHandlerSingleton;
-import fr.pds.isintheair.entity.Call;
-import fr.pds.isintheair.enumeration.PeerType;
+import fr.pds.isintheair.jdatour.uc.phone.call.receive.enumeration.DeviceType;
+import fr.pds.isintheair.jdatour.uc.phone.call.receive.peer.PeerHandlerSingleton;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class CallControllerTest {
@@ -29,11 +26,11 @@ public class CallControllerTest {
 
         peerHandlerSingleton = spy(PeerHandlerSingleton.getInstance());
 
-        peerHandlerSingleton.addPeer(PeerType.PHONE, 42, phoneSession);
-        peerHandlerSingleton.addPeer(PeerType.TABLET, 42, tabletSession);
+        peerHandlerSingleton.addPeer(DeviceType.PHONE, 42, phoneSession);
+        peerHandlerSingleton.addPeer(DeviceType.TABLET, 42, tabletSession);
 
         when(phoneSession.getBasicRemote()).thenReturn(Mockito.mock(RemoteEndpoint.Basic.class));
-        doReturn(42).when(peerHandlerSingleton).findPeerUserId(PeerType.TABLET, tabletSession);
+        doReturn(42).when(peerHandlerSingleton).findPeerUserId(DeviceType.TABLET, tabletSession);
 
         CallController.call(tabletSession, "0610772364");
 

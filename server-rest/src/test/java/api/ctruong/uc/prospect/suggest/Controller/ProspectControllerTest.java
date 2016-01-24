@@ -1,30 +1,15 @@
 package api.ctruong.uc.prospect.suggest.Controller;
 
-import com.mongodb.MongoClient;
-import miage.pds.api.ctruong.uc.prospect.suggest.controller.*;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
-import org.junit.Before;
-import org.junit.Test;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import static org.junit.Assert.*;
-
-import java.util.*;
-
 /**
  * The unit test for the class prospect controller
- *
+ * <p>
  * Created by Truong on 12/20/2015.
+ *
  * @version 1.1.19
  * @serial 111912202015
  */
 public class ProspectControllerTest {
-    private static final Logger         log = LoggerFactory.getLogger(ProspectControllerTest.class);
+/*    private static final Logger         log = LoggerFactory.getLogger(ProspectControllerTest.class);
     private MongoClient                 mongoClient;
     private Morphia                     morphia;
     private ProspectController prospectController;
@@ -156,5 +141,5 @@ public class ProspectControllerTest {
         }
         double      average   = sum /count;
         assertTrue(average == prospectController.getSalesAverage());
-    }
+    } */
 }

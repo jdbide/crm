@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * @serial 111912202015
  */
 public class UserClientRelationDAOImplTest {
-    private MongoClient                 mongoClient;
+/*    private MongoClient                 mongoClient;
     private Morphia                     morphia;
     private UserClientRelationDAOImpl   userClientRelationDAO;
     private final String                dbname      = "crm";
@@ -56,5 +56,5 @@ public class UserClientRelationDAOImplTest {
     @Test
     public void testCheckRelation() throws Exception {
         assertTrue(userClientRelationDAO.checkRelation(1,1));
-    }
+    } */
 }

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class SalesDAOImplTest {
 
-    private final static Logger log         = LoggerFactory.getLogger(SalesDAOImplTest.class);
+ /*   private final static Logger log         = LoggerFactory.getLogger(SalesDAOImplTest.class);
     private MongoClient         mongoClient;
     private Morphia             morphia;
     private SalesDAOImpl        salesDAO;
@@ -61,5 +61,5 @@ public class SalesDAOImplTest {
         List<Sales> sales= salesDAO.createQuery().field("idClient").equal(idClient).asList();
         assertNotNull(sales);
         assertEquals(sales.size(), salesDAO.getSalesByIDClient(idClient).size());
-    }
+    } */
 }

@@ -44,7 +44,6 @@ public class CallController {
         }
         catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             //TODO handle exception
-            e.printStackTrace();
         }
     }
 }
