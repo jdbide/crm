@@ -28,20 +28,19 @@ import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.rece
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.SchedulerActivity;
 
 
-
 /**
  * Created by jbide on 22/01/2016.
  */
 
 public class LoginActivity extends Activity {
     @Bind(R.id.loginemail)
-    EditText          mail;
+    EditText mail;
     @Bind(R.id.loginpassword)
-    EditText          pass;
+    EditText pass;
     @Bind(R.id.btnSuivant)
-    Button            con;
+    Button con;
     @Bind(R.id.loadingPanel)
-    RelativeLayout    loading;
+    RelativeLayout loading;
     @Bind(R.id.LogincoordinatorLayout)
     CoordinatorLayout coordlayout;
 
@@ -51,11 +50,11 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
 
-        SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         //Test if user is already logged(data id is in sharedpreferences)
         if (!prefs.getString("id", "").equals(""))
@@ -70,7 +69,7 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
 
                 User user = new User();
-                String credentials = mail.getText().toString()+":" + pass.getText().toString();
+                String credentials = mail.getText().toString() + ":" + pass.getText().toString();
                 byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
                 final String basic =
                         Base64.encodeToString(data, Base64.NO_WRAP);
@@ -82,12 +81,8 @@ public class LoginActivity extends Activity {
             }
         });
 
-                //TODO Remove it and uncomment
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-            }
-        });
-
+        //TODO Remove it and uncomment
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         NotificationEventReceiver.setUpAlarm(getApplicationContext());
 
     }
