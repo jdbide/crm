@@ -70,7 +70,7 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
     @Column
     int     holdingId;
     @Column
-    int     idUser;
+    String     idUser;
 
     public HealthCenter() {
     }
@@ -94,7 +94,7 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
         etablishmentType = in.readString();
         purchasingCentralId = in.readInt();
         holdingId = in.readInt();
-        idUser = in.readInt();
+        idUser = in.readString();
     }
 
     public String getName() {
@@ -257,11 +257,11 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
                            .where(PurchasingCentral_Table.id.is(purchasingCentralId)).querySingle();
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
@@ -295,6 +295,6 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
         dest.writeString(etablishmentType);
         dest.writeInt(purchasingCentralId);
         dest.writeInt(holdingId);
-        dest.writeInt(idUser);
+        dest.writeString(idUser);
     }
 }

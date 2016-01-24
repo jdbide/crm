@@ -1,26 +1,39 @@
 package fr.pds.isintheair.crmtab.common.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 
-public class LoginActivity extends Activity {
-    @Bind(R.id.txtPhone)
-    EditText phone;
-    @Bind(R.id.txtMdp)
-    EditText mdp;
 
-    @OnClick(R.id.btnSuivant)
-    public void onButtonNextClick() {
-        login();
-    }
+/**
+ * Created by jbide on 22/01/2016.
+ */
+
+public class LoginActivity extends Activity {
+    @Bind(R.id.loginemail)
+    EditText          mail;
+    @Bind(R.id.loginpassword)
+    EditText          pass;
+    @Bind(R.id.btnSuivant)
+    Button            con;
+    @Bind(R.id.loadingPanel)
+    RelativeLayout    loading;
+    @Bind(R.id.LogincoordinatorLayout)
+    CoordinatorLayout coordlayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +42,36 @@ public class LoginActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                              WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+
+
+        SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        //Test if user is already logged(data id is in sharedpreferences)
+        if (prefs.getString("id", "") != "")
+            startActivity(new Intent(this, MainActivity.class));
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
-    }
+        loading.setVisibility(View.GONE);
 
-    public void login() {
+        con.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                User user = new User();
+                String credentials = mail.getText().toString()+":" + pass.getText().toString();
+                byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
+                final String basic =
+                        Base64.encodeToString(data, Base64.NO_WRAP);
+                user.setPassword(basic);
+                login(user, getApplicationContext(), loading, coordlayout);
+                loading.setVisibility(View.VISIBLE);
+                */
 
-        /*User user = null;
-                Methods loginService =
-                ServiceGenerator.createService(Methods.class, 123456789, "password");
-        Call<User> call = null;
-        try {
-            call = loginService.basicLogin();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-          user =  call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                //TODO Remove it and uncomment
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+        });
 
-        Log.v("login", user != null ? user.toString() : null);*/
     }
 }

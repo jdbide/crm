@@ -10,6 +10,10 @@
 		</layout>
 	</appender>
 	
+
+
+
+
 	<!-- Application Loggers -->
 	<logger name="miage.pds.api">
 		<level value="info" />

@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,7 +23,7 @@ import java.util.List;
 
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Methods;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import retrofit.Call;
@@ -39,24 +41,22 @@ import retrofit.Retrofit;
 public class DisplayCallLogFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount;
     private List<Cra> listecra;
     private OnListFragmentInteractionListener mListener;
     private CallLogRecyclerViewAdapter adapter;
+    private Context context;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public DisplayCallLogFragment() {
+    public DisplayCallLogFragment(Context mcontext) {
+        context = mcontext;
     }
 
     // initialization
-    public static DisplayCallLogFragment newInstance(int columnCount) {
-        DisplayCallLogFragment fragment = new DisplayCallLogFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
+    public static DisplayCallLogFragment newInstance(Context mcontext) {
+        DisplayCallLogFragment fragment = new DisplayCallLogFragment(mcontext);
         return fragment;
     }
 
@@ -65,10 +65,6 @@ public class DisplayCallLogFragment extends Fragment {
         super.onCreate(savedInstanceState);
         listecra = new ArrayList<Cra>();
         adapter = new CallLogRecyclerViewAdapter(listecra, mListener);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
 
         Gson gson = new GsonBuilder().create();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -85,7 +81,7 @@ public class DisplayCallLogFragment extends Fragment {
                 .build();
 
         Methods service = retrofit.create(Methods.class);
-        Call<List<Cra>> call = service.listcraforuser(Constants.getInstance().getCurrentUser().getTel());
+        Call<List<Cra>> call = service.listcraforuser(Constants.getInstance().getCurrentUser().getId());
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
@@ -109,15 +105,15 @@ public class DisplayCallLogFragment extends Fragment {
 
                 } else {
                     Log.v("listcraforuser", "no rep");
-                    //Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
                 }
-
+                Toast.makeText(context, "status code" + response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("listcraforuser Failure", t.getMessage());
+                Log.v("listcraforuser Failure", "msg = " + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -132,12 +128,7 @@ public class DisplayCallLogFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             //set adapter
             recyclerView.setAdapter(adapter);
 
@@ -177,7 +168,7 @@ public class DisplayCallLogFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // TODO: Update argument type and firstName
         void onListFragmentInteraction(Cra item);
     }
 }

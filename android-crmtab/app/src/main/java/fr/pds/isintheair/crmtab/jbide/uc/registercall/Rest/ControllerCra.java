@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,10 +12,10 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.RemoveFragmentEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.RemoveFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.User;
+import fr.pds.isintheair.crmtab.common.model.User;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -84,7 +85,6 @@ public class ControllerCra {
                     //request not successful (like 400,401,403 etc)
                     //Handle errors
                     Log.v("rest", "no rep" + response.message());
-                    Log.v("ok", "cra enregistre");
                     AlertDialog alertDialog = new AlertDialog.Builder(
                             context).create();
 
@@ -109,12 +109,14 @@ public class ControllerCra {
                     alertDialog.show();
 
                 }
+                Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("Failure", t.getMessage());
+                Log.v("Failure", "msg = " + t.getMessage());
+
                 AlertDialog alertDialog = new AlertDialog.Builder(
                         context).create();
 
@@ -122,7 +124,7 @@ public class ControllerCra {
                 alertDialog.setTitle("Statut Compte-rendu");
 
                 // Setting Dialog Message
-                alertDialog.setMessage("Compte-rendu non enregistré : Serveur indisponible");
+                alertDialog.setMessage("Compte-rendu non enregistré : Serveur injoignable");
                 // Setting Icon to Dialog
                 alertDialog.setIcon(R.drawable.no_tick);
 
@@ -136,46 +138,6 @@ public class ControllerCra {
 
                 // Showing Alert Message
                 alertDialog.show();
-            }
-        });
-
-    }
-
-    public static void hasAccount(User user, final Activity context) {
-
-        User result = null;
-
-        //Interceptor
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient httpClient = new OkHttpClient();
-        // add logging as last interceptor
-        httpClient.interceptors().add(logging);
-
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.getInstance().getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(httpClient)
-                .build();
-
-        Methods service = retrofit.create(Methods.class);
-        Call<User> call = service.basicLogin(user);
-
-
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Response<User> response, Retrofit retrofit) {
-                User result = response.body();
-                Log.v("result", "ooooooook");
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.v("fail", "fail");
             }
         });
 

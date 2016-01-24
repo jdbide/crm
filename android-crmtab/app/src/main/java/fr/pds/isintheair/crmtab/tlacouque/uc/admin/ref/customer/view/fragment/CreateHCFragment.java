@@ -33,6 +33,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
@@ -231,7 +232,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
         healthCenter.setWebSite(webSite.getText().toString());
         healthCenter.setOrigin("Prospection");
-        healthCenter.setIdUser(ListCustomerFragment.idUser);
+        healthCenter.setIdUser(Constants.getInstance().getCurrentUser().getId());
         healthCenter.setEtablishmentType(etablishmentType.getSelectedItem().toString());
         if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Oui"))
             healthCenter.setIsPublic(true);

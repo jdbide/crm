@@ -16,11 +16,10 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.CallType;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.DisplayAddLogFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Objects.Events.PendingCallLogEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.PendingCallLogEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 
 
 /**

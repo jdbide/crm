@@ -34,6 +34,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company_Table;
@@ -257,7 +258,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
         independant.setOrigin("Prospection");
         independant.setIndependantType(independantType.getSelectedItem().toString());
         independant.setLongTermFidelity(getIntFromRadiogroup(longTermFidelity));
-        independant.setIdUser(ListCustomerFragment.idUser);
+        independant.setIdUser(Constants.getInstance().getCurrentUser().getId());
         if(specialty.getSelectedItem() != null) {
             Specialty specialtyInit = new Select().from(Specialty.class)
                     .where(Specialty_Table.name.is(specialty.getSelectedItem().toString())).querySingle();

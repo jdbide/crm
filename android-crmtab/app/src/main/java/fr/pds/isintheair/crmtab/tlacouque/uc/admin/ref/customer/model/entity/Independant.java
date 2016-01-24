@@ -64,7 +64,7 @@ public class Independant extends BaseModel implements Customer, Parcelable {
     @Column
     int    companyId;
     @Column
-    int    idUser;
+    String    idUser;
 
     public Independant() {
     }
@@ -85,7 +85,7 @@ public class Independant extends BaseModel implements Customer, Parcelable {
         independantType = in.readString();
         specialtyId = in.readInt();
         companyId = in.readInt();
-        idUser = in.readInt();
+        idUser = in.readString();
     }
 
     public String getName() {
@@ -223,11 +223,11 @@ public class Independant extends BaseModel implements Customer, Parcelable {
                            .where(Company_Table.id.is(companyId)).querySingle();
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
@@ -258,6 +258,6 @@ public class Independant extends BaseModel implements Customer, Parcelable {
         dest.writeString(independantType);
         dest.writeInt(specialtyId);
         dest.writeInt(companyId);
-        dest.writeInt(idUser);
+        dest.writeString(idUser);
     }
 }

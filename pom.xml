@@ -10,6 +10,7 @@
 
     <modules>
         <module>server-notification</module>
+        <module>server-rest</module>
     </modules>
 
 </project>
