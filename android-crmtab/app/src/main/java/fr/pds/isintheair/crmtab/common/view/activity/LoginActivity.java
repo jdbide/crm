@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,9 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import java.nio.charset.StandardCharsets;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.User;
+
+import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 
 /**
@@ -57,7 +63,7 @@ public class LoginActivity extends Activity {
         con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
+
                 User user = new User();
                 String credentials = mail.getText().toString()+":" + pass.getText().toString();
                 byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
@@ -66,10 +72,9 @@ public class LoginActivity extends Activity {
                 user.setPassword(basic);
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
-                */
 
-                //TODO Remove it and uncomment
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+
             }
         });
 
