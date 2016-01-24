@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 
+
 import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 
@@ -56,31 +57,25 @@ public class LoginActivity extends Activity {
         if (!prefs.getString("id", "").equals(""))
             startActivity(new Intent(this, MainActivity.class));
 
-        else {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-            ButterKnife.bind(this);
-            loading.setVisibility(View.GONE);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        ButterKnife.bind(this);
+        loading.setVisibility(View.GONE);
 
-            con.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        con.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    User   user        = new User();
-                    String credentials = mail.getText().toString() + ":" + pass.getText().toString();
-                    byte[] data        = credentials.getBytes(StandardCharsets.UTF_8);
-                    final String basic =
-                            Base64.encodeToString(data, Base64.NO_WRAP);
-                    user.setPassword(basic);
-                    login(user, getApplicationContext(), loading, coordlayout);
+                User user = new User();
+                String credentials = mail.getText().toString()+":" + pass.getText().toString();
+                byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
+                final String basic =
+                        Base64.encodeToString(data, Base64.NO_WRAP);
+                user.setPassword(basic);
+                login(user, getApplicationContext(), loading, coordlayout);
+                loading.setVisibility(View.VISIBLE);
 
-                    user.setEmail(mail.getText().toString());
-                    user.save();
-
-                    loading.setVisibility(View.VISIBLE);
-                }
-            });
-
-        }
+            }
+        });
     }
 
 }

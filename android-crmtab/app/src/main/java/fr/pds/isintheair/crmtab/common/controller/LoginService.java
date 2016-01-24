@@ -70,6 +70,10 @@ public class LoginService {
                         editor.putString("password", rep.getPassword());
                         editor.putString("id", rep.getId());
                         editor.commit();
+
+                        User user = new User();
+                        user.setEmail(rep.getEmail());
+                        user.save();
                     }
 
                     final Intent intent = new Intent(context, CallService.class);

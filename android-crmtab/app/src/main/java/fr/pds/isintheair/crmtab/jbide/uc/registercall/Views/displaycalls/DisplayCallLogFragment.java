@@ -44,19 +44,25 @@ public class DisplayCallLogFragment extends Fragment {
     private List<Cra> listecra;
     private OnListFragmentInteractionListener mListener;
     private CallLogRecyclerViewAdapter adapter;
-    private Context context;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public DisplayCallLogFragment(Context mcontext) {
-        context = mcontext;
+    public DisplayCallLogFragment() {
+
     }
 
+    public DisplayCallLogFragment(Context mcontext) {
+    }
+    /*public DisplayCallLogFragment(Context mcontext) {
+        context = mcontext;
+    }*/
+
     // initialization
-    public static DisplayCallLogFragment newInstance(Context mcontext) {
-        DisplayCallLogFragment fragment = new DisplayCallLogFragment(mcontext);
+    public static DisplayCallLogFragment newInstance() {
+        DisplayCallLogFragment fragment = new DisplayCallLogFragment();
         return fragment;
     }
 
@@ -106,14 +112,14 @@ public class DisplayCallLogFragment extends Fragment {
                 } else {
                     Log.v("listcraforuser", "no rep");
                 }
-                Toast.makeText(context, "status code" + response.message(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "status code" + response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
                 Log.v("listcraforuser Failure", "msg = " + t.getMessage());
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
