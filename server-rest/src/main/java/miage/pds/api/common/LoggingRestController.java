@@ -38,7 +38,7 @@ public class LoggingRestController {
 		
 		//Mock Cra
 	    Cra newCra = new Cra();
-	    newCra.setCalltype("Reçu");
+	    newCra.setCalltype("Recu");
 	    newCra.setClientname("CH HENRI MONDOR");
 	    newCra.setComments("Les rappeler lorsque nouveaux produits disponibles");
 	    newCra.setDate("23 janv 2016");
@@ -51,7 +51,7 @@ public class LoggingRestController {
 	    
 	    newCra = new Cra();
 	    newCra.setCalltype("Emis");
-	    newCra.setClientname("CS Daniel Renoult à Montreuil");
+	    newCra.setClientname("CS Daniel Renoult et Montreuil");
 	    newCra.setComments("Nouveaux types de compresses");
 	    newCra.setDate("23 janv 2016");
 	    newCra.setDuration((long) 1234);
