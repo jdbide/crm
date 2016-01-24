@@ -9,11 +9,7 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company_Table;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty_Table;
-import fr.pds.isintheair.crmtab.common.model.OrmTabDataBase;
-//import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding$Table;
-//import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral$Table;
+import fr.pds.isintheair.crmtab.common.model.database.OrmTabDataBase;
 
 /**
  * Created by tlacouque on 27/12/2015.
@@ -64,7 +60,7 @@ public class Independant extends BaseModel implements Customer, Parcelable {
     @Column
     int    companyId;
     @Column
-    String    idUser;
+    String idUser;
 
     public Independant() {
     }

@@ -21,20 +21,12 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
-
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.ListCustomerFragment;
-
-import fr.pds.isintheair.crmtab.common.model.User;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
-
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
-
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
@@ -44,7 +36,10 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.ClientListFragment;
-
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.ListCustomerFragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -52,11 +47,10 @@ public class MainActivity extends AppCompatActivity
         PendingLogsFragment.OnListFragmentInteractionListener, CreateCustomerAlertDialog.AlertPositiveListener,
         ListCustomerFragment.OnListFragmentInteractionListener {
 
+    Toolbar toolbar;
     // UC Register a call
     private PendingLogsFragment pend;
-
     private Bus bus;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +86,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        MainLogoFragment mainLogoFragment = new MainLogoFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        MainLogoFragment    mainLogoFragment = new MainLogoFragment();
+        FragmentTransaction transaction      = getFragmentManager().beginTransaction();
         transaction.replace(R.id.container, mainLogoFragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -148,7 +142,8 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.container, fragment).addToBackStack(null);
             transaction.commit();
 
-        } else if (id == R.id.nav_historiser_appel) {
+        }
+        else if (id == R.id.nav_historiser_appel) {
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "062464621334"));
             bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "06206754321"));
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0696396908"));
@@ -156,21 +151,20 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_lister_appel) {
-
             fragment = DisplayCallLogFragment.newInstance() ;
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
             ft.replace(R.id.container, fragment, "FRAGMENT_LISTE_CRA").addToBackStack(null).commit();
-
-
-        }else if (id == R.id.nav_editer_crv) {
+        }
+        else if (id == R.id.nav_editer_crv) {
             ClientListFragment clientListFragment = new ClientListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.container, clientListFragment);
             transaction.addToBackStack(null);
             transaction.commit();
 
-        } else if (id == R.id.nav_ref_client) {
+        }
+        else if (id == R.id.nav_ref_client) {
             // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
             // setSupportActionBar(toolbar);
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -178,7 +172,8 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.addToBackStack("menu");
             fragmentTransaction.commit();
 
-        } else if (id == R.id.nav_envoyer_sms) {
+        }
+        else if (id == R.id.nav_envoyer_sms) {
 
         }
 
@@ -198,10 +193,10 @@ public class MainActivity extends AppCompatActivity
 
     @Subscribe
     public void showpopup(DisplayPopUpFragment event) {
-            PopUpFragment pop = PopUpFragment.newInstance(event);
-            pop.show(getFragmentManager(), "dialog");
-            //make popup not cancellable
-            pop.setCancelable(false);
+        PopUpFragment pop = PopUpFragment.newInstance(event);
+        pop.show(getFragmentManager(), "dialog");
+        //make popup not cancellable
+        pop.setCancelable(false);
     }
 
     @Subscribe
@@ -230,7 +225,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //No call for super(). Bug on API Level > 11.
@@ -241,7 +235,8 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
-        }else{
+        }
+        else {
 
             MainLogoFragment mainLogoFragment = new MainLogoFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();

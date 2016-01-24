@@ -2,7 +2,6 @@ package fr.pds.isintheair.crmtab.common;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -15,7 +14,6 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.common.model.database.dao.ContactDAO;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CallService;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.helper.JSONHelper;
 
 public class CrmTabApplication extends Application {
@@ -33,8 +31,7 @@ public class CrmTabApplication extends Application {
     }
 
     private void launchServices() {
-        final Intent intent = new Intent(this, CallService.class);
-        startService(intent);
+
     }
 
     private void generateMockedContactsIfNeeded() {

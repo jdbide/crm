@@ -19,7 +19,8 @@ import java.nio.charset.StandardCharsets;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.User;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
+
 
 import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
@@ -53,7 +54,7 @@ public class LoginActivity extends Activity {
         SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         //Test if user is already logged(data id is in sharedpreferences)
-        if (prefs.getString("id", "") != "")
+        if (!prefs.getString("id", "").equals(""))
             startActivity(new Intent(this, MainActivity.class));
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -73,10 +74,8 @@ public class LoginActivity extends Activity {
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
 
-
-
             }
         });
-
     }
+
 }

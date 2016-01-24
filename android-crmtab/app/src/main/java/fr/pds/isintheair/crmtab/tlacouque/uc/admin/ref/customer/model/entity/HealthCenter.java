@@ -9,9 +9,7 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import fr.pds.isintheair.crmtab.common.model.OrmTabDataBase;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding_Table;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral_Table;
+import fr.pds.isintheair.crmtab.common.model.database.OrmTabDataBase;
 
 
 /**
@@ -70,7 +68,7 @@ public class HealthCenter extends BaseModel implements Customer, Parcelable {
     @Column
     int     holdingId;
     @Column
-    String     idUser;
+    String  idUser;
 
     public HealthCenter() {
     }

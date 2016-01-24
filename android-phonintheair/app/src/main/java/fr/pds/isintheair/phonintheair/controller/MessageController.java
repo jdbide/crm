@@ -1,5 +1,6 @@
 package fr.pds.isintheair.phonintheair.controller;
 
+import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 import fr.pds.isintheair.phonintheair.model.entity.Call;
 import fr.pds.isintheair.phonintheair.model.entity.Message;
 import fr.pds.isintheair.phonintheair.model.entity.MessageMeta;
@@ -50,7 +51,8 @@ public class MessageController {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_PHONE)
                                                                       .build();
 
-        Register register = new Register(42);
+        Integer  userId   = SharedPreferencesHelper.readInteger("userId", 0);
+        Register register = new Register(userId);
 
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(
                 register).build();

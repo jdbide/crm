@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.common.model;
+package fr.pds.isintheair.crmtab.common.model.database;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 
