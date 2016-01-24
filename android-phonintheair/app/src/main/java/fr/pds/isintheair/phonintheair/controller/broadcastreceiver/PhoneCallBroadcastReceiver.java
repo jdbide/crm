@@ -7,34 +7,44 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import fr.pds.isintheair.phonintheair.controller.MessageController;
+import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
+import fr.pds.isintheair.phonintheair.model.enumeration.MessageType;
 
-/**
- * Broadcast receiver to handle outgoing and incoming calls
- */
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 01/24/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
     private String TAG = getClass().getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Intent.ACTION_NEW_OUTGOING_CALL.equals(intent.getAction())) {
-            Log.d(TAG, "Outgoing call");
-        }
-        else {
-            String state = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
+        String lastMessage = SharedPreferencesHelper.readString("lastMessage", "");
+        String state       = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
 
-            Log.d(TAG, "State : " + state);
+        Log.d(TAG, "State : " + state);
 
-            if (state != null && state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                String phoneNumber = intent.getExtras()
-                                           .getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
+        if (state != null) {
+            String phoneNumber = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
-                Log.d(TAG, "Receiving call from : " + phoneNumber);
+            Log.d(TAG, "Phone number : " + phoneNumber);
 
+            if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && !lastMessage.equals(MessageType.CALL.toString())) {
+                MessageController.sendCallPassedMessage(phoneNumber);
+            }
+
+            else if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 MessageController.sendCallReceivedMessage(phoneNumber);
             }
 
-            else if (state != null && state.equals(TelephonyManager.EXTRA_STATE_IDLE))
+            else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 MessageController.sendEndCallMessage();
+            }
+
+            SharedPreferencesHelper.writeString("lastMessage", "");
         }
     }
 }

@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.model.enumeration;
+package fr.pds.isintheair.jdatour.uc.phone.call.receive.enumeration;
 
 public enum MessageType {
     CALL,

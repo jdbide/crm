@@ -17,6 +17,7 @@ import fr.pds.isintheair.crmtab.common.model.database.OrmTabDataBase;
 @Table(database = OrmTabDataBase.class)
 public class Independant extends BaseModel implements Customer, Parcelable {
 
+
     public static final Creator<Independant> CREATOR = new Creator<Independant>() {
         @Override
         public Independant createFromParcel(Parcel in) {

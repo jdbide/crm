@@ -1,4 +1,4 @@
-package fr.pds.isintheair.entity;
+package fr.pds.isintheair.jdatour.uc.phone.call.receive.entity;
 
 public class Register {
     private Integer userId;

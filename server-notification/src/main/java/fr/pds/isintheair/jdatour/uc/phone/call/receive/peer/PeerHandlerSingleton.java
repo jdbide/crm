@@ -1,8 +1,8 @@
-package fr.pds.isintheair;
+package fr.pds.isintheair.jdatour.uc.phone.call.receive.peer;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import fr.pds.isintheair.enumeration.PeerType;
+import fr.pds.isintheair.jdatour.uc.phone.call.receive.enumeration.DeviceType;
 
 import javax.websocket.Session;
 
@@ -24,8 +24,8 @@ public class PeerHandlerSingleton {
         return INSTANCE;
     }
 
-    public synchronized void addPeer(PeerType peerType, Integer userId, Session session) {
-        switch (peerType) {
+    public synchronized void addPeer(DeviceType deviceType, Integer userId, Session session) {
+        switch (deviceType) {
             case PHONE:
                 phonePeer.put(userId, session);
                 break;
@@ -35,8 +35,8 @@ public class PeerHandlerSingleton {
         }
     }
 
-    public synchronized Session findPeerSession(PeerType peerType, Integer userId) {
-        switch (peerType) {
+    public synchronized Session findPeerSession(DeviceType deviceType, Integer userId) {
+        switch (deviceType) {
             case PHONE:
                 return phonePeer.get(userId);
             case TABLET:
@@ -46,8 +46,8 @@ public class PeerHandlerSingleton {
         return null;
     }
 
-    public synchronized Integer findPeerUserId(PeerType peerType, Session session) {
-        switch (peerType) {
+    public synchronized Integer findPeerUserId(DeviceType deviceType, Session session) {
+        switch (deviceType) {
             case PHONE:
                 return phonePeer.inverse().get(session);
             case TABLET:

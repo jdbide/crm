@@ -19,14 +19,6 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
     @Override
     public void onClose(int code, String reason) {
         Log.d(TAG, "Session closed with code : " + code + " with reason : " + reason);
-
-        try {
-            Thread.sleep(10000);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         WebSocketConnectionHandlerSingleton.getInstance().connect();
     }
 
@@ -34,10 +26,8 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
     public void onTextMessage(String payload) {
         Log.d(TAG, "Message received : " + payload);
 
-        //TODO Remove "Bonjour" -> here to test that server responds in dev environnement
-        if (!payload.isEmpty() && !payload.equals("Bonjour"))
-            MessageController.handleMessage((Message) JSONHelper.deserialize(payload,
-                                                                             Message.class));
+        if (!payload.isEmpty())
+            MessageController.handleMessage((Message) JSONHelper.deserialize(payload, Message.class));
     }
 }
 

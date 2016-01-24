@@ -6,9 +6,13 @@ import android.content.Intent;
 
 import fr.pds.isintheair.phonintheair.controller.service.CallService;
 
-/**
- * Allows to launch service at android startup
- */
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 01/24/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class BootServiceBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -12,14 +12,14 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
 
     @Override
     public void onOpen() {
-        //Log.d(TAG, "Session opened");
+        Log.d(TAG, "Session opened");
 
         MessageController.sendRegisterMessage();
     }
 
     @Override
     public void onClose(int code, String reason) {
-        //Log.d(TAG, "Session closed with code : " + code + " with reason : " + reason);
+        Log.d(TAG, "Session closed with code : " + code + " with reason : " + reason);
         WebSocketConnectionHandlerSingleton.getInstance().connect();
     }
 
@@ -27,10 +27,8 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
     public void onTextMessage(String payload) {
         Log.d(TAG, "Message received : " + payload);
 
-        //TODO Remove "Bonjour" -> here to test that server responds in dev environnement
-        if (!payload.isEmpty() && !payload.equals("Bonjour"))
+        if (!payload.isEmpty())
             MessageController.handleMessage((Message) JSONHelper.deserialize(payload,
                                                                              Message.class));
     }
 }
-

@@ -1,14 +1,13 @@
-package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity;
+package fr.pds.isintheair.jdatour.uc.phone.call.receive.entity;
 
-
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.DeviceType;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
+import fr.pds.isintheair.jdatour.uc.phone.call.receive.enumeration.DeviceType;
+import fr.pds.isintheair.jdatour.uc.phone.call.receive.enumeration.MessageType;
 
 public class MessageMeta {
-    private DeviceType  deviceType;
-    private String      errorDescription;
+    private DeviceType deviceType;
+    private String errorDescription;
     private MessageType messageType;
-    private Integer     statusCode;
+    private Integer statusCode;
 
     public MessageMeta(MessageMetaBuilder messageMetaBuilder) {
         this.deviceType = messageMetaBuilder.deviceType;
@@ -50,10 +49,10 @@ public class MessageMeta {
     }
 
     public static class MessageMetaBuilder {
-        private DeviceType  deviceType;
-        private String      errorDescription;
+        private DeviceType deviceType;
+        private String errorDescription;
         private MessageType messageType;
-        private Integer     statusCode;
+        private Integer statusCode;
 
         public MessageMetaBuilder addDeviceType(DeviceType deviceType) {
             this.deviceType = deviceType;
