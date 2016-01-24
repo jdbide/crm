@@ -27,7 +27,7 @@ public class DAO {
 	DB db;
 	Long count;
 	Morphia morphia;
-	Datastore datastore;
+	public Datastore datastore;
 
 	public DAO() {
 	}
