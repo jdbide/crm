@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_lister_appel) {
 
-            fragment = DisplayCallLogFragment.newInstance(this) ;
+            fragment = DisplayCallLogFragment.newInstance() ;
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
             ft.replace(R.id.container, fragment, "FRAGMENT_LISTE_CRA").addToBackStack(null).commit();
