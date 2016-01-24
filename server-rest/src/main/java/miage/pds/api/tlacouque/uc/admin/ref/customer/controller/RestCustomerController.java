@@ -5,6 +5,7 @@ import com.mongodb.MongoClient;
 
 import miage.pds.MongoConfig;
 
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HealthCenterDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HoldingDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.PurchasingCentralDAO;
@@ -35,10 +36,6 @@ import java.util.List;
 @Controller
 public class RestCustomerController {
 
-    static Datastore datastore;
-
-    static final Morphia morphia = new Morphia();
-
     public RestCustomerController() {
     }
 
@@ -51,10 +48,14 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/hc/create/", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestCustomer createHealthCenter(@RequestBody MessageRestCustomer messageRestCustomer) {
-        new HealthCenterDAO(getDataStore()).save(messageRestCustomer.getHealthCenter());
-
+        boolean customerInserted = true;
+        try {
+            new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).save(messageRestCustomer.getHealthCenter());
+        } catch (Exception e) {
+            customerInserted = false;
+        }
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setIsInserted(true);
+        responseRestCustomer.setIsInserted(customerInserted);
         return responseRestCustomer;
     }
 
@@ -68,9 +69,14 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/indep/create/", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestCustomer createIndependant(@RequestBody MessageRestCustomer messageRestCustomer) {
-        new IndependantDAO(getDataStore()).save(messageRestCustomer.getIndependant());
+        boolean customerInserted = true;
+        try {
+            new IndependantDAO(MongoDatastoreConfig.getDataStore()).save(messageRestCustomer.getIndependant());
+        } catch (Exception e) {
+        customerInserted = false;
+    }
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setIsInserted(true);
+        responseRestCustomer.setIsInserted(customerInserted);
         return responseRestCustomer;
     }
 
@@ -81,9 +87,13 @@ public class RestCustomerController {
      */
     @RequestMapping(value = "/customer/holding", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getHoldings() {
-        final List<Holding> holdings = new HoldingDAO(getDataStore()).findAll();
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setHoldings(holdings);
+        try {
+            final List<Holding> holdings = new HoldingDAO(MongoDatastoreConfig.getDataStore()).findAll();
+            responseRestCustomer.setHoldings(holdings);
+        } catch (Exception e) {
+            responseRestCustomer.setHoldings(null);
+        }
         return responseRestCustomer;
     }
 
@@ -95,7 +105,11 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/purchasingcentral", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getPurchasingCentrals() {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setPurchasingCentrals(new PurchasingCentralDAO(getDataStore()).findAll());
+        try {
+            responseRestCustomer.setPurchasingCentrals(new PurchasingCentralDAO(MongoDatastoreConfig.getDataStore()).findAll());
+        } catch (Exception e) {
+            responseRestCustomer.setPurchasingCentrals(null);
+        }
 
         return responseRestCustomer;
     }
@@ -107,7 +121,11 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/company", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getCompanies() {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setCompanies(new CompanyDAO(getDataStore()).findAll());
+        try {
+            responseRestCustomer.setCompanies(new CompanyDAO(MongoDatastoreConfig.getDataStore()).findAll());
+        } catch (Exception e) {
+            responseRestCustomer.setCompanies(null);
+        }
         return responseRestCustomer;
     }
 
@@ -118,7 +136,11 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/specialty", method = RequestMethod.GET)
     public @ResponseBody ResponseRestCustomer getSpecialties() {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setSpecialties(new SpecialtyDAO(getDataStore()).findAll());
+        try {
+            responseRestCustomer.setSpecialties(new SpecialtyDAO(MongoDatastoreConfig.getDataStore()).findAll());
+        } catch (Exception e) {
+            responseRestCustomer.setSpecialties(null);
+        }
         return responseRestCustomer;
     }
 
@@ -129,9 +151,13 @@ public class RestCustomerController {
      * @return ResponseRestCustomer
      */
     @RequestMapping(value = "/customer/healthcenter/{iduser}", method = RequestMethod.GET)
-    public @ResponseBody ResponseRestCustomer getHealthCenters(@PathVariable int iduser) {
+    public @ResponseBody ResponseRestCustomer getHealthCenters(@PathVariable String iduser) {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setHealthCenters(new HealthCenterDAO(getDataStore()).findAllWithoutUserId(iduser));
+        try {
+            responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+        } catch (Exception e) {
+            responseRestCustomer.setHealthCenters(null);
+        }
         return responseRestCustomer;
     }
 
@@ -142,10 +168,14 @@ public class RestCustomerController {
      * @return
      */
     @RequestMapping(value = "/customer/independant/{iduser}", method = RequestMethod.GET)
-    public @ResponseBody ResponseRestCustomer getIndependants(@PathVariable int iduser) {
+    public @ResponseBody ResponseRestCustomer getIndependants(@PathVariable String iduser) {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setIndependants(new IndependantDAO(getDataStore()).findAllWithoutUserId(iduser));
-        return responseRestCustomer;
+        try {
+            responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+        } catch (Exception e) {
+            responseRestCustomer.setIndependants(null);
+        }
+         return responseRestCustomer;
     }
 
     /**
@@ -155,28 +185,16 @@ public class RestCustomerController {
      * @return
      */
     @RequestMapping(value = "/customer/{iduser}", method = RequestMethod.GET)
-    public @ResponseBody ResponseRestCustomer getCustomers(@PathVariable int iduser) {
+    public @ResponseBody ResponseRestCustomer getCustomers(@PathVariable String iduser) {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        responseRestCustomer.setIndependants(new IndependantDAO(getDataStore()).findAllWithoutUserId(iduser));
-        responseRestCustomer.setHealthCenters(new HealthCenterDAO(getDataStore()).findAllWithoutUserId(iduser));
-        return responseRestCustomer;
-    }
-
-    /**
-     * Used to return datastore to do sql operation
-     * @return Datastore
-     */
-
-    public static Datastore getDataStore() {
-        if(datastore == null ) {
-            try {
-                datastore = morphia.createDatastore(new MongoClient(MongoConfig.DEV_IP,MongoConfig.DEV_PORT),
-                        SpringMongoConfig.DB_NAME);
-
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
+        try {
+            responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+        } catch (Exception e) {
+            responseRestCustomer.setHealthCenters(null);
+            responseRestCustomer.setIndependants(null);
         }
-        return datastore;
+       return responseRestCustomer;
     }
+
 }

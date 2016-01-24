@@ -33,7 +33,7 @@ public class HealthCenterDAOTest {
 
     @Test
     public void testfindAllWithoutUserId() throws Exception {
-        List<HealthCenter> healthCenters = healthCenterDAO.findAllWithoutUserId(1);
+        List<HealthCenter> healthCenters = healthCenterDAO.findAllWithoutUserId("1");
         assertNotNull(healthCenters);
     }
 }

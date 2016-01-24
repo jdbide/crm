@@ -49,7 +49,7 @@
         </activity>
         <activity android:name="net.hockeyapp.android.UpdateActivity"/>
         <activity
-            android:name=".tlacouque.uc.admin.ref.customer.activity.CRUDCustomerActivity"
+            android:name=".tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

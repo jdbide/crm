@@ -1,5 +1,6 @@
 package miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities;
 
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.controller.RestCustomerController;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.Customer;
 import org.mongodb.morphia.annotations.Entity;
@@ -72,7 +73,7 @@ public class HealthCenter implements Customer {
     int holdingId;
 
     @Property
-    int idUser;
+    String idUser;
 
 
     public HealthCenter() {
@@ -234,23 +235,23 @@ public class HealthCenter implements Customer {
     }
 
     public PurchasingCentral getPurchasingCentral() {
-        PurchasingCentral purchasingCentral = RestCustomerController.getDataStore()
+        PurchasingCentral purchasingCentral = MongoDatastoreConfig.getDataStore()
                 .find(PurchasingCentral.class,"id =",purchasingCentralId).get();
 
         return purchasingCentral;
     }
 
     public Holding getHolding() {
-        Holding holding = RestCustomerController.getDataStore()
+        Holding holding = MongoDatastoreConfig.getDataStore()
                 .find(Holding.class,"id =",holdingId).get();
         return holding;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 }
