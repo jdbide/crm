@@ -19,15 +19,14 @@ import java.nio.charset.StandardCharsets;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-<<<<<<< HEAD
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 
 
 import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
-=======
+
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.SchedulerActivity;
->>>>>>> uc-suggerer-server
+
 
 
 /**
@@ -79,10 +78,10 @@ public class LoginActivity extends Activity {
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
 
-<<<<<<< HEAD
+
             }
         });
-=======
+
                 //TODO Remove it and uncomment
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
@@ -91,7 +90,6 @@ public class LoginActivity extends Activity {
 
         NotificationEventReceiver.setUpAlarm(getApplicationContext());
 
->>>>>>> uc-suggerer-server
     }
 
 }
