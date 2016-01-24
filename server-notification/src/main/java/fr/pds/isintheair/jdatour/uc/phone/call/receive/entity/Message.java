@@ -1,10 +1,7 @@
-package fr.pds.isintheair.entity;
-
-import fr.pds.isintheair.enumeration.DeviceType;
+package fr.pds.isintheair.jdatour.uc.phone.call.receive.entity;
 
 public class Message {
     private Call call;
-    private DeviceType deviceType;
     private MessageMeta messageMeta;
     private Register register;
 
@@ -38,18 +35,10 @@ public class Message {
         this.call = call;
     }
 
-    public DeviceType getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(DeviceType deviceType) {
-        this.deviceType = deviceType;
-    }
-
     public static class MessageBuilder {
-        private Call call;
-        private MessageMeta messageMeta;
-        private Register register;
+        public Call call;
+        public MessageMeta messageMeta;
+        public Register register;
 
         public MessageBuilder addCall(Call call) {
             this.call = call;
@@ -61,10 +50,13 @@ public class Message {
             return this;
         }
 
+        public MessageBuilder addRegister(Register register) {
+            this.register = register;
+            return this;
+        }
+
         public Message build() {
             return new Message(this);
         }
-
-
     }
 }

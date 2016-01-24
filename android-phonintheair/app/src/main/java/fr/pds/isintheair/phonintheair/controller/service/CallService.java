@@ -8,6 +8,13 @@ import android.util.Log;
 
 import fr.pds.isintheair.phonintheair.model.websocket.WebSocketConnectionHandlerSingleton;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 01/24/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class CallService extends Service {
     private String TAG = getClass().getName();
 

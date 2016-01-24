@@ -13,56 +13,41 @@ import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.We
 public class MessageController {
     public static void handleMessage(Message message) {
         switch (message.getMessageMeta().getMessageType()) {
-            case CALL_END:
-                CallController.endCall();
-                break;
-            case CALL_OK:
+            case CALL:
                 CallController.call(message.getCall().getPhoneNumber());
                 break;
+            case CALL_ENDED:
+                CallController.endCall();
+                break;
+            case CALL_PASSED:
             case CALL_RECEIVED:
-                CallController.notifyCallReceived(message.getCall().getPhoneNumber());
+                CallController.notifyCallFromPhone(message.getCall().getPhoneNumber());
                 break;
         }
     }
 
     public static void sendCallMessage(String phoneNumber) {
         MessageType messageType = MessageType.CALL;
-
-        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(messageType)
-                                                                      .build();
-
-        Call call = new Call(phoneNumber);
-
-        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta)
-                                                      .addCall(call)
-                                                      .build();
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(messageType).build();
+        Call        call        = new Call(phoneNumber);
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
 
     public static void sendEndCallMessage() {
-        MessageType messageType = MessageType.CALL_END;
-
-        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(messageType)
-                                                                      .build();
-
-        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta)
-                                                      .build();
-
-        message.setDeviceType(DeviceType.TABLET);
+        MessageType messageType = MessageType.CALL_ENDED;
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(messageType).addDeviceType(DeviceType.TABLET).build();
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
 
     public static void sendRegisterMessage() {
-        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_TABLET)
-                                                                      .build();
-
-        User     currentUser = UserDAO.getCurrentUser();
-        Register register    = new Register(currentUser.getEmail().hashCode());
-
-        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(
-                register).build();
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_TABLET).build();
+        User        currentUser = UserDAO.getCurrentUser();
+        Register    register    = new Register(currentUser.getEmail().hashCode());
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }

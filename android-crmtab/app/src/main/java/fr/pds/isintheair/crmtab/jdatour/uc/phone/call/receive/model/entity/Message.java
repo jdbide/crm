@@ -1,9 +1,6 @@
 package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity;
 
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.DeviceType;
-
 public class Message {
-    DeviceType deviceType;
     private Call        call;
     private MessageMeta messageMeta;
     private Register    register;
@@ -36,14 +33,6 @@ public class Message {
 
     public void setCall(Call call) {
         this.call = call;
-    }
-
-    public DeviceType getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(DeviceType deviceType) {
-        this.deviceType = deviceType;
     }
 
     public static class MessageBuilder {

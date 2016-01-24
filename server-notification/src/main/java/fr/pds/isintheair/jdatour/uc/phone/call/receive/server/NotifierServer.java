@@ -1,10 +1,6 @@
-package fr.pds.isintheair;
+package fr.pds.isintheair.jdatour.uc.phone.call.receive.server;
 
-import fr.pds.isintheair.endpoint.NotifierEndpoint;
 import org.glassfish.tyrus.server.Server;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 public class NotifierServer {
 
@@ -18,16 +14,14 @@ public class NotifierServer {
         ((Runnable) () -> {
             try {
                 server.start();
-
                 Thread.currentThread().join();
-
-                /* BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                reader.readLine(); /*/
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new RuntimeException(e);
-            } finally {
+            }
+            finally {
                 server.stop();
             }
         }).run();
-        }
     }
+}
