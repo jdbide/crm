@@ -12,7 +12,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * @version 1.1.19
  * @serial 111912202015
  */
-@Entity("client")
+@Entity("healthcenter")
 public class Prospect {
 
     @Id
