@@ -26,6 +26,7 @@ import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
@@ -143,10 +144,10 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.nav_historiser_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "062464621334", true));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "06206754321", true));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0696396908", true));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0662542968", true));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "062464621334"));
+            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "06206754321"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0696396908"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0662542968"));
 
         }
         else if (id == R.id.nav_lister_appel) {
@@ -191,14 +192,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Subscribe
-    public void showpopup(DisplayAddLogFragment event) {
-
-        if (event.getCallEndedEvent().getDisplaypopUp()) {
+    public void showpopup(DisplayPopUpFragment event) {
             PopUpFragment pop = PopUpFragment.newInstance(event);
             pop.show(getFragmentManager(), "dialog");
             //make popup not cancellable
             pop.setCancelable(false);
-        }
+    }
+
+    @Subscribe
+    public void showaddlogfragment(DisplayAddLogFragment event) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+
+        AddLogFragment fragment = AddLogFragment.newInstance(event.getCallEndedEvent().getIdcontact()
+                , event.getCallEndedEvent().getDate()
+                , event.getCallEndedEvent().getDuration()
+                , event.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant"
+                , true);
+        ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
     }
 
 

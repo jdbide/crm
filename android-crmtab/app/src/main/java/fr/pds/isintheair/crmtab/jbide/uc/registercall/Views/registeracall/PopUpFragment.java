@@ -6,15 +6,14 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 
 /**
@@ -23,7 +22,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 
 public class PopUpFragment extends DialogFragment {
 
-    private static DisplayAddLogFragment callevent;
+    private static DisplayPopUpFragment callevent;
     int mNum;
     //private CallEndedEvent callevent;
 
@@ -31,7 +30,7 @@ public class PopUpFragment extends DialogFragment {
      * Create a new instance of MyDialogFragment, with  the callEnded event params
      * as arguments.
      */
-    public static PopUpFragment newInstance(DisplayAddLogFragment event) {
+    public static PopUpFragment newInstance(DisplayPopUpFragment event) {
         PopUpFragment f = new PopUpFragment();
 
         // Supply num input as an argument.
@@ -54,16 +53,8 @@ public class PopUpFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //hide popup , addlog fragment  is below
                         Constants.getInstance().setPopUpDisplayed(false);
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
+                        ((MainActivity)getActivity()).showaddlogfragment(new DisplayAddLogFragment(callevent.getCallEndedEvent()));
 
-                        AddLogFragment fragment = AddLogFragment.newInstance(callevent.getCallEndedEvent().getIdcontact()
-                                , callevent.getCallEndedEvent().getDate()
-                                , callevent.getCallEndedEvent().getDuration()
-                                , callevent.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant"
-                                , callevent.getCallEndedEvent().getDisplaypopUp());
-
-                        ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
 
                     }
                 }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
