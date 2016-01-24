@@ -17,7 +17,7 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.PendingCallLogEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 
@@ -87,7 +87,7 @@ public class ListennerCallEndedEvent extends Service {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);*/
 //sendMessage(event);
-            Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(event));
+            Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragment(event));
         }else{  //else add to job
             //add event to pending list
             Constants.getInstance().getPendingCallList().add(event);

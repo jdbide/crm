@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.api.common.model.User;
-import miage.pds.api.jbide.uc.registercall.RestController;
+import miage.pds.api.jbide.uc.registercall.CraRestController;
 import miage.pds.api.jbide.uc.registercall.dao.DAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 
@@ -24,15 +24,44 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
  */
 @Controller
 public class LoggingRestController {
-	private static final Logger logger = LoggerFactory.getLogger(RestController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CraRestController.class);
 	
 	DAO dao = new DAO();
 	
-	
+	public static String idusertest ;
 
 	public LoggingRestController() {
 		
+		idusertest = "bd299fa2-244c-4b6b-9966-49a84192cc8c";
+		
 		dao.dropTables();
+		
+		//Mock Cra
+	    Cra newCra = new Cra();
+	    newCra.setCalltype("Reçu");
+	    newCra.setClientname("CH HENRI MONDOR");
+	    newCra.setComments("Les rappeler lorsque nouveaux produits disponibles");
+	    newCra.setDate("23 janv 2016");
+	    newCra.setDuration((long) 1234);
+	    newCra.setContactname("Franck NEROT");
+	    newCra.setIdcontact((long) 1);
+	    newCra.setSubject("Demande d'informations sur scanners");
+	    newCra.setIduser(LoggingRestController.idusertest);
+	    dao.createCra(newCra);
+	    
+	    newCra = new Cra();
+	    newCra.setCalltype("Emis");
+	    newCra.setClientname("CS Daniel Renoult à Montreuil");
+	    newCra.setComments("Nouveaux types de compresses");
+	    newCra.setDate("23 janv 2016");
+	    newCra.setDuration((long) 1234);
+	    newCra.setContactname("Luc BERNARD");
+	    newCra.setIdcontact((long) 2);
+	    newCra.setSubject("Demande d'informations sur compresses");
+	    newCra.setIduser(LoggingRestController.idusertest);
+	    dao.createCra(newCra);
+	    
+	    logger.info("ADDED 2 Cra");
 		
 		User u = new User();
 		u.setEmail("datour@crm.fr");
@@ -54,7 +83,7 @@ public class LoggingRestController {
 		u.setEmail("test@crm.fr");
 		u.setFname("testFname");
 		u.setLname("testLname");
-		u.setId(dao.getUniqueUid());
+		u.setId(idusertest);
 		u.setPassword("password");
 		u.setTel("0762506058");
 		dao.addUser(u);

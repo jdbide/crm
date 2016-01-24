@@ -140,17 +140,9 @@ public class AddLogFragment extends Fragment {
         {
             case R.id.item1:
 
-                /*bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "11111111"));
-                bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "33333333"));
-                bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "5555555"));
-                bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "7777777777"));*/
-
                 return true;
 
             case R.id.item2:
-                DisplayCallLogFragment fragment = DisplayCallLogFragment.newInstance(1) ;
-                ft.replace(R.id.container, fragment, "FRAGMENT_LISTE").addToBackStack(null).commit();
-
                 return true;
         }
         return super.onOptionsItemSelected(item);

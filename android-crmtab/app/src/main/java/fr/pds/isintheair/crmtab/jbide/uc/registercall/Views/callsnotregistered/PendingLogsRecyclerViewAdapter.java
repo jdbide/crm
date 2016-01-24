@@ -13,6 +13,7 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
 
 
 public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<PendingLogsRecyclerViewAdapter.ViewHolder> {
@@ -35,10 +36,10 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getDate());
+        holder.mIdView.setText(String.valueOf(position+1));
         holder.mDate.setText(mValues.get(position).getDate());
-        holder.mContact.setText("firstName cont"/*mValues.get(position).getContactname()*/);
-        holder.mClient.setText("firstName client"/*mValues.get(position).getClientname()*/);
+        holder.mContact.setText("Name contact"/*mValues.get(position).getContactname()*/);
+        holder.mClient.setText("client name"/*mValues.get(position).getClientname()*/);
 
         holder.yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +50,7 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
                        mValues.get(position).getCalltype(),
                        mValues.get(position).getDate(),
                        mValues.get(position).getDuration(),
-                       mValues.get(position).getIdcontact(),false)));
+                       mValues.get(position).getIdcontact())));
             }
         });
 

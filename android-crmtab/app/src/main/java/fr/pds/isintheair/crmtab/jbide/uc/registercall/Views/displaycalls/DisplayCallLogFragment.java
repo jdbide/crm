@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,24 +41,22 @@ import retrofit.Retrofit;
 public class DisplayCallLogFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount;
     private List<Cra> listecra;
     private OnListFragmentInteractionListener mListener;
     private CallLogRecyclerViewAdapter adapter;
+    private Context context;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public DisplayCallLogFragment() {
+    public DisplayCallLogFragment(Context mcontext) {
+        context = mcontext;
     }
 
     // initialization
-    public static DisplayCallLogFragment newInstance(int columnCount) {
-        DisplayCallLogFragment fragment = new DisplayCallLogFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
+    public static DisplayCallLogFragment newInstance(Context mcontext) {
+        DisplayCallLogFragment fragment = new DisplayCallLogFragment(mcontext);
         return fragment;
     }
 
@@ -66,10 +65,6 @@ public class DisplayCallLogFragment extends Fragment {
         super.onCreate(savedInstanceState);
         listecra = new ArrayList<Cra>();
         adapter = new CallLogRecyclerViewAdapter(listecra, mListener);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
 
         Gson gson = new GsonBuilder().create();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -110,15 +105,15 @@ public class DisplayCallLogFragment extends Fragment {
 
                 } else {
                     Log.v("listcraforuser", "no rep");
-                    //Toast.makeText(getActivity(), "no rep", Toast.LENGTH_LONG).show();
                 }
-
+                Toast.makeText(context, "status code" + response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
                 //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-                Log.v("listcraforuser Failure", t.getMessage());
+                Log.v("listcraforuser Failure", "msg = " + t.getMessage());
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -133,12 +128,7 @@ public class DisplayCallLogFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             //set adapter
             recyclerView.setAdapter(adapter);
 

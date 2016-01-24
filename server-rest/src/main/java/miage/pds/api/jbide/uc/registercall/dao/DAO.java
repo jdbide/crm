@@ -63,7 +63,7 @@ public class DAO {
 		return state;
 	}
 
-	public List<Cra> getListCraForUser(int iduser) {
+	public List<Cra> getListCraForUser(String iduser) {
 		List<Cra> liste = null;
 		if (ConnectDB()) {
 		liste =  datastore.createQuery(Cra.class).field("iduser").equal(iduser).asList();
@@ -115,7 +115,9 @@ public class DAO {
 	public void dropTables(){
 		if (ConnectDB()) {
 			datastore.getCollection(User.class).drop();
+			datastore.getCollection(Cra.class).drop();
 		}
-		logger.info("DROPPED TABLE USER");
+		logger.info("DROPPED TABLE User");
+		logger.info("DROPPED TABLE Cra");
 	}
 }

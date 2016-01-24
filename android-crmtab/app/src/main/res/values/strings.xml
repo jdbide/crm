@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">CRM-tab</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="app_name">CRM-TAB</string>
+    <string name="title_activity_login">CRM-TAB</string>
 
     <!-- jdatour.uc.phone.call.receive -->
     <string name="message_failed_no_internet">pas de connection internet</string>
@@ -89,6 +89,9 @@
     <string name="create_he_fragment_error_offline_map">La carte représentant la position du client n’a pas été pré-téléchargé" +
         " Il le sera à votre prochaine connexion au service en ligne</string>
     <string name="create_he_fragment_message_customer">Le client a bien été créé</string>
+    <string name="create_he_fragment_message_customer_not_created_first_part">Client non enregistré du a une erreur
+    du système.\n L\' enregistrement se fera ultérieurement automatiquement</string>
+
 
     <!-- Strings related to the creation of an  independant customer -->
     <string name="create_indep_fragment_title_action_bar">Créer un Indépendant</string>
@@ -113,8 +116,12 @@
     <string name="title_activity_main">CRM-TAB</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="title_activity_contact_detail">ContactDetailActivity</string>
     <string name="activity_contact_detail_sms_content_description">Send sms</string>
     <string name="activity_contact_detail_phone_content_description">Phone call</string>
     <string name="call_activity_phone_state_message">Communication en cours</string>
+
+    <string name="title_activity_scrolling_visit">Visites</string>
+
 </resources>

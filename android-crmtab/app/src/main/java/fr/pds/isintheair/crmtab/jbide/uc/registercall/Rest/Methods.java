@@ -29,9 +29,4 @@ public interface Methods {
     @POST("login")
     Call<User> basicLogin(@Body User user);
 
-
-
-
-
-
 }

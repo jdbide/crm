@@ -6,7 +6,11 @@
     android:layout_height="50dp"
     android:layout_width="match_parent"
     card_view:cardCornerRadius="15dp"
-    card_view:cardBackgroundColor="#ffffff">
+    card_view:cardBackgroundColor="#ffffff"
+    android:layout_gravity="center"
+    android:foregroundGravity="center"
+    android:elevation="7sp"
+    android:layout_marginTop="10dp">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +27,7 @@
 
         <TextView
             android:id="@+id/showdate1"
-            android:layout_width="110dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceListItem" />
@@ -37,7 +41,7 @@
 
         <TextView
             android:id="@+id/showclient1"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceListItem" />
@@ -53,7 +57,6 @@
             android:layout_height="50dp"
             android:id="@+id/no"
             android:background="@drawable/no_tick"/>
-
 
     </LinearLayout>
 

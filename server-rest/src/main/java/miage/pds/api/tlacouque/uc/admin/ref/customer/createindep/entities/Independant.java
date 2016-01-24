@@ -59,7 +59,7 @@ public class Independant implements Customer {
     int companyId;
 
     @Property
-    int idUser;
+    String idUser;
 
     public String getName() {
         return name;
@@ -185,11 +185,11 @@ public class Independant implements Customer {
         this.companyId = companyId;
     }
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 }

@@ -33,7 +33,7 @@ public class IndependantDAOTest {
 
     @Test
     public void testfindAllWithoutUserId() throws Exception {
-        List<Independant> independants = independantDAO.findAllWithoutUserId(1);
+        List<Independant> independants = independantDAO.findAllWithoutUserId("1");
         assertNotNull(independants);
     }
 }

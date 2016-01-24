@@ -12,6 +12,10 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Historiser un appel"/>
         <item
+            android:id="@+id/nav_lister_appel"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Comptes-rendus d'appel"/>
+        <item
             android:id="@+id/nav_editer_crv"
             android:icon="@drawable/ic_menu_camera"
             android:title="Editer CRV"/>
