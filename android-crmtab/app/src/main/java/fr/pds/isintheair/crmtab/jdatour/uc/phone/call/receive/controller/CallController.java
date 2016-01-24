@@ -9,15 +9,15 @@ import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view.CallActivity;
 
 public class CallController {
     public static void call(String phoneNumber) {
-        startCallActivity(phoneNumber);
         MessageController.sendCallMessage(phoneNumber);
+        startCallActivity(phoneNumber);
     }
 
     public static void endCall() {
         BusHandlerSingleton.getInstance().getBus().post(new PhoneCallEndedEvent());
     }
 
-    public static void notifyCallReceived(String phoneNumber) {
+    public static void notifyCallFromPhone(String phoneNumber) {
         startCallActivity(phoneNumber);
     }
 

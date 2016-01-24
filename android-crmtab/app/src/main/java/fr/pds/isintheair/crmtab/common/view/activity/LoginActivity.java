@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 
-
 import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 
@@ -65,17 +64,23 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                User user = new User();
-                String credentials = mail.getText().toString()+":" + pass.getText().toString();
-                byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
+                User   user        = new User();
+                String credentials = mail.getText().toString() + ":" + pass.getText().toString();
+                byte[] data        = credentials.getBytes(StandardCharsets.UTF_8);
                 final String basic =
                         Base64.encodeToString(data, Base64.NO_WRAP);
                 user.setPassword(basic);
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
 
+
             }
         });
+
+        //TODO Remove it and uncomment
+        /* startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        NotificationEventReceiver.setUpAlarm(getApplicationContext()); */
+
     }
 
 }

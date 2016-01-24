@@ -26,7 +26,7 @@ public class ProspectNotifEndPoint {
     @OnOpen
     public void onOpen(Session session){
         allSession = session.getOpenSessions();
-        timer.scheduleAtFixedRate(() -> sendTimeToAll(session), 0, 1, TimeUnit.SECONDS);
+        timer.scheduleAtFixedRate(() -> sendTimeToAll(session), 0, 1, TimeUnit.DAYS);
     }
 
     private void sendTimeToAll(Session session){
