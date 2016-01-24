@@ -30,7 +30,7 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
         //TODO Remove "Bonjour" -> here to test that server responds in dev environnement
         if (!payload.isEmpty() && !payload.equals("Bonjour"))
             MessageController.handleMessage((Message) JSONHelper.deserialize(payload,
-                                                                             Message.class));
-    }
+    Message.class));
+}
 }
 

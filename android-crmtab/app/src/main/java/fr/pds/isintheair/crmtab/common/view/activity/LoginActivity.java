@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.SchedulerActivity;
 
 
 /**
@@ -70,8 +72,11 @@ public class LoginActivity extends Activity {
 
                 //TODO Remove it and uncomment
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
             }
         });
+
+        NotificationEventReceiver.setUpAlarm(getApplicationContext());
 
     }
 }

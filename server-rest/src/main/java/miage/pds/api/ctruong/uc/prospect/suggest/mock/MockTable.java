@@ -52,9 +52,7 @@ public class MockTable {
 
         for (int i = 0; i < 100; i++){
             User user = new User(i, "test" + i + "@gmail.com");
-            log.info("The user " + i);
             datastore.save(user);
-            log.info("The user " + i + " is created ....");
         }
     }
 
@@ -73,9 +71,7 @@ public class MockTable {
             prospect.setWebsite("www.abc" + i + ".com");
             int randomPlace = random.nextInt(10000);
             prospect.setPlace(randomPlace);
-            log.info("The client " + i);
             datastore.save(prospect);
-            log.info("The client " + i + " is created ....");
         }
     }
 
@@ -92,7 +88,6 @@ public class MockTable {
                 userClientRelation.setIdClient(randomClient);
                 int randomSalesPerRelation = random.nextInt(10);
                 datastore.save(userClientRelation);
-                log.info("Number of sales: " + randomSalesPerRelation);
                 for (int k = 0; k <= randomSalesPerRelation; k++){
                     Sales salesMock = new Sales();
                     salesMock.setIdSeller(i);
