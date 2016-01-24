@@ -9,8 +9,9 @@ import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
-import org.mongodb.morphia.logging.Logger;
-import org.mongodb.morphia.logging.MorphiaLoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class ProspectController {
     private SalesDAO salesDAO;
     private UserClientRelationDAO   userClientRelationDAO;
     private UserDAO                 userDAO;
-    private static Logger           logger = MorphiaLoggerFactory.get(ProspectController.class);
+    private static Logger logger = LoggerFactory.getLogger(ProspectController.class);
 
 
     /**
@@ -71,7 +72,6 @@ public class ProspectController {
         }
         analyzeProspectByRelationLv(userListHashMap);
         analyzeProspectByPlaceNumber(userListHashMap);
-        logger.info(userListHashMap.toString());
         return userListHashMap;
     }
 
@@ -128,7 +128,7 @@ public class ProspectController {
         // For each user, it has a list of prospects different
         while (entryIterator.hasNext()) {
             Map.Entry<User, ArrayList<Prospect>> userListEntry = entryIterator.next();
-
+            User user = userListEntry.getKey();
             // Analyse the list of prospects
             ArrayList<Prospect>     prospects        = userListEntry.getValue();
             Iterator<Prospect>      prospectIterator = prospects.iterator();
@@ -159,7 +159,10 @@ public class ProspectController {
 
                 // The average for each prospect
                 salesAveByPros = salesTotal / sales.size();
-
+                if (user.getId() == 1){
+                    logger.info("The user: " + user.getLogin() + "\r\n");
+                    logger.info("The prospect" + prospect.getName() + " with sales volume: " + salesAveByPros + "\r\n");
+                }
                 // Remove the prospect in the list inside the map if the average is under global
                 if (salesAveByPros < salesAverageTotal) {
                     prospectIterator.remove();
@@ -188,7 +191,7 @@ public class ProspectController {
         while (entryIterator.hasNext()){
             Map.Entry<User, ArrayList<Prospect>>    userListEntry   = entryIterator.next();
             ArrayList<Prospect>                     prospects       = userListEntry.getValue();
-
+            User user = userListEntry.getKey();
             // Create new HashMap<Prospect, long> to compare which prospect is greater relationship level
             HashMap<Prospect, Long>             prospectLongHashMap = new HashMap<Prospect, Long>();
             if (prospects.size() > 0){
@@ -201,9 +204,14 @@ public class ProspectController {
                 long max = Collections.max(prospectLongHashMap.values());
                 // Compare all prospects in the list with the max value of relationship level
                 for (Map.Entry<Prospect, Long> prospectLongEntry : prospectLongHashMap.entrySet()){
+                    Prospect prospect = prospectLongEntry.getKey();
                     if (prospectLongEntry.getValue() != max){
                         prospects.remove(prospectLongEntry.getKey());
                     }
+                    if (user.getId() == 1){
+                        logger.info("The prospect relation level: " + prospectLongEntry.getValue() + "\r\n");
+                    }
+
                 }
             }
         }
@@ -227,7 +235,7 @@ public class ProspectController {
         while (entryIterator.hasNext()){
             Map.Entry<User, ArrayList<Prospect>> userArrayListEntry = entryIterator.next();
             ArrayList<Prospect>                     prospects       = userArrayListEntry.getValue();
-
+            User user = userArrayListEntry.getKey();
             // If the prospect list more than one element
             if (prospects.size() > 1){
                 ArrayList<Integer> placeList = new ArrayList<Integer>();
@@ -245,8 +253,14 @@ public class ProspectController {
                     if (prospect.getPlace() < maxPlace){
                         prospectIterator.remove();
                     }
+                    if (user.getId() == 1){
+                        logger.info("The size of this prospect: " + prospect.getPlace());
+                    }
                 }
+
             }
+
+
         }
         logger.info("End of the function");
         return userHashMap;
