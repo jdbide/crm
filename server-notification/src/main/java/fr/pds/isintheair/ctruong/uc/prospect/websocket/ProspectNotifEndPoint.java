@@ -12,7 +12,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * The EndPoint to connect to the websocket server
  * Created by Truong on 1/23/2016.
+ * @version 1.0.0
+ * @since 2016-01-24
  */
 @ServerEndpoint("/prospect")
 public class ProspectNotifEndPoint {
