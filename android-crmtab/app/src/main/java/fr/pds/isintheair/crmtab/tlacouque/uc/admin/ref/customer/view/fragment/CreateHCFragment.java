@@ -294,7 +294,6 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                     createCalledisNOk = true;
                 } else {
                     if (response.body().getIsInserted()) {
-                        healthCenter.save();
                         createCalledisOk = true;
                     } else {
                         errorServRest = true;
