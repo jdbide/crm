@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,6 +25,7 @@ import java.util.Calendar;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
@@ -50,7 +53,9 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     // UC Register a call
     private PendingLogsFragment pend;
-    private Bus bus;
+    private AndroidBus bus;
+    public static String TagAddLogFragment = "FRAGMENT_AJOUT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity
 
         MainLogoFragment    mainLogoFragment = new MainLogoFragment();
         FragmentTransaction transaction      = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, mainLogoFragment);
+        transaction.replace(R.id.container, mainLogoFragment,"TAG");
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -209,7 +214,8 @@ public class MainActivity extends AppCompatActivity
                 , event.getCallEndedEvent().getDuration()
                 , event.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant"
                 , true);
-        ft.replace(R.id.container, fragment, "FRAGMENT_AJOUT").addToBackStack(null).commit();
+
+        ft.replace(R.id.container, fragment,TagAddLogFragment).addToBackStack(null).commit();
     }
 
 
@@ -218,12 +224,9 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
-        ft.addToBackStack(null);
         CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra);
         ft.replace(R.id.container, fragment).addToBackStack(null).commit();
-
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -243,10 +246,8 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.container, mainLogoFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-
         }
     }
-
 
     @Override
     public void onPositiveClick(int position) {
@@ -267,10 +268,8 @@ public class MainActivity extends AppCompatActivity
                                     .replace(R.id.create_customer_fragment_container, createIndepFragment)
                                     .commit();
                 break;
-
         }
     }
-
 
 }
 

@@ -13,6 +13,10 @@ public class CallEndedEvent {
     private CallType callemitted;
 
 
+    public CallEndedEvent(){
+
+    }
+
     public CallEndedEvent(CallType callemitted, String date, String duration, String idcontact) {
         this.callemitted = callemitted;
         this.date = date;

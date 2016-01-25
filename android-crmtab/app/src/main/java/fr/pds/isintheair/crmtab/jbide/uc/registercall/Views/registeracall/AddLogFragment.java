@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,13 +25,12 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.ControllerCra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
 
 
 public class AddLogFragment extends Fragment {
 
     @Bind(R.id.formtitle) TextView formtitle;
-    @Bind(R.id.edittextcontatctname) EditText contactname;
+    @Bind(R.id.edittextcontactname) EditText contactname;
     @Bind(R.id.edittextclientname) EditText clientname;
     @Bind(R.id.edittextcontatctnumber) EditText contactnumber;
     @Bind(R.id.edittextduration) EditText duration;
@@ -71,12 +69,6 @@ public class AddLogFragment extends Fragment {
         View view = inflater.inflate(R.layout.log_informations_fragment, container, false);
         ButterKnife.bind(this, view);
 
-
-        /*User user = new User();
-        user.setTel("0123456789");
-        user.setMdp("password");
-         ControllerCra.hasAccount(user, getActivity());*/
-        //Log.v("account?",b.toString());
         if(getArguments().getBoolean("showmic")) mic.setBackground(getResources().getDrawable(R.drawable.mic1));
 
 

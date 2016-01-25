@@ -37,6 +37,9 @@ public class Cra  {
     @SerializedName("subject")
     @Expose
     private String subject;
+    @SerializedName("idcra")
+    @Expose
+    private String idcra;
 
     /**
      *
@@ -198,5 +201,23 @@ public class Cra  {
      */
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    /**
+     *
+     * @param idcra
+     * The id for the cra
+     */
+    public void setIdcra(String idcra) {
+        this.idcra = idcra;
+    }
+
+    /**
+     *
+     * @return idcra
+     * The id for the cra
+     */
+    public String getIdcra() {
+        return idcra;
     }
 }
