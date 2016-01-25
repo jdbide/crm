@@ -1,4 +1,4 @@
-package miage.pds.api.crv.model;
+package miage.pds.api.mbalabascarin.uc.editcrv.model;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;

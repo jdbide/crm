@@ -1,4 +1,4 @@
-package miage.pds.api.crv.dao;
+package miage.pds.api.mbalabascarin.uc.editcrv.dao;
 
 public interface Config {
 

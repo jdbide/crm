@@ -1,13 +1,13 @@
-package miage.pds.api.crv;
+package miage.pds.api.mbalabascarin.uc.editcrv;
 
 
 
 import java.util.List;
 
-import miage.pds.api.crv.CrvController;
-import miage.pds.api.crv.dao.CrvMorphiaDao;
-import miage.pds.api.crv.model.Report;
-import miage.pds.api.crv.model.Reporting;
+import miage.pds.api.mbalabascarin.uc.editcrv.CrvController;
+import miage.pds.api.mbalabascarin.uc.editcrv.dao.CrvMorphiaDao;
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Reporting;
 
 import org.json.JSONException;
 import org.json.JSONObject;
