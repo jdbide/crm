@@ -1,12 +1,9 @@
-package miage.pds.api.crv.dao;
+package miage.pds.api.mbalabascarin.uc.editcrv.dao;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import miage.pds.api.crv.model.Product;
-import miage.pds.api.crv.model.Report;
-import miage.pds.api.crv.model.Reporting;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +18,10 @@ import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.DBPortPool.NoMoreConnection;
+
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Product;
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Reporting;
 
 public class CrvMorphiaDao {
 	DB db;

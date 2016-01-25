@@ -1,4 +1,4 @@
-package miage.pds.api.crv.model;
+package miage.pds.api.mbalabascarin.uc.editcrv.model;
 
 import java.util.List;
 
