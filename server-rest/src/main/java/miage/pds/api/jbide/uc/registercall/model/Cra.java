@@ -1,27 +1,22 @@
 package miage.pds.api.jbide.uc.registercall.model;
 
+import org.mongodb.morphia.annotations.Id;
 
 /**
  * Created by j-d on 22/12/2015.
  */
 public class Cra {
 
+	@Id
+	private String idcra;
 	private String calltype;
-
 	private String clientname;
-
 	private String comments;
-
 	private String contactname;
-
 	private String date;
-
 	private Long duration;
-
 	private Long idcontact;
-
 	private String iduser;
-
 	private String subject;
 
 	/**
@@ -185,4 +180,22 @@ public class Cra {
 	public void setSubject(String subject) {
 	this.subject = subject;
 	}
+	
+    /**
+    *
+    * @param idcra
+    * The id for the cra
+    */
+   public void setIdcra(String idcra) {
+       this.idcra = idcra;
+   }
+
+   /**
+    *
+    * @return idcra
+    * The id for the cra
+    */
+   public String getIdcra() {
+       return idcra;
+   }
 }

@@ -12,7 +12,7 @@ import org.mongodb.morphia.Morphia;
 import com.mongodb.MongoClient;
 
 import miage.pds.MongoDatastoreConfig;
-import miage.pds.api.jbide.uc.registercall.dao.DAO;
+import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.controller.RestCustomerController;
 /**
@@ -33,15 +33,15 @@ public class CraRestControllerTest {
     Morphia morphia;
     Datastore datastore;
     String dbName = "crm";
-
+    CraDAO dao;
     @Before
       public void setUp() throws UnknownHostException {
 
         this.datastore      = MongoDatastoreConfig.getDataStore();
-       
+        dao = new CraDAO(datastore);
          }
 
-    	DAO dao = new DAO();
+    	
             @Test
        public void testCreateCra() throws Exception {
             	Cra cra = new Cra();
@@ -61,7 +61,7 @@ public class CraRestControllerTest {
             	dao.createCra(cra);
             	cra.setIduser("id2");
             	dao.createCra(cra);
-        		assertEquals(dao.getListCraForUser("id1").size(),dao.datastore.createQuery(Cra.class).field("iduser").equal("id1").asList().size());
+        		assertEquals(dao.getListCraForUser("id1").size(),datastore.createQuery(Cra.class).field("iduser").equal("id1").asList().size());
         		dao.dropTables();
             }
 

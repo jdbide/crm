@@ -1,11 +1,14 @@
 package miage.pds.api.common.model;
 
+import org.mongodb.morphia.annotations.Id;
+
 /**
  * Created by jbide on 19/01/2016.
  */
 
 public class User {
 	
+	@Id
 	private String id;
 	
     private String fname;
