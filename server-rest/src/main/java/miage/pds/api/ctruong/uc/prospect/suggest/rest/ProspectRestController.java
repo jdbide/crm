@@ -22,6 +22,9 @@ import java.util.*;
 
 /**
  * Created by Truong on 1/23/2016.
+ *
+ * @version 1.1.19
+ * @since 2016-01-24
  */
 @Controller
 public class ProspectRestController {
@@ -33,12 +36,20 @@ public class ProspectRestController {
     private SalesDAO salesDAO;
 
 
+    /**
+     * Constructor for rest controller
+     */
     public ProspectRestController() {
-        this.mongoService     = new MongoService();
+        this.mongoService = new MongoService();
         userClientRelationDAO = new UserClientRelationDAOImpl(UserClientRelation.class, mongoService.getDatastore());
-        salesDAO              = new SalesDAOImpl(Sales.class, mongoService.getDatastore());
+        salesDAO = new SalesDAOImpl(Sales.class, mongoService.getDatastore());
     }
 
+    /**
+     * Test Spring
+     *
+     * @return Hello World
+     */
     @RequestMapping(value = "/suggestion", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -46,6 +57,11 @@ public class ProspectRestController {
         return "Hello World";
     }
 
+    /**
+     * The HTTP REST to retrieve all data from the analyze
+     *
+     * @return map
+     */
     @RequestMapping(value = "/suggestion/prospects", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -58,19 +74,29 @@ public class ProspectRestController {
         return map;
     }
 
+    /**
+     * The HTTP REST to mock all data in the database
+     *
+     * @return Done
+     */
     @RequestMapping(value = "/suggestion/mock", method = RequestMethod.GET)
     public
     @ResponseBody
     String mocking() {
         MockTable mockTable = new MockTable();
         mockTable.mockClientTable();
-        mockTable.mockUserTable();
-        mockTable.mockRelationAndSalesTable();
         return "Done";
     }
 
+    /**
+     * The HTTP REST to make the demo for copil
+     *
+     * @return
+     */
     @RequestMapping(value = "/suggestion/demo", method = RequestMethod.GET)
-    public @ResponseBody String demo(){
+    public
+    @ResponseBody
+    String demo() {
         HashMap<User, ArrayList<Prospect>> map = controller.analyseProspect();
         Iterator<Map.Entry<User, ArrayList<Prospect>>> iterator = map.entrySet().iterator();
         String demo = "This is an example of analyze: \r\n";
@@ -79,41 +105,40 @@ public class ProspectRestController {
         calendar.add(Calendar.MONTH, -6);
         Date date = calendar.getTime();
 
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry<User, ArrayList<Prospect>> entry = iterator.next();
             User user = entry.getKey();
             ArrayList<Prospect> prospects = entry.getValue();
+            if (prospects.size() == 1) {
+                demo += "User: " + user.getLogin() + "\r\n <br>";
+                demo += "The sales average global is " + controller.getSalesAverage() + "\r\n <br>";
+                for (Prospect prospect : prospects) {
+                    demo += "The prospect: " + prospect.getName() + "\r\n <br>";
+                    List<Sales> sales = salesDAO.getSalesByIDClient(prospect.getId());
+                    Iterator<Sales> salesIterator = sales.iterator();
+                    double salesTotal = 0.0d;
+                    double salesAveByPros = 0.0d;
+                    while (salesIterator.hasNext()) {
+                        Sales sale = salesIterator.next();
 
-            if (user.getId() == 1){
-                if (prospects.size() == 1){
-                    demo += "User: " + user.getLogin() + "\r\n <br>";
-                    demo += "The sales average global is " + controller.getSalesAverage() + "\r\n <br>";
-                    for (Prospect prospect: prospects){
-                        demo += "The prospect: " + prospect.getName() + "\r\n <br>" ;
-                        List<Sales> sales = salesDAO.getSalesByIDClient(prospect.getId());
-                        Iterator<Sales> salesIterator = sales.iterator();
-                        double salesTotal = 0.0d;
-                        double salesAveByPros = 0.0d;
-                        while (salesIterator.hasNext()){
-                            Sales sale = salesIterator.next();
+                        if (sale.getDate().before(date)) {
 
-                            if (sale.getDate().before(date)){
-
-                                salesIterator.remove();
-                            } else {
-                                salesTotal = salesTotal + sale.getValue();
-                            }
-                            salesAveByPros = salesTotal /sales.size();
+                            salesIterator.remove();
+                        } else {
+                            salesTotal = salesTotal + sale.getValue();
                         }
-
-                        demo += "The sales value: " + salesAveByPros + "<br>";
-                        demo += "The relation level of this prospect: " + userClientRelationDAO.countRelationshipByClientID(prospect.getId()) + "<br>";
-                        demo += "The size of this prospect: " + prospect.getPlace() + "<br>";
-                        demo += "=====================> Notify to user this prospect ";
-                        log.info("User: " + user.getLogin() + " will receive a notification which suggest a prospect: " + prospect.getName());
+                        salesAveByPros = salesTotal / sales.size();
                     }
+
+                    demo += "The sales value: " + salesAveByPros + "<br>";
+                    demo += "The relation level of this prospect: " + userClientRelationDAO.countRelationshipByClientID(prospect.getId()) + "<br>";
+                    demo += "The size of this prospect: " + prospect.getPlace() + "<br>";
+                    demo += "=====================> Notify to user this prospect ";
+                    log.info("User: " + user.getLogin() + " will receive a notification which suggest a prospect: " + prospect.getName());
+                    demo += "<br>=========================================================================================================================<br>";
                 }
             }
+
         }
 
         return demo;

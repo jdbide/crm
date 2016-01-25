@@ -316,7 +316,6 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                     createCalledisNOk = true;
                 } else {
                     if (response.body().getIsInserted()) {
-                        independant.save();
                         createCalledisOk = true;
                     } else {
                         errorServRest = true;

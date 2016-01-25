@@ -45,7 +45,7 @@ public class WebSocketConnectionHandlerSingleton {
     }
 
     public void sendMessage(Message message) {
-        if (NetworkHelper.isNetworkAvailable()) {
+        if (NetworkHelper.isNetworkAvailable() && webSocketConnection != null) {
             String serializedMessage = JSONHelper.serialize(message, Message.class);
             webSocketConnection.sendTextMessage(serializedMessage);
             Log.d(TAG, "Sending message : " + serializedMessage);
@@ -53,6 +53,7 @@ public class WebSocketConnectionHandlerSingleton {
         else {
             String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_no_internet);
             BusHandlerSingleton.getInstance().getBus().post(new PhoneCallFailedEvent(errorMessage));
+            WebSocketConnectionHandlerSingleton.getInstance().connect();
             Log.d(TAG, "Could not send message due to lack of internet connection");
         }
     }

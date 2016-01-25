@@ -6,11 +6,6 @@ import android.content.IntentFilter;
 import android.test.ActivityInstrumentationTestCase2;
 
 import fr.pds.isintheair.phonintheair.controller.CallController;
-import fr.pds.isintheair.phonintheair.model.entity.Call;
-import fr.pds.isintheair.phonintheair.model.entity.Message;
-import fr.pds.isintheair.phonintheair.model.entity.MessageMeta;
-import fr.pds.isintheair.phonintheair.model.enumeration.MessageType;
-import fr.pds.isintheair.phonintheair.model.websocket.WebSocketConnectionHandlerSingleton;
 
 /******************************************
  * Created by        : jdatour            *
