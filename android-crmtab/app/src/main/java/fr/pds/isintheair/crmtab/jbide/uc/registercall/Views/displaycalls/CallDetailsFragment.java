@@ -27,7 +27,7 @@ public class CallDetailsFragment extends Fragment {
 
     @Bind(R.id.formtitle)
     TextView formtitle;
-    @Bind(R.id.edittextcontatctname) EditText contactname;
+    @Bind(R.id.edittextcontactname) EditText contactname;
     @Bind(R.id.edittextclientname) EditText clientname;
     @Bind(R.id.edittextcontatctnumber) EditText contactnumber;
     @Bind(R.id.edittextduration) EditText duration;

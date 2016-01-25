@@ -79,14 +79,6 @@ public class ListennerCallEndedEvent extends Service {
         //if no popup displayed show
         if(!Constants.getInstance().isPopUpDisplayed()) {
             Constants.getInstance().setPopUpDisplayed(true);
-            /*Intent intent = new Intent(this, RegisterCallActivity.class);
-            intent.putExtra("idcontact", event.getIdcontact());
-            intent.putExtra("date", event.getDate());
-            intent.putExtra("duration", event.getDuration());
-            intent.putExtra("calltype", event.getCalltype() == CallType.INCOMING ? "Reçu" : "Emis");
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);*/
-//sendMessage(event);
             Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragment(event));
         }else{  //else add to job
             //add event to pending list
@@ -96,15 +88,6 @@ public class ListennerCallEndedEvent extends Service {
         }
     }
 
-    private void sendMessage(CallEndedEvent event) {
-        Intent intent = new Intent("my-event");
-        // add data
-        intent.putExtra("idcontact", event.getIdcontact());
-        intent.putExtra("date", event.getDate());
-        intent.putExtra("duration", event.getDuration());
-        intent.putExtra("calltype", event.getCalltype() == CallType.INCOMING ? "Reçu" : "Emis");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
     /**
      * Shows notifications if popup already displayed
      */
