@@ -17,7 +17,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 public class Constants {
     private  static Constants instance = null;
     private String BASE_URL ;
-    private  Bus currentBusInstance;
+    private  AndroidBus currentBusInstance;
     private  Boolean popupdisplayed;
     private List<CallEndedEvent> pendigCallList;
     private List<Cra> CraListForUser;
@@ -25,7 +25,7 @@ public class Constants {
 
 
     private Constants(){
-        currentBusInstance = new Bus();
+        currentBusInstance = new AndroidBus();
         popupdisplayed = false;
         //BASE_URL = "http://192.168.43.131:8080/api/";
         //BASE_URL = "http://192.168.1.68:8080/api/";
@@ -59,11 +59,11 @@ public class Constants {
          popupdisplayed = state;
     }
 
-    public  Bus getCurrentBusInstance(){
+    public  AndroidBus getCurrentBusInstance(){
 
         if(currentBusInstance == null)
         {
-            currentBusInstance = new Bus();
+            currentBusInstance = new AndroidBus();
         }
         return currentBusInstance;
     }
