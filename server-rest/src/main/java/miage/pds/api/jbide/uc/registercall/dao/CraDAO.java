@@ -1,24 +1,18 @@
 package miage.pds.api.jbide.uc.registercall.dao;
 
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.UUID;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.dao.BasicDAO;
-import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
 
 import miage.pds.api.common.LoggingRestController;
 import miage.pds.api.common.model.User;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
+
 /**
  * Created by jbide on 20/12/2015.
  */
@@ -26,8 +20,6 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
 public class CraDAO extends BasicDAO<Cra, ObjectId> {
 
 	private static final Logger logger = LoggerFactory.getLogger(CraDAO.class);
-
-	Morphia morphia;
 
 	public CraDAO(Datastore datastore) {
 		super(datastore);
@@ -60,12 +52,8 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 	    createCra(newCra);
 	    
 	    logger.info("ADDED 2 Cra");
-		
-		
+			
 	}
-	
-
-
 
 	// cra insertion
 	public boolean createCra(Cra cra) {

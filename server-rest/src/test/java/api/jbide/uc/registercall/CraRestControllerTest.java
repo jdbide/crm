@@ -14,14 +14,12 @@ import com.mongodb.MongoClient;
 import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.controller.RestCustomerController;
+
 /**
  * Created by jbide on 22/01/2016.
  */
 public class CraRestControllerTest {
-    //private MockHttpServletRequest request;
-    //private MockHttpServletResponse response;
-    RestCustomerController restCustomerController;
+
  /**   @Autowired
          private HandlerAdapter handlerAdapter;
 
@@ -29,14 +27,11 @@ public class CraRestControllerTest {
        private HandlerMapping handlerMapping;
 */
 
- MongoClient mongoClient;
-    Morphia morphia;
-    Datastore datastore;
-    String dbName = "crm";
-    CraDAO dao;
+    private Datastore datastore;
+    private CraDAO dao;
+    
     @Before
       public void setUp() throws UnknownHostException {
-
         this.datastore      = MongoDatastoreConfig.getDataStore();
         dao = new CraDAO(datastore);
          }
@@ -59,8 +54,6 @@ public class CraRestControllerTest {
             	cra.setIduser("id1");
             	cra.setClientname("testclient");
             	int size0 = dao.getListCraForUser("id1").size();
-            	dao.createCra(cra);
-            	cra.setIduser("id2");
             	dao.createCra(cra);
         		assertEquals(dao.getListCraForUser("id1").size(),datastore.createQuery(Cra.class).field("iduser").equal("id1").asList().size());
         		dao.dropTables();
