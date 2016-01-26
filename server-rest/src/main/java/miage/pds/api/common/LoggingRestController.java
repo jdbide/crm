@@ -37,6 +37,7 @@ public class LoggingRestController {
 		idusertest2 = "bd209fa2-244c-4b6b-9966-49a84192cc8a";
 
 		User u = new User();
+		dao.dropTables();
 		/*u.setEmail("datour@crm.fr");
 		u.setFname("Julien");
 		u.setLname("DATOUR");
