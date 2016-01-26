@@ -1,11 +1,13 @@
 package api.ctruong.uc.prospect.suggest.Controller;
 
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.*;
+import miage.pds.api.ctruong.uc.prospect.suggest.mock.MockTable;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
@@ -30,10 +32,11 @@ public class ProspectControllerTest {
     private ProspectController prospectController;
     private SalesDAOImpl salesDAO;
     private UserDAOImpl userDAO;
-    private final String                dbname      = "crm";
     private Datastore datastore;
     private ProspectDAOImpl prospectDAO;
     private UserClientRelationDAOImpl userClientRelationDAO;
+    private MockTable mockTable;
+
 
 
     @Before
@@ -45,6 +48,10 @@ public class ProspectControllerTest {
         this.userDAO                = new UserDAOImpl(User.class, datastore);
         this.prospectDAO            = new ProspectDAOImpl(Prospect.class, datastore);
         this.userClientRelationDAO  = new UserClientRelationDAOImpl(UserClientRelation.class, datastore);
+        this.mockTable              = new MockTable();
+        mockTable.mockClientTable();
+        mockTable.mockRelationAndSalesTable();
+        mockTable.mockUserTable();
     }
 
     public HashMap<User, ArrayList<Prospect>> init(){
@@ -116,5 +123,13 @@ public class ProspectControllerTest {
         }
         double      average   = sum /count;
         assertTrue(average == prospectController.getSalesAverage());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        salesDAO.deleteByQuery(salesDAO.createQuery());
+        prospectDAO.deleteByQuery(prospectDAO.createQuery());
+        userDAO.deleteByQuery(userDAO.createQuery());
+        userClientRelationDAO.deleteByQuery(userClientRelationDAO.createQuery());
     }
 }

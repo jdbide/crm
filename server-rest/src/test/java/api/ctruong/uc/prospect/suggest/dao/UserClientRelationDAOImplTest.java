@@ -1,8 +1,11 @@
 package api.ctruong.uc.prospect.suggest.dao;
 
+import miage.pds.api.ctruong.uc.prospect.suggest.controller.SalesDAOImpl;
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserClientRelationDAOImpl;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
@@ -23,12 +26,14 @@ public class UserClientRelationDAOImplTest {
     private MongoService service;
     private UserClientRelationDAOImpl   userClientRelationDAO;
     private Datastore                   datastore;
+    private SalesDAOImpl salesDAO;
 
     @Before
     public void setUp() throws Exception {
         this.service    = new MongoService();
         this.datastore  = service.getDatastore();
         this.userClientRelationDAO = new UserClientRelationDAOImpl(UserClientRelation.class, datastore);
+        this.salesDAO   = new SalesDAOImpl(Sales.class, datastore);
     }
 
     @Test
@@ -52,5 +57,12 @@ public class UserClientRelationDAOImplTest {
     @Test
     public void testCheckRelation() throws Exception {
         assertFalse(userClientRelationDAO.checkRelation(1,1));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        salesDAO.deleteByQuery(salesDAO.createQuery());
+        userClientRelationDAO.deleteByQuery(userClientRelationDAO.createQuery());
+
     }
 }
