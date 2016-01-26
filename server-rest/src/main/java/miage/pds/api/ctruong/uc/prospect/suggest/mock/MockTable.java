@@ -27,10 +27,10 @@ import java.util.Random;
 public class MockTable {
     private static final Logger log = MorphiaLoggerFactory.get(MockTable.class);
     private MongoService mongoService;
-    private UserDAO userDAO;
-    private UserClientRelationDAO userClientRelationDAO;
-    private SalesDAO salesDAO;
-    private ProspectDAO prospectDAO;
+    private UserDAOImpl userDAO;
+    private UserClientRelationDAOImpl userClientRelationDAO;
+    private SalesDAOImpl salesDAO;
+    private ProspectDAOImpl prospectDAO;
     private Datastore datastore;
 
     /**

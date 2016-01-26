@@ -32,8 +32,8 @@ public class ProspectRestController {
     ProspectController controller = new ProspectController();
 
     private MongoService mongoService;
-    private UserClientRelationDAO userClientRelationDAO;
-    private SalesDAO salesDAO;
+    private UserClientRelationDAOImpl userClientRelationDAO;
+    private SalesDAOImpl salesDAO;
 
 
     /**
@@ -83,10 +83,7 @@ public class ProspectRestController {
     public
     @ResponseBody
     String mocking() {
-        MockTable mockTable = new MockTable();
-        mockTable.mockClientTable();
-        mockTable.mockUserTable();
-        mockTable.mockRelationAndSalesTable();
+
         return "Done";
     }
 
@@ -99,6 +96,10 @@ public class ProspectRestController {
     public
     @ResponseBody
     String demo() {
+        MockTable mockTable = new MockTable();
+        mockTable.mockClientTable();
+        mockTable.mockUserTable();
+        mockTable.mockRelationAndSalesTable();
         HashMap<User, ArrayList<Prospect>> map = controller.analyseProspect();
         Iterator<Map.Entry<User, ArrayList<Prospect>>> iterator = map.entrySet().iterator();
         String demo = "This is an example of analyze: \r\n";

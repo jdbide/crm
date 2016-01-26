@@ -25,7 +25,7 @@ public class MongoService {
 
     public MongoService() {
         try {
-            MongoClient mongoClient = new MongoClient(MorphiaConfig.VM_PROD_IP, MorphiaConfig.VM_PROD_PORT);
+            MongoClient mongoClient = new MongoClient(MorphiaConfig.LOCAL_IP, MorphiaConfig.LOCAL_PORT);
             logger.info("The new instance of mongo service running with Morphia");
             // Create new instance
             this.morphia    =   new Morphia();
