@@ -19,6 +19,8 @@ public class MessageController {
             case CALL_ENDED:
                 CallController.endCall();
                 break;
+            case CALL_HOOKED:
+                CallController.callHooked();
             case CALL_PASSED:
             case CALL_RECEIVED:
                 CallController.notifyCallFromPhone(message.getCall().getPhoneNumber());

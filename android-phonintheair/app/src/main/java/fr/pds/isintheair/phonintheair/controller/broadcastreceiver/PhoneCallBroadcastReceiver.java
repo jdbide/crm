@@ -36,6 +36,10 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
                 MessageController.sendCallPassedMessage(phoneNumber);
             }
 
+            else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && lastMessage.equals(MessageType.CALL.toString())) {
+                MessageController.sendCallHookMessage();
+            }
+
             else if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 MessageController.sendCallReceivedMessage(phoneNumber);
             }
