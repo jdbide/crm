@@ -22,7 +22,7 @@ public interface MorphiaConfig {
 
     //IP + PORT Adress localhost instance
     // IP + PORT Adress Dev instancce
-    public static String LOCAL_IP = "127.0.0.1";
+    public static String LOCAL_IP = "localhost";
     public static int LOCAL_PORT = 27017;
 
 

@@ -71,19 +71,19 @@ public class ProspectControllerTest {
         return hashMap;
     }
 
-    @Test
-    public void testAnalyseProspect() throws Exception {
-        HashMap<User, ArrayList<Prospect>> hashMap = init();
-        HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyseProspect();
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userMap.entrySet().iterator();
-        while (entryIterator.hasNext()){
-            Map.Entry<User, ArrayList<Prospect>> entry = entryIterator.next();
-            ArrayList<Prospect> prospects = entry.getValue();
-            assertEquals(1, prospects.size());
-            assertNotNull(prospects);
-        }
-        assertEquals(100, userMap.size());
-    }
+//    @Test
+//    public void testAnalyseProspect() throws Exception {
+//        HashMap<User, ArrayList<Prospect>> hashMap = init();
+//        HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyseProspect();
+//        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userMap.entrySet().iterator();
+//        while (entryIterator.hasNext()){
+//            Map.Entry<User, ArrayList<Prospect>> entry = entryIterator.next();
+//            ArrayList<Prospect> prospects = entry.getValue();
+//            assertEquals(1, prospects.size());
+//            assertNotNull(prospects);
+//        }
+//        assertEquals(100, userMap.size());
+//    }
 
     @Test
     public void testGetProspectListForEachUser() throws Exception {
