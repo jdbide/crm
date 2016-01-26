@@ -18,6 +18,7 @@ import static junit.framework.Assert.assertEquals;
  * Created by jbide on 22/01/2016.
  */
 public class CraRestControllerTest {
+
     //private MockHttpServletRequest request;
     //private MockHttpServletResponse response;
     RestCustomerController restCustomerController;
@@ -32,10 +33,18 @@ public class CraRestControllerTest {
     String dbName = "crm";
     CraDAO dao;
 
+    /**
+     * @Autowired private HandlerAdapter handlerAdapter;
+     * @Autowired private HandlerMapping handlerMapping;
+     */
+
+    private Datastore datastore;
+    private CraDAO dao;
+
     @Before
     public void setUp() throws UnknownHostException {
-
         this.datastore = MongoDatastoreConfig.getDataStore();
+
         dao = new CraDAO(datastore);
     }
 
@@ -57,8 +66,6 @@ public class CraRestControllerTest {
         cra.setIduser("id1");
         cra.setClientname("testclient");
         int size0 = dao.getListCraForUser("id1").size();
-        dao.createCra(cra);
-        cra.setIduser("id2");
         dao.createCra(cra);
         assertEquals(dao.getListCraForUser("id1").size(), datastore.createQuery(Cra.class).field("iduser").equal("id1").asList().size());
         dao.dropTables();

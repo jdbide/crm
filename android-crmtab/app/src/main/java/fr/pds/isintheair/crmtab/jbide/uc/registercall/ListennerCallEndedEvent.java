@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,9 +16,8 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.PendingCallLogEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.PendingLogEvent;
 
 
 /**
@@ -79,12 +77,12 @@ public class ListennerCallEndedEvent extends Service {
         //if no popup displayed show
         if(!Constants.getInstance().isPopUpDisplayed()) {
             Constants.getInstance().setPopUpDisplayed(true);
-            Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragment(event));
+            Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
         }else{  //else add to job
             //add event to pending list
             Constants.getInstance().getPendingCallList().add(event);
             //tell subscribers that list has been updated
-            Constants.getInstance().getCurrentBusInstance().post(new PendingCallLogEvent());
+            Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
         }
     }
 
@@ -92,7 +90,7 @@ public class ListennerCallEndedEvent extends Service {
      * Shows notifications if popup already displayed
      */
     @Subscribe
-    public void notifyLocally(PendingCallLogEvent pop) {
+    public void notifyLocally(PendingLogEvent pop) {
 
         List<CallEndedEvent> liste = Constants.getInstance().getPendingCallList();
 

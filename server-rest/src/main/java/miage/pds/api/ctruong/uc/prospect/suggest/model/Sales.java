@@ -19,7 +19,6 @@ public class Sales{
 
     @Id
     private ObjectId objectId;
-    private int id;
     @Indexed
     private int idClient;
     @Indexed
@@ -33,20 +32,17 @@ public class Sales{
 
     /**
      * Full constructor
-     * @param id
      * @param idClient
      * @param idSeller
      * @param date
      * @param value
      */
-    public Sales(int id, int idClient, int idSeller, Date date, double value) {
-        this.id = id;
+    public Sales(int idClient, int idSeller, Date date, double value) {
         this.idClient = idClient;
         this.idSeller = idSeller;
         this.date = date;
         this.value = value;
     }
-
 
     public ObjectId getObjectId() {
         return objectId;
@@ -54,14 +50,6 @@ public class Sales{
 
     public void setObjectId(ObjectId objectId) {
         this.objectId = objectId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getIdClient() {
@@ -99,8 +87,6 @@ public class Sales{
     @Override
     public String toString() {
         return "Sales{" +
-                "objectId=" + objectId +
-                ", id=" + id +
                 ", idClient=" + idClient +
                 ", idSeller=" + idSeller +
                 ", value=" + value +

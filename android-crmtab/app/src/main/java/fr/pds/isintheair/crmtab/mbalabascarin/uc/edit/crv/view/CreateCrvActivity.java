@@ -41,6 +41,7 @@ import java.util.Locale;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
@@ -71,7 +72,7 @@ public class CreateCrvActivity extends AppCompatActivity {
     RadioButton          satisfaction;
     Report               report;
     CacheDao             dao;
-
+    Report crv = new Report();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -471,7 +472,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         int selectedID = radioGroup.getCheckedRadioButtonId();
 
         satisfaction = (RadioButton) findViewById(selectedID);
-        Report crv = new Report();
+
         if (report != null) {
             crv.setId(report.getId());
         }
@@ -587,6 +588,10 @@ public class CreateCrvActivity extends AppCompatActivity {
             //request.setRequestJson(createJson());
             //request.execute();
             createReport();
+
+            //create report locally
+            showDialogBoxForLocalSave();
+
             Toast.makeText(this, "calling httprequest", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -601,5 +606,48 @@ public class CreateCrvActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void showDialogBoxForLocalSave(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setTitle("Sauvegarde local");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Sauvegarde local permet de garder une copie du compte rendu en local. Vous pouvez accéder à vos compte rendus" +
+                        "local quand vous avez une perte de connexion vers le réseau." +
+                        "\nVoulez vous garder une copie de ce compte rendu en local?")
+                .setCancelable(true)
+                .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                       //save report in cache
+                        Gson gson = new Gson();
+                        String json = gson.toJson(crv);
+
+                        dao.insertReport(json);
+                        dao.close();
+                    }
+                })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+
+    //call a contact
+    public void callContact(View view){
+        CallController.call(tel.getText().toString());
+    }
 }
 

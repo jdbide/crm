@@ -12,8 +12,7 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 
 
 public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<PendingLogsRecyclerViewAdapter.ViewHolder> {
@@ -46,7 +45,7 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
             public void onClick(View v) {
 
 
-               Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(new CallEndedEvent(
+               Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragmentEvent(new CallEndedEvent(
                        mValues.get(position).getCalltype(),
                        mValues.get(position).getDate(),
                        mValues.get(position).getDuration(),

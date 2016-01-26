@@ -7,7 +7,7 @@ import android.widget.EditText;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDetailsFragment;
@@ -54,7 +54,7 @@ public class UcRegisterCallTest extends ActivityInstrumentationTestCase2<MainAct
 
     public void testAddLogFragment() throws Exception {
         boolean bool = false;
-        Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(new CallEndedEvent(CallType.INCOMING, "", "", "")));
+        Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragmentEvent(new CallEndedEvent(CallType.INCOMING, "", "", "")));
         getInstrumentation().waitForIdleSync();
         Fragment frag = activity.getFragmentManager().findFragmentById(R.id.container);
         //activity.getFragmentManager().findFragmentByTag(MainActivity.TagAddLogFragment);

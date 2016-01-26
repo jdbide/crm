@@ -4,7 +4,6 @@ package miage.pds.api.jbide.uc.registercall;
 
 import java.util.List;
 
-import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mongodb.MongoClient;
-
 import miage.pds.MongoDatastoreConfig;
-import miage.pds.api.common.LoggingRestController;
 import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 
@@ -49,11 +45,20 @@ public class CraRestController {
 	}
 
 	@RequestMapping(value = "/cra/create", method = RequestMethod.POST)
-	public @ResponseBody Boolean createCra(@RequestBody Cra cra) {
+	public @ResponseBody Boolean createOrModifyCra(@RequestBody Cra cra) {
 		boolean status = false;  
 		status = dao.createCra(cra);
 		if(status) logger.info("Cra registered :)");
 		else logger.info("Cra not registered :)");
+		return status;
+	}
+	
+	@RequestMapping(value = "/cra/delete", method = RequestMethod.POST)
+	public @ResponseBody Boolean deleteCra(@RequestBody String idcra) {
+		boolean status = false;  
+		status = dao.deleteCra(idcra);
+		if(status) logger.info("Cra deleted :)");
+		else logger.info("Cra not deleted :)");
 		return status;
 	}
 	

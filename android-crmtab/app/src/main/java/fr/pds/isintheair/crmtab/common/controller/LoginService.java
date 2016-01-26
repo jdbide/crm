@@ -19,6 +19,7 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.model.rest.LoginServiceInterface;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CallService;
 import retrofit.Call;
@@ -32,7 +33,7 @@ import retrofit.Retrofit;
  */
 public class LoginService {
 
-    public static void login(User user, final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
+    public static void login(final User user, final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
 
         //Interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -60,6 +61,7 @@ public class LoginService {
                 if (response.isSuccess()) {
 
                     User rep = response.body();
+
                     if (rep != null) {
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                         SharedPreferences.Editor editor = prefs.edit();
@@ -74,30 +76,30 @@ public class LoginService {
                         User user = new User();
                         user.setEmail(rep.getEmail());
                         user.save();
+                        Snackbar.make(coordlayout, "Credentials Ok for user " + rep.getEmail(), Snackbar.LENGTH_LONG).show();
+                        context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        NotificationEventReceiver.setUpAlarm(context);
+                    }else{
+                        Snackbar.make(coordlayout,"User: " + user.getEmail() +" : Wrong Credentials or not registererd " , Snackbar.LENGTH_LONG).show();
                     }
 
                     final Intent intent = new Intent(context, CallService.class);
                     context.startService(intent);
-
-                    context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                    Snackbar.make(coordlayout, "connection succeed", Snackbar.LENGTH_LONG).show();
                     anim.setVisibility(View.GONE);
                 }
                 else {
-                    Snackbar
-                            .make(coordlayout, "response but not success", Snackbar.LENGTH_LONG).show();
 
+                    Snackbar.make(coordlayout,"No response from server " , Snackbar.LENGTH_LONG).show();
                     anim.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
+
                 Log.v("Failure", t.getMessage());
                 Snackbar
                         .make(coordlayout, "onfailure connection", Snackbar.LENGTH_LONG).show();
-
                 anim.setVisibility(View.GONE);
 
             }
