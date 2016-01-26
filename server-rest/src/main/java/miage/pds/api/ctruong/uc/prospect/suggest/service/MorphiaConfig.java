@@ -8,6 +8,6 @@ package miage.pds.api.ctruong.uc.prospect.suggest.service;
  * @serial 111912202015
  */
 public interface MorphiaConfig {
-    static final String URL     = "localhost";
+    static final String URL     = "10.0.0.7";
     static final int    PORT    = 27017;
 }
