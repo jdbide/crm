@@ -75,7 +75,7 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 				.field("password").equal(user.getPassword()).get();
 			//logger.info("result" + u.getEmail());
 			
-		if(u.getId()!=null)
+		if(u!=null)
 		return u;
 		else return null;
 	}

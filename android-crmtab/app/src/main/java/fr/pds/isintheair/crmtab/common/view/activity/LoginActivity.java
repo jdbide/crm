@@ -20,7 +20,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
 
 import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
@@ -29,6 +28,9 @@ import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
  * Created by jbide on 22/01/2016.
  */
 
+/**
+ * Fixed by jbide on 26/01/2016 : 17:00
+ */
 public class LoginActivity extends Activity {
     @Bind(R.id.loginemail)
     EditText          mail;
@@ -70,20 +72,13 @@ public class LoginActivity extends Activity {
                 byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
                 final String basic =
                         Base64.encodeToString(data, Base64.NO_WRAP);
+                user.setEmail(mail.getText().toString());
                 user.setPassword(basic);
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
 
-                //TODO Remove it and uncomment
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
-        //TODO Remove it and uncomment
-        /* startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        NotificationEventReceiver.setUpAlarm(getApplicationContext()); */
-
-        NotificationEventReceiver.setUpAlarm(getApplicationContext());
-
 
     }
 
