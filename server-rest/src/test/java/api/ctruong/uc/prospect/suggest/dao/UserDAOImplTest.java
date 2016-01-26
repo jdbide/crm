@@ -2,6 +2,7 @@ package api.ctruong.uc.prospect.suggest.dao;
 
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserDAOImpl;
 import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.mock.MockTable;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.junit.Before;
@@ -29,12 +30,15 @@ public class UserDAOImplTest {
     private MongoService mongoService;
     private UserDAO userDAO;
     private Datastore datastore;
+    private MockTable mockTable;
 
     @Before
     public void setUp() throws Exception {
         this.mongoService   = new MongoService();
         this.datastore      = mongoService.getDatastore();
         this.userDAO        = new UserDAOImpl(User.class, datastore);
+        this.mockTable      = new MockTable();
+        mockTable.mockUserTable();
     }
 
     @Test
