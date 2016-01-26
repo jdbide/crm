@@ -121,7 +121,7 @@ public class CrvMainActivity extends AppCompatActivity {
         // set dialog message
         alertDialogBuilder
                 .setMessage("Choisir une option")
-                .setCancelable(false)
+                .setCancelable(true)
                 .setPositiveButton("Modifier :)", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close

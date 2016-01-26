@@ -12,7 +12,9 @@ import com.google.gson.GsonBuilder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Report;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.retrofit.Service;
@@ -39,9 +41,10 @@ public class CrvController {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-
+        retrofit.client().setConnectTimeout(5000, TimeUnit.MILLISECONDS);
         Service iService = retrofit.create(Service.class);
         Call<List<Report>> call = iService.getReportList(idClient);
+
         call.enqueue(new Callback<List<Report>>() {
 
             @Override
@@ -60,8 +63,30 @@ public class CrvController {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d("onFailure","onFailure()");
+                Log.d("onFailure", "onFailure()");
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                List<Report> crvFromCache = new ArrayList<Report>();
+                Gson gson = new Gson();
+
+                CacheDao dao = new CacheDao(context);
+                ArrayList<String> reportsJson = dao.getAllReports();
+
+                for(String json : reportsJson){
+                    Report deserializedReport = gson.fromJson(json, Report.class);
+                    if(Integer.parseInt(deserializedReport.getClient()) == client.getClientId()){
+                        crvFromCache.add(deserializedReport);
+                    }
+
+                }
+                dao.close();
+
+                //get reports from cache
+                Intent intent = new Intent(context, CrvMainActivity.class);
+                intent.putExtra("ClientObject", client);
+                Bundle b = new Bundle();
+                b.putSerializable("list", (Serializable) crvFromCache);
+                intent.putExtra("listReport", b);
+                context.startActivity(intent);
             }
         });
         return reports;
