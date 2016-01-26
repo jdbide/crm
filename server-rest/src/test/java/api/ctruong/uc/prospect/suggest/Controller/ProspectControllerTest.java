@@ -1,6 +1,5 @@
 package api.ctruong.uc.prospect.suggest.Controller;
 
-import jdk.nashorn.internal.objects.NativeArray;
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.*;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;

@@ -6,6 +6,8 @@ import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.1.19
  * @serial 111912202015
  */
+@RunWith(MockitoJUnitRunner.class)
 public class UserDAOImplTest {
     private final static Logger log         = LoggerFactory.getLogger(UserDAOImplTest.class);
     private MongoService mongoService;
