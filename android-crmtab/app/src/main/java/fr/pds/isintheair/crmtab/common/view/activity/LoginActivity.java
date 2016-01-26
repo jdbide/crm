@@ -75,6 +75,7 @@ public class LoginActivity extends Activity {
                         Base64.encodeToString(data, Base64.NO_WRAP);
                 user.setEmail(mail.getText().toString());
                 user.setPassword(basic);
+                user.save();
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
 

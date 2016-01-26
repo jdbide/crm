@@ -77,19 +77,22 @@ public class LoginService {
                         user.setEmail(rep.getEmail());
                         user.save();
                         Snackbar.make(coordlayout, "Credentials Ok for user " + rep.getEmail(), Snackbar.LENGTH_LONG).show();
-                        context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        NotificationEventReceiver.setUpAlarm(context);
-                    }else{
-                        Snackbar.make(coordlayout,"User: " + user.getEmail() +" : Wrong Credentials or not registererd " , Snackbar.LENGTH_LONG).show();
+
+                    }
+                    else {
+                        Snackbar.make(coordlayout, "User: " + user.getEmail() + " : Wrong Credentials or not registererd ", Snackbar.LENGTH_LONG).show();
                     }
 
                     final Intent intent = new Intent(context, CallService.class);
                     context.startService(intent);
                     anim.setVisibility(View.GONE);
+
+                    context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    NotificationEventReceiver.setUpAlarm(context);
                 }
                 else {
 
-                    Snackbar.make(coordlayout,"No response from server " , Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(coordlayout, "No response from server ", Snackbar.LENGTH_LONG).show();
                     anim.setVisibility(View.GONE);
                 }
             }

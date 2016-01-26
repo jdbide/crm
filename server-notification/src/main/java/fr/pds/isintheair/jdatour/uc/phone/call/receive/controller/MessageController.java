@@ -22,6 +22,7 @@ public class MessageController {
                 break;
             case CALL_HOOKED:
                 CallController.notifyCallHooked(session);
+                break;
             case CALL_PASSED:
                 CallController.notifyCallPassed(session, message.getCall().getPhoneNumber());
                 break;
