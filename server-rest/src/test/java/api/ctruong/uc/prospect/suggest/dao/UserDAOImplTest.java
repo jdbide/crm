@@ -1,5 +1,24 @@
 package api.ctruong.uc.prospect.suggest.dao;
 
+import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserDAOImpl;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.mock.MockTable;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
+import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.mongodb.morphia.Datastore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * The unit test for the class user dao
  * <p>
@@ -8,26 +27,31 @@ package api.ctruong.uc.prospect.suggest.dao;
  * @version 1.1.19
  * @serial 111912202015
  */
+@RunWith(MockitoJUnitRunner.class)
 public class UserDAOImplTest {
-/*    private final static Logger log         = LoggerFactory.getLogger(UserDAOImplTest.class);
-    private MongoClient         mongoClient;
-    private Morphia             morphia;
-    private final String        dbname      = "crm";
-    private Datastore           datastore;
-    private UserDAOImpl         userDAO;
+    private final static Logger log         = LoggerFactory.getLogger(UserDAOImplTest.class);
+    private MongoService mongoService;
+    private UserDAOImpl userDAO;
+    private Datastore datastore;
+    private MockTable mockTable;
 
     @Before
     public void setUp() throws Exception {
-        this.mongoClient    = new MongoClient();
-        this.morphia        = new Morphia();
-        this.morphia.map(User.class);
-        this.datastore      = this.morphia.createDatastore(mongoClient, dbname);
+        this.mongoService   = new MongoService();
+        this.datastore      = mongoService.getDatastore();
         this.userDAO        = new UserDAOImpl(User.class, datastore);
+//        this.mockTable      = new MockTable();
+//        mockTable.mockUserTable();
     }
 
     @Test
     public void testGetAllUsers() throws Exception {
-        List<User> users = userDAO.createQuery().asList();
-        assertEquals(users.size(), userDAO.getAllUsers().size());
-    } */
+        List<User> users = userDAO.getAllUsers();
+        assertNotNull(userDAO.getAllUsers());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        userDAO.deleteByQuery(userDAO.createQuery());
+    }
 }

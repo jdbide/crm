@@ -13,14 +13,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-
-import java.nio.charset.StandardCharsets;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
+
+import java.nio.charset.StandardCharsets;
 
 import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
@@ -31,13 +30,13 @@ import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 public class LoginActivity extends Activity {
     @Bind(R.id.loginemail)
-    EditText          mail;
+    EditText mail;
     @Bind(R.id.loginpassword)
-    EditText          pass;
+    EditText pass;
     @Bind(R.id.btnSuivant)
-    Button            con;
+    Button con;
     @Bind(R.id.loadingPanel)
-    RelativeLayout    loading;
+    RelativeLayout loading;
     @Bind(R.id.LogincoordinatorLayout)
     CoordinatorLayout coordlayout;
 
@@ -47,11 +46,11 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
 
-        SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         //Test if user is already logged(data id is in sharedpreferences)
         if (!prefs.getString("id", "").equals(""))
@@ -74,10 +73,10 @@ public class LoginActivity extends Activity {
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
 
-                //TODO Remove it and uncomment
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
             }
         });
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         //TODO Remove it and uncomment
         /* startActivity(new Intent(LoginActivity.this, MainActivity.class));
         NotificationEventReceiver.setUpAlarm(getApplicationContext()); */

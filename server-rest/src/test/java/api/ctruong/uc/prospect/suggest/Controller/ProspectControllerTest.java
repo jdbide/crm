@@ -1,5 +1,23 @@
 package api.ctruong.uc.prospect.suggest.Controller;
 
+import miage.pds.api.ctruong.uc.prospect.suggest.controller.*;
+import miage.pds.api.ctruong.uc.prospect.suggest.mock.MockTable;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mongodb.morphia.Datastore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+
+import static org.junit.Assert.*;
+
 /**
  * The unit test for the class prospect controller
  * <p>
@@ -9,38 +27,41 @@ package api.ctruong.uc.prospect.suggest.Controller;
  * @serial 111912202015
  */
 public class ProspectControllerTest {
-/*    private static final Logger         log = LoggerFactory.getLogger(ProspectControllerTest.class);
-    private MongoClient                 mongoClient;
-    private Morphia                     morphia;
+    private static final Logger log = LoggerFactory.getLogger(ProspectControllerTest.class);
+    private MongoService service;
     private ProspectController prospectController;
     private SalesDAOImpl salesDAO;
     private UserDAOImpl userDAO;
-    private final String                dbname      = "crm";
-    private Datastore                   datastore;
+    private Datastore datastore;
     private ProspectDAOImpl prospectDAO;
     private UserClientRelationDAOImpl userClientRelationDAO;
+    private MockTable mockTable;
+
 
 
     @Before
     public void setUp() throws Exception {
         this.prospectController     = new ProspectController();
-        this.mongoClient            = new MongoClient();
-        this.morphia                = new Morphia();
-        this.datastore              = morphia.createDatastore(mongoClient, dbname);
+        this.service                = new MongoService();
+        this.datastore              = service.getDatastore();
         this.salesDAO               = new SalesDAOImpl(Sales.class, datastore);
         this.userDAO                = new UserDAOImpl(User.class, datastore);
         this.prospectDAO            = new ProspectDAOImpl(Prospect.class, datastore);
         this.userClientRelationDAO  = new UserClientRelationDAOImpl(UserClientRelation.class, datastore);
+        this.mockTable              = new MockTable();
+        mockTable.mockClientTable();
+        mockTable.mockRelationAndSalesTable();
+        mockTable.mockUserTable();
     }
 
     public HashMap<User, ArrayList<Prospect>> init(){
         HashMap<User, ArrayList<Prospect>>  hashMap     = new HashMap<User, ArrayList<Prospect>>();
         List<User>                          list        = userDAO.getAllUsers();
         for (User user: list){
+            List<Prospect> prospectListl= prospectDAO.getAllProspect();
             ArrayList<Prospect>                 arrayList   = new ArrayList<Prospect>();
-            List<Prospect>                  prospectListl= prospectDAO.getAllProspect();
             for (Prospect prospect: prospectListl){
-                if (userClientRelationDAO.checkRelation(user.getId(), prospect.getId()) == false){
+                if (!userClientRelationDAO.checkRelation(user.getId(), prospect.getId())){
                     arrayList.add(prospect);
                 }
             }
@@ -50,12 +71,19 @@ public class ProspectControllerTest {
         return hashMap;
     }
 
-    @Test
-    public void testAnalyseProspect() throws Exception {
-        HashMap<User, ArrayList<Prospect>> hashMap = init();
-        HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyseProspect();
-        assertEquals(100, userMap.size());
-    }
+//    @Test
+//    public void testAnalyseProspect() throws Exception {
+//        HashMap<User, ArrayList<Prospect>> hashMap = init();
+//        HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyseProspect();
+//        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userMap.entrySet().iterator();
+//        while (entryIterator.hasNext()){
+//            Map.Entry<User, ArrayList<Prospect>> entry = entryIterator.next();
+//            ArrayList<Prospect> prospects = entry.getValue();
+//            assertEquals(1, prospects.size());
+//            assertNotNull(prospects);
+//        }
+//        assertEquals(100, userMap.size());
+//    }
 
     @Test
     public void testGetProspectListForEachUser() throws Exception {
@@ -67,24 +95,21 @@ public class ProspectControllerTest {
     public void testAnalyzeProspectBySales() throws Exception {
         HashMap<User, ArrayList<Prospect>> hashMap = init();
         HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyzeProspectBySales(hashMap);
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userMap.entrySet().iterator();
-        assertEquals(100, userMap.size());
+        assertEquals(10, userMap.size());
     }
 
     @Test
     public void testAnalyzeProspectByRelationLv() throws Exception {
         HashMap<User, ArrayList<Prospect>> hashMap = init();
         HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyzeProspectByRelationLv(hashMap);
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userMap.entrySet().iterator();
-        assertEquals(100, userMap.size());
+        assertEquals(10, userMap.size());
     }
 
     @Test
     public void testAnalyzeProspectByPlaceNumber() throws Exception {
         HashMap<User, ArrayList<Prospect>> hashMap = init();
         HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyzeProspectByPlaceNumber(hashMap);
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userMap.entrySet().iterator();
-        assertEquals(100, userMap.size());
+        assertEquals(10, userMap.size());
     }
 
     @Test
@@ -98,5 +123,13 @@ public class ProspectControllerTest {
         }
         double      average   = sum /count;
         assertTrue(average == prospectController.getSalesAverage());
-    } */
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        salesDAO.deleteByQuery(salesDAO.createQuery());
+        prospectDAO.deleteByQuery(prospectDAO.createQuery());
+        userDAO.deleteByQuery(userDAO.createQuery());
+        userClientRelationDAO.deleteByQuery(userClientRelationDAO.createQuery());
+    }
 }

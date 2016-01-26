@@ -184,7 +184,7 @@
                                 android:layout_height="25dp"
                                 android:background="@drawable/call"
                                 android:id="@+id/btnCall"
-
+                                android:onClick="callContact"
                                 android:layout_below="@+id/txtContact"
                                 android:layout_toRightOf="@id/btnSms"/>
                             <Button

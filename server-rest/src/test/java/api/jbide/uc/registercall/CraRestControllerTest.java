@@ -52,6 +52,7 @@ public class CraRestControllerTest {
                 assertEquals(size0+1,size1);
                 dao.dropTables();
    }
+
             @Test
         	public void getListCraForUserTest() {
             	Cra cra = new Cra();

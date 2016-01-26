@@ -17,7 +17,6 @@ public class UserClientRelation {
 
     @Id
     private ObjectId objectId;
-    private int id;
     @Indexed
     private int idClient;
     @Indexed
@@ -30,12 +29,10 @@ public class UserClientRelation {
     /**
      *
      * Full constructor
-     * @param id
      * @param idClient
      * @param idUser
      */
-    public UserClientRelation(int id, int idClient, int idUser) {
-        this.id = id;
+    public UserClientRelation(int idClient, int idUser) {
         this.idClient = idClient;
         this.idUser = idUser;
     }
@@ -46,14 +43,6 @@ public class UserClientRelation {
 
     public void setObjectId(ObjectId objectId) {
         this.objectId = objectId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getIdClient() {
@@ -75,8 +64,6 @@ public class UserClientRelation {
     @Override
     public String toString() {
         return "UserClientRelation{" +
-                "objectId=" + objectId +
-                ", id=" + id +
                 ", idClient=" + idClient +
                 ", idUser=" + idUser +
                 '}';
