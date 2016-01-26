@@ -83,7 +83,7 @@ public class RestCustomerControllerTest {
         messageRestCustomer.setIndependant(independant);
         messageRestCustomer.setIdUser(1);
         int nbIndepbeforeTest = new IndependantDAO(datastore).find().asList().size();
-        nbIndepbeforeTest = nbIndepbeforeTest +1;
+        nbIndepbeforeTest = nbIndepbeforeTest;
         restCustomerController.createIndependant(messageRestCustomer);
         int nbIndepAfterTest = new IndependantDAO(datastore).find().asList().size();
         new IndependantDAO(datastore).delete(independant);
