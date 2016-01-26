@@ -85,6 +85,8 @@ public class ProspectRestController {
     String mocking() {
         MockTable mockTable = new MockTable();
         mockTable.mockClientTable();
+        mockTable.mockUserTable();
+        mockTable.mockRelationAndSalesTable();
         return "Done";
     }
 
