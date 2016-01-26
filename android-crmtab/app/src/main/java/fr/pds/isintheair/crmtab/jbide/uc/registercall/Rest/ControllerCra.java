@@ -47,7 +47,7 @@ public class ControllerCra {
                 .client(httpClient)
                 .build();
 
-        Methods service = retrofit.create(Methods.class);
+        SerciceGenerator service = retrofit.create(SerciceGenerator.class);
         Call<Boolean> call = service.createcra(cra);
 
         call.enqueue(new Callback<Boolean>() {

@@ -1,16 +1,17 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.Events;
 
 /**
- * Created by j-d on 09/01/2016.
+ * Created by jbide on 24/01/2016.
  */
-public class DisplayPopUpFragment {
+public class DisplayAddLogFragmentEvent {
+
     private CallEndedEvent callEndedEvent;
 
     public CallEndedEvent getCallEndedEvent() {
         return callEndedEvent;
     }
 
-    public DisplayPopUpFragment(CallEndedEvent callEndedEvent) {
+    public DisplayAddLogFragmentEvent(CallEndedEvent callEndedEvent) {
 
         this.callEndedEvent = callEndedEvent;
     }

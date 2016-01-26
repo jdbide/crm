@@ -22,6 +22,13 @@ public class MessageController {
         }
     }
 
+    public static void sendCallHookMessage() {
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_HOOKED).build();
+        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
     public static void sendCallReceivedMessage(String phoneNumber) {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_RECEIVED).build();
         Call        call        = new Call(phoneNumber);

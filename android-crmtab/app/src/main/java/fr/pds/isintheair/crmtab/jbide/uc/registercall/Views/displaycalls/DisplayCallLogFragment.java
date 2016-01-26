@@ -3,15 +3,12 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +21,7 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Methods;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.SerciceGenerator;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import retrofit.Call;
 import retrofit.Callback;
@@ -80,7 +77,7 @@ public class DisplayCallLogFragment extends Fragment {
                 .client(httpClient)
                 .build();
 
-        Methods service = retrofit.create(Methods.class);
+        SerciceGenerator service = retrofit.create(SerciceGenerator.class);
         Call<List<Cra>> call = service.listcraforuser(Constants.getInstance().getCurrentUser().getId());
         call.enqueue(new Callback<List<Cra>>() {
             @Override
