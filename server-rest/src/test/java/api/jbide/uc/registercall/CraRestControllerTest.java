@@ -29,9 +29,7 @@ public class CraRestControllerTest {
 
     MongoClient mongoClient;
     Morphia morphia;
-    Datastore datastore;
     String dbName = "crm";
-    CraDAO dao;
 
     /**
      * @Autowired private HandlerAdapter handlerAdapter;
