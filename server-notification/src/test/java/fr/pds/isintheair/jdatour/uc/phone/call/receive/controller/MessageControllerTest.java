@@ -24,7 +24,7 @@ public class MessageControllerTest {
     }
 
     @Test
-    public void testRegisterPhone() {
+    public void testRegisterPhoneAddPeer() {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_PHONE).build();
         Register register = new Register(42);
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
@@ -33,5 +33,17 @@ public class MessageControllerTest {
 
         assertNotNull(PeerHandlerSingleton.getInstance().findPeerSession(DeviceType.PHONE, 42));
         assertEquals((int) PeerHandlerSingleton.getInstance().findPeerUserId(DeviceType.PHONE, session), 42);
+    }
+
+    @Test
+    public void testRegisterTabletAddPeer() {
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_TABLET).build();
+        Register register = new Register(42);
+        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
+
+        MessageController.handleMessage(message, session);
+
+        assertNotNull(PeerHandlerSingleton.getInstance().findPeerSession(DeviceType.TABLET, 42));
+        assertEquals((int) PeerHandlerSingleton.getInstance().findPeerUserId(DeviceType.TABLET, session), 42);
     }
 }
