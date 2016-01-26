@@ -95,21 +95,21 @@ public class ProspectControllerTest {
     public void testAnalyzeProspectBySales() throws Exception {
         HashMap<User, ArrayList<Prospect>> hashMap = init();
         HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyzeProspectBySales(hashMap);
-        assertEquals(100, userMap.size());
+        assertEquals(10, userMap.size());
     }
 
     @Test
     public void testAnalyzeProspectByRelationLv() throws Exception {
         HashMap<User, ArrayList<Prospect>> hashMap = init();
         HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyzeProspectByRelationLv(hashMap);
-        assertEquals(100, userMap.size());
+        assertEquals(10, userMap.size());
     }
 
     @Test
     public void testAnalyzeProspectByPlaceNumber() throws Exception {
         HashMap<User, ArrayList<Prospect>> hashMap = init();
         HashMap<User, ArrayList<Prospect>> userMap = prospectController.analyzeProspectByPlaceNumber(hashMap);
-        assertEquals(100, userMap.size());
+        assertEquals(10, userMap.size());
     }
 
     @Test
