@@ -40,7 +40,9 @@ public class SalesDAOImplTest {
         this.datastore      = service.getDatastore();
         this.salesDAO            = new SalesDAOImpl(Sales.class, datastore);
         this.mockTable      = new MockTable();
-        mockTable.mockRelationAndSalesTable();
+        if (salesDAO.count() > 0){
+            mockTable.mockRelationAndSalesTable();
+        }
         this.userClientRelationDAO = new UserClientRelationDAOImpl(UserClientRelation.class, datastore);
     }
 

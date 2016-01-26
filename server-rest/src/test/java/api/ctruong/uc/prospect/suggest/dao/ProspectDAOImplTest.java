@@ -28,7 +28,7 @@ public class ProspectDAOImplTest {
     private final static Logger log         = LoggerFactory.getLogger(ProspectDAOImplTest.class);
     private MongoService service;
     private Datastore           datastore;
-    private ProspectDAO prospectDAO;
+    private ProspectDAOImpl prospectDAO;
     private MockTable mockTable;
 
 
@@ -39,7 +39,10 @@ public class ProspectDAOImplTest {
         this.prospectDAO    = new ProspectDAOImpl(Prospect.class, datastore);
 
         this.mockTable      = new MockTable();
-        mockTable.mockClientTable();
+        if (prospectDAO.count() > 0){
+            mockTable.mockClientTable();
+        }
+
     }
 
 

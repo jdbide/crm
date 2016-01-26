@@ -29,7 +29,7 @@ import java.util.*;
 @Controller
 public class ProspectRestController {
     private static final Logger log = LoggerFactory.getLogger(ProspectRestController.class);
-    ProspectController controller = new ProspectController();
+    ProspectController controller;
 
     private MongoService mongoService;
     private UserClientRelationDAOImpl userClientRelationDAO;
@@ -40,6 +40,7 @@ public class ProspectRestController {
      * Constructor for rest controller
      */
     public ProspectRestController() {
+        this.controller = new ProspectController();
         this.mongoService = new MongoService();
         userClientRelationDAO = new UserClientRelationDAOImpl(UserClientRelation.class, mongoService.getDatastore());
         salesDAO = new SalesDAOImpl(Sales.class, mongoService.getDatastore());
@@ -54,7 +55,7 @@ public class ProspectRestController {
     public
     @ResponseBody
     String helloWorld() {
-        return "Hello World";
+        return "Hello Davide's World";
     }
 
     /**
@@ -96,10 +97,6 @@ public class ProspectRestController {
     public
     @ResponseBody
     String demo() {
-        MockTable mockTable = new MockTable();
-        mockTable.mockClientTable();
-        mockTable.mockUserTable();
-        mockTable.mockRelationAndSalesTable();
         HashMap<User, ArrayList<Prospect>> map = controller.analyseProspect();
         Iterator<Map.Entry<User, ArrayList<Prospect>>> iterator = map.entrySet().iterator();
         String demo = "This is an example of analyze: \r\n";
