@@ -1,17 +1,17 @@
 package api.ctruong.uc.prospect.suggest.dao;
 
-import com.mongodb.MongoClient;
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.SalesDAOImpl;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
+import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * The unit test for the class sales dao
@@ -22,19 +22,16 @@ import java.util.List;
  */
 public class SalesDAOImplTest {
 
- /*   private final static Logger log         = LoggerFactory.getLogger(SalesDAOImplTest.class);
-    private MongoClient         mongoClient;
-    private Morphia             morphia;
+    private final static Logger log         = LoggerFactory.getLogger(SalesDAOImplTest.class);
+    private MongoService        service;
     private SalesDAOImpl        salesDAO;
     private final String        dbname      = "crm";
     private Datastore           datastore;
 
     @Before
     public void setUp() throws Exception {
-        this.mongoClient    = new MongoClient();
-        this.morphia        = new Morphia();
-        this.morphia.map(Sales.class);
-        this.datastore      = this.morphia.createDatastore(mongoClient, dbname);
+        this.service    = new MongoService();
+        this.datastore      = service.getDatastore();
         salesDAO            = new SalesDAOImpl(Sales.class, datastore);
     }
 
@@ -61,5 +58,5 @@ public class SalesDAOImplTest {
         List<Sales> sales= salesDAO.createQuery().field("idClient").equal(idClient).asList();
         assertNotNull(sales);
         assertEquals(sales.size(), salesDAO.getSalesByIDClient(idClient).size());
-    } */
+    }
 }

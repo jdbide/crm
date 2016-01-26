@@ -1,16 +1,16 @@
 package api.ctruong.uc.prospect.suggest.dao;
 
-import com.mongodb.MongoClient;
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserClientRelationDAOImpl;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * The unit test for the class user client relationship dao
@@ -20,18 +20,14 @@ import static org.junit.Assert.*;
  * @serial 111912202015
  */
 public class UserClientRelationDAOImplTest {
-/*    private MongoClient                 mongoClient;
-    private Morphia                     morphia;
+    private MongoService service;
     private UserClientRelationDAOImpl   userClientRelationDAO;
-    private final String                dbname      = "crm";
     private Datastore                   datastore;
 
     @Before
     public void setUp() throws Exception {
-        this.mongoClient    = new MongoClient();
-        this.morphia        = new Morphia();
-        this.morphia.map(UserClientRelation.class);
-        this.datastore      = this.morphia.createDatastore(mongoClient,dbname);
+        this.service    = new MongoService();
+        this.datastore  = service.getDatastore();
         this.userClientRelationDAO = new UserClientRelationDAOImpl(UserClientRelation.class, datastore);
     }
 
@@ -55,6 +51,6 @@ public class UserClientRelationDAOImplTest {
 
     @Test
     public void testCheckRelation() throws Exception {
-        assertTrue(userClientRelationDAO.checkRelation(1,1));
-    } */
+        assertFalse(userClientRelationDAO.checkRelation(1,1));
+    }
 }
