@@ -36,9 +36,10 @@ public class ProspectDAOImplTest {
         this.service        = new MongoService();
         this.datastore      = service.getDatastore();
         this.prospectDAO    = new ProspectDAOImpl(Prospect.class, datastore);
-        this.mockTable      = new MockTable();
-        mockTable.mockClientTable();
-        mockTable.mockRelationAndSalesTable();
+
+//        this.mockTable      = new MockTable();
+//        mockTable.mockClientTable();
+//        mockTable.mockRelationAndSalesTable();
     }
 
 
