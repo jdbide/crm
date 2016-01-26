@@ -46,7 +46,7 @@ public class ProspectDAOImplTest {
 
     @Test
     public void testGetProspectByID() throws Exception {
-        Prospect prospect1  = prospectDAO.getProspectByID(1);
+        Prospect prospect1  = prospectDAO.getProspectByID(10);
         assertNotNull(prospect1);
     }
 }
