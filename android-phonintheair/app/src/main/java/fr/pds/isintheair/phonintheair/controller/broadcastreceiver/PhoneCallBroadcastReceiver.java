@@ -8,6 +8,7 @@ import android.util.Log;
 
 import fr.pds.isintheair.phonintheair.controller.MessageController;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
+import fr.pds.isintheair.phonintheair.model.enumeration.MessageType;
 
 /******************************************
  * Created by        : jdatour            *
@@ -21,6 +22,7 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String lastMessage   = SharedPreferencesHelper.readString("lastMessage", "");
         String previousState = SharedPreferencesHelper.readString("previousTelephonyState", "");
         String state         = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
 
@@ -44,9 +46,11 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                MessageController.sendCallPassedMessage(phoneNumber);
+                if (!lastMessage.equals(MessageType.CALL))
+                    MessageController.sendCallPassedMessage(phoneNumber);
             }
 
+            SharedPreferencesHelper.writeString("lastMessage", "");
             SharedPreferencesHelper.writeString("previousTelephonyState", state);
         }
     }
