@@ -45,11 +45,20 @@ public class CraRestController {
 	}
 
 	@RequestMapping(value = "/cra/create", method = RequestMethod.POST)
-	public @ResponseBody Boolean createCra(@RequestBody Cra cra) {
+	public @ResponseBody Boolean createOrModifyCra(@RequestBody Cra cra) {
 		boolean status = false;  
 		status = dao.createCra(cra);
 		if(status) logger.info("Cra registered :)");
 		else logger.info("Cra not registered :)");
+		return status;
+	}
+	
+	@RequestMapping(value = "/cra/delete", method = RequestMethod.POST)
+	public @ResponseBody Boolean deleteCra(@RequestBody String idcra) {
+		boolean status = false;  
+		status = dao.deleteCra(idcra);
+		if(status) logger.info("Cra deleted :)");
+		else logger.info("Cra not deleted :)");
 		return status;
 	}
 	

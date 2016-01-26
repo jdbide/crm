@@ -63,6 +63,11 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 		getDatastore().save(cra);
 		return true;
 	}
+	
+	public boolean deleteCra(String idcra) {
+		getDatastore().delete(getDatastore().createQuery(Cra.class).field("idcra").equal(idcra));
+		return true;
+	}
 
 	public List<Cra> getListCraForUser(String iduser) {
 		return  getDatastore().createQuery(Cra.class).disableValidation().field("iduser").equal(iduser).asList();
@@ -124,4 +129,6 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 		logger.info("DROPPED TABLE User");
 		logger.info("DROPPED TABLE Cra");
 	}
+
+
 }
