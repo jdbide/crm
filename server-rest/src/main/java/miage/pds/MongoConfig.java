@@ -40,5 +40,7 @@ public interface MongoConfig {
     // IP + PORT Adress Dev instancce
     public static String VM_DEV_IP = "10.0.0.13";
     public static int VM_DEV_PORT = 27017;
+    //public static String VM_DEV_IP = "localhost";
+    //public static int VM_DEV_PORT = 27017;
 
 }
