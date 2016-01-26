@@ -21,9 +21,15 @@ public class MessageController {
                 break;
             case CALL_HOOKED:
                 CallController.callHooked();
+                break;
             case CALL_PASSED:
             case CALL_RECEIVED:
-                CallController.notifyCallFromPhone(message.getCall().getPhoneNumber());
+                String phoneNumber = null;
+
+                if (message.getCall() != null)
+                    phoneNumber = message.getCall().getPhoneNumber();
+
+                CallController.notifyCallFromPhone(phoneNumber, message.getMessageMeta().getMessageType());
                 break;
         }
     }

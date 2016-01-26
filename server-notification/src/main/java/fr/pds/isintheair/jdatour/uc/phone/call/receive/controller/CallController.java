@@ -63,6 +63,19 @@ public class CallController {
         }
     }
 
+    public static void notifyCallHooked(Session phoneSession) {
+        Session tabletSession = PeerController.getTabletSession(phoneSession);
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_HOOKED).build();
+        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).build();
+
+        try {
+            tabletSession.getBasicRemote().sendText(JSONHelper.serialize(message, Message.class));
+        }
+        catch (IOException e) {
+            //TODO handle exception
+        }
+    }
+
     public static void notifyCallPassed(Session phoneSession, String phoneNumber) {
         Session tabletSession = PeerController.getTabletSession(phoneSession);
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.CALL_PASSED).build();

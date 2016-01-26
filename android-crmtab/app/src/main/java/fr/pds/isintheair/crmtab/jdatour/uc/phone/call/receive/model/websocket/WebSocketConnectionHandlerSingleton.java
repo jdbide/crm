@@ -15,11 +15,13 @@ import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.Messa
 
 public class WebSocketConnectionHandlerSingleton {
 
-    private static WebSocketConnectionHandlerSingleton INSTANCE            = null;
-    private        String                              TAG                 = getClass().getSimpleName();
-    private        WebSocketConnection                 webSocketConnection = null;
+    private static WebSocketConnectionHandlerSingleton INSTANCE             = null;
+    private        String                              TAG                  = getClass().getSimpleName();
+    private        CallWebSocketHandler                callWebSocketHandler = null;
+    private        WebSocketConnection                 webSocketConnection  = null;
 
     private WebSocketConnectionHandlerSingleton() {
+        callWebSocketHandler = new CallWebSocketHandler();
         webSocketConnection = new WebSocketConnection();
     }
 
@@ -32,11 +34,15 @@ public class WebSocketConnectionHandlerSingleton {
     }
 
     public void connect() {
-        CallWebSocketHandler callWebSocketHandler = new CallWebSocketHandler();
+        if (callWebSocketHandler == null)
+            callWebSocketHandler = new CallWebSocketHandler();
+
+        if (webSocketConnection == null)
+            webSocketConnection = new WebSocketConnection();
 
         try {
             webSocketConnection.connect(Constant.WS_URL, callWebSocketHandler);
-            //Log.d(TAG, "Websocket connection opened");
+            Log.d(TAG, "Websocket connection opened");
         }
         catch (WebSocketException e) {
             Log.d(TAG, "Websocket connection failed : " + e.getMessage());
@@ -45,16 +51,26 @@ public class WebSocketConnectionHandlerSingleton {
     }
 
     public void sendMessage(Message message) {
-        if (NetworkHelper.isNetworkAvailable() && webSocketConnection != null) {
-            String serializedMessage = JSONHelper.serialize(message, Message.class);
-            webSocketConnection.sendTextMessage(serializedMessage);
-            Log.d(TAG, "Sending message : " + serializedMessage);
-        }
-        else {
-            String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_no_internet);
+        if (webSocketConnection == null) {
+            connect();
+            String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_websocket_connection_killed);
             BusHandlerSingleton.getInstance().getBus().post(new PhoneCallFailedEvent(errorMessage));
             WebSocketConnectionHandlerSingleton.getInstance().connect();
-            Log.d(TAG, "Could not send message due to lack of internet connection");
+            Log.d(TAG, "Websocket connection is dead");
+        }
+
+        else {
+            if (NetworkHelper.isNetworkAvailable()) {
+                String serializedMessage = JSONHelper.serialize(message, Message.class);
+                webSocketConnection.sendTextMessage(serializedMessage);
+                Log.d(TAG, "Sending message : " + serializedMessage);
+            }
+            else {
+                String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_no_internet);
+                BusHandlerSingleton.getInstance().getBus().post(new PhoneCallFailedEvent(errorMessage));
+                WebSocketConnectionHandlerSingleton.getInstance().connect();
+                Log.d(TAG, "Could not send message due to lack of internet connection");
+            }
         }
     }
 }
