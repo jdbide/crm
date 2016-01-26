@@ -29,11 +29,12 @@ public class LoggingRestController {
 	
 	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
 	
-	public static String idusertest ;
+	public static String idusertest,idusertest2 ;
 
 	public LoggingRestController() {
 		
 		idusertest = "bd299fa2-244c-4b6b-9966-49a84192cc8c";
+		idusertest2 = "bd209fa2-244c-4b6b-9966-49a84192cc8a";
 
 		User u = new User();
 		/*u.setEmail("datour@crm.fr");
@@ -56,6 +57,14 @@ public class LoggingRestController {
 		u.setFname("testFname");
 		u.setLname("testLname");
 		u.setId(idusertest);
+		u.setPassword("password");
+		u.setTel("0762506058");
+		dao.addUser(u);
+		
+		u.setEmail("test2@crm.fr");
+		u.setFname("test2Fname");
+		u.setLname("test2Lname");
+		u.setId(idusertest2);
 		u.setPassword("password");
 		u.setTel("0762506058");
 		dao.addUser(u);
