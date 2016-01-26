@@ -38,7 +38,7 @@ public class ProspectDAOImplTest {
         this.prospectDAO    = new ProspectDAOImpl(Prospect.class, datastore);
 
         this.mockTable      = new MockTable();
-        mockTable.mockClientTable();
+//        mockTable.mockClientTable();
         mockTable.mockRelationAndSalesTable();
     }
 
