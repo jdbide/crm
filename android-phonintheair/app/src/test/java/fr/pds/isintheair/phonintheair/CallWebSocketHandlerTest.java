@@ -7,6 +7,6 @@ import static junit.framework.Assert.assertTrue;
 public class CallWebSocketHandlerTest {
     @Test
     public void testRegisterCalledOnOpen() {
-        assertTrue(true);
+        assertTrue(false);
     }
 }
