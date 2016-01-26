@@ -20,12 +20,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
-
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
 
 import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
-
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.SchedulerActivity;
 
 
 /**
@@ -34,13 +31,13 @@ import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.SchedulerAct
 
 public class LoginActivity extends Activity {
     @Bind(R.id.loginemail)
-    EditText mail;
+    EditText          mail;
     @Bind(R.id.loginpassword)
-    EditText pass;
+    EditText          pass;
     @Bind(R.id.btnSuivant)
-    Button con;
+    Button            con;
     @Bind(R.id.loadingPanel)
-    RelativeLayout loading;
+    RelativeLayout    loading;
     @Bind(R.id.LogincoordinatorLayout)
     CoordinatorLayout coordlayout;
 
@@ -50,11 +47,11 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         //Test if user is already logged(data id is in sharedpreferences)
         if (!prefs.getString("id", "").equals(""))
@@ -81,8 +78,12 @@ public class LoginActivity extends Activity {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
+        //TODO Remove it and uncomment
+        /* startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        NotificationEventReceiver.setUpAlarm(getApplicationContext()); */
 
         NotificationEventReceiver.setUpAlarm(getApplicationContext());
+
 
     }
 

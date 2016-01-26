@@ -5,6 +5,7 @@ import android.util.Log;
 import de.tavendo.autobahn.WebSocketConnectionHandler;
 import fr.pds.isintheair.phonintheair.controller.MessageController;
 import fr.pds.isintheair.phonintheair.helper.JSONHelper;
+import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 import fr.pds.isintheair.phonintheair.model.entity.Message;
 
 public class CallWebSocketHandler extends WebSocketConnectionHandler {
@@ -13,7 +14,10 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
     @Override
     public void onOpen() {
         Log.d(TAG, "Session opened");
-        MessageController.sendRegisterMessage();
+
+        Integer userId = SharedPreferencesHelper.readInteger("userId", 0);
+
+        MessageController.sendRegisterMessage(userId);
     }
 
     @Override

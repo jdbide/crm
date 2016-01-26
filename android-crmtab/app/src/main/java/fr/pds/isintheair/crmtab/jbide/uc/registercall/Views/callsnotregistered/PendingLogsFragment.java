@@ -66,13 +66,7 @@ public class PendingLogsFragment extends Fragment {
 
         // Set the adapter
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), mColumnCount));
-            }
-
-
+            recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             //set adapter
             recyclerView.setAdapter(adapter);
 

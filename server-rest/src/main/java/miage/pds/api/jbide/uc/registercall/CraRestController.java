@@ -4,6 +4,7 @@ package miage.pds.api.jbide.uc.registercall;
 
 import java.util.List;
 
+import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mongodb.MongoClient;
+
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.common.LoggingRestController;
-import miage.pds.api.jbide.uc.registercall.dao.DAO;
+import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 
@@ -25,7 +29,8 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
 public class CraRestController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CraRestController.class);
-	DAO dao = new DAO();
+	
+	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
 
 	public CraRestController() {
 		

@@ -18,7 +18,6 @@ import java.util.Date;
 public class Sales{
 
     @Id
-    private ObjectId objectId;
     private int id;
     @Indexed
     private int idClient;
@@ -47,14 +46,6 @@ public class Sales{
         this.value = value;
     }
 
-
-    public ObjectId getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(ObjectId objectId) {
-        this.objectId = objectId;
-    }
 
     public int getId() {
         return id;
@@ -99,7 +90,6 @@ public class Sales{
     @Override
     public String toString() {
         return "Sales{" +
-                "objectId=" + objectId +
                 ", id=" + id +
                 ", idClient=" + idClient +
                 ", idSeller=" + idSeller +

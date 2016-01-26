@@ -2,6 +2,7 @@ package api.ctruong.uc.prospect.suggest.dao;
 
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserDAOImpl;
 import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserDAO;
+import miage.pds.api.ctruong.uc.prospect.suggest.mock.MockTable;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.junit.Before;
@@ -15,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * The unit test for the class user dao
  * <p>
@@ -29,17 +32,20 @@ public class UserDAOImplTest {
     private MongoService mongoService;
     private UserDAO userDAO;
     private Datastore datastore;
+    private MockTable mockTable;
 
     @Before
     public void setUp() throws Exception {
         this.mongoService   = new MongoService();
         this.datastore      = mongoService.getDatastore();
         this.userDAO        = new UserDAOImpl(User.class, datastore);
+//        this.mockTable      = new MockTable();
+//        mockTable.mockUserTable();
     }
 
     @Test
     public void testGetAllUsers() throws Exception {
         List<User> users = userDAO.getAllUsers();
-        assertEquals(100, userDAO.getAllUsers().size());
+        assertNotNull(userDAO.getAllUsers());
     }
 }

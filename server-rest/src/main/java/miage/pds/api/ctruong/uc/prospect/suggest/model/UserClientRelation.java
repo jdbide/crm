@@ -16,7 +16,6 @@ import org.mongodb.morphia.annotations.Indexed;
 public class UserClientRelation {
 
     @Id
-    private ObjectId objectId;
     private int id;
     @Indexed
     private int idClient;
@@ -30,23 +29,14 @@ public class UserClientRelation {
     /**
      *
      * Full constructor
-     * @param id
      * @param idClient
      * @param idUser
      */
-    public UserClientRelation(int id, int idClient, int idUser) {
-        this.id = id;
+    public UserClientRelation(int idClient, int idUser) {
         this.idClient = idClient;
         this.idUser = idUser;
     }
 
-    public ObjectId getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(ObjectId objectId) {
-        this.objectId = objectId;
-    }
 
     public int getId() {
         return id;
@@ -75,7 +65,6 @@ public class UserClientRelation {
     @Override
     public String toString() {
         return "UserClientRelation{" +
-                "objectId=" + objectId +
                 ", id=" + id +
                 ", idClient=" + idClient +
                 ", idUser=" + idUser +

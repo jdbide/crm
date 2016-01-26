@@ -16,8 +16,6 @@ import org.mongodb.morphia.annotations.Indexed;
 public class Prospect {
 
     @Id
-    private ObjectId objectId;
-    @Indexed
     private int id;
     private String name;
     private long finessNumber;
@@ -58,14 +56,6 @@ public class Prospect {
         this.address = address;
         this.place = place;
         this.website = website;
-    }
-
-    public ObjectId getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(ObjectId objectId) {
-        this.objectId = objectId;
     }
 
     public int getId() {
@@ -148,7 +138,6 @@ public class Prospect {
     @Override
     public String toString() {
         return "Prospect{" +
-                "objectId=" + objectId +
                 ", id=" + id +
                 ", name='" + name + '\'' +
                 ", finessNumber=" + finessNumber +

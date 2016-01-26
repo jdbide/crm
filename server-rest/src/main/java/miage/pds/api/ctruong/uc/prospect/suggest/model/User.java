@@ -16,8 +16,6 @@ import org.mongodb.morphia.annotations.Indexed;
 public class User {
 
     @Id
-    private ObjectId objectId;
-    @Indexed
     private int id;
     private String login;
 
@@ -38,13 +36,6 @@ public class User {
         this.login = login;
     }
 
-    public ObjectId getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(ObjectId objectId) {
-        this.objectId = objectId;
-    }
 
     public int getId() {
         return id;
@@ -65,7 +56,6 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "objectId=" + objectId +
                 ", id=" + id +
                 ", login='" + login + '\'' +
                 '}';

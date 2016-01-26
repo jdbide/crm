@@ -15,6 +15,7 @@ public class CacheDao extends SQLiteOpenHelper {
 
     static String DB_NAME = "CRV_PREFORMATED_MESSAGE";
     String TABLE_NAME ="message";
+    String TABLE_NAME_VISIT_REPORT ="crv";
     int BDVersion = 1;
 
     public CacheDao(Context context) {
@@ -24,6 +25,7 @@ public class CacheDao extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table if not exists " + TABLE_NAME + "(id integer primary key autoincrement, message varchar);");
+        sqLiteDatabase.execSQL("create table if not exists " + TABLE_NAME_VISIT_REPORT + "(id integer primary key autoincrement, report text);");
     }
 
     @Override
@@ -39,7 +41,14 @@ public class CacheDao extends SQLiteOpenHelper {
 
     }
 
+    public boolean insertReport(String reportJson){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("report", reportJson);
+        db.insert(TABLE_NAME_VISIT_REPORT, null, contentValues);
+        return true;
 
+    }
     public Integer deleteMessage (String message)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -60,6 +69,22 @@ public class CacheDao extends SQLiteOpenHelper {
 
         while(res.isAfterLast() == false){
             array_list.add(res.getString(res.getColumnIndex("message")));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+    public ArrayList<String> getAllReports()
+    {
+        ArrayList<String> array_list = new ArrayList<String>();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from " + TABLE_NAME_VISIT_REPORT, null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex("report")));
             res.moveToNext();
         }
         return array_list;

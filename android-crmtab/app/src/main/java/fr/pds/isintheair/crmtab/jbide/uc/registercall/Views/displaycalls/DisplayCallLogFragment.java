@@ -54,12 +54,6 @@ public class DisplayCallLogFragment extends Fragment {
 
     }
 
-    public DisplayCallLogFragment(Context mcontext) {
-    }
-    /*public DisplayCallLogFragment(Context mcontext) {
-        context = mcontext;
-    }*/
-
     // initialization
     public static DisplayCallLogFragment newInstance() {
         DisplayCallLogFragment fragment = new DisplayCallLogFragment();
@@ -105,6 +99,7 @@ public class DisplayCallLogFragment extends Fragment {
                         cra.setIdcontact(liste.get(i).getIdcontact());
                         cra.setSubject(liste.get(i).getSubject());
                         cra.setIduser(liste.get(i).getIduser());
+                        cra.setIdcra(liste.get(i).getIdcra());
                         listecra.add(cra);
                     }
                     adapter.notifyDataSetChanged();

@@ -3,9 +3,10 @@ package api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import miage.pds.api.crv.dao.Config;
-import miage.pds.api.crv.dao.CrvMorphiaDao;
-import miage.pds.api.crv.model.Report;
+
+import miage.pds.api.mbalabascarin.uc.editcrv.dao.Config;
+import miage.pds.api.mbalabascarin.uc.editcrv.dao.CrvMorphiaDao;
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
 
 import org.junit.After;
 import org.junit.Before;

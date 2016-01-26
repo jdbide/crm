@@ -34,6 +34,8 @@ public interface MongoConfig {
     // IP + PORT Adress Pre Prod instancce
     public static String VM_PRE_PROD_IP = "10.0.0.30";
     public static int VM_PRE_PROD_PORT = 27017;
+    //public static String VM_PRE_PROD_IP = "localhost";
+    //public static int VM_PRE_PROD_PORT = 27017;
 
     // IP + PORT Adress Dev instancce
     public static String VM_DEV_IP = "10.0.0.13";
