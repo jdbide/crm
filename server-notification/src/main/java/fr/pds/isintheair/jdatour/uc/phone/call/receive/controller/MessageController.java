@@ -20,6 +20,8 @@ public class MessageController {
             case CALL_ENDED:
                 CallController.endCall(message.getMessageMeta().getDeviceType(), session);
                 break;
+            case CALL_HOOKED:
+                CallController.notifyCallHooked(session);
             case CALL_PASSED:
                 CallController.notifyCallPassed(session, message.getCall().getPhoneNumber());
                 break;

@@ -65,22 +65,16 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                User user = new User();
+                User   user        = new User();
                 String credentials = mail.getText().toString() + ":" + pass.getText().toString();
-                byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
+                byte[] data        = credentials.getBytes(StandardCharsets.UTF_8);
                 final String basic =
                         Base64.encodeToString(data, Base64.NO_WRAP);
                 user.setPassword(basic);
                 login(user, getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
-
-                //TODO Remove it and uncomment
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
-        //TODO Remove it and uncomment
-        /* startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        NotificationEventReceiver.setUpAlarm(getApplicationContext()); */
 
         NotificationEventReceiver.setUpAlarm(getApplicationContext());
 
