@@ -13,9 +13,11 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.PendingLogEvent;
 
@@ -80,7 +82,8 @@ public class ListennerCallEndedEvent extends Service {
             Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
         }else{  //else add to job
             //add event to pending list
-            Constants.getInstance().getPendingCallList().add(event);
+            //event.save();
+            Constants.getInstance().getPendindList().add(event);
             //tell subscribers that list has been updated
             Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
         }
@@ -92,19 +95,17 @@ public class ListennerCallEndedEvent extends Service {
     @Subscribe
     public void notifyLocally(PendingLogEvent pop) {
 
-        List<CallEndedEvent> liste = Constants.getInstance().getPendingCallList();
-
+        List<CallEndedEvent> liste = Constants.getInstance().getPendindList();
+        //List<CallEndedEvent> liste = CallEndedDAO.getAll();
         // Set the info for the views that show in the notification panel.
         NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo)  // the status icon
                 .setTicker("Nouvel appel à historiser")  // the status text
                         //.setWhen(System.currentTimeMillis())  // the time stamp
-                .setContentTitle("Title")  // the label of the entry
-                .setContentText("text");
+                .setContentTitle("CRM-TAB")  // the label of the entry
+                .setContentText("Appels en attente d'enregistrement");
 
-        // the contents of the entry
-        //.setContentIntent(contentIntent)  // The intent to send when the entry is clicked
-        //.build();
+
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
         // The PendingIntent to launch our activity if the user selects this notification
@@ -128,14 +129,17 @@ public class ListennerCallEndedEvent extends Service {
         notification.setNumber(++numMessages);
         String[] events = new String[liste.size()];
         for (int i=0; i < liste.size(); i++) {
-            events[i] = "A Historiser :" + liste.get(i).getIdcontact();
+            Contact co = (Contact) Contact.getNameFromNumber(liste.get(i).getIdcontact());
+            if(co!=null)
+                events[i] = liste.get(i).getDate() + ":" + co.getLastName()+" "+co.getFirstName() ;
+            else
+            events[i] = liste.get(i).getDate() + ":" + liste.get(i).getIdcontact();
         }
         // Sets a title for the Inbox in expanded layout
-        inboxStyle.setBigContentTitle("Vous avez des appels à historiser");
+        inboxStyle.setBigContentTitle("Comptes-rendus d'appels à enregistrer");
 
         // Moves events into the expanded layout
         for (int i=0; i < events.length; i++) {
-
             inboxStyle.addLine(events[i]);
         }
         // Moves the expanded layout object into the notification object.

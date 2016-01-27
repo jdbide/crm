@@ -1,5 +1,7 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.Events;
 
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
+
 /**
  * Created by j-d on 09/01/2016.
  */
