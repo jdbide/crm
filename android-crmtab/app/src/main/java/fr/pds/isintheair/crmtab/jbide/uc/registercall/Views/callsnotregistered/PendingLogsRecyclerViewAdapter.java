@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
@@ -37,7 +38,9 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(String.valueOf(position+1));
         holder.mDate.setText(mValues.get(position).getDate());
-        holder.mContact.setText("Name contact"/*mValues.get(position).getContactname()*/);
+        Contact co = (Contact) Contact.getNameFromNumber(mValues.get(position).getIdcontact());
+        if(co!=null)
+        holder.mContact.setText(co.getLastName()+" "+co.getFirstName());
         holder.mClient.setText("client name"/*mValues.get(position).getClientname()*/);
 
         holder.yes.setOnClickListener(new View.OnClickListener() {

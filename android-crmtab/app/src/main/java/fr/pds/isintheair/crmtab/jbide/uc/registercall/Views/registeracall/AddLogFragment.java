@@ -92,9 +92,27 @@ public class AddLogFragment extends Fragment {
         if(co!=null)
         contactname.setText(co.getLastName()+" "+co.getFirstName());
 
-
         clientname.setText("Centre hospitalier Leon Binet");
 
+        clientname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                HealthCenter he = new HealthCenter();
+                he.setName("Centre hospitalier Leon Binet");
+                he.setEtablishmentType("CHU");
+                he.setZipCode(77160);
+                he.setWebSite("htt://www.ch-provins.fr/");
+                he.setBedNumber(272);
+                he.setTown("Provins");
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(DetailHCFragment.KEY_HC_ARGS, he);
+                DetailHCFragment detailHCFragment = new DetailHCFragment();
+                detailHCFragment.setArguments(bundle);
+                (getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                        .replace(R.id.container, detailHCFragment).commit();
+            }
+        });
 clientname.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
