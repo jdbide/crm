@@ -30,33 +30,8 @@ public class CraRestController {
 	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
 
 	public CraRestController() {
-		dao.dropTables();
-    	//Mock Cra
-        Cra newCra = new Cra();
-        newCra.setCalltype("Recu");
-        newCra.setClientname("CH HENRI MONDOR");
-        newCra.setComments("Les rappeler lorsque nouveaux produits disponibles");
-        newCra.setDate("23 janv 2016");
-        newCra.setDuration((long) 1234);
-        newCra.setContactname("Cong-Minh Truong");
-        newCra.setIdcontact("0610772364");
-        newCra.setSubject("Demande d'informations sur scanners");
-        newCra.setIduser(LoggingRestController.idusertest);
-        newCra.setIdcra(dao.getUniqueIdCra());
-        dao.createCra(newCra);
-        
-        newCra = new Cra();
-        newCra.setCalltype("Emis");
-        newCra.setClientname("CS Daniel Renoult et Montreuil");
-        newCra.setComments("Nouveaux types de compresses");
-        newCra.setDate("23 janv 2016");
-        newCra.setDuration((long) 2010);
-        newCra.setContactname("Titouan Lacouque");
-        newCra.setIdcontact("0684894378");
-        newCra.setSubject("Demande d'informations sur compresses");
-        newCra.setIduser(LoggingRestController.idusertest);
-        newCra.setIdcra(dao.getUniqueIdCra());
-        dao.createCra(newCra);
+		dao.dropTableCraAndAddMock();
+
 	}
 	
 	/**
