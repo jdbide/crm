@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
-import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,15 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import java.nio.charset.StandardCharsets;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.database.entity.User;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
+import static fr.pds.isintheair.crmtab.common.controller.LoginService.TryLogin;
 
-import static fr.pds.isintheair.crmtab.common.controller.LoginService.login;
 
 
 /**
@@ -67,7 +62,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                login(mail.getText().toString(),pass.getText().toString(), getApplicationContext(), loading, coordlayout);
+                TryLogin(mail.getText().toString(), pass.getText().toString(), getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
             }
         });

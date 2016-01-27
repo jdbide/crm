@@ -36,7 +36,7 @@ import retrofit.Retrofit;
  */
 public class LoginService {
 
-    public static void login(final String mail,String password ,final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
+    public static void TryLogin(final String mail,String password ,final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
 
         String credentials = mail + ":" + password;
         byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
