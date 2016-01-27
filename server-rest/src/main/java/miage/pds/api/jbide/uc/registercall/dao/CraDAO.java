@@ -22,37 +22,7 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 	private static final Logger logger = LoggerFactory.getLogger(CraDAO.class);
 
 	public CraDAO(Datastore datastore) {
-		super(datastore);
-		
-		//Mock Cra
-	    Cra newCra = new Cra();
-	    newCra.setCalltype("Recu");
-	    newCra.setClientname("CH HENRI MONDOR");
-	    newCra.setComments("Les rappeler lorsque nouveaux produits disponibles");
-	    newCra.setDate("23 janv 2016");
-	    newCra.setDuration((long) 1234);
-	    newCra.setContactname("Franck NEROT");
-	    newCra.setIdcontact((long) 1);
-	    newCra.setSubject("Demande d'informations sur scanners");
-	    newCra.setIduser(LoggingRestController.idusertest);
-	    newCra.setIdcra(getUniqueIdCra());
-	    createCra(newCra);
-	    
-	    newCra = new Cra();
-	    newCra.setCalltype("Emis");
-	    newCra.setClientname("CS Daniel Renoult et Montreuil");
-	    newCra.setComments("Nouveaux types de compresses");
-	    newCra.setDate("23 janv 2016");
-	    newCra.setDuration((long) 1234);
-	    newCra.setContactname("Luc BERNARD");
-	    newCra.setIdcontact((long) 2);
-	    newCra.setSubject("Demande d'informations sur compresses");
-	    newCra.setIduser(LoggingRestController.idusertest);
-	    newCra.setIdcra(getUniqueIdCra());
-	    createCra(newCra);
-	    
-	    logger.info("ADDED 2 Cra");
-			
+		super(datastore);					
 	}
 
 	// cra insertion

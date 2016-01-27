@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.common.LoggingRestController;
 import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 
@@ -29,7 +30,32 @@ public class CraRestController {
 	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
 
 	public CraRestController() {
-		
+    	//Mock Cra
+        Cra newCra = new Cra();
+        newCra.setCalltype("Recu");
+        newCra.setClientname("CH HENRI MONDOR");
+        newCra.setComments("Les rappeler lorsque nouveaux produits disponibles");
+        newCra.setDate("23 janv 2016");
+        newCra.setDuration((long) 1234);
+        newCra.setContactname("Franck NEROT");
+        newCra.setIdcontact((long) 1);
+        newCra.setSubject("Demande d'informations sur scanners");
+        newCra.setIduser(LoggingRestController.idusertest);
+        newCra.setIdcra(dao.getUniqueIdCra());
+        dao.createCra(newCra);
+        
+        newCra = new Cra();
+        newCra.setCalltype("Emis");
+        newCra.setClientname("CS Daniel Renoult et Montreuil");
+        newCra.setComments("Nouveaux types de compresses");
+        newCra.setDate("23 janv 2016");
+        newCra.setDuration((long) 1234);
+        newCra.setContactname("Luc BERNARD");
+        newCra.setIdcontact((long) 2);
+        newCra.setSubject("Demande d'informations sur compresses");
+        newCra.setIduser(LoggingRestController.idusertest);
+        newCra.setIdcra(dao.getUniqueIdCra());
+        dao.createCra(newCra);
 	}
 	
 	/**

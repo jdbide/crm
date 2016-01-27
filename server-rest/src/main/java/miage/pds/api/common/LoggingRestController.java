@@ -37,22 +37,7 @@ public class LoggingRestController {
 		idusertest2 = "bd209fa2-244c-4b6b-9966-49a84192cc8a";
 
 		User u = new User();
-		dao.dropTables();
-		/*u.setEmail("datour@crm.fr");
-		u.setFname("Julien");
-		u.setLname("DATOUR");
-		u.setPassword("password");
-		u.setTel("");
-		u.setId(dao.getUniqueUid());
-		dao.addUser(u);
-		
-		u.setEmail("bide@crm.fr");
-		u.setFname("Jean-Daniel");
-		u.setLname("BIDE");
-		u.setId(dao.getUniqueUid());
-		u.setPassword("password");
-		u.setTel("0762506058");
-		dao.addUser(u);*/
+		//dao.dropTables();
 		
 		u.setEmail("test@crm.fr");
 		u.setFname("testFname");

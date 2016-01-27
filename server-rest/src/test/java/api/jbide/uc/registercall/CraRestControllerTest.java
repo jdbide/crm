@@ -2,6 +2,8 @@ package api.jbide.uc.registercall;
 
 import com.mongodb.MongoClient;
 import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.common.LoggingRestController;
+import miage.pds.api.jbide.uc.registercall.CraRestController;
 import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.controller.RestCustomerController;
@@ -11,6 +13,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 import java.net.UnknownHostException;
+import java.util.logging.Logger;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -19,22 +22,9 @@ import static junit.framework.Assert.assertEquals;
  */
 public class CraRestControllerTest {
 
-    //private MockHttpServletRequest request;
-    //private MockHttpServletResponse response;
-    RestCustomerController restCustomerController;
-    /**
-     * @Autowired private HandlerAdapter handlerAdapter;
-     * @Autowired private HandlerMapping handlerMapping;
-     */
-
     MongoClient mongoClient;
     Morphia morphia;
     String dbName = "crm";
-
-    /**
-     * @Autowired private HandlerAdapter handlerAdapter;
-     * @Autowired private HandlerMapping handlerMapping;
-     */
 
     private Datastore datastore;
     private CraDAO dao;
@@ -42,8 +32,7 @@ public class CraRestControllerTest {
     @Before
     public void setUp() throws UnknownHostException {
         this.datastore = MongoDatastoreConfig.getDataStore();
-
-        dao = new CraDAO(datastore);
+        dao = new CraDAO(datastore);        
     }
 
 
@@ -55,7 +44,7 @@ public class CraRestControllerTest {
         dao.createCra(cra);
         int size1 = dao.getListCraForUser("id1").size();
         assertEquals(size0 + 1, size1);
-        dao.dropTables();
+        dao.delete(cra);
     }
 
     @Test
@@ -66,6 +55,6 @@ public class CraRestControllerTest {
         int size0 = dao.getListCraForUser("id1").size();
         dao.createCra(cra);
         assertEquals(dao.getListCraForUser("id1").size(), datastore.createQuery(Cra.class).field("iduser").equal("id1").asList().size());
-        dao.dropTables();
+        dao.delete(cra);
     }
 }
