@@ -33,7 +33,7 @@ import retrofit.Retrofit;
  */
 public class LoginService {
 
-    public static void login(final User user, final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
+    public static void login(final User userlogging, final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
 
         //Interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -53,7 +53,7 @@ public class LoginService {
                 .build();
 
         LoginServiceInterface service = retrofit.create(LoginServiceInterface.class);
-        Call<User>            call    = service.login(user);
+        Call<User>            call    = service.login(userlogging);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -84,7 +84,7 @@ public class LoginService {
                         NotificationEventReceiver.setUpAlarm(context);
                     }
                     else {
-                        Snackbar.make(coordlayout, "User: " + user.getEmail() + " : Wrong Credentials or not registererd ", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(coordlayout, "User: " + userlogging.getEmail() + " : Wrong Credentials or not registererd ", Snackbar.LENGTH_LONG).show();
                     }
 
 
