@@ -67,9 +67,9 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                User   user        = new User();
+                User user = new User();
                 String credentials = mail.getText().toString() + ":" + pass.getText().toString();
-                byte[] data        = credentials.getBytes(StandardCharsets.UTF_8);
+                byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
                 final String basic =
                         Base64.encodeToString(data, Base64.NO_WRAP);
                 user.setPassword(basic);
