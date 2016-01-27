@@ -153,7 +153,7 @@ clientname.setOnClickListener(new View.OnClickListener() {
                 newCra.setContactname(contactname.getText().toString());
                 newCra.setDate(date.getText().toString());
                 newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
-                newCra.setIdcontact(Long.parseLong(contactnumber.getText().toString()));
+                newCra.setIdcontact(contactnumber.getText().toString());
                 newCra.setSubject(subject.getText().toString());
                 newCra.setIduser(Constants.getInstance().getCurrentUser().getId());
                 //local save

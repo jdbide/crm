@@ -30,6 +30,7 @@ public class CraRestController {
 	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
 
 	public CraRestController() {
+		dao.dropTables();
     	//Mock Cra
         Cra newCra = new Cra();
         newCra.setCalltype("Recu");
