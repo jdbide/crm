@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -15,6 +16,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+
+import java.nio.charset.StandardCharsets;
 
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.model.rest.LoginServiceInterface;
@@ -33,7 +36,14 @@ import retrofit.Retrofit;
  */
 public class LoginService {
 
-    public static void login(final User userlogging, final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
+    public static void login(final String mail,String password ,final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
+
+        String credentials = mail + ":" + password;
+        byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
+        final String basic =
+                Base64.encodeToString(data, Base64.NO_WRAP);
+        User user = new User();
+        user.setPassword(basic);
 
         //Interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -53,7 +63,7 @@ public class LoginService {
                 .build();
 
         LoginServiceInterface service = retrofit.create(LoginServiceInterface.class);
-        Call<User>            call    = service.login(userlogging);
+        Call<User>            call    = service.login(user);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -84,7 +94,7 @@ public class LoginService {
                         NotificationEventReceiver.setUpAlarm(context);
                     }
                     else {
-                        Snackbar.make(coordlayout, "User: " + userlogging.getEmail() + " : Wrong Credentials or not registererd ", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(coordlayout, "User: " + mail + " : Wrong Credentials or not registererd ", Snackbar.LENGTH_LONG).show();
                     }
 
 
