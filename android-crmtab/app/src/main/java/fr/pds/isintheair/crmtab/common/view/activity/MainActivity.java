@@ -153,6 +153,8 @@ public class MainActivity extends AppCompatActivity
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
 
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
+
         }
         else if (id == R.id.nav_lister_appel) {
             fragment = DisplayCallLogFragment.newInstance() ;
