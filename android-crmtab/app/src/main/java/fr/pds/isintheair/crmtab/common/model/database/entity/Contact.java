@@ -8,13 +8,18 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.util.List;
+
 import fr.pds.isintheair.crmtab.common.model.database.OrmTabDataBase;
+import fr.pds.isintheair.crmtab.common.model.database.dao.ContactDAO;
 
 /******************************************
  * Created by        : mbalabascarin      *
  * Creation date     : 01/08/2016         *
  * Modified by       : jdatour            *
  * Modification date : 01/23/2016         *
+ * Modified by       : jbide              *
+ * Modification date : 01/27/2016         *
  ******************************************/
 
 @Table(database = OrmTabDataBase.class)
@@ -38,6 +43,8 @@ public class Contact extends BaseModel implements Parcelable {
 
     @Column
     public String lastName;
+
+
 
     public Contact() {
     }
@@ -76,6 +83,18 @@ public class Contact extends BaseModel implements Parcelable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public static Contact getNameFromNumber(String num) {
+        List<Contact> contacts       = ContactDAO.getAll();
+        Contact result = null;
+        for (int i = 0; i < contacts.size(); i++) {
+            if (contacts.get(i).getPhoneNumber().equals(num)) {
+                result = contacts.get(i);
+                break;
+            }
+        }
+            return result;
     }
 
     @Override
