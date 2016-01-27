@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this,LoginActivity.class));
             return true;
         }
-        
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -147,10 +147,11 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_historiser_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "062464621334"));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "06206754321"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0696396908"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0662542968"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
+            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "0684894378"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0778801708"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
 
         }
         else if (id == R.id.nav_lister_appel) {
