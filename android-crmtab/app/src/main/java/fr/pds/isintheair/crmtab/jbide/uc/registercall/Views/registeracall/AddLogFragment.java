@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,15 +17,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.raizlabs.android.dbflow.sql.language.Select;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
+import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.ControllerCra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailHCFragment;
 
 
 public class AddLogFragment extends Fragment {
@@ -78,8 +88,35 @@ public class AddLogFragment extends Fragment {
         duration.setText(getArguments().getString("duration"));
         calltype.setText(getArguments().getString("calltype"));
         //should be taken from a request
-        contactname.setText("nom contactttt");
-        clientname.setText("nom client");
+        Contact co = (Contact) Contact.getNameFromNumber(getArguments().getString("idcontact"));
+        if(co!=null)
+        contactname.setText(co.getLastName()+" "+co.getFirstName());
+
+
+        clientname.setText("Centre hospitalier Leon Binet");
+
+clientname.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        HealthCenter he = new HealthCenter();
+        he.setName("Centre hospitalier Leon Binet");
+        he.setEtablishmentType("CHU");
+        he.setZipCode(77160);
+        he.setWebSite("htt://www.ch-provins.fr/");
+        he.setBedNumber(272);
+        he.setTown("Provins");
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(DetailHCFragment.KEY_HC_ARGS, he);
+        DetailHCFragment detailHCFragment = new DetailHCFragment();
+        detailHCFragment.setArguments(bundle);
+        (getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                .replace(R.id.container, detailHCFragment).commit();
+    }
+});
+
+
+
         mic.setBackground(getResources().getDrawable(R.drawable.mic1));
         mic.setOnClickListener(new View.OnClickListener() {
             @Override
