@@ -44,7 +44,6 @@ public class LoginActivity extends Activity {
     @Bind(R.id.LogincoordinatorLayout)
     CoordinatorLayout coordlayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
