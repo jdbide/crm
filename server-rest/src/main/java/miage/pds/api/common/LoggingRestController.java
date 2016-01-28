@@ -2,8 +2,6 @@ package miage.pds.api.common;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
-import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.common.LoggingDao.LoggingDAO;
 import miage.pds.api.common.model.User;
 import miage.pds.api.jbide.uc.registercall.CraRestController;
-import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
-import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 /**
  * Created by jbide on 19/01/2016.
@@ -27,7 +23,7 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
 public class LoggingRestController {
 	private static final Logger logger = LoggerFactory.getLogger(CraRestController.class);
 	
-	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
+	LoggingDAO dao = new LoggingDAO(MongoDatastoreConfig.getDataStore());
 	
 	public static String idusertest,idusertest2 ;
 
