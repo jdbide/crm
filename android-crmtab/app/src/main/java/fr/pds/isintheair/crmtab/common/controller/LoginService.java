@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
-
 import java.nio.charset.StandardCharsets;
 
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
