@@ -191,10 +191,10 @@ public class MainActivity extends AppCompatActivity
 
     public void showNotificationListFrag() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
         pend = PendingLogsFragment.newInstance();
-        ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").addToBackStack(null).commit();
+        ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").commit();
     }
+
 
     @Subscribe
     public void showpopup(DisplayPopUpFragmentEvent event) {
@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
         }
+
        /* else {
 
             MainLogoFragment mainLogoFragment = new MainLogoFragment();

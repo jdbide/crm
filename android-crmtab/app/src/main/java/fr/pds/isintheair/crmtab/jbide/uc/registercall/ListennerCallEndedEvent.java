@@ -82,21 +82,22 @@ public class ListennerCallEndedEvent extends Service {
             Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
         }else{  //else add to job
             //add event to pending list
-            //event.save();
-            Constants.getInstance().getPendindList().add(event);
+            event.save();
+            //Constants.getInstance().getPendindList().add(event);
             //tell subscribers that list has been updated
-            Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
+            //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
+            notifyLocally();
         }
     }
 
     /**
      * Shows notifications if popup already displayed
      */
-    @Subscribe
-    public void notifyLocally(PendingLogEvent pop) {
+    public void notifyLocally() {
 
-        List<CallEndedEvent> liste = Constants.getInstance().getPendindList();
-        //List<CallEndedEvent> liste = CallEndedDAO.getAll();
+        //List<CallEndedEvent> liste = Constants.getInstance().getPendindList();
+        List<CallEndedEvent> liste = CallEndedDAO.getAll();
+        Log.v("size",String.valueOf(liste.size()));
         // Set the info for the views that show in the notification panel.
         NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo)  // the status icon

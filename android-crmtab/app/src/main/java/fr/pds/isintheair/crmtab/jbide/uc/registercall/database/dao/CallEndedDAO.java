@@ -20,6 +20,6 @@ public class CallEndedDAO {
     }
 
     public static void delete(Long idcall) {
-       new Delete().from(CallEndedEvent.class).where(CallEndedEvent_Table.id.is(idcall)).query();
+       new Delete().from(CallEndedEvent.class).where(CallEndedEvent_Table.id.eq(idcall)).query();
     }
 }

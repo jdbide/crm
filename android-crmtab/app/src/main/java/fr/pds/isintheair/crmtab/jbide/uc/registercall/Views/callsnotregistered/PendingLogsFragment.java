@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
@@ -35,24 +36,25 @@ public class PendingLogsFragment extends Fragment {
     public PendingLogsFragment() {
     }
 
-    public static PendingLogsFragment newInstance () {
+    public static PendingLogsFragment newInstance() {
         PendingLogsFragment fragment = new PendingLogsFragment();
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //liste = CallEndedDAO.getAll();
-        liste = Constants.getInstance().getPendindList();
-        adapter = new PendingLogsRecyclerViewAdapter(liste, mListener);
+        liste = CallEndedDAO.getAll();
+        //liste = Constants.getInstance().getPendindList();
+        adapter = new PendingLogsRecyclerViewAdapter(liste, mListener,(MainActivity)getActivity());
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
             View view = inflater.inflate(R.layout.pending_calls_container, container, false);
             // Set the adapter
             RecyclerView recyclerView = (RecyclerView) view;
@@ -62,6 +64,7 @@ public class PendingLogsFragment extends Fragment {
 
         return view;
     }
+
 
 
     @Override

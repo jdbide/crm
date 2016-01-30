@@ -1,6 +1,11 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
+import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
@@ -21,10 +29,12 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
 
     private final List<CallEndedEvent> mValues;
     private final PendingLogsFragment.OnListFragmentInteractionListener mListener;
+    private final MainActivity context;
 
-    public PendingLogsRecyclerViewAdapter(List<CallEndedEvent> items, PendingLogsFragment.OnListFragmentInteractionListener listener) {
+    public PendingLogsRecyclerViewAdapter(List<CallEndedEvent> items, PendingLogsFragment.OnListFragmentInteractionListener listener,MainActivity con) {
         mValues = items;
         mListener = listener;
+        context = con;
     }
 
     @Override
@@ -60,9 +70,26 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
         holder.no.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //CallEndedDAO.delete(mValues.get(position).getId());
-                    Constants.getInstance().getPendindList().remove(position);
-                    notifyDataSetChanged();
+                    new AlertDialog.Builder(context).setTitle("Suppression de compte-rendu").setMessage("Confirmer la suppression ?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    CallEndedDAO.delete(mValues.get(position).getId());
+                                    context.showNotificationListFrag();
+                                    //Intent resultIntent = new Intent(context, MainActivity.class);
+                                    //resultIntent.putExtra("msg", "notification");
+                                    //notifyDataSetChanged();
+
+                                }
+                            }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
+
+
+                    //Constants.getInstance().getPendindList().remove(position);
+
                 }
         });
     }

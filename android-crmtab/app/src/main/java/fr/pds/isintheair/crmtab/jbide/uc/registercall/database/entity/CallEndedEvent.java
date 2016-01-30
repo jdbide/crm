@@ -16,7 +16,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 public class CallEndedEvent extends BaseModel {
 
     @Column
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     private long id;
     @Column
     private String idcontact;
