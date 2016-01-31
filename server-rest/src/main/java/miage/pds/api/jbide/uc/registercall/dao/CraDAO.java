@@ -43,40 +43,7 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 		return  getDatastore().createQuery(Cra.class).disableValidation().field("iduser").equal(iduser).asList();
 	}
 
-	public User logUser(User user) {
-		User u = new User();
-		u =   getDatastore().createQuery(User.class)
-				.field("email").equal(user.getEmail())
-				.field("password").equal(user.getPassword()).get();
-			//logger.info("result" + u.getEmail());
-			
-		if(u!=null)
-		return u;
-		else return null;
-	}
 
-	public boolean addUser(User u) {
-		boolean state = false;
-		// check if connected to DB
-			getDatastore().save(u);
-		logger.info("ADDED USER : " + u.getLname());
-		return true;		
-	}
-	
-	public String getUniqueUid(){
-	
-		User u = new User();
-		boolean unique = false;
-		String uid = "" ;
-		do{
-			uid = UUID.randomUUID().toString();
-			u = getDatastore().createQuery(User.class).field("id").equal(uid).get();			
-			if(u==null) unique = true;
-		}while(unique=false);
-		return uid;	
-	}
-	
-	
 	public String getUniqueIdCra(){		
 		Cra u = new Cra();
 		boolean unique = false;
@@ -87,14 +54,6 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 			if(u==null) unique = true;
 		}while(unique=false);
 		return id;	
-	}
-	
-	
-	
-	public void dropTableUser(){
-
-		getDatastore().getCollection(User.class).drop();
-		logger.info("DROPPED TABLE User");
 	}
 	
 	public void dropTableCraAndAddMock(){

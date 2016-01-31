@@ -9,7 +9,7 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.util.logging.Logger;
 
-@ServerEndpoint("/")
+@ServerEndpoint("/call")
 public class NotifierEndpoint {
     private final static Logger logger = Logger.getLogger(NotifierEndpoint.class.getName());
 
