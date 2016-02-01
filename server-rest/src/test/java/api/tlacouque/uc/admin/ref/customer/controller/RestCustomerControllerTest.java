@@ -60,7 +60,7 @@ public class RestCustomerControllerTest {
         MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
         List<HealthCenter> list = new HealthCenterDAO(datastore).find().asList();
         int nbHCbeforeTest = new HealthCenterDAO(datastore).find().asList().size();
-//        nbHCbeforeTest = nbHCbeforeTest + 1;
+        nbHCbeforeTest = nbHCbeforeTest + 1;
         ResponseRestCustomer responseRestCustomer = restCustomerController.createHealthCenter(messageRestCustomer);
         int nbHCAfterTest = new HealthCenterDAO(datastore).find().asList().size();
         new HealthCenterDAO(datastore).delete(healthCenter);

@@ -1,9 +1,11 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.Events;
 
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
+
 /**
  * Created by jbide on 24/01/2016.
  */
-public class DisplayAddLogFragment {
+public class DisplayAddLogFragmentEvent {
 
     private CallEndedEvent callEndedEvent;
 
@@ -11,7 +13,7 @@ public class DisplayAddLogFragment {
         return callEndedEvent;
     }
 
-    public DisplayAddLogFragment(CallEndedEvent callEndedEvent) {
+    public DisplayAddLogFragmentEvent(CallEndedEvent callEndedEvent) {
 
         this.callEndedEvent = callEndedEvent;
     }

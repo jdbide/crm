@@ -15,7 +15,7 @@ import retrofit.http.Query;
 /**
  * Created by j-d on 22/12/2015.
  */
-public interface Methods {
+public interface SerciceGenerator {
 
 
     @GET("cra/listcra")

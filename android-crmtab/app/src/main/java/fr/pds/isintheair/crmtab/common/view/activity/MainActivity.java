@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +12,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import java.util.Calendar;
@@ -27,9 +24,9 @@ import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
@@ -125,8 +122,9 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.deco) {
+            PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
+            startActivity(new Intent(this,LoginActivity.class));
             return true;
         }
 
@@ -149,10 +147,13 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_historiser_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "062464621334"));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "06206754321"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0696396908"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0662542968"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
+            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "0684894378"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0778801708"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
+
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
 
         }
         else if (id == R.id.nav_lister_appel) {
@@ -192,12 +193,12 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
         getFragmentManager().popBackStack();
-        pend = PendingLogsFragment.newInstance(1);
+        pend = PendingLogsFragment.newInstance();
         ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").addToBackStack(null).commit();
     }
 
     @Subscribe
-    public void showpopup(DisplayPopUpFragment event) {
+    public void showpopup(DisplayPopUpFragmentEvent event) {
         PopUpFragment pop = PopUpFragment.newInstance(event);
         pop.show(getFragmentManager(), "dialog");
         //make popup not cancellable
@@ -205,7 +206,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Subscribe
-    public void showaddlogfragment(DisplayAddLogFragment event) {
+    public void showaddlogfragment(DisplayAddLogFragmentEvent event) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
 

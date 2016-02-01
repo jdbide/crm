@@ -16,22 +16,36 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
 public class MessageControllerTest {
-    Session session;
+    Session phoneSession = Mockito.mock(Session.class);
+    Session tabletSession = Mockito.mock(Session.class);
+
+    PeerHandlerSingleton peerHandlerSingleton;
 
     @Before
     public void setUp() {
-        session = Mockito.mock(Session.class);
     }
 
     @Test
-    public void testRegisterPhone() {
+    public void testMessageRegisterPhoneAddPeer() {
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_PHONE).build();
         Register register = new Register(42);
         Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
 
-        MessageController.handleMessage(message, session);
+        MessageController.handleMessage(message, phoneSession);
 
         assertNotNull(PeerHandlerSingleton.getInstance().findPeerSession(DeviceType.PHONE, 42));
-        assertEquals((int) PeerHandlerSingleton.getInstance().findPeerUserId(DeviceType.PHONE, session), 42);
+        assertEquals((int) PeerHandlerSingleton.getInstance().findPeerUserId(DeviceType.PHONE, phoneSession), 42);
+    }
+
+    @Test
+    public void testMessageRegisterTabletAddPeer() {
+        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_TABLET).build();
+        Register register = new Register(42);
+        Message message = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
+
+        MessageController.handleMessage(message, tabletSession);
+
+        assertNotNull(PeerHandlerSingleton.getInstance().findPeerSession(DeviceType.TABLET, 42));
+        assertEquals((int) PeerHandlerSingleton.getInstance().findPeerUserId(DeviceType.TABLET, tabletSession), 42);
     }
 }

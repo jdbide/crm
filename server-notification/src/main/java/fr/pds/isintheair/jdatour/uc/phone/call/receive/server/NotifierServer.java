@@ -9,7 +9,7 @@ public class NotifierServer {
     }
 
     public static void runServer() {
-        Server server = new Server("localhost", 8090, "/", NotifierEndpoint.class);
+        Server server = new Server("localhost", 8090, "/", ServerConfiguration.class);
 
         ((Runnable) () -> {
             try {

@@ -27,10 +27,10 @@ import java.util.Random;
 public class MockTable {
     private static final Logger log = MorphiaLoggerFactory.get(MockTable.class);
     private MongoService mongoService;
-    private UserDAO userDAO;
-    private UserClientRelationDAO userClientRelationDAO;
-    private SalesDAO salesDAO;
-    private ProspectDAO prospectDAO;
+    private UserDAOImpl userDAO;
+    private UserClientRelationDAOImpl userClientRelationDAO;
+    private SalesDAOImpl salesDAO;
+    private ProspectDAOImpl prospectDAO;
     private Datastore datastore;
 
     /**
@@ -50,7 +50,7 @@ public class MockTable {
      */
     public void mockUserTable(){
 
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 10; i++){
             User user = new User(i, "test" + i + "@gmail.com");
             datastore.save(user);
         }
@@ -58,7 +58,7 @@ public class MockTable {
 
     public void mockClientTable(){
         Random random = new Random();
-        for (int i = 0; i < 1000; i++){
+        for (int i = 0; i < 50; i++){
             Prospect prospect = new Prospect();
             prospect.setId(i);
             prospect.setName("Client " + i);
@@ -80,13 +80,13 @@ public class MockTable {
      */
     public void mockRelationAndSalesTable(){
         Random random = new Random();
-        for (int i = 0; i < 100; i++){
-            for (int j = 0; j < 10; j++){
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < 5; j++){
                 UserClientRelation userClientRelation = new UserClientRelation();
                 userClientRelation.setIdUser(i);
-                int randomClient = random.nextInt(1000);
+                int randomClient = random.nextInt(50);
                 userClientRelation.setIdClient(randomClient);
-                int randomSalesPerRelation = random.nextInt(10);
+                int randomSalesPerRelation = random.nextInt(5);
                 datastore.save(userClientRelation);
                 for (int k = 0; k <= randomSalesPerRelation; k++){
                     Sales salesMock = new Sales();

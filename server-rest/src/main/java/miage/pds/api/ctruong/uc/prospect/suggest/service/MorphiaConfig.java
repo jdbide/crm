@@ -8,6 +8,7 @@ package miage.pds.api.ctruong.uc.prospect.suggest.service;
  * @serial 111912202015
  */
 public interface MorphiaConfig {
+
     // IP + PORT Adress Prod instance from local
     public static String LOCAL_PROD_IP = "192.168.20.3";
     public static int LOCAL_PROD_PORT = 8086;
@@ -22,7 +23,7 @@ public interface MorphiaConfig {
 
     //IP + PORT Adress localhost instance
     // IP + PORT Adress Dev instancce
-    public static String LOCAL_IP = "127.0.0.1";
+    public static String LOCAL_IP = "localhost";
     public static int LOCAL_PORT = 27017;
 
 
@@ -39,4 +40,5 @@ public interface MorphiaConfig {
     // IP + PORT Adress Dev instancce
     public static String VM_DEV_IP = "10.0.0.13";
     public static int VM_DEV_PORT = 27017;
+
 }

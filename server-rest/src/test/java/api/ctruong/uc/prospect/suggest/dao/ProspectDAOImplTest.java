@@ -5,6 +5,7 @@ import miage.pds.api.ctruong.uc.prospect.suggest.dao.ProspectDAO;
 import miage.pds.api.ctruong.uc.prospect.suggest.mock.MockTable;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
@@ -27,7 +28,7 @@ public class ProspectDAOImplTest {
     private final static Logger log         = LoggerFactory.getLogger(ProspectDAOImplTest.class);
     private MongoService service;
     private Datastore           datastore;
-    private ProspectDAO prospectDAO;
+    private ProspectDAOImpl prospectDAO;
     private MockTable mockTable;
 
 
@@ -38,8 +39,10 @@ public class ProspectDAOImplTest {
         this.prospectDAO    = new ProspectDAOImpl(Prospect.class, datastore);
 
         this.mockTable      = new MockTable();
-//        mockTable.mockClientTable();
-        mockTable.mockRelationAndSalesTable();
+        if (prospectDAO.count() > 0){
+            mockTable.mockClientTable();
+        }
+
     }
 
 
@@ -53,5 +56,9 @@ public class ProspectDAOImplTest {
     public void testGetProspectByID() throws Exception {
         Prospect prospect1  = prospectDAO.getProspectByID(10);
         assertNotNull(prospect1);
+    }
+
+    @After
+    public void tearDown() throws Exception {
     }
 }

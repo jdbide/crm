@@ -29,17 +29,18 @@ import java.util.*;
 @Controller
 public class ProspectRestController {
     private static final Logger log = LoggerFactory.getLogger(ProspectRestController.class);
-    ProspectController controller = new ProspectController();
+    ProspectController controller;
 
     private MongoService mongoService;
-    private UserClientRelationDAO userClientRelationDAO;
-    private SalesDAO salesDAO;
+    private UserClientRelationDAOImpl userClientRelationDAO;
+    private SalesDAOImpl salesDAO;
 
 
     /**
      * Constructor for rest controller
      */
     public ProspectRestController() {
+        this.controller = new ProspectController();
         this.mongoService = new MongoService();
         userClientRelationDAO = new UserClientRelationDAOImpl(UserClientRelation.class, mongoService.getDatastore());
         salesDAO = new SalesDAOImpl(Sales.class, mongoService.getDatastore());
@@ -54,7 +55,7 @@ public class ProspectRestController {
     public
     @ResponseBody
     String helloWorld() {
-        return "Hello World";
+        return "Hello Davide's World";
     }
 
     /**
@@ -83,8 +84,7 @@ public class ProspectRestController {
     public
     @ResponseBody
     String mocking() {
-        MockTable mockTable = new MockTable();
-        mockTable.mockClientTable();
+
         return "Done";
     }
 

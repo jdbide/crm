@@ -12,10 +12,11 @@ import org.mongodb.morphia.annotations.Indexed;
  * @version 1.1.19
  * @serial 111912202015
  */
-@Entity("healthcenter")
+@Entity("client")
 public class Prospect {
 
     @Id
+    private ObjectId objectId;
     private int id;
     private String name;
     private long finessNumber;
@@ -56,6 +57,18 @@ public class Prospect {
         this.address = address;
         this.place = place;
         this.website = website;
+    }
+
+    public ObjectId getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(ObjectId objectId) {
+        this.objectId = objectId;
+    }
+
+    public void setStreetNumber(long streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
     public int getId() {

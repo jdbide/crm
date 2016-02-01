@@ -2,8 +2,6 @@ package miage.pds.api.common;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
-import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.common.LoggingDao.LoggingDAO;
 import miage.pds.api.common.model.User;
 import miage.pds.api.jbide.uc.registercall.CraRestController;
-import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
-import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 /**
  * Created by jbide on 19/01/2016.
@@ -27,35 +23,30 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
 public class LoggingRestController {
 	private static final Logger logger = LoggerFactory.getLogger(CraRestController.class);
 	
-	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
+	LoggingDAO dao = new LoggingDAO(MongoDatastoreConfig.getDataStore());
 	
-	public static String idusertest ;
+	public static String idusertest,idusertest2 ;
 
 	public LoggingRestController() {
 		
 		idusertest = "bd299fa2-244c-4b6b-9966-49a84192cc8c";
+		idusertest2 = "bd209fa2-244c-4b6b-9966-49a84192cc8a";
 
 		User u = new User();
-		/*u.setEmail("datour@crm.fr");
-		u.setFname("Julien");
-		u.setLname("DATOUR");
-		u.setPassword("password");
-		u.setTel("");
-		u.setId(dao.getUniqueUid());
-		dao.addUser(u);
-		
-		u.setEmail("bide@crm.fr");
-		u.setFname("Jean-Daniel");
-		u.setLname("BIDE");
-		u.setId(dao.getUniqueUid());
-		u.setPassword("password");
-		u.setTel("0762506058");
-		dao.addUser(u);*/
+		//dao.dropTables();
 		
 		u.setEmail("test@crm.fr");
 		u.setFname("testFname");
 		u.setLname("testLname");
 		u.setId(idusertest);
+		u.setPassword("password");
+		u.setTel("0762506058");
+		dao.addUser(u);
+		
+		u.setEmail("test2@crm.fr");
+		u.setFname("test2Fname");
+		u.setLname("test2Lname");
+		u.setId(idusertest2);
 		u.setPassword("password");
 		u.setTel("0762506058");
 		dao.addUser(u);

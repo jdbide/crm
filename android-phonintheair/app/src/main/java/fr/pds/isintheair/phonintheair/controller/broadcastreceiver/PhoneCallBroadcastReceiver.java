@@ -22,8 +22,9 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String lastMessage = SharedPreferencesHelper.readString("lastMessage", "");
-        String state       = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
+        String lastMessage   = SharedPreferencesHelper.readString("lastMessage", "");
+        String previousState = SharedPreferencesHelper.readString("previousTelephonyState", "");
+        String state         = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
 
         Log.d(TAG, "State : " + state);
 
@@ -32,11 +33,7 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
 
             Log.d(TAG, "Phone number : " + phoneNumber);
 
-            if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && !lastMessage.equals(MessageType.CALL.toString())) {
-                MessageController.sendCallPassedMessage(phoneNumber);
-            }
-
-            else if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+            if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 MessageController.sendCallReceivedMessage(phoneNumber);
             }
 
@@ -44,7 +41,17 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
                 MessageController.sendEndCallMessage();
             }
 
+            else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                MessageController.sendCallHookMessage();
+            }
+
+            else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                if (!lastMessage.equals(MessageType.CALL))
+                    MessageController.sendCallPassedMessage(phoneNumber);
+            }
+
             SharedPreferencesHelper.writeString("lastMessage", "");
+            SharedPreferencesHelper.writeString("previousTelephonyState", state);
         }
     }
 }

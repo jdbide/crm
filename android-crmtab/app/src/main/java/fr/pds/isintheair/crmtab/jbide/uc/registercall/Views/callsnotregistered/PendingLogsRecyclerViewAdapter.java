@@ -10,10 +10,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 
 
 public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<PendingLogsRecyclerViewAdapter.ViewHolder> {
@@ -38,7 +39,9 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(String.valueOf(position+1));
         holder.mDate.setText(mValues.get(position).getDate());
-        holder.mContact.setText("Name contact"/*mValues.get(position).getContactname()*/);
+        Contact co = (Contact) Contact.getNameFromNumber(mValues.get(position).getIdcontact());
+        if(co!=null)
+        holder.mContact.setText(co.getLastName()+" "+co.getFirstName());
         holder.mClient.setText("client name"/*mValues.get(position).getClientname()*/);
 
         holder.yes.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +49,7 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
             public void onClick(View v) {
 
 
-               Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragment(new CallEndedEvent(
+               Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragmentEvent(new CallEndedEvent(
                        mValues.get(position).getCalltype(),
                        mValues.get(position).getDate(),
                        mValues.get(position).getDuration(),
@@ -57,7 +60,8 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
         holder.no.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Constants.getInstance().removeItemFromPendingCallList(position);
+                    //CallEndedDAO.delete(mValues.get(position).getId());
+                    Constants.getInstance().getPendindList().remove(position);
                     notifyDataSetChanged();
                 }
         });

@@ -6,6 +6,13 @@ import android.content.Intent;
 
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CallService;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 01/23/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class BootServiceBrodcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -13,6 +20,7 @@ public class BootServiceBrodcastReceiver extends BroadcastReceiver {
             final Intent serviceIntent = new Intent(context, CallService.class);
 
             context.startService(serviceIntent);
+
         }
     }
 }

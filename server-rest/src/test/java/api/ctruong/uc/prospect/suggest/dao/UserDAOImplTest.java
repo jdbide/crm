@@ -5,6 +5,7 @@ import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserDAO;
 import miage.pds.api.ctruong.uc.prospect.suggest.mock.MockTable;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,7 @@ import static org.junit.Assert.assertNotNull;
 public class UserDAOImplTest {
     private final static Logger log         = LoggerFactory.getLogger(UserDAOImplTest.class);
     private MongoService mongoService;
-    private UserDAO userDAO;
+    private UserDAOImpl userDAO;
     private Datastore datastore;
     private MockTable mockTable;
 
@@ -47,5 +48,10 @@ public class UserDAOImplTest {
     public void testGetAllUsers() throws Exception {
         List<User> users = userDAO.getAllUsers();
         assertNotNull(userDAO.getAllUsers());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        userDAO.deleteByQuery(userDAO.createQuery());
     }
 }
