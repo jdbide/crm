@@ -1,6 +1,7 @@
 package fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockClient;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
@@ -61,7 +63,7 @@ public class ClientListFragment extends ListFragment {
         //create option list
         final List<String> options = new ArrayList<String>();
         options.add("Contact");
-        options.add("Visite");
+        //options.add("Visite");
         options.add("Agenda");
         options.add("Tâches");
         options.add("Information");
@@ -113,6 +115,20 @@ public class ClientListFragment extends ListFragment {
 
 
                     new CrvController().getAllReportForClient(Integer.toString(client.getClientId()), client, getActivity());
+                    alert.cancel();
+
+                }
+                if(itemValue.equalsIgnoreCase("contact")){
+
+                    ContactListFragment contactListFragment = new ContactListFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, contactListFragment);
+                    transaction.addToBackStack(null);
+
+                    Bundle args = new Bundle();
+                    args.putSerializable("client", client);
+                    contactListFragment.setArguments(args);
+                    transaction.commit();
                     alert.cancel();
 
                 }
