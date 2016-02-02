@@ -3,6 +3,8 @@ package miage.pds.api.tlacouque.uc.admin.ref.customer.common;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 
 import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 
 /**
@@ -16,7 +18,7 @@ public class TileDownloader {
         String url = formatUrl(mapInfo);
         String imageUrl = URL_BASE+url;
         String destinationFile = System.getProperty("catalina.base")+"/webapps/image/"+url;
-        new File(destinationFile).mkdirs();
+        new File(destinationFile).getParentFile().mkdirs();
 
         try {
             saveImage(imageUrl, destinationFile);
@@ -30,7 +32,8 @@ public class TileDownloader {
 
     public static void saveImage(String imageUrl, String destinationFile) throws IOException {
         URL url = new URL(imageUrl);
-        InputStream is = url.openStream();
+        Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("proxy.inside.esiag.info",3128));
+        InputStream is = url.openConnection(proxy).getInputStream();
         OutputStream os = new FileOutputStream(destinationFile);
 
         byte[] b = new byte[2048];
@@ -46,6 +49,6 @@ public class TileDownloader {
 
 
     public static String formatUrl(MapInfo mapInfo) {
-        return mapInfo.getX() + "/" + "/" + mapInfo.getY()+"/"+mapInfo.getZ()+".png";
+        return mapInfo.getX()+ "/" + mapInfo.getY()+"/"+mapInfo.getZ()+".png";
     }
 }
