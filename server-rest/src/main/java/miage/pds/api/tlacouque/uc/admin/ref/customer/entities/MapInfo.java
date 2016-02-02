@@ -1,6 +1,7 @@
 package miage.pds.api.tlacouque.uc.admin.ref.customer.entities;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 /**
  * Created by tlacouque on 01/02/2016.
@@ -8,13 +9,14 @@ import org.mongodb.morphia.annotations.Entity;
 
 @Entity("mapinfo")
 public class MapInfo {
+    @Id
     long siretNumber;
     int x;
-    double y;
-    double  z;
+    int y;
+    int z;
 
 
-    public MapInfo(long siretNumber, int x, double y, double z) {
+    public MapInfo(long siretNumber, int x, int y, int z) {
         this.siretNumber = siretNumber;
         this.x = x;
         this.y = y;
@@ -37,19 +39,19 @@ public class MapInfo {
         this.x = x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public double getZ() {
+    public int getZ() {
         return z;
     }
 
-    public void setZ(double z) {
+    public void setZ(int z) {
         this.z = z;
     }
 }
