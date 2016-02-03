@@ -97,7 +97,7 @@
         <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>
         <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
 
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.SchedulerActivity"/>
+
 
         <service
             android:name=".ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService"
