@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mongodb.morphia.Datastore;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,7 @@ import static org.mockito.Mockito.mock;
  * @version 1.1.19
  * @serial 111912202015
  */
+@RunWith(PowerMockRunner.class)
 @PrepareForTest({ProspectController.class, Logger.class})
 public class ProspectControllerTest {
     private static final Logger log = LoggerFactory.getLogger(ProspectControllerTest.class);
