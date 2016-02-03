@@ -35,8 +35,6 @@ import static org.mockito.Mockito.mock;
  * @version 1.1.19
  * @serial 111912202015
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ProspectController.class, Logger.class})
 public class ProspectControllerTest {
     private static final Logger log = LoggerFactory.getLogger(ProspectControllerTest.class);
     private MongoService service;
@@ -67,9 +65,9 @@ public class ProspectControllerTest {
             mockTable.mockUserTable();
         }
 
-        Logger logger = mock(Logger.class);
-        doNothing().when(logger).info(anyString());
-        PowerMockito.when(LoggerFactory.getLogger(anyString())).thenReturn(logger);
+//        Logger logger = mock(Logger.class);
+//        doNothing().when(logger).info(anyString());
+//        PowerMockito.when(LoggerFactory.getLogger(anyString())).thenReturn(logger);
     }
 
     public HashMap<User, ArrayList<Prospect>> init() {
