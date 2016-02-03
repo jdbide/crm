@@ -1,5 +1,7 @@
 package fr.pds.isintheair.ctruong.uc.prospect.websocket;
 
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
@@ -8,6 +10,7 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 /**
  * The EndPoint to connect to the websocket server
@@ -19,28 +22,34 @@ import java.util.concurrent.TimeUnit;
 @ServerEndpoint("/prospect")
 public class ProspectNotifEndPoint {
 
+    static final Logger log = Logger.getLogger(ProspectNotifEndPoint.class.getSimpleName());
     static ScheduledExecutorService timer =
             Executors.newSingleThreadScheduledExecutor();
-    private static Set<Session> allSession;
-
 
     @OnOpen
-    public void onOpen(Session session) {
-        allSession = session.getOpenSessions();
-        timer.scheduleAtFixedRate(() -> sendTimeToAll(session), 7, 1, TimeUnit.DAYS);
+    public void onOpen(Session session){
+        log.info("I'm starting");
+        timer.scheduleAtFixedRate(() -> sendTimeToAll(session), 7, 7, TimeUnit.HOURS);
     }
+
 
     private void sendTimeToAll(Session session) {
-        allSession = session.getOpenSessions();
-
-        for (Session session1 : allSession) {
-            try {
-                session1.getBasicRemote().sendText("The analyse is finished. You've a new prospect. Let's see him");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            session.getBasicRemote().sendText("We found new prospect. Are you interesting?");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    @OnMessage
+    public void onMessage(Session session, String message){
+        log.info(message);
+    }
+
+    @OnClose
+    public void onClose(Session session){
+        log.info("I'm closing ...");
+    }
+
 
 }
