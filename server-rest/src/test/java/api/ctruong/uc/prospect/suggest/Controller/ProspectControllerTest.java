@@ -65,13 +65,6 @@ public class ProspectControllerTest {
             mockTable.mockRelationAndSalesTable();
             mockTable.mockUserTable();
         }
-        PowerMockito.mockStatic(ProspectController.class);
-        PowerMockito.mockStatic(Logger.class);
-        PowerMockito.mockStatic(ProspectDAOImpl.class);
-        PowerMockito.mockStatic(UserDAOImpl.class);
-        PowerMockito.mockStatic(UserClientRelationDAOImpl.class);
-        PowerMockito.mockStatic(SalesDAOImpl.class);
-
         Logger logger = mock(Logger.class);
         doNothing().when(logger).info(anyString());
         PowerMockito.when(LoggerFactory.getLogger(anyString())).thenReturn(logger);
