@@ -46,6 +46,18 @@
             android:theme="@style/FullscreenTheme"/>
 
         <activity
+            android:name=".mmefire.uc.sms.send.receive.activity.ActivityHome"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".mmefire.uc.sms.send.receive.activity.BaseActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".mmefire.uc.sms.send.receive.activity.ActivityNewMessage"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
             android:name=".common.view.activity.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main"
