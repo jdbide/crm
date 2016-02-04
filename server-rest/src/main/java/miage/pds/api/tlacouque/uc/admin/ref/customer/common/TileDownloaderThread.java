@@ -42,8 +42,9 @@ public class TileDownloaderThread implements Runnable  {
 
     public void saveImage(String imageUrl, String destinationFile) throws IOException {
         URL url = new URL(imageUrl);
-        Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("proxy.inside.esiag.info",3128));
-        InputStream is = url.openConnection(proxy).getInputStream();
+       // Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("proxy.inside.esiag.info",3128));
+       // InputStream is = url.openConnection(proxy).getInputStream();
+        InputStream is = url.openStream();
         OutputStream os = new FileOutputStream(destinationFile);
 
         byte[] b = new byte[2048];

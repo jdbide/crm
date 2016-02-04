@@ -6,19 +6,25 @@ import com.mongodb.MongoClient;
 import miage.pds.MongoConfig;
 
 import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.common.GeoCoding;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.common.TileDownloader;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.common.XYZCalcul;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HealthCenterDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HoldingDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.PurchasingCentralDAO;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.HealthCenter;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.Holding;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.dao.CompanyDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.dao.IndependantDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.dao.SpecialtyDAO;
 
+import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.message.MessageRestCustomer;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
 
 import miage.pds.api.tlacouque.uc.admin.ref.customer.SpringMongoConfig;
 
+import org.mockito.Mockito;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
@@ -28,6 +34,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 
 /**
@@ -54,12 +62,25 @@ public class RestCustomerController {
     ResponseRestCustomer createHealthCenter(@RequestBody MessageRestCustomer messageRestCustomer) {
         logger.info("Create HealthCenter is called");
         boolean customerInserted = true;
+        HealthCenter healthCenter = messageRestCustomer.getHealthCenter();
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
-            new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).save(messageRestCustomer.getHealthCenter());
+            new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).save(healthCenter);
         } catch (Exception e) {
             customerInserted = false;
         }
-        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+
+        try {
+            GeoCoding.getLocation(healthCenter);
+            responseRestCustomer.setLat(healthCenter.getLattitude());
+            responseRestCustomer.setLng(healthCenter.getLongitude());
+        }catch (Exception e) {
+            responseRestCustomer.setLat(0);
+            responseRestCustomer.setLng(0);
+        }
+        MapInfo mapInfo = XYZCalcul.getMapInfo(healthCenter);
+        TileDownloader.dwdTile(mapInfo);
+        responseRestCustomer.setMapInfo(mapInfo);
         responseRestCustomer.setIsInserted(customerInserted);
         logger.info("Is the healthcenter inserted : "+customerInserted);
         return responseRestCustomer;
@@ -224,5 +245,18 @@ public class RestCustomerController {
 
        return responseRestCustomer;
     }
+
+    @RequestMapping(value = "/customer/test", method = RequestMethod.GET)
+    public void test() {
+        logger.info("test is called");
+        MapInfo mapInfo = Mockito.mock(MapInfo.class);
+        when(mapInfo.getX()).thenReturn(15);
+        when(mapInfo.getY()).thenReturn(16597);
+        when(mapInfo.getZ()).thenReturn(11270);
+        TileDownloader.dwdTile(mapInfo);
+
+
+    }
+
 
 }
