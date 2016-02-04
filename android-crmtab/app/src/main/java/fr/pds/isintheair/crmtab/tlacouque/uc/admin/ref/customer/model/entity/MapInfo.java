@@ -27,6 +27,8 @@ public class MapInfo extends BaseModel {
     @Column
     int z;
 
+    public MapInfo() {
+    }
 
     public MapInfo(long siretNumber, int x, int y, int z) {
         this.siretNumber = siretNumber;

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -229,7 +230,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         healthCenter.setStreetName(streetName.getText().toString());
         healthCenter.setTown(town.getText().toString());
         healthCenter.setZipCode(Integer.decode(zipCode.getText().toString()));
-        healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
+        if(bedNumber.getText().toString().equals("")) {
+            healthCenter.setBedNumber(0);
+        } else {
+            healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
+        }
         healthCenter.setWebSite(webSite.getText().toString());
         healthCenter.setOrigin("Prospection");
         healthCenter.setIdUser(Constants.getInstance().getCurrentUser().getId());
@@ -282,6 +287,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                                                                       .createHealthCenter(messageRestCustomer);
         healthCenter.save();
+
         call.enqueue(new Callback<ResponseRestCustomer>() {
             /**
              * Called when a good HTTP response is return
@@ -293,14 +299,17 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                 if (response.errorBody() != null) {
                     createCalledisNOk = true;
                 } else {
-                    if (response.body().getIsInserted()) {
+                    if (response.body().getIsInserted() && response.body().getLat() != 0
+                            && response.body().getLng() != 0) {
                         createCalledisOk = true;
+                        response.body().getMapInfo().save();
+                        healthCenter.setLattitude(response.body().getLat());
+                        healthCenter.setLongitude(response.body().getLng());
                     } else {
                         errorServRest = true;
                     }
                 }
                 returnToListCustomer();
-
             }
 
             /**
