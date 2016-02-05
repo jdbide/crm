@@ -35,6 +35,8 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.asynctask.TileDownloader;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
@@ -42,8 +44,6 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Hol
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral_Table;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.enumeration.EtablishmentType;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;
@@ -305,6 +305,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                         response.body().getMapInfo().save();
                         healthCenter.setLattitude(response.body().getLat());
                         healthCenter.setLongitude(response.body().getLng());
+                        healthCenter.save();
                         new TileDownloader().execute(response.body().getMapInfo());
                     } else {
                         errorServRest = true;
