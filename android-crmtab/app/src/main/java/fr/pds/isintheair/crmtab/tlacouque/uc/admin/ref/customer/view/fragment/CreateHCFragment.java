@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +35,7 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.asynctask.TileDownloader;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding_Table;
@@ -305,6 +305,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                         response.body().getMapInfo().save();
                         healthCenter.setLattitude(response.body().getLat());
                         healthCenter.setLongitude(response.body().getLng());
+                        new TileDownloader().execute(response.body().getMapInfo());
                     } else {
                         errorServRest = true;
                     }

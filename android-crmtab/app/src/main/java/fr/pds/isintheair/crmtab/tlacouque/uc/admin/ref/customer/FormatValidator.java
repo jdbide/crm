@@ -1,8 +1,16 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer;
 
+import android.os.Environment;
+
+import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
+
+import java.io.File;
+
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfo;
+
 /**
  * Created by tlacouque on 29/12/2015.
- * Class used to validate format from views
+ * Class used to validate format from views or download
  */
 public class FormatValidator {
 
@@ -44,5 +52,35 @@ public class FormatValidator {
         if (!url.startsWith("http://") && !url.startsWith("https://"))
             url = "http://" + url;
         return url;
+    }
+
+    /**
+     * Format the url to download tile image
+     * @param mapInfo
+     * @return String
+     */
+    public static String formatUrlTile(MapInfo mapInfo) {
+        return File.separator+"image"+formatUrlPathTile(mapInfo);
+    }
+
+    /**
+     * Format the url/path to download/store tile image
+     * @param mapInfo
+     * @return String
+     */
+    public static String formatUrlPathTile(MapInfo mapInfo) {
+        return File.separator+mapInfo.getX()+File.separator+ mapInfo.getY()+File.separator+
+                mapInfo.getZ()+".png";
+    }
+
+    /**
+     * Format the path to store a tile
+     * @param mapInfo
+     * @return
+     */
+    public static String formatPathTile(MapInfo mapInfo) {
+        String path = Environment.getExternalStorageDirectory().toString()+
+                "/osmdroid/tiles/Mapnik"+formatUrlPathTile(mapInfo)+".tile";
+        return path;
     }
 }

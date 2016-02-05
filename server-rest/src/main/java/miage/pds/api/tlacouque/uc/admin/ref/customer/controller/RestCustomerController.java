@@ -237,7 +237,6 @@ public class RestCustomerController {
         try {
             responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
             responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
-            logger.info("Number of independant returned : "+responseRestCustomer.getIndependants().size());
         } catch (Exception e) {
             responseRestCustomer.setHealthCenters(null);
             responseRestCustomer.setIndependants(null);
