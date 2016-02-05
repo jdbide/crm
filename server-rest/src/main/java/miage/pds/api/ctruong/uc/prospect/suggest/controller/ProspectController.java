@@ -160,8 +160,8 @@ public class ProspectController {
                 // The average for each prospect
                 salesAveByPros = salesTotal / sales.size();
                 if (user.getId() == 1){
-                    logger.info("The user: " + user.getLogin() + "\r\n");
-                    logger.info("The prospect" + prospect.getName() + " with sales volume: " + salesAveByPros + "\r\n");
+//                    logger.info("The user: " + user.getLogin() + "\r\n");
+//                    logger.info("The prospect" + prospect.getName() + " with sales volume: " + salesAveByPros + "\r\n");
                 }
                 // Remove the prospect in the list inside the map if the average is under global
                 if (salesAveByPros < salesAverageTotal) {
@@ -209,7 +209,7 @@ public class ProspectController {
                         prospects.remove(prospectLongEntry.getKey());
                     }
                     if (user.getId() == 1){
-                        logger.info("The prospect relation level: " + prospectLongEntry.getValue() + "\r\n");
+//                        logger.info("The prospect relation level: " + prospectLongEntry.getValue() + "\r\n");
                     }
 
                 }
@@ -254,7 +254,7 @@ public class ProspectController {
                         prospectIterator.remove();
                     }
                     if (user.getId() == 1){
-                        logger.info("The size of this prospect: " + prospect.getPlace());
+//                        logger.info("The size of this prospect: " + prospect.getPlace());
                     }
                 }
 

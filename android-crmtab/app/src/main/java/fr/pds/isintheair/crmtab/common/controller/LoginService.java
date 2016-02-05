@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.model.rest.LoginServiceInterface;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CallService;
 import retrofit.Call;
@@ -90,7 +90,8 @@ public class LoginService {
                         context.startService(intent);
 
                         context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        NotificationEventReceiver.setUpAlarm(context);
+                        Intent intent1 = new Intent(context, NotificationIntentService.class);
+                        context.startService(intent1);
                     }
                     else {
                         Snackbar.make(coordlayout, "User: " + mail + " : Wrong Credentials or not registererd ", Snackbar.LENGTH_LONG).show();

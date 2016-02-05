@@ -46,6 +46,18 @@
             android:theme="@style/FullscreenTheme"/>
 
         <activity
+            android:name=".mmefire.uc.sms.send.receive.activity.ActivityHome"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".mmefire.uc.sms.send.receive.activity.BaseActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".mmefire.uc.sms.send.receive.activity.ActivityNewMessage"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
             android:name=".common.view.activity.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main"
@@ -97,22 +109,12 @@
         <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>
         <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
 
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.SchedulerActivity"/>
+
 
         <service
             android:name=".ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService"
             android:enabled="true"
             android:exported="false"/>
-
-        <receiver android:name=".ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver"/>
-
-        <receiver android:name=".ctruong.uc.propsect.suggestion.notification.receiver.NotificationServiceStarterReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
-                <action android:name="android.intent.action.TIME_SET"/>
-            </intent-filter>
-        </receiver>
 
 
         <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>

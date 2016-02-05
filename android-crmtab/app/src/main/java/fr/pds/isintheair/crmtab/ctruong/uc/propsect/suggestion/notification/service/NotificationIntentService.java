@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.ser
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.content.Context;
 import android.graphics.Color;
@@ -10,8 +11,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
+import de.tavendo.autobahn.WebSocketConnection;
+import de.tavendo.autobahn.WebSocketConnectionHandler;
+import de.tavendo.autobahn.WebSocketException;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.receiver.NotificationEventReceiver;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.config.WebsocketConfig;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.ConsultProspect;
 
 /**
@@ -23,75 +27,63 @@ import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.ConsultProsp
  */
 public class NotificationIntentService extends IntentService {
 
+    static final String TAG = NotificationIntentService.class.getSimpleName();
+
     private static final int NOTIFICATION_ID = 1;
-    private static final String ACTION_START = "ACTION_START";
-    private static final String ACTION_DELETE = "ACTION_DELETE";
 
+    /**
+     * Creates an IntentService.  Invoked by your subclass's constructor.
+     *
+     *
+     */
     public NotificationIntentService() {
-        super(NotificationIntentService.class.getSimpleName());
-    }
-
-
-    /**
-     * Starts this service to perform action Foo with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
-    public static Intent createIntentStartNotificationService(Context context) {
-        Intent intent = new Intent(context, NotificationIntentService.class);
-        intent.setAction(ACTION_START);
-        return intent;
-    }
-
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
-    public static Intent createIntentDeleteNotification(Context context) {
-        Intent intent = new Intent(context, NotificationIntentService.class);
-        intent.setAction(ACTION_DELETE);
-        return intent;
+        super(TAG);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
-        try {
-            if (intent != null) {
-                String action = intent.getAction();
-                if (ACTION_START.equals(action)) {
-                    processStartNotification();
-
-                } else if (ACTION_DELETE.equals(action)) {
-
-                    processDeleteNotification(intent);
-                }
-            }
-        } finally {
-            WakefulBroadcastReceiver.completeWakefulIntent(intent);
-        }
-
+        start();
     }
 
-    private void processStartNotification() {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("Prospect Notification").setAutoCancel(true).setColor(getResources().getColor(R.color.colorAccent)).setContentText("We find a new prospect. Are you interesting?").setSmallIcon(R.drawable.mail).setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 }).setLights(Color.RED, 3000, 3000);
+    private void pushNotif(String message){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle("Prospect").setSmallIcon(R.drawable.logo).setContentText(message).setAutoCancel(true).setVibrate(new long[]{1000, 1000, 1000, 1000, 1000}).setLights(Color.RED, 3000, 3000);
         Intent intent = new Intent(this, ConsultProspect.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-        NotificationEventReceiver receiver = new NotificationEventReceiver();
-        final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
+        TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
+        taskStackBuilder.addParentStack(ConsultProspect.class);
+        taskStackBuilder.addNextIntent(intent);
+        PendingIntent resultPendingIntent = taskStackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // notificationID allows you to update the notification later on.
+        mNotificationManager.notify(1, builder.build());
     }
 
-    private void processDeleteNotification(Intent intent) {
-        Log.i(getClass().getSimpleName(), "Delete notification");
+    private final WebSocketConnection connection = new WebSocketConnection();
+
+    private void start(){
+        try {
+            connection.connect(WebsocketConfig.WSURI, new WebSocketConnectionHandler(){
+                @Override
+                public void onOpen() {
+                    super.onOpen();
+                    Log.i(TAG, "I'm connect with the server");
+                }
+
+                @Override
+                public void onClose(int code, String reason) {
+                    super.onClose(code, reason);
+                }
+
+                @Override
+                public void onTextMessage(String payload) {
+                    super.onTextMessage(payload);
+                    pushNotif(payload);
+                }
+            });
+        } catch (WebSocketException e) {
+            e.printStackTrace();
+        }
     }
-
-
 }
