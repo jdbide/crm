@@ -195,7 +195,7 @@ public class RestCustomerController {
         logger.info("Get health center is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
-            responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithUserId(iduser));
             logger.info("Number of health center returned : "+responseRestCustomer.getHealthCenters().size());
         } catch (Exception e) {
             responseRestCustomer.setHealthCenters(null);
@@ -236,7 +236,7 @@ public class RestCustomerController {
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
             responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
-            responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithUserId(iduser));
         } catch (Exception e) {
             responseRestCustomer.setHealthCenters(null);
             responseRestCustomer.setIndependants(null);
