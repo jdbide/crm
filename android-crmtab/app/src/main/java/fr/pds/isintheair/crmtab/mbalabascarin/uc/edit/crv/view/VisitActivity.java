@@ -1,37 +1,49 @@
 package fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.adapter.VisitAdapter;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockVisit;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Visit;
 
-public class VisitActivity extends AppCompatActivity {
+public class VisitActivity extends Activity {
 
     List<Visit> visits;
+    List<Visit> visitsToShow = new ArrayList<Visit>();
     ListView visitList;
     VisitAdapter adapter;
+    Client currentClient;
+    Contact currentContact;
+    Visit currentVisit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         visitList = (ListView) findViewById(R.id.listVisit);
-        setSupportActionBar(toolbar);
+        currentContact = getIntent().getParcelableExtra("contact");
+        currentClient = (Client) getIntent().getSerializableExtra("client");
 
         visits = new MockVisit().getMockVisit();
+        for(Visit visit : visits){
+            if(visit.getIdContact() == currentClient.getClientId()){
+                visitsToShow.add(visit);
+            }
+        }
 
         // Define a new Adapter
 
-        adapter = new VisitAdapter(this, visits);
+        adapter = new VisitAdapter(this, visitsToShow);
         adapter.notifyDataSetChanged();
 
         // Assign adapter to ListView
@@ -50,5 +62,6 @@ public class VisitActivity extends AppCompatActivity {
 
         });
     }
-    
+
+
 }

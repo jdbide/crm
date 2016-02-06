@@ -19,9 +19,9 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
 
     private Context context;
     private List<Visit> objects;
-    TextView title, infos , infos2, lblCount;
+    TextView title, infos , infos2;
     public VisitAdapter(Context context,  List<Visit> objects) {
-        super(context, R.layout.reportlist_layout, objects);
+        super(context, R.layout.visitlist_layout, objects);
         this.context = context;
         this.objects = objects;
     }
@@ -37,12 +37,15 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
         title = (TextView) rowView.findViewById(R.id.textTitle);
         infos = (TextView) rowView.findViewById(R.id.textInfo);
         infos2 = (TextView) rowView.findViewById(R.id.textInfo2);
-        lblCount = (TextView) rowView.findViewById(R.id.txtCount);
 
 
-        title.setText("Visite fait le: " + objects.get(position).getDate());
-        infos.setText("Sujet: " + objects.get(position).getSubject());
-        lblCount.setText(objects.get(position).getDate());
+        title.setText("Visite faite le: " + objects.get(position).getDate());
+
+        for(int i=0; i<objects.get(position).getSubject().length; i++){
+            infos.append(objects.get(position).getSubject()[i]+"\n");
+        }
+
+
 
         return  rowView;
     }
