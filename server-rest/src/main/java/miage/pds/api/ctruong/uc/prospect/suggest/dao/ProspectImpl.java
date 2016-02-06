@@ -8,7 +8,7 @@ import org.mongodb.morphia.dao.BasicDAO;
 /**
  * Created by Truong on 2/6/2016.
  */
-public class ProspectImpl extends BasicDAO<Prospect, ObjectId> implements ProspectDAO{
+public class ProspectImpl extends BasicDAO<Prospect, ObjectId>{
 
     public ProspectImpl(Class<Prospect> entityClass, Datastore ds) {
         super(entityClass, ds);
