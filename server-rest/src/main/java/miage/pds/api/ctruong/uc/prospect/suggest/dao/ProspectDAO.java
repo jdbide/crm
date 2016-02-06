@@ -11,12 +11,7 @@ import java.util.List;
  */
 public interface ProspectDAO extends DAO<Prospect, ObjectId>{
 
-    /**
-     * get a Prospect using it id
-     * @param id
-     * @return
-     */
-    public Prospect getProspectById(long id);
+    public Prospect getProspetById(ObjectId id);
 
     /**
      * get a list all prospect
