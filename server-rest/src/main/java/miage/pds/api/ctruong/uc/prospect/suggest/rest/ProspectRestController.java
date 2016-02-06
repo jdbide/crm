@@ -1,8 +1,6 @@
 package miage.pds.api.ctruong.uc.prospect.suggest.rest;
 
 import miage.pds.api.ctruong.uc.prospect.suggest.controller.ProspectController;
-import miage.pds.api.ctruong.uc.prospect.suggest.controller.SalesDAOImpl;
-import miage.pds.api.ctruong.uc.prospect.suggest.controller.UserClientRelationDAOImpl;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
