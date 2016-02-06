@@ -12,6 +12,7 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.adapter.VisitAdapter;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockVisit;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Visit;
@@ -57,11 +58,22 @@ public class VisitActivity extends Activity {
 
                 // ListView Clicked item index
                 int itemPosition = position;
-
+                callCrvController(position);
             }
 
         });
     }
 
 
+    public void callCrvController(int position){
+        new CrvController().getAllReportForClient(Integer.toString(currentClient.getClientId()), currentClient, currentContact,currentVisit, this);
+
+        /*final Visit itemValue = (Visit) visitList.getItemAtPosition(position);
+        Intent intent = new Intent(VisitActivity.this, CrvMainActivity.class);
+        intent.putExtra("client", currentClient);
+        intent.putExtra("contact", currentContact);
+        intent.putExtra("visit", itemValue);
+        startActivity(intent);
+*/
+    }
 }

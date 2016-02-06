@@ -17,7 +17,6 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockClient;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 
@@ -114,8 +113,7 @@ public class ClientListFragment extends ListFragment {
 
 
 
-                    new CrvController().getAllReportForClient(Integer.toString(client.getClientId()), client, getActivity());
-                    alert.cancel();
+
 
                 }
                 if(itemValue.equalsIgnoreCase("contact")){

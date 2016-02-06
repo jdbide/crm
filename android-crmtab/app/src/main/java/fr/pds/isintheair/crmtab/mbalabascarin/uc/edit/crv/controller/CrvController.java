@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Report;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Visit;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.retrofit.Service;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.CrvMainActivity;
 import retrofit.Call;
@@ -31,7 +33,7 @@ import retrofit.Retrofit;
 public class CrvController {
     List<Report> reports = new ArrayList<Report>();
     Boolean status;
-    public List<Report> getAllReportForClient(String idClient , final Client client, final Context context){
+    public List<Report> getAllReportForClient(String idClient , final Client client,final Contact contact, final Visit visit, final Context context){
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
                 .create();
@@ -54,7 +56,9 @@ public class CrvController {
 
 
                 Intent intent = new Intent(context, CrvMainActivity.class);
-                intent.putExtra("ClientObject", client);
+                intent.putExtra("client", client);
+                intent.putExtra("contact", contact);
+                intent.putExtra("visit", visit);
                 Bundle b = new Bundle();
                 b.putSerializable("list", (Serializable) reports);
                 intent.putExtra("listReport", b);
@@ -82,7 +86,9 @@ public class CrvController {
 
                 //get reports from cache
                 Intent intent = new Intent(context, CrvMainActivity.class);
-                intent.putExtra("ClientObject", client);
+                intent.putExtra("client", client);
+                intent.putExtra("contact", contact);
+                intent.putExtra("visit", visit);
                 Bundle b = new Bundle();
                 b.putSerializable("list", (Serializable) crvFromCache);
                 intent.putExtra("listReport", b);
@@ -111,7 +117,8 @@ public class CrvController {
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
                 if(response.isSuccess()){
                     status = true;
-                    getAllReportForClient(Integer.toString(client.getClientId()),client,context);
+                   // getAllReportForClient(Integer.toString(client.getClientId()),client,context);
+
 
                 }else{
                     status = false;

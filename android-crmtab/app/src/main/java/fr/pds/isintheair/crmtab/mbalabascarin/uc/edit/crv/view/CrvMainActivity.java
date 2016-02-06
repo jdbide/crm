@@ -45,7 +45,7 @@ public class CrvMainActivity extends AppCompatActivity {
         reportListView = (ListView) findViewById(R.id.listReport);
 
         try {
-            client = (Client) getIntent().getSerializableExtra("ClientObject");
+            client = (Client) getIntent().getSerializableExtra("client");
             reportList = (ArrayList<Report>) (getIntent().getBundleExtra("listReport").getSerializable("list"));
         } catch (Exception e) {
             e.printStackTrace();
