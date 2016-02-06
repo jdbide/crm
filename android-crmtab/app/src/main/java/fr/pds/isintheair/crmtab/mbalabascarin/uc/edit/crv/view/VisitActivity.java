@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,16 @@ public class VisitActivity extends Activity {
     Client currentClient;
     Contact currentContact;
     Visit currentVisit;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit);
+
+
+
+
 
         visitList = (ListView) findViewById(R.id.listVisit);
         currentContact = getIntent().getParcelableExtra("contact");
@@ -62,6 +70,9 @@ public class VisitActivity extends Activity {
             }
 
         });
+
+
+
     }
 
 

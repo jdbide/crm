@@ -22,9 +22,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +75,11 @@ public class CreateCrvActivity extends AppCompatActivity {
     Report               report;
     CacheDao             dao;
     Report crv = new Report();
+    TextView txtRelation, txtInformation, txtProducts, txtNote;
+    SeekBar relation, information, productSatisfaction;
+    ImageView imgMeteo;
+    int progress = 0;
+    int note = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +115,9 @@ public class CreateCrvActivity extends AppCompatActivity {
         ch2 = (CheckBox) findViewById(R.id.chk2);
         ch3 = (CheckBox) findViewById(R.id.chk3);
         ch4 = (CheckBox) findViewById(R.id.chk4);
+
+
+
 
 
         //get mocked client object
@@ -654,6 +664,77 @@ public class CreateCrvActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.satisfaction_dialog, null);
 
+        relation = (SeekBar) promptView.findViewById(R.id.seekBarRelation);
+        information = (SeekBar) promptView.findViewById(R.id.seekBarInformations);
+        productSatisfaction = (SeekBar) promptView.findViewById(R.id.seekBarProduits);
+
+        txtRelation = (TextView) promptView.findViewById(R.id.txtRelation);
+        txtInformation = (TextView) promptView.findViewById(R.id.txtInformation);
+        txtProducts = (TextView) promptView.findViewById(R.id.txtProduits);
+        txtNote = (TextView) promptView.findViewById(R.id.noteGlobale);
+        imgMeteo = (ImageView) promptView.findViewById(R.id.imgMeteo);
+
+        //set on seek progress listener
+        relation.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progress = i;
+                txtRelation.setText(progress +"/5");
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                note += progress;
+            }
+        });
+
+        information.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progress = i;
+                txtInformation.setText(progress +"/5");
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                note += progress;
+            }
+        });
+
+        productSatisfaction.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progress = i;
+                txtProducts.setText(progress + "/5");
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                note += progress;
+            }
+        });
+
+
+
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
 
@@ -671,6 +752,30 @@ public class CreateCrvActivity extends AppCompatActivity {
         final AlertDialog alert = alertDialogBuilder.create();
 
         alert.show();
+
+
+
+    }
+
+    public void calculateNote(View view){
+        relation.setEnabled(false);
+        information.setEnabled(false);
+        productSatisfaction.setEnabled(false);
+        txtNote.setText("Note globale: "+note);
+
+        if(note <= 5){
+            imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_pas_satisfait));
+
+        }else if(note >5 && note <=10){
+            imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_satisfait_moyen));
+        }else if(note >10){
+            imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_satisfait));
+        }
+
+        note = 0;
+
+
+
     }
 }
 

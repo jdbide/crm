@@ -94,6 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:onClick="calculateNote"
         android:text="Validé"/>
 
     <TextView
@@ -107,6 +108,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:src="@drawable/meteo_satisfait"
         android:id="@+id/imgMeteo"/>
 </LinearLayout>
