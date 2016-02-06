@@ -13,8 +13,5 @@ import java.util.List;
  */
 public interface ProspectDAO {
 
-    public List<Prospect> getAllProspect();
-
-    public Prospect getProspectByID(int id);
 
 }
