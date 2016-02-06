@@ -1,7 +1,6 @@
 package miage.pds.api.ctruong.uc.prospect.suggest.controller;
 
 import miage.pds.api.ctruong.uc.prospect.suggest.dao.ProspectDAO;
-import miage.pds.api.ctruong.uc.prospect.suggest.dao.ProspectDAOImpl;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.slf4j.Logger;
@@ -26,7 +25,6 @@ public class ProspectController {
      */
     public ProspectController() {
         this.mongoService           = new MongoService();
-        this.prospectDAO            = new ProspectDAOImpl(Prospect.class, mongoService.getDatastore());
     }
 
 

@@ -1,15 +1,9 @@
 package miage.pds.api.ctruong.uc.prospect.suggest.mock;
 
-import miage.pds.api.ctruong.uc.prospect.suggest.dao.ProspectDAOImpl;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.logging.Logger;
 import org.mongodb.morphia.logging.MorphiaLoggerFactory;
-
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
 
 /**
  * Created by Truong on 1/23/2016.
@@ -17,7 +11,6 @@ import java.util.Random;
 public class MockTable {
     private static final Logger log = MorphiaLoggerFactory.get(MockTable.class);
     private MongoService mongoService;
-    private ProspectDAOImpl prospectDAO;
     private Datastore datastore;
 
 
