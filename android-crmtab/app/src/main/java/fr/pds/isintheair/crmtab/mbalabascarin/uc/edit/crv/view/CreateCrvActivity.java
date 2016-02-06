@@ -649,5 +649,28 @@ public class CreateCrvActivity extends AppCompatActivity {
     public void callContact(View view){
         CallController.call(tel.getText().toString());
     }
+
+    public void showSatisfactionDetail(View view){
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View promptView = layoutInflater.inflate(R.layout.satisfaction_dialog, null);
+
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(promptView);
+
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(true)
+
+                .setNegativeButton("Fermer",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        final AlertDialog alert = alertDialogBuilder.create();
+
+        alert.show();
+    }
 }
 
