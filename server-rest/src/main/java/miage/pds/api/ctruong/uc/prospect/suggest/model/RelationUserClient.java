@@ -15,7 +15,7 @@ public class RelationUserClient {
     private ObjectId id;
 
     @Property
-    private long clientId;
+    private ObjectId clientId;
 
     @Property
     private String userId;
@@ -23,7 +23,7 @@ public class RelationUserClient {
     public RelationUserClient() {
     }
 
-    public RelationUserClient(long clientId, String userId) {
+    public RelationUserClient(ObjectId clientId, String userId) {
         this.clientId = clientId;
         this.userId = userId;
     }
@@ -36,11 +36,11 @@ public class RelationUserClient {
         this.id = id;
     }
 
-    public long getClientId() {
+    public ObjectId getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
+    public void setClientId(ObjectId clientId) {
         this.clientId = clientId;
     }
 

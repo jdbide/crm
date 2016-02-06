@@ -15,15 +15,15 @@ public class RelationClient {
     private ObjectId id;
 
     @Property
-    private long clientId;
+    private ObjectId clientId;
 
     @Property
-    private long prospectId;
+    private ObjectId prospectId;
 
     public RelationClient() {
     }
 
-    public RelationClient(long clientId, long prospectId) {
+    public RelationClient(ObjectId clientId, ObjectId prospectId) {
         this.clientId = clientId;
         this.prospectId = prospectId;
     }
@@ -36,19 +36,19 @@ public class RelationClient {
         this.id = id;
     }
 
-    public long getClientId() {
+    public ObjectId getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
+    public void setClientId(ObjectId clientId) {
         this.clientId = clientId;
     }
 
-    public long getProspectId() {
+    public ObjectId getProspectId() {
         return prospectId;
     }
 
-    public void setProspectId(long prospectId) {
+    public void setProspectId(ObjectId prospectId) {
         this.prospectId = prospectId;
     }
 

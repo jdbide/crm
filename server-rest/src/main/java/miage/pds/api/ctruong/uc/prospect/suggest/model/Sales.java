@@ -17,7 +17,7 @@ public class Sales {
     private ObjectId id;
 
     @Property
-    private long prospectId;
+    private ObjectId prospectId;
 
     @Property
     private Date date;
@@ -29,7 +29,7 @@ public class Sales {
 
     }
 
-    public Sales(long prospectId, Date date, long value) {
+    public Sales(ObjectId prospectId, Date date, long value) {
         this.prospectId = prospectId;
         this.date = date;
         this.value = value;
@@ -43,11 +43,11 @@ public class Sales {
         this.id = id;
     }
 
-    public long getProspectId() {
+    public ObjectId getProspectName() {
         return prospectId;
     }
 
-    public void setProspectId(long prospectId) {
+    public void setProspectName(ObjectId prospectName) {
         this.prospectId = prospectId;
     }
 
@@ -71,7 +71,7 @@ public class Sales {
     public String toString() {
         return "Sales{" +
                 "id=" + id +
-                ", prospectId=" + prospectId +
+                ", prospectId='" + prospectId + '\'' +
                 ", date=" + date +
                 ", value=" + value +
                 '}';

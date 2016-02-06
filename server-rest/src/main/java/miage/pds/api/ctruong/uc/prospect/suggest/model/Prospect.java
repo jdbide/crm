@@ -1,5 +1,6 @@
 package miage.pds.api.ctruong.uc.prospect.suggest.model;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
@@ -12,10 +13,13 @@ import org.mongodb.morphia.annotations.Property;
  * @version 1.1.19
  * @serial 111912202015
  */
-@Entity("healthcenter")
+@Entity("prospect")
 public class Prospect {
 
     @Id
+    private ObjectId id;
+
+    @Property
     private long siretNumber;
 
     @Property
@@ -66,6 +70,14 @@ public class Prospect {
         this.bedNumber = bedNumber;
         this.webSite = webSite;
         this.etablishmentType = etablishmentType;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public long getSiretNumber() {
@@ -159,7 +171,8 @@ public class Prospect {
     @Override
     public String toString() {
         return "Prospect{" +
-                "siretNumber=" + siretNumber +
+                "id=" + id +
+                ", siretNumber='" + siretNumber + '\'' +
                 ", name='" + name + '\'' +
                 ", finessNumber=" + finessNumber +
                 ", streetNumber=" + streetNumber +
@@ -169,6 +182,7 @@ public class Prospect {
                 ", bedNumber=" + bedNumber +
                 ", webSite='" + webSite + '\'' +
                 ", etablishmentType='" + etablishmentType + '\'' +
+                ", idUser='" + idUser + '\'' +
                 '}';
     }
 }

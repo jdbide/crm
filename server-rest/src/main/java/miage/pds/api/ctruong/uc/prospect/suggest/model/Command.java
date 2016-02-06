@@ -17,7 +17,7 @@ public class Command {
     private ObjectId id;
 
     @Property
-    private long prospectId;
+    private ObjectId prospectId;
 
     @Property
     private String person;
@@ -31,7 +31,7 @@ public class Command {
     public Command() {
     }
 
-    public Command(long prospectId, String person, long value, Date date) {
+    public Command(ObjectId prospectId, String person, long value, Date date) {
         this.prospectId = prospectId;
         this.person = person;
         this.value = value;
@@ -46,11 +46,11 @@ public class Command {
         this.id = id;
     }
 
-    public long getProspectId() {
+    public ObjectId getProspectName() {
         return prospectId;
     }
 
-    public void setProspectId(long prospectId) {
+    public void setProspectName(ObjectId prospectId) {
         this.prospectId = prospectId;
     }
 
@@ -82,7 +82,7 @@ public class Command {
     public String toString() {
         return "Command{" +
                 "id=" + id +
-                ", prospectId=" + prospectId +
+                ", prospectId='" + prospectId + '\'' +
                 ", person='" + person + '\'' +
                 ", value=" + value +
                 ", date=" + date +
