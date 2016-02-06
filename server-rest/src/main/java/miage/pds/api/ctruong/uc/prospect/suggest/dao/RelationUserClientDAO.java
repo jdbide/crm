@@ -4,6 +4,8 @@ import miage.pds.api.ctruong.uc.prospect.suggest.model.RelationUserClient;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.dao.DAO;
 
+import java.util.List;
+
 /**
  * Created by Truong on 2/6/2016.
  */
@@ -15,4 +17,10 @@ public interface RelationUserClientDAO extends DAO<RelationUserClient, ObjectId>
      * @return
      */
     public boolean checkRelationBetweenUserAndClient(long prospectID);
+
+    /**
+     * get list relation
+     * @return
+     */
+    public List<RelationUserClient> getAllRelation();
 }

@@ -30,4 +30,10 @@ public class RelationUserClientDAOImpl extends BasicDAO<RelationUserClient, Obje
         }
 
     }
+
+    @Override
+    public List<RelationUserClient> getAllRelation() {
+        Query<RelationUserClient> query = createQuery();
+        return query.asList();
+    }
 }
