@@ -24,7 +24,6 @@ import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
@@ -34,8 +33,9 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDet
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.ClientListFragment;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
     private PendingLogsFragment pend;
     private AndroidBus bus;
     public static String TagAddLogFragment = "FRAGMENT_AJOUT";
-
+    User              currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         bus = Constants.getInstance().getCurrentBusInstance();
         bus.register(this);
 
-        User              currentUser = new User();
+                          currentUser = new User();
         SharedPreferences prefs       = PreferenceManager.getDefaultSharedPreferences(this);
 
         currentUser.setEmail(prefs.getString("email", null));
@@ -163,11 +163,12 @@ public class MainActivity extends AppCompatActivity
             ft.replace(R.id.container, fragment, "FRAGMENT_LISTE_CRA").addToBackStack(null).commit();
         }
         else if (id == R.id.nav_editer_crv) {
-            ClientListFragment clientListFragment = new ClientListFragment();
+            new CrvController().getClientsForUser(currentUser.getId(), this);
+           /* ClientListFragment clientListFragment = new ClientListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.container, clientListFragment);
             transaction.addToBackStack(null);
-            transaction.commit();
+            transaction.commit();*/
 
         }
         else if (id == R.id.nav_ref_client) {

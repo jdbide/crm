@@ -28,7 +28,7 @@ public class CrvMainActivity extends AppCompatActivity {
 
     Client client;
     Report report;
-    int clientId;
+    long clientId;
     ListView reportListView;
     ReportAdapter adapter;
     private List<Report> reportList = new ArrayList<Report>();

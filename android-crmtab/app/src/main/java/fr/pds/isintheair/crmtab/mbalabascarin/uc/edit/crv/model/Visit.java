@@ -10,7 +10,7 @@ public class Visit implements Serializable {
     private int id;
     private String[] subject;
     private String date;
-    private int idContact;
+    private long idContact;
 
 
     public Visit(){
@@ -40,11 +40,11 @@ public class Visit implements Serializable {
         this.date = date;
     }
 
-    public int getIdContact() {
+    public long getIdContact() {
         return idContact;
     }
 
-    public void setIdContact(int idContact) {
+    public void setIdClient(long idContact) {
         this.idContact = idContact;
     }
 

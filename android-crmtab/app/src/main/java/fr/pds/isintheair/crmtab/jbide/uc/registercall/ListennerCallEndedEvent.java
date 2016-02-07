@@ -56,7 +56,7 @@ public class ListennerCallEndedEvent extends Service {
         //mNM.cancel(NOTIFICATION);
 
         // Tell the user we stopped.
-        Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "CrvRetrofitService stopped", Toast.LENGTH_SHORT).show();
     }
 
 

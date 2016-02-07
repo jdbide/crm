@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,7 @@ public class VisitActivity extends Activity {
 
 
     public void callCrvController(int position){
-        new CrvController().getAllReportForClient(Integer.toString(currentClient.getClientId()), currentClient, currentContact,currentVisit, this);
+        new CrvController().getAllReportForClient(Long.toString(currentClient.getClientId()), currentClient, currentContact,currentVisit, this);
 
         /*final Visit itemValue = (Visit) visitList.getItemAtPosition(position);
         Intent intent = new Intent(VisitActivity.this, CrvMainActivity.class);
