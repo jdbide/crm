@@ -7,6 +7,7 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Compan
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Independant;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Specialty;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.Customer;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 
 import java.util.List;
 
@@ -31,6 +32,12 @@ public class ResponseRestCustomer {
     private List<Independant> independants;
 
     private List<Customer> customers;
+
+    private MapInfo mapInfo;
+
+    private double lat;
+
+    private double lng;
 
 
 
@@ -96,5 +103,29 @@ public class ResponseRestCustomer {
 
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
+    }
+
+    public MapInfo getMapInfo() {
+        return mapInfo;
+    }
+
+    public void setMapInfo(MapInfo mapInfo) {
+        this.mapInfo = mapInfo;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }

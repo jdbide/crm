@@ -110,22 +110,22 @@ public class RestCustomerControllerTest {
 
     @Test
     public void testGetHealthCenters() throws Exception {
-        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithoutUserId("1").size();
+        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithUserId("1").size();
         ResponseRestCustomer responseRestCustomer = restCustomerController.getHealthCenters("1");
         assertEquals(healthCentersNumber, responseRestCustomer.getHealthCenters().size());
     }
 
     @Test
     public void testGetIndependants() throws Exception {
-        int independantNumber = new IndependantDAO(datastore).findAllWithoutUserId("1").size();
+        int independantNumber = new IndependantDAO(datastore).findAllWithUserId("1").size();
         ResponseRestCustomer responseRestCustomer = restCustomerController.getIndependants("1");
         assertEquals(independantNumber, responseRestCustomer.getIndependants().size());
     }
 
     @Test
     public void testGetCustomers() throws Exception {
-        int independantNumber = new IndependantDAO(datastore).findAllWithoutUserId("1").size();
-        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithoutUserId("1").size();
+        int independantNumber = new IndependantDAO(datastore).findAllWithUserId("1").size();
+        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithUserId("1").size();
         ResponseRestCustomer responseRestCustomer = restCustomerController.getCustomers("1");
         assertEquals(healthCentersNumber, responseRestCustomer.getHealthCenters().size());
         assertEquals(independantNumber, responseRestCustomer.getIndependants().size());

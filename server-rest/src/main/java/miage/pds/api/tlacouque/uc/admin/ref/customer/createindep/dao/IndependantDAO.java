@@ -21,7 +21,7 @@ public class IndependantDAO extends BasicDAO<Independant,ObjectId> {
      * where the idUser is equals to the id pass in parameter
      * @return List<Independant>
      */
-    public List<Independant> findAllWithoutUserId(String id) {
-        return getDatastore().createQuery(Independant.class).filter("idUser <>",id).asList();
+    public List<Independant> findAllWithUserId(String id) {
+        return getDatastore().createQuery(Independant.class).filter("idUser =",id).asList();
     }
 }
