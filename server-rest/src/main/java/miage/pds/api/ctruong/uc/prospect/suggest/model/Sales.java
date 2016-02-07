@@ -43,11 +43,11 @@ public class Sales {
         this.id = id;
     }
 
-    public ObjectId getProspectName() {
+    public ObjectId getProspectId() {
         return prospectId;
     }
 
-    public void setProspectName(ObjectId prospectName) {
+    public void setProspectId(ObjectId prospectId) {
         this.prospectId = prospectId;
     }
 
