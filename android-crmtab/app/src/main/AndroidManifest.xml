@@ -30,14 +30,8 @@
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-
             </intent-filter>
         </activity>
 
@@ -105,11 +99,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-
-        <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>
-        <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
-
-
 
         <service
             android:name=".ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService"

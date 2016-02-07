@@ -1,11 +1,11 @@
 package fr.pds.isintheair.jdatour.uc.phone.call.receive.server;
 
 import fr.pds.isintheair.ctruong.uc.prospect.websocket.ProspectNotifEndPoint;
-import fr.pds.isintheair.jdatour.uc.phone.call.receive.server.NotifierEndpoint;
 
 import javax.websocket.Endpoint;
 import javax.websocket.server.ServerApplicationConfig;
 import javax.websocket.server.ServerEndpointConfig;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,18 +15,16 @@ import java.util.Set;
 public class ServerConfiguration implements ServerApplicationConfig {
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> set) {
-        return new HashSet<ServerEndpointConfig>() {
-            {
-                add(ServerEndpointConfig.Builder
-                        .create(NotifierEndpoint.class, "/call")
-                        .build());
-                add(ServerEndpointConfig.Builder.create(ProspectNotifEndPoint.class, "/prospect").build());
-            }
-        };
+        return Collections.emptySet();
     }
 
     @Override
     public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> set) {
-        return null;
+        return new HashSet<Class<?>>() {
+            {
+                add(NotifierEndpoint.class);
+                add(ProspectNotifEndPoint.class);
+            }
+        };
     }
 }
