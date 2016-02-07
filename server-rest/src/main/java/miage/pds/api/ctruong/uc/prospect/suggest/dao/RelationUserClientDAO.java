@@ -16,7 +16,7 @@ public interface RelationUserClientDAO extends DAO<RelationUserClient, ObjectId>
      * @param prospectID
      * @return
      */
-    public boolean checkRelationBetweenUserAndClient(long prospectID);
+    public boolean checkRelationBetweenUserAndClient(ObjectId prospectID);
 
     /**
      * get list relation

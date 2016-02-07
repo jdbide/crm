@@ -20,7 +20,7 @@ public class RelationUserClientDAOImpl extends BasicDAO<RelationUserClient, Obje
     }
 
     @Override
-    public boolean checkRelationBetweenUserAndClient(long prospectID) {
+    public boolean checkRelationBetweenUserAndClient(ObjectId prospectID) {
         Query<RelationUserClient> query = createQuery().field(CLIENT_ID).equal(prospectID);
         List<RelationUserClient> result = query.asList();
         if (result.size() == 0){
