@@ -14,7 +14,7 @@ import org.mongodb.morphia.annotations.Property;
  * @serial 111912202015
  */
 @Entity("prospect")
-public class Prospect {
+public class Prospect{
 
     @Id
     private ObjectId id;
@@ -51,6 +51,8 @@ public class Prospect {
 
     @Property
     private String idUser;
+
+    private long turnover;
 
     /**
      *
@@ -168,11 +170,19 @@ public class Prospect {
         this.idUser = idUser;
     }
 
+    public long getTurnover() {
+        return turnover;
+    }
+
+    public void setTurnover(long turnover) {
+        this.turnover = turnover;
+    }
+
     @Override
     public String toString() {
         return "Prospect{" +
                 "id=" + id +
-                ", siretNumber='" + siretNumber + '\'' +
+                ", siretNumber=" + siretNumber +
                 ", name='" + name + '\'' +
                 ", finessNumber=" + finessNumber +
                 ", streetNumber=" + streetNumber +
@@ -183,6 +193,9 @@ public class Prospect {
                 ", webSite='" + webSite + '\'' +
                 ", etablishmentType='" + etablishmentType + '\'' +
                 ", idUser='" + idUser + '\'' +
+                ", turnover=" + turnover +
                 '}';
     }
+
+
 }
