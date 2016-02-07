@@ -17,11 +17,19 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.controller.adapter.ContactAdapter;
 import fr.pds.isintheair.crmtab.common.model.database.dao.ContactDAO;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 
+
+/**
+ * Created by: Julien Datour
+ *
+ * Modified by: BALABASCARIN Muthu
+ * Date: 02/02/2015
+ */
 public class ContactListFragment extends Fragment {
     @Bind(R.id.contact_list)
     RecyclerView contactList;
-
+    Client client;
     public ContactListFragment() {
     }
 
@@ -38,8 +46,14 @@ public class ContactListFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        //get args from client list fragment --> args = selected client object
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            client = (Client) bundle.getSerializable("client");
+        }
+
         List<Contact>  contacts       = ContactDAO.getAll();
-        ContactAdapter contactAdapter = new ContactAdapter(getContext(), contacts);
+        ContactAdapter contactAdapter = new ContactAdapter(getContext(), contacts, client);
 
         contactList.setAdapter(contactAdapter);
         contactList.setLayoutManager(new LinearLayoutManager(getContext()));

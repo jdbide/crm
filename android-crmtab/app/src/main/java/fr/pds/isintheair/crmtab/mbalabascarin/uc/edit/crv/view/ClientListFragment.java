@@ -1,9 +1,12 @@
 package fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
+import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockClient;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 
@@ -26,9 +30,15 @@ public class ClientListFragment extends ListFragment {
     List<String> clients = new ArrayList<String>();
     List<Client> mockedClients = new ArrayList<Client>();
     MockClient mockClient;
-   ListView listView;
+   ListView listView, list;
     Client client;
+    ArrayAdapter<String> adapter;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,17 +46,19 @@ public class ClientListFragment extends ListFragment {
         setHasOptionsMenu(true);
         //get 5 mocked clients
         mockClient = new MockClient();
-        mockedClients = mockClient.getClients();
-        for(Client client : mockedClients){
-            clients.add(client.getClientId() +" "+client.getClientSurname() +" "+client.getClientName() +"-"+client.getClientAddress());
-        }
+       // mockedClients = mockClient.getClients();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, clients);
-
-        setListAdapter(adapter);
+        //get session user id
+        User currentUser = new User();
+        SharedPreferences prefs       = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        currentUser.setId(prefs.getString("id", null));
 
 
+        View myFragmentView = inflater.inflate(R.layout.fragment_client_list,
+                container, false);
+
+
+        list = (ListView) myFragmentView.findViewById(R.id.list);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -57,11 +69,27 @@ public class ClientListFragment extends ListFragment {
         launchListDialog();
     }
 
+    public void updateClients(List<Client> list){
+        mockedClients = list;
+        for(Client client : mockedClients){
+            clients.add(client.getClientId() +" -- " +client.getClientName() +" -- "+client.getClientAddress());
+        }
+
+        adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, clients);
+
+
+
+        // mockedClients =
+        adapter.notifyDataSetChanged();
+
+        setListAdapter(adapter);
+    }
     public void launchListDialog(){
         //create option list
         final List<String> options = new ArrayList<String>();
         options.add("Contact");
-        options.add("Visite");
+        //options.add("Visite");
         options.add("Agenda");
         options.add("Tâches");
         options.add("Information");
@@ -112,7 +140,21 @@ public class ClientListFragment extends ListFragment {
 
 
 
-                    new CrvController().getAllReportForClient(Integer.toString(client.getClientId()), client, getActivity());
+
+
+                }
+                if(itemValue.equalsIgnoreCase("contact")){
+
+                    ContactListFragment contactListFragment = new ContactListFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    transaction.replace(R.id.fragment_place, contactListFragment);
+                    transaction.addToBackStack(null);
+
+                    Bundle args = new Bundle();
+                    args.putSerializable("client", client);
+                    contactListFragment.setArguments(args);
+                    transaction.commit();
                     alert.cancel();
 
                 }

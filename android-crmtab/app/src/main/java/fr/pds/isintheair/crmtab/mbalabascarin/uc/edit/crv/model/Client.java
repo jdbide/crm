@@ -6,10 +6,10 @@ import java.io.Serializable;
  * Created by Muthu on 18/12/2015.
  */
 public class Client implements Serializable {
-    private int clientId;
+    private long clientId;
     private String clientSurname,clientName, clientAddress;
 
-    public void setClientId(int clientId) {
+    public void setClientId(long clientId) {
         this.clientId = clientId;
     }
 
@@ -25,7 +25,7 @@ public class Client implements Serializable {
         this.clientAddress = clientAddress;
     }
 
-    public int getClientId() {
+    public long getClientId() {
 
         return clientId;
     }
