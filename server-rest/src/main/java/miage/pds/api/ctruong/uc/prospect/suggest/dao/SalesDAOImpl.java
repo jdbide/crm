@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO{
 
-    private static final String PROSPECT_ID = "prospectID";
+    private static final String PROSPECT_ID = "prospectId";
 
     public SalesDAOImpl(Class<Sales> entityClass, Datastore ds) {
         super(entityClass, ds);
