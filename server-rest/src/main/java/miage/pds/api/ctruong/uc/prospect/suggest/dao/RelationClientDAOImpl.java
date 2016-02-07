@@ -13,6 +13,9 @@ import java.util.List;
  */
 public class RelationClientDAOImpl extends BasicDAO<RelationClient, ObjectId> implements RelationClientDAO{
 
+    private static final String CLIENT_ID = "clientId";
+    private static final String PROSPECT_ID = "prospectId";
+
     public RelationClientDAOImpl(Class<RelationClient> entityClass, Datastore ds) {
         super(entityClass, ds);
     }
@@ -22,4 +25,17 @@ public class RelationClientDAOImpl extends BasicDAO<RelationClient, ObjectId> im
         Query<RelationClient> query = createQuery();
         return query.asList();
     }
+
+    @Override
+    public boolean checkRelationWithClient(ObjectId clientId, ObjectId prospectId) {
+        Query<RelationClient> query = createQuery().field(CLIENT_ID).equal(clientId).field(PROSPECT_ID).equal(prospectId);
+        if (query.get() != null){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
 }
