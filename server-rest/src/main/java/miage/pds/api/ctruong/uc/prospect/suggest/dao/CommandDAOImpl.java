@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class CommandDAOImpl extends BasicDAO<Command, ObjectId> implements CommandDAO{
 
+    private static final String PROSPECT_ID = "prospectId";
     public CommandDAOImpl(Class<Command> entityClass, Datastore ds) {
         super(entityClass, ds);
     }
@@ -22,4 +23,17 @@ public class CommandDAOImpl extends BasicDAO<Command, ObjectId> implements Comma
         Query<Command> query = createQuery();
         return query.asList();
     }
+
+    @Override
+    public boolean checkExistCommandOfProspect(ObjectId prospectId) {
+        Query<Command> query = createQuery().field(PROSPECT_ID).equal(prospectId);
+        if (query.asList().size() > 0){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
 }

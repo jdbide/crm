@@ -12,4 +12,6 @@ import java.util.List;
 public interface CommandDAO extends DAO<Command, ObjectId>{
 
     public List<Command> getAllCommand();
+
+    public boolean checkExistCommandOfProspect(ObjectId prospectId);
 }
