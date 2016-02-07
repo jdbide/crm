@@ -215,7 +215,7 @@ public class RestCustomerController {
         logger.info("Get independant is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
-            responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithUserId(iduser));
             logger.info("Number of independant returned : "+responseRestCustomer.getIndependants().size());
         } catch (Exception e) {
             responseRestCustomer.setIndependants(null);
@@ -235,7 +235,7 @@ public class RestCustomerController {
         logger.info("Get customers is called");
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
         try {
-            responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithoutUserId(iduser));
+            responseRestCustomer.setIndependants(new IndependantDAO(MongoDatastoreConfig.getDataStore()).findAllWithUserId(iduser));
             responseRestCustomer.setHealthCenters(new HealthCenterDAO(MongoDatastoreConfig.getDataStore()).findAllWithUserId(iduser));
         } catch (Exception e) {
             responseRestCustomer.setHealthCenters(null);
