@@ -18,5 +18,5 @@ public interface SalesDAO extends DAO<Sales, ObjectId>{
      * @param date
      * @return
      */
-    public List<Sales> getSalesSixMonthEachProspect(long prospectId, Date date);
+    public List<Sales> getSalesSixMonthEachProspect(ObjectId prospectId, Date date);
 }

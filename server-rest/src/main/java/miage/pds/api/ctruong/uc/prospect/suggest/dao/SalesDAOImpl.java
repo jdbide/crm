@@ -22,7 +22,7 @@ public class SalesDAOImpl extends BasicDAO<Sales, ObjectId> implements SalesDAO{
 
 
     @Override
-    public List<Sales> getSalesSixMonthEachProspect(long prospectId, Date date) {
+    public List<Sales> getSalesSixMonthEachProspect(ObjectId prospectId, Date date) {
         Query<Sales> query = createQuery().field(PROSPECT_ID).equal(prospectId).filter("date >=", date);
         return query.asList();
     }
