@@ -1,14 +1,9 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view;
 
-import android.test.ActivityInstrumentationTestCase2;
-
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
-
 /**
  * Created by tlacouque on 23/01/2016.
  */
-public class FormatValidatorTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
+/* public class FormatValidatorTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
     CRUDCustomerActivity activity;
 
     public FormatValidatorTest() {
@@ -27,4 +22,4 @@ public class FormatValidatorTest extends ActivityInstrumentationTestCase2<CRUDCu
     public void testIsSiretSyntaxValideIsNOk() throws Exception {
         assertFalse(FormatValidator.isSiretSyntaxValide("40855971400021"));
     }
-}
+} */

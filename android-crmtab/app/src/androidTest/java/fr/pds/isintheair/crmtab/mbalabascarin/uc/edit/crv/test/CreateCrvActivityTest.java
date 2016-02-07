@@ -1,16 +1,9 @@
 package fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.test;
 
-import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.CreateCrvActivity;
-
 /**
  * Created by Muthu on 19/12/2015.
  */
-public class CreateCrvActivityTest extends ActivityInstrumentationTestCase2<CreateCrvActivity> {
+/* public class CreateCrvActivityTest extends ActivityInstrumentationTestCase2<CreateCrvActivity> {
 
     CreateCrvActivity activity;
 
@@ -41,4 +34,4 @@ public class CreateCrvActivityTest extends ActivityInstrumentationTestCase2<Crea
         assertNotNull(txtContact);
         assertNotNull(txtTel);
     }
-}
+} */

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by tlacouque on 17/01/2016.
  */
-public class HealthCenterDAOTest {
+/* public class HealthCenterDAOTest {
 
     MongoClient mongoClient;
     Morphia morphia;
@@ -36,4 +36,4 @@ public class HealthCenterDAOTest {
         List<HealthCenter> healthCenters = healthCenterDAO.findAllWithUserId("1");
         assertNotNull(healthCenters);
     }
-}
+} */

@@ -1,27 +1,9 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.test.ActivityInstrumentationTestCase2;
-import android.widget.TextView;
-
-import org.osmdroid.views.MapView;
-
-import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailHCFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailIndepFragment;
-
 /**
  * Created by tlacouque on 23/01/2016.
  */
-public class DetailIndepFragmentTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
+/* public class DetailIndepFragmentTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
 
 
     CRUDCustomerActivity activity;
@@ -128,5 +110,5 @@ public class DetailIndepFragmentTest extends ActivityInstrumentationTestCase2<CR
         cleanDb();
     }
 
-}
+} */
 

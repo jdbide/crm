@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by tlacouque on 17/01/2016.
  */
-public class PurchasingCenterDAOTest {
+/* public class PurchasingCenterDAOTest {
 
     MongoClient mongoClient;
     Morphia morphia;
@@ -39,4 +39,4 @@ public class PurchasingCenterDAOTest {
     }
 
 
-}
+} */

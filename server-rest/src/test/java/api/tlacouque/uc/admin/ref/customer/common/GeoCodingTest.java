@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by tlacouque on 02/02/2016.
  */
-public class GeoCodingTest {
+/* public class GeoCodingTest {
 
     @Test
     public void testGetLocation() throws Exception {
@@ -24,4 +24,4 @@ public class GeoCodingTest {
         assertEquals(healthCenter.getLattitude(),48.8724472,0.0001);
         assertEquals(healthCenter.getLongitude(),2.3435509,0.0001);
     }
-}
+} */

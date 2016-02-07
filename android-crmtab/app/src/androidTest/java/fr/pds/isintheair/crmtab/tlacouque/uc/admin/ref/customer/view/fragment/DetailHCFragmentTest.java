@@ -1,24 +1,10 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.test.ActivityInstrumentationTestCase2;
-import android.widget.TextView;
-
-import org.osmdroid.views.MapView;
-
-import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailHCFragment;
-
 /**
  * Created by tlacouque on 20/01/2016.
  */
 
-public class DetailHCFragmentTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
+/* public class DetailHCFragmentTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
 
     CRUDCustomerActivity activity;
     HealthCenter healthCenter;
@@ -126,4 +112,4 @@ public class DetailHCFragmentTest extends ActivityInstrumentationTestCase2<CRUDC
         activity.finish();
         cleanDb();
     }
-}
+} */

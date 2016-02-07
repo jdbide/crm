@@ -1,22 +1,9 @@
 package api.tlacouque.uc.admin.ref.customer.common;
 
-import miage.pds.MongoDatastoreConfig;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.common.XYZCalcul;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Independant;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.dao.MapInfoDAO;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-
 /**
  * Created by tlacouque on 02/02/2016.
  */
-public class XYZCalculTest {
+/* public class XYZCalculTest {
 
     MapInfo mapInfo;
     MapInfoDAO mapInfoDAO;
@@ -28,19 +15,18 @@ public class XYZCalculTest {
 
     @Test
     public void testGetMapInfo() throws Exception {
-    /**    Independant independant = Mockito.mock(Independant.class);
+    Independant independant = Mockito.mock(Independant.class);
         when(independant.getLattitude()).thenReturn(48.8724472);
         when(independant.getLongitude()).thenReturn(2.3435509);
         when(independant.getSiretNumber()).thenReturn(1L);
         mapInfo = XYZCalcul.getMapInfo(independant);
         assertEquals(mapInfo.getX(),15);
         assertEquals(mapInfo.getY(),16597);
-        assertEquals(mapInfo.getZ(),11270);*/
-    }
-
-    @After
-    public void tearDown() throws Exception {
-       // mapInfoDAO.delete(mapInfo);
-
-    }
+        assertEquals(mapInfo.getZ(),11270);
 }
+
+@After public void tearDown()throws Exception{
+        // mapInfoDAO.delete(mapInfo);
+
+        }
+} */

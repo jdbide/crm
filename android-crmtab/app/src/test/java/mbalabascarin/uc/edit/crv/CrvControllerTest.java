@@ -1,23 +1,9 @@
 package mbalabascarin.uc.edit.crv;
 
-import android.content.Context;
-
-import junit.framework.TestCase;
-
-import java.util.List;
-
-import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockClient;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockVisit;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Report;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Visit;
-
 /**
  * Created by Muthu on 07/02/2016.
  */
-public class CrvControllerTest extends TestCase {
+/* public class CrvControllerTest extends TestCase {
 
     CrvController controller;
     Client client;
@@ -48,4 +34,4 @@ public class CrvControllerTest extends TestCase {
     public void testDeleteReport() throws Exception {
 
     }
-}
+} */
