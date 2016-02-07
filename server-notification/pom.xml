@@ -9,7 +9,8 @@
         <artifactId>crm</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>notifier</artifactId>
+
+    <artifactId>server-notification</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
