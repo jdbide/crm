@@ -27,6 +27,16 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    productFlavors {
+        prod {
+            applicationIdSuffix = "prod"
+        }
+
+        dev {
+            applicationIdSuffix = "dev"
+        }
+    }
 }
 
 dependencies {
