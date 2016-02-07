@@ -13,5 +13,5 @@ public interface RelationClientDAO extends DAO<RelationClient, ObjectId>{
 
     public List<RelationClient> getAllRelation();
 
-    public boolean checkRelationWithClient(ObjectId clientId, ObjectId prospectId);
+    public boolean checkRelationWithClient(ObjectId prospectId);
 }
