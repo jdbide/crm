@@ -18,7 +18,7 @@ import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.We
  * Modification date :                    *
  ******************************************/
 
-public class CallControllerTest {
+/* public class CallControllerTest {
     @Test
     public void testCallSendsMessage() {
         WebSocketConnectionHandlerSingleton webSocketConnectionHandlerSingleton = Mockito.spy(WebSocketConnectionHandlerSingleton.getInstance());
@@ -31,4 +31,4 @@ public class CallControllerTest {
         CallController.call("0610772364");
         Mockito.verify(webSocketConnectionHandlerSingleton, Mockito.times(1)).sendMessage(message);
     }
-}
+} */
