@@ -1,21 +1,22 @@
 package miage.pds.api.ctruong.uc.prospect.suggest.dao;
 
 import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.dao.DAO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * This is a class dao which declare all method communicate with the sales collection in the database crm.
- *
- * Created by Truong on 12/20/2015.
- * @version 1.1.19
- * @serial 111912202015
+ * Created by Truong on 2/6/2016.
  */
-public interface SalesDAO {
+public interface SalesDAO extends DAO<Sales, ObjectId>{
 
-    public List<Sales> getAllSales();
-
-    public long getCountAllSales();
-
-    public List<Sales> getSalesByIDClient(int idClient);
+    /**
+     * get list sales during 6 month for each prospect
+     * @param prospectId
+     * @param date
+     * @return
+     */
+    public List<Sales> getSalesSixMonthEachProspect(ObjectId prospectId, Date date);
 }

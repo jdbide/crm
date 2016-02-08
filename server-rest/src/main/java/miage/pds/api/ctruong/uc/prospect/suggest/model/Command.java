@@ -5,13 +5,11 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
-import java.util.Date;
-
 /**
  * Created by Truong on 2/6/2016.
  */
-@Entity("sales")
-public class Sales {
+@Entity("command")
+public class Command {
 
     @Id
     private ObjectId id;
@@ -20,18 +18,17 @@ public class Sales {
     private ObjectId prospectId;
 
     @Property
-    private Date date;
+    private String person;
 
     @Property
     private long value;
 
-    public Sales() {
-
+    public Command() {
     }
 
-    public Sales(ObjectId prospectId, Date date, long value) {
+    public Command(ObjectId prospectId, String person, long value) {
         this.prospectId = prospectId;
-        this.date = date;
+        this.person = person;
         this.value = value;
     }
 
@@ -43,20 +40,20 @@ public class Sales {
         this.id = id;
     }
 
-    public ObjectId getProspectId() {
+    public ObjectId getProspectName() {
         return prospectId;
     }
 
-    public void setProspectId(ObjectId prospectId) {
+    public void setProspectName(ObjectId prospectId) {
         this.prospectId = prospectId;
     }
 
-    public Date getDate() {
-        return date;
+    public String getPerson() {
+        return person;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPerson(String person) {
+        this.person = person;
     }
 
     public long getValue() {
@@ -69,10 +66,10 @@ public class Sales {
 
     @Override
     public String toString() {
-        return "Sales{" +
+        return "Command{" +
                 "id=" + id +
-                ", prospectId='" + prospectId + '\'' +
-                ", date=" + date +
+                ", prospectId=" + prospectId +
+                ", person='" + person + '\'' +
                 ", value=" + value +
                 '}';
     }

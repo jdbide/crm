@@ -3,29 +3,56 @@ package miage.pds.api.ctruong.uc.prospect.suggest.model;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Property;
 
 /**
  * The prospect model class
+ * <p/>
+ * Modified by Truong on 02/06/2016.
  *
- * Created by Truong on 12/20/2015.
  * @version 1.1.19
  * @serial 111912202015
  */
-@Entity("client")
-public class Prospect {
+@Entity("prospect")
+public class Prospect{
 
     @Id
-    private ObjectId objectId;
-    private int id;
-    private String name;
-    private long finessNumber;
+    private ObjectId id;
+
+    @Property
     private long siretNumber;
-    private long streetNumber;
-    private long zipCode;
-    private String address;
-    private int place;
-    private String website;
+
+    @Property
+    private String name;
+
+    @Property
+    private long finessNumber;
+
+    @Property
+    private int streetNumber;
+
+    @Property
+    private String streetName;
+
+    @Property
+    private String town;
+
+    @Property
+    private int zipCode;
+
+    @Property
+    private int bedNumber;
+
+    @Property
+    private String webSite;
+
+    @Property
+    private String etablishmentType;
+
+    @Property
+    private String idUser;
+
+    private long turnover;
 
     /**
      *
@@ -34,49 +61,33 @@ public class Prospect {
 
     }
 
-    /**
-     * Full constructor of a prospect
-     *
-     * @param id
-     * @param name
-     * @param finessNumber
-     * @param siretNumber
-     * @param streetNumber
-     * @param zipCode
-     * @param address
-     * @param place
-     * @param website
-     */
-    public Prospect(int id, String name, long finessNumber, int siretNumber, int streetNumber, int zipCode, String address, int place, String website) {
-        this.id = id;
+    public Prospect(long siretNumber, String name, long finessNumber, int streetNumber, String streetName, String town, int zipCode, int bedNumber, String webSite, String etablishmentType) {
+        this.siretNumber = siretNumber;
         this.name = name;
         this.finessNumber = finessNumber;
-        this.siretNumber = siretNumber;
         this.streetNumber = streetNumber;
+        this.streetName = streetName;
+        this.town = town;
         this.zipCode = zipCode;
-        this.address = address;
-        this.place = place;
-        this.website = website;
+        this.bedNumber = bedNumber;
+        this.webSite = webSite;
+        this.etablishmentType = etablishmentType;
     }
 
-    public ObjectId getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(ObjectId objectId) {
-        this.objectId = objectId;
-    }
-
-    public void setStreetNumber(long streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public long getSiretNumber() {
+        return siretNumber;
+    }
+
+    public void setSiretNumber(long siretNumber) {
+        this.siretNumber = siretNumber;
     }
 
     public String getName() {
@@ -95,15 +106,7 @@ public class Prospect {
         this.finessNumber = finessNumber;
     }
 
-    public long getSiretNumber() {
-        return siretNumber;
-    }
-
-    public void setSiretNumber(long siretNumber) {
-        this.siretNumber = siretNumber;
-    }
-
-    public long getStreetNumber() {
+    public int getStreetNumber() {
         return streetNumber;
     }
 
@@ -111,55 +114,86 @@ public class Prospect {
         this.streetNumber = streetNumber;
     }
 
-    public long getZipCode() {
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public int getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(long zipCode) {
+    public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
 
-    public String getAddress() {
-        return address;
+    public int getBedNumber() {
+        return bedNumber;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setBedNumber(int bedNumber) {
+        this.bedNumber = bedNumber;
     }
 
-    public int getPlace() {
-        return place;
+    public String getWebSite() {
+        return webSite;
     }
 
-    public void setPlace(int place) {
-        this.place = place;
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
     }
 
-    public String getWebsite() {
-        return website;
+    public String getEtablishmentType() {
+        return etablishmentType;
     }
 
-    public void setWebsite(String website) {
-        this.website = website;
+    public void setEtablishmentType(String etablishmentType) {
+        this.etablishmentType = etablishmentType;
     }
 
-    /**
-     * To String method
-     *
-     * @return JSON Object type String
-     */
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public long getTurnover() {
+        return turnover;
+    }
+
+    public void setTurnover(long turnover) {
+        this.turnover = turnover;
+    }
+
     @Override
     public String toString() {
         return "Prospect{" +
-                ", id=" + id +
+                "id=" + id +
+                ", siretNumber=" + siretNumber +
                 ", name='" + name + '\'' +
                 ", finessNumber=" + finessNumber +
-                ", siretNumber=" + siretNumber +
                 ", streetNumber=" + streetNumber +
+                ", streetName='" + streetName + '\'' +
+                ", town='" + town + '\'' +
                 ", zipCode=" + zipCode +
-                ", address='" + address + '\'' +
-                ", place=" + place +
-                ", website='" + website + '\'' +
+                ", bedNumber=" + bedNumber +
+                ", webSite='" + webSite + '\'' +
+                ", etablishmentType='" + etablishmentType + '\'' +
+                ", idUser='" + idUser + '\'' +
+                ", turnover=" + turnover +
                 '}';
     }
 
