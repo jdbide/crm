@@ -1,42 +1,67 @@
 package api.tlacouque.uc.admin.ref.customer.controller;
 
+import com.mongodb.MongoClient;
+import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.controller.RestCustomerController;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HealthCenterDAO;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.HealthCenter;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.dao.IndependantDAO;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Independant;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.message.MessageRestCustomer;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
+import org.junit.Before;
+import org.junit.Test;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+
+import java.net.UnknownHostException;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by tlacouque on 21/01/2016.
  *
  * @Autowired private HandlerAdapter handlerAdapter;
  * @Autowired private HandlerMapping handlerMapping;
  */
-//public class RestCustomerControllerTest {
+public class RestCustomerControllerTest {
 
-//private MockHttpServletRequest request;
-//private MockHttpServletResponse response;
-//RestCustomerController restCustomerController;
+private MockHttpServletRequest request;
+private MockHttpServletResponse response;
+RestCustomerController restCustomerController;
 /**
  * @Autowired private HandlerAdapter handlerAdapter;
  * @Autowired private HandlerMapping handlerMapping;
  */
-/*MongoClient mongoClient;
+MongoClient mongoClient;
         Morphia morphia;
         Datastore datastore;
         String dbName="crm";
 
-@Before public void setUp()throws UnknownHostException{
+@Before
+public void setUp()throws UnknownHostException {
 
-        this.datastore=MongoDatastoreConfig.getDataStore();
+        this.datastore= MongoDatastoreConfig.getDataStore();
 
 
         restCustomerController=new RestCustomerController();
 
         }
 
-
-@Test public void testCreateHC()throws Exception{
+/**
+@Test
+public void testCreateHC()throws Exception{
         HealthCenter healthCenter=new HealthCenter();
         healthCenter.setSiretNumber(1L);
         healthCenter.setName("TestHc");
 
         MessageRestCustomer messageRestCustomer=new MessageRestCustomer(1,healthCenter);
-        List<HealthCenter>list=new HealthCenterDAO(datastore).find().asList();
+        List<HealthCenter> list=new HealthCenterDAO(datastore).find().asList();
         int nbHCbeforeTest=new HealthCenterDAO(datastore).find().asList().size();
         nbHCbeforeTest=nbHCbeforeTest+1;
         ResponseRestCustomer responseRestCustomer=restCustomerController.createHealthCenter(messageRestCustomer);
@@ -60,7 +85,7 @@ package api.tlacouque.uc.admin.ref.customer.controller;
         new IndependantDAO(datastore).delete(independant);
         assertEquals(nbIndepbeforeTest, nbIndepAfterTest);
         }
-
+*/
 @Test public void testGetHolding()throws Exception{
         ResponseRestCustomer responseRestCustomer=restCustomerController.getHoldings();
         assertNotNull(responseRestCustomer.getHoldings());
@@ -100,4 +125,4 @@ package api.tlacouque.uc.admin.ref.customer.controller;
         assertEquals(healthCentersNumber,responseRestCustomer.getHealthCenters().size());
         assertEquals(independantNumber,responseRestCustomer.getIndependants().size());
         }
-        }*/
+        }
