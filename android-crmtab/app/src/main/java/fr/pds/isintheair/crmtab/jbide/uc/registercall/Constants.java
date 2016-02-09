@@ -32,6 +32,7 @@ public class Constants {
         currentUser = new User();
         pendingList = new ArrayList<CallEndedEvent>();
 
+        
     }
 
     public static Constants getInstance(){
