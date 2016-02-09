@@ -248,10 +248,9 @@ public class RestCustomerController {
     @RequestMapping(value = "/customer/test", method = RequestMethod.GET)
     public void test() {
         logger.info("test is called");
-        MapInfo mapInfo = Mockito.mock(MapInfo.class);
-        when(mapInfo.getX()).thenReturn(15);
-        when(mapInfo.getY()).thenReturn(16597);
-        when(mapInfo.getZ()).thenReturn(11270);
+        MapInfo mapInfo = new MapInfo(1,15,16597,11270);
+
+
         TileDownloader.dwdTile(mapInfo);
 
 
