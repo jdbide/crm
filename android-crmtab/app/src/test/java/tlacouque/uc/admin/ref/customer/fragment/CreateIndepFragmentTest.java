@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by tlacouque on 23/01/2016.
  */
-/* public class CreateIndepFragmentTest {
+ public class CreateIndepFragmentTest {
 
     @Test
     public void testCreateIndepWithValidHTTPResponse() throws Exception {
@@ -49,4 +49,4 @@ import static org.mockito.Mockito.mock;
         assertFalse(errorServRest);
 
     }
-} */
+}

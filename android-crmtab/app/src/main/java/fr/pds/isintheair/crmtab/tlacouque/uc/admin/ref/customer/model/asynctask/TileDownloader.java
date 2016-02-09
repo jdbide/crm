@@ -27,8 +27,19 @@ public class TileDownloader extends AsyncTask<MapInfo,Integer,Boolean> {
     protected Boolean doInBackground(MapInfo... params) {
         MapInfo mapInfo = params[0];
         String url = CustomerService.BASE_URL+ FormatValidator.formatUrlTile(mapInfo);
-        Bitmap img = downloadBitmap(url);
-        if(img == null) return false;
+        Bitmap img = null;
+
+        while (img == null) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+               //do something
+            }
+            img = downloadBitmap (url);
+            if(img == null) {
+                Log.d("ImgNull","Image est null");
+            }
+        }
 
         return saveImage(img,FormatValidator.formatPathTile(mapInfo));
 
