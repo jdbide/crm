@@ -15,13 +15,13 @@ import retrofit.http.Path;
  * Created by Muthu on 30/12/2015.
  */
 public interface CrvRetrofitService {
-    @POST("addCrv")
+    @POST("crv/addCrv")
     Call<Boolean> createReport(@Body Reporting reporting);
 
-    @GET("getCrv/{client}")
+    @GET("crv/getCrv/{client}")
     Call<List<Report>> getReportList(@Path("client") String client);
 
-    @GET("deleteCrv/{idCrv}")
+    @GET("crv/deleteCrv/{idCrv}")
     Call<Boolean> deleteReport(@Path("idCrv") String idReport);
 
     @GET("customer/{idUser}")
