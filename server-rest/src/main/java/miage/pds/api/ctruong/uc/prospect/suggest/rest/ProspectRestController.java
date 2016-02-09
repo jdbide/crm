@@ -48,7 +48,7 @@ public class ProspectRestController {
     }
 
     @RequestMapping(value = "/suggestion/prospect", method = RequestMethod.GET)
-    public @ResponseBody Prospect prospectAnalyse(){
+    public @ResponseBody Prospect startAnalyzeProscess(){
         List<Prospect> prospects = controller.analyseProspect();
         Iterator<Prospect> iterator = prospects.iterator();
         Prospect prospect = new Prospect();
