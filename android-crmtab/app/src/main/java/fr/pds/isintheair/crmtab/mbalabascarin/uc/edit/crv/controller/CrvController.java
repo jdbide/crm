@@ -84,7 +84,7 @@ public class CrvController {
 
                 for(String json : reportsJson){
                     Report deserializedReport = gson.fromJson(json, Report.class);
-                    if(Integer.parseInt(deserializedReport.getClient()) == client.getClientId()){
+                    if(Long.valueOf(deserializedReport.getClient()).longValue() == client.getClientId()){
                         crvFromCache.add(deserializedReport);
                     }
 
