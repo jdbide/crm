@@ -163,7 +163,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             //Mock a visit
             int rand = RandomInformation.randInt(1, 4);
 
-            client.setText(cl.getClientSurname() + " " + cl.getClientName() + " -- " + cl.getClientAddress());
+            client.setText(cl.getClientName() + " -- " + cl.getClientAddress());
             clientId = Long.toString(cl.getClientId());
             userId = currentUser.getId();
             conatcId = Integer.toString(rand);
