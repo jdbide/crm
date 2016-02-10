@@ -11,12 +11,12 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="5dp"
-
         card_view:contentPadding="10dp">
-       <ImageView
-           android:layout_width="100dp"
-           android:layout_height="100dp"
-           android:src="@drawable/agenda"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/agenda"/>
 
 
     </android.support.v7.widget.CardView>

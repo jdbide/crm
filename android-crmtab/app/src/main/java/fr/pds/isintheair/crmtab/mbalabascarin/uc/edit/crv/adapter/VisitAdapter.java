@@ -31,7 +31,7 @@ public class VisitAdapter extends ArrayAdapter<Visit> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.reportlist_layout, parent, false);
+        View rowView = inflater.inflate(R.layout.visitlist_layout, parent, false);
 
         //get views
         title = (TextView) rowView.findViewById(R.id.textTitle);

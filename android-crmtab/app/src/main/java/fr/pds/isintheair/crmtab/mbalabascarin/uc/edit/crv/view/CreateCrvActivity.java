@@ -45,6 +45,7 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvConfig;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Product;
@@ -162,7 +163,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             //Mock a visit
             int rand = RandomInformation.randInt(1, 4);
 
-            client.setText(cl.getClientSurname() + " " + cl.getClientName() + " -- " + cl.getClientAddress());
+            client.setText(cl.getClientName() + " -- " + cl.getClientAddress());
             clientId = Long.toString(cl.getClientId());
             userId = currentUser.getId();
             conatcId = Integer.toString(rand);
@@ -449,7 +450,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.20.3:8070/api/crv/")
+                .baseUrl(CrvConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 

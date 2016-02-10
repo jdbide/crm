@@ -36,6 +36,7 @@ import retrofit.Retrofit;
 public class CrvController {
     List<Report> reports = new ArrayList<Report>();
     List<Client> clients = new ArrayList<Client>();
+    List<HealthCenter> healthCenters = new ArrayList<HealthCenter>();
     Client client;
 
     Boolean status;
@@ -45,7 +46,7 @@ public class CrvController {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.20.3:8070/api/crv/")
+                .baseUrl(CrvConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -83,7 +84,7 @@ public class CrvController {
 
                 for(String json : reportsJson){
                     Report deserializedReport = gson.fromJson(json, Report.class);
-                    if(Integer.parseInt(deserializedReport.getClient()) == client.getClientId()){
+                    if(Long.valueOf(deserializedReport.getClient()).longValue() == client.getClientId()){
                         crvFromCache.add(deserializedReport);
                     }
 
@@ -112,7 +113,7 @@ public class CrvController {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.20.3:8070/api/crv/")
+                .baseUrl(CrvConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -146,7 +147,7 @@ public class CrvController {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.20.3:8070/api/")
+                .baseUrl(CrvConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         retrofit.client().setConnectTimeout(5000, TimeUnit.MILLISECONDS);
@@ -156,31 +157,36 @@ public class CrvController {
 
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                    if(response !=null){
-                        List<HealthCenter> healthCenters = response.body().getHealthCenters();
-                        if(healthCenters != null){
-                            for(HealthCenter hc : healthCenters){
-                                client = new Client();
+                    if(response !=null) try {
+                        {
+                            healthCenters = response.body().getHealthCenters();
+                            if(healthCenters != null){
+                                for(HealthCenter hc : healthCenters){
+                                    client = new Client();
 
 
-                                client.setClientId(hc.getSiretNumber());
-                                client.setClientName(hc.getName());
-                                client.setClientAddress(hc.getAdress());
-                                clients.add(client);
+                                    client.setClientId(hc.getSiretNumber());
+                                    client.setClientName(hc.getName());
+                                    client.setClientAddress(hc.getAdress());
+                                    clients.add(client);
 
 
+                                }
+
+                                Toast.makeText(context, "result: "+ clients.size(), Toast.LENGTH_SHORT).show();
+
+                                //get reports from cache
+                                Intent intent = new Intent(context, CrvHomeActivity.class);
+
+                                Bundle b = new Bundle();
+                                b.putSerializable("list", (Serializable) clients);
+                                intent.putExtra("listClient", b);
+                                context.startActivity(intent);
                             }
-
-                            Toast.makeText(context, "result: "+ clients.size(), Toast.LENGTH_SHORT).show();
-
-                            //get reports from cache
-                            Intent intent = new Intent(context, CrvHomeActivity.class);
-
-                            Bundle b = new Bundle();
-                            b.putSerializable("list", (Serializable) clients);
-                            intent.putExtra("listClient", b);
-                            context.startActivity(intent);
                         }
+                    } catch (Exception e) {
+                        Toast.makeText(context, "Erreur: ", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
                     }
 
             }
