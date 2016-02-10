@@ -44,7 +44,7 @@ public class ProspectRestController {
     public
     @ResponseBody
     String helloWorld() {
-        return "Hello Davide's World";
+        return "Hello Davide's World 2016";
     }
 
     @RequestMapping(value = "/suggestion/prospect", method = RequestMethod.GET)
