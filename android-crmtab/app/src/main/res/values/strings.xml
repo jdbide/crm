@@ -124,5 +124,6 @@
     <string name="call_activity_phone_state_message">Communication en cours</string>
 
     <string name="title_activity_scrolling_visit">Visites</string>
+    <string name="btn_finding_prospect">Find prospect</string>
 
 </resources>
