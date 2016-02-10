@@ -92,10 +92,9 @@ public class ProspectController {
         Collections.sort(prospects, new Comparator<Prospect>() {
             @Override
             public int compare(Prospect o1, Prospect o2) {
-                return (int) (o1.getTurnover() - o2.getTurnover());
+                return (int) (o2.getTurnover() - o1.getTurnover());
             }
         });
-
 
         if (prospects.size() > 5) {
             for (int i = prospects.size(); i > 5; i--) {
@@ -110,7 +109,7 @@ public class ProspectController {
      * @param prospectsList
      * @return
      */
-    private List<Prospect> getProspectByRelationship(List<Prospect> prospectsList) {
+    public List<Prospect> getProspectByRelationship(List<Prospect> prospectsList) {
         Iterator<Prospect> prospectIterator = prospectsList.iterator();
         while (prospectIterator.hasNext()) {
             Prospect prospect = prospectIterator.next();
@@ -122,7 +121,7 @@ public class ProspectController {
         return prospectsList;
     }
 
-    private List<Prospect> getProspectByCommand(List<Prospect> prospectList) {
+    public List<Prospect> getProspectByCommand(List<Prospect> prospectList) {
         List<Prospect> prospects = null;
         Iterator<Prospect> iterator = prospectList.iterator();
         while (iterator.hasNext()) {
@@ -146,7 +145,7 @@ public class ProspectController {
             Collections.sort(prospects, new Comparator<Prospect>() {
                 @Override
                 public int compare(Prospect o1, Prospect o2) {
-                    return (int) (o1.getTurnover() - o2.getTurnover());
+                    return (int) (o2.getTurnover() - o1.getTurnover());
 
                 }
             });
@@ -164,7 +163,7 @@ public class ProspectController {
      * @param prospectsList
      * @return
      */
-    private long getSalesAverage(List<Prospect> prospectsList) {
+    public long getSalesAverage(List<Prospect> prospectsList) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -6);
         Date date = calendar.getTime();
