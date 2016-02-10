@@ -9,6 +9,6 @@ import retrofit.http.GET;
  */
 public interface ProspectRetrofitAPI {
 
-    @GET("prospect")
+    @GET("suggestion/prospect")
     Call<Prospect> getProspect();
 }
