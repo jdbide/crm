@@ -22,6 +22,7 @@ import java.util.Calendar;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.deco) {
             PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
-            startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
 
@@ -191,6 +192,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_suggestion_prospect){
+            startActivity(new Intent(this, ProspectActivity.class));
 
         }
 
