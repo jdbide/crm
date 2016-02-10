@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnection;
@@ -16,7 +15,7 @@ import de.tavendo.autobahn.WebSocketConnectionHandler;
 import de.tavendo.autobahn.WebSocketException;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.config.WebsocketConfig;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.ConsultProspect;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ConsultProspect;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in

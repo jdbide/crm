@@ -27,6 +27,10 @@
             android:id="@+id/nav_envoyer_sms"
             android:icon="@drawable/ic_menu_send"
             android:title="Envoyer sms"/>
+        <item
+            android:id="@+id/nav_suggestion_prospect"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Envoyer sms"/>
 
     </item>
 

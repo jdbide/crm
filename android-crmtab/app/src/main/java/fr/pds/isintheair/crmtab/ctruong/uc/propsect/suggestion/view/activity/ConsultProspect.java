@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view;
+package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity;
 
 import android.content.Context;
 import android.net.Uri;
