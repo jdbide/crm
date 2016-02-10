@@ -3,21 +3,47 @@ package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.PrimaryKey;
-import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
-
-import fr.pds.isintheair.crmtab.common.model.database.OrmTabDataBase;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Truong on 2/10/2016.
  */
 public class Prospect implements Parcelable{
 
-    private long siretNumber,finessNumber, turnover;
-    private int streetNumber,zipCode, bedNumber;
-    private String name,streetName,town, website, etablishmentType;
+    @Expose
+    @SerializedName("siretNumber")
+    private long siretNumber;
+    @Expose
+    @SerializedName("finessNumber")
+    private long finessNumber;
+    @Expose
+    @SerializedName("turnover")
+    private long turnover;
+    @Expose
+    @SerializedName("streetNumber")
+    private int streetNumber;
+    @Expose
+    @SerializedName("zipCode")
+    private int zipCode;
+    @Expose
+    @SerializedName("bedNumber")
+    private int bedNumber;
+    @Expose
+    @SerializedName("name")
+    private String name;
+    @Expose
+    @SerializedName("streetName")
+    private String streetName;
+    @Expose
+    @SerializedName("town")
+    private String town;
+    @Expose
+    @SerializedName("website")
+    private String website;
+    @Expose
+    @SerializedName("etablishmentType")
+    private String etablishmentType;
 
 
     protected Prospect(Parcel in) {
