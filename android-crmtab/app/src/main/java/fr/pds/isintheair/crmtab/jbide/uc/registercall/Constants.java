@@ -1,12 +1,10 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
-import com.squareup.otto.Bus;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 
 
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
@@ -19,9 +17,9 @@ public class Constants {
     private String BASE_URL ;
     private  AndroidBus currentBusInstance;
     private  Boolean popupdisplayed;
-    private List<CallEndedEvent> pendigCallList;
     private List<Cra> CraListForUser;
     private User currentUser;
+    private List<CallEndedEvent> pendingList;
 
 
     private Constants(){
@@ -29,11 +27,12 @@ public class Constants {
         popupdisplayed = false;
         //BASE_URL = "http://192.168.43.131:8080/api/";
         //BASE_URL = "http://192.168.1.68:8080/api/";
-        BASE_URL = "http://192.168.20.3:8070/api/";
-        pendigCallList = new ArrayList<CallEndedEvent>();
+        BASE_URL = "http://192.168.20.3:8082/api/";
         CraListForUser = new ArrayList<Cra>();
         currentUser = new User();
+        pendingList = new ArrayList<CallEndedEvent>();
 
+        
     }
 
     public static Constants getInstance(){
@@ -89,29 +88,15 @@ public class Constants {
         return CraListForUser;
     }
 
-    public List<CallEndedEvent> getPendingCallList(){
-
-        if(pendigCallList == null)
-        {
-            pendigCallList = new ArrayList<CallEndedEvent>();
-        }
-        return pendigCallList;
-    }
-
-
-
-    public void removeItemFromPendingCallList(int position){
-
-        pendigCallList.remove(position);
-
-    }
-
-
     public void setCurrentUser(User currentuser) {
         currentUser = currentuser;
     }
 
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    public List<CallEndedEvent> getPendindList() {
+        return pendingList;
     }
 }

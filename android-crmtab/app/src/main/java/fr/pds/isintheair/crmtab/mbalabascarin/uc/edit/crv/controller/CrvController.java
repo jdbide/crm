@@ -14,11 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Report;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.retrofit.Service;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Visit;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.retrofit.CrvRetrofitService;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.CrvHomeActivity;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.CrvMainActivity;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -30,20 +35,24 @@ import retrofit.Retrofit;
  */
 public class CrvController {
     List<Report> reports = new ArrayList<Report>();
+    List<Client> clients = new ArrayList<Client>();
+    List<HealthCenter> healthCenters = new ArrayList<HealthCenter>();
+    Client client;
+
     Boolean status;
-    public List<Report> getAllReportForClient(String idClient , final Client client, final Context context){
+    public List<Report> getAllReportForClient(String idClient , final Client client,final Contact contact, final Visit visit, final Context context){
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.20.3:8070/api/crv/")
+                .baseUrl(CrvConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         retrofit.client().setConnectTimeout(5000, TimeUnit.MILLISECONDS);
-        Service iService = retrofit.create(Service.class);
-        Call<List<Report>> call = iService.getReportList(idClient);
+        CrvRetrofitService iCrvRetrofitService = retrofit.create(CrvRetrofitService.class);
+        Call<List<Report>> call = iCrvRetrofitService.getReportList(idClient);
 
         call.enqueue(new Callback<List<Report>>() {
 
@@ -54,7 +63,9 @@ public class CrvController {
 
 
                 Intent intent = new Intent(context, CrvMainActivity.class);
-                intent.putExtra("ClientObject", client);
+                intent.putExtra("client", client);
+                intent.putExtra("contact", contact);
+                intent.putExtra("visit", visit);
                 Bundle b = new Bundle();
                 b.putSerializable("list", (Serializable) reports);
                 intent.putExtra("listReport", b);
@@ -73,7 +84,7 @@ public class CrvController {
 
                 for(String json : reportsJson){
                     Report deserializedReport = gson.fromJson(json, Report.class);
-                    if(Integer.parseInt(deserializedReport.getClient()) == client.getClientId()){
+                    if(Long.valueOf(deserializedReport.getClient()).longValue() == client.getClientId()){
                         crvFromCache.add(deserializedReport);
                     }
 
@@ -82,7 +93,9 @@ public class CrvController {
 
                 //get reports from cache
                 Intent intent = new Intent(context, CrvMainActivity.class);
-                intent.putExtra("ClientObject", client);
+                intent.putExtra("client", client);
+                intent.putExtra("contact", contact);
+                intent.putExtra("visit", visit);
                 Bundle b = new Bundle();
                 b.putSerializable("list", (Serializable) crvFromCache);
                 intent.putExtra("listReport", b);
@@ -100,18 +113,19 @@ public class CrvController {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.20.3:8070/api/crv/")
+                .baseUrl(CrvConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        Service iService = retrofit.create(Service.class);
-        Call<Boolean> call = iService.deleteReport(id);
+        CrvRetrofitService iCrvRetrofitService = retrofit.create(CrvRetrofitService.class);
+        Call<Boolean> call = iCrvRetrofitService.deleteReport(id);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
                 if(response.isSuccess()){
                     status = true;
-                    getAllReportForClient(Integer.toString(client.getClientId()),client,context);
+                   // getAllReportForClient(Integer.toString(client.getClientId()),client,context);
+
 
                 }else{
                     status = false;
@@ -126,4 +140,65 @@ public class CrvController {
 
         return status;
     }
+
+    public List<Client> getClientsForUser(String idUser,final Context context){
+        Gson gson = new GsonBuilder()
+                .disableHtmlEscaping()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(CrvConfig.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        retrofit.client().setConnectTimeout(5000, TimeUnit.MILLISECONDS);
+        CrvRetrofitService iCrvRetrofitService = retrofit.create(CrvRetrofitService.class);
+        Call<ResponseRestCustomer> call = iCrvRetrofitService.getClientList(idUser);
+        call.enqueue(new Callback<ResponseRestCustomer>() {
+
+            @Override
+            public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                    if(response !=null) try {
+                        {
+                            healthCenters = response.body().getHealthCenters();
+                            if(healthCenters != null){
+                                for(HealthCenter hc : healthCenters){
+                                    client = new Client();
+
+
+                                    client.setClientId(hc.getSiretNumber());
+                                    client.setClientName(hc.getName());
+                                    client.setClientAddress(hc.getAdress());
+                                    clients.add(client);
+
+
+                                }
+
+                                Toast.makeText(context, "result: "+ clients.size(), Toast.LENGTH_SHORT).show();
+
+                                //get reports from cache
+                                Intent intent = new Intent(context, CrvHomeActivity.class);
+
+                                Bundle b = new Bundle();
+                                b.putSerializable("list", (Serializable) clients);
+                                intent.putExtra("listClient", b);
+                                context.startActivity(intent);
+                            }
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(context, "Erreur: ", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
+
+        return clients;
+    }
+
 }

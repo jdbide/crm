@@ -22,9 +22,9 @@ import java.util.Calendar;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
@@ -34,8 +34,14 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDet
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
+
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.ClientListFragment;
+import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
+
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
+
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
@@ -52,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private PendingLogsFragment pend;
     private AndroidBus bus;
     public static String TagAddLogFragment = "FRAGMENT_AJOUT";
-
+    User              currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         bus = Constants.getInstance().getCurrentBusInstance();
         bus.register(this);
 
-        User              currentUser = new User();
+                          currentUser = new User();
         SharedPreferences prefs       = PreferenceManager.getDefaultSharedPreferences(this);
 
         currentUser.setEmail(prefs.getString("email", null));
@@ -122,8 +128,9 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.deco) {
+            PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
 
@@ -146,10 +153,13 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_historiser_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "062464621334"));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "06206754321"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0696396908"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0662542968"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
+            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "0684894378"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0778801708"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
+
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
 
         }
         else if (id == R.id.nav_lister_appel) {
@@ -159,11 +169,12 @@ public class MainActivity extends AppCompatActivity
             ft.replace(R.id.container, fragment, "FRAGMENT_LISTE_CRA").addToBackStack(null).commit();
         }
         else if (id == R.id.nav_editer_crv) {
-            ClientListFragment clientListFragment = new ClientListFragment();
+            new CrvController().getClientsForUser(currentUser.getId(), this);
+           /* ClientListFragment clientListFragment = new ClientListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.container, clientListFragment);
             transaction.addToBackStack(null);
-            transaction.commit();
+            transaction.commit();*/
 
         }
         else if (id == R.id.nav_ref_client) {
@@ -177,6 +188,12 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_envoyer_sms) {
 
+            startActivity(new Intent(this, ActivityHome.class));
+
+        }
+        else if (id == R.id.nav_suggestion_prospect){
+            startActivity(new Intent(this, ProspectActivity.class));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -187,11 +204,10 @@ public class MainActivity extends AppCompatActivity
 
     public void showNotificationListFrag() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
-        getFragmentManager().popBackStack();
-        pend = PendingLogsFragment.newInstance(1);
-        ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").addToBackStack(null).commit();
+        pend = PendingLogsFragment.newInstance();
+        ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").commit();
     }
+
 
     @Subscribe
     public void showpopup(DisplayPopUpFragmentEvent event) {
@@ -236,14 +252,15 @@ public class MainActivity extends AppCompatActivity
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
         }
-        else {
+
+       /* else {
 
             MainLogoFragment mainLogoFragment = new MainLogoFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.container, mainLogoFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        }
+        }*/
     }
 
     @Override

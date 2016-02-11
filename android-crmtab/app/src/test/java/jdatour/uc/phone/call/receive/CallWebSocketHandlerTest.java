@@ -1,14 +1,5 @@
 package jdatour.uc.phone.call.receive;
 
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.Message;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.MessageMeta;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.Register;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
-
 /******************************************
  * Created by        : jdatour            *
  * Creation date     : 01/24/16           *
@@ -16,7 +7,7 @@ import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.We
  * Modification date :                    *
  ******************************************/
 
-public class CallWebSocketHandlerTest {
+/* public class CallWebSocketHandlerTest {
     @Test
     public void testRegisterCalledOnOpen() {
         WebSocketConnectionHandlerSingleton webSocketConnectionHandlerSingleton = Mockito.spy(WebSocketConnectionHandlerSingleton.getInstance());
@@ -28,4 +19,4 @@ public class CallWebSocketHandlerTest {
         WebSocketConnectionHandlerSingleton.getInstance().connect();
         Mockito.verify(webSocketConnectionHandlerSingleton, Mockito.times(1)).sendMessage(message);
     }
-}
+} */

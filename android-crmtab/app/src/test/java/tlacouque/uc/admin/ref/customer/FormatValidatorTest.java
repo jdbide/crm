@@ -9,7 +9,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
  * Created by tlacouque on 19/01/2016.
  */
 
-public class FormatValidatorTest {
+ public class FormatValidatorTest {
 
     @Test
     public void testFormatUrl() throws Exception {

@@ -30,7 +30,7 @@ public class Cra  {
     private Long duration;
     @SerializedName("idcontact")
     @Expose
-    private Long idcontact;
+    private String idcontact;
     @SerializedName("iduser")
     @Expose
     private String iduser;
@@ -154,7 +154,7 @@ public class Cra  {
      * @return
      * The idcontact
      */
-    public Long getIdcontact() {
+    public String getIdcontact() {
         return idcontact;
     }
 
@@ -163,7 +163,7 @@ public class Cra  {
      * @param idcontact
      * The idcontact
      */
-    public void setIdcontact(Long idcontact) {
+    public void setIdcontact(String idcontact) {
         this.idcontact = idcontact;
     }
 

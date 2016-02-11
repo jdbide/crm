@@ -1,24 +1,9 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
-import android.app.Fragment;
-import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
-
-import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
-import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDetailsFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLogFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-
-
 /**
  * Created by jbide on 21/01/2016.
  */
-public class UcRegisterCallTest extends ActivityInstrumentationTestCase2<MainActivity> {
+/* public class UcRegisterCallTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
 
 
@@ -110,4 +95,4 @@ public class UcRegisterCallTest extends ActivityInstrumentationTestCase2<MainAct
 
 
 
-}
+} */

@@ -22,9 +22,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +45,13 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvConfig;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Product;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Report;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Reporting;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.retrofit.Service;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.retrofit.CrvRetrofitService;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -62,17 +65,24 @@ public class CreateCrvActivity extends AppCompatActivity {
     TextView commercial, date, contact, tel, comment, client;
     CheckBox ch1, ch2, ch3, ch4;
     Button btnMessageList, btnList;
+    RadioButton radio;
     ListView listView, lstProducts;
     CardView card;
     List<String> messages = new ArrayList<String>();
     String userId, clientId, conatcId, visitId;
-    RadioGroup radioGroup;
+    RadioGroup radioGroup, grpContacter;
     List<String> presentedProducts = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     RadioButton          satisfaction;
     Report               report;
     CacheDao             dao;
     Report crv = new Report();
+    TextView txtRelation, txtInformation, txtProducts, txtNote;
+    SeekBar relation, information, productSatisfaction;
+    ImageView imgMeteo;
+    View promptView;
+    int progress = 0;
+    int note = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +118,9 @@ public class CreateCrvActivity extends AppCompatActivity {
         ch2 = (CheckBox) findViewById(R.id.chk2);
         ch3 = (CheckBox) findViewById(R.id.chk3);
         ch4 = (CheckBox) findViewById(R.id.chk4);
+
+
+
 
 
         //get mocked client object
@@ -150,8 +163,8 @@ public class CreateCrvActivity extends AppCompatActivity {
             //Mock a visit
             int rand = RandomInformation.randInt(1, 4);
 
-            client.setText(cl.getClientSurname() + " " + cl.getClientName() + " -- " + cl.getClientAddress());
-            clientId = Integer.toString(cl.getClientId());
+            client.setText(cl.getClientName() + " -- " + cl.getClientAddress());
+            clientId = Long.toString(cl.getClientId());
             userId = currentUser.getId();
             conatcId = Integer.toString(rand);
             visitId = Integer.toString(rand);
@@ -226,11 +239,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
 
-                    // ListView Clicked item index
-                    int itemPosition = position;
 
-                    // ListView Clicked item value
-                    String itemValue = (String) listView.getItemAtPosition(position);
 
                     //launch a new dialog box to delete if a product is selected
                     showDialogBox(position);
@@ -441,11 +450,11 @@ public class CreateCrvActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.20.3:8070/api/crv/")
+                .baseUrl(CrvConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        Service iService = retrofit.create(Service.class);
+        CrvRetrofitService iCrvRetrofitService = retrofit.create(CrvRetrofitService.class);
 
 
         //create reporting object
@@ -491,7 +500,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         reporting.setReport(crv);
 
 
-        Call<Boolean> call = iService.createReport(reporting);
+        Call<Boolean> call = iCrvRetrofitService.createReport(reporting);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
@@ -518,7 +527,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                        "Dites quelque chose...");
+                "Dites quelque chose...");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         }
@@ -648,6 +657,168 @@ public class CreateCrvActivity extends AppCompatActivity {
     //call a contact
     public void callContact(View view){
         CallController.call(tel.getText().toString());
+    }
+
+    public void showSatisfactionDetail(View view){
+        note= 0;
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        promptView = layoutInflater.inflate(R.layout.satisfaction_dialog, null);
+
+        relation = (SeekBar) promptView.findViewById(R.id.seekBarRelation);
+        information = (SeekBar) promptView.findViewById(R.id.seekBarInformations);
+        productSatisfaction = (SeekBar) promptView.findViewById(R.id.seekBarProduits);
+
+        txtRelation = (TextView) promptView.findViewById(R.id.txtRelation);
+        txtInformation = (TextView) promptView.findViewById(R.id.txtInformation);
+        txtProducts = (TextView) promptView.findViewById(R.id.txtProduits);
+        txtNote = (TextView) promptView.findViewById(R.id.noteGlobale);
+        imgMeteo = (ImageView) promptView.findViewById(R.id.imgMeteo);
+
+        grpContacter = (RadioGroup)promptView.findViewById(R.id.grpContacter);
+
+
+
+        //set on seek progress listener
+        relation.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progress = i;
+                txtRelation.setText(progress +"/5");
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                note += progress;
+            }
+        });
+
+        information.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progress = i;
+                txtInformation.setText(progress +"/5");
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                note += progress;
+            }
+        });
+
+        productSatisfaction.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progress = i;
+                txtProducts.setText(progress + "/5");
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                note += progress;
+            }
+        });
+
+
+
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(promptView);
+
+
+
+
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+
+                .setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //save all values in an object
+
+                            }
+                        })
+                .setNegativeButton("Annuler",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+        // create an alert dialog
+        final AlertDialog alert = alertDialogBuilder.create();
+
+        alert.show();
+
+
+
+    }
+
+    public void calculateNote(View view){
+        relation.setEnabled(false);
+        information.setEnabled(false);
+        productSatisfaction.setEnabled(false);
+
+        //block all components from being modified after validating the result
+        view.setEnabled(false);
+        for (int i = 0; i < grpContacter.getChildCount(); i++) {
+            grpContacter.getChildAt(i).setEnabled(false);
+        }
+
+        //get checked radio button
+        RadioButton contactAnswer = (RadioButton) promptView.findViewById(grpContacter.getCheckedRadioButtonId());
+
+        //get the text of selected radio button to set points
+        String result = contactAnswer.getText().toString();
+        if(result.equalsIgnoreCase("oui")){
+            note+=5;
+        }else if(result.equalsIgnoreCase("non")){
+            note = note-2;
+        }else if(result.equalsIgnoreCase("aucune reponse")){
+            note+=2;
+        }
+
+        txtNote.setText("Note globale: " + note);
+
+
+        if(note <= 5){
+            imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_pas_satisfait));
+            radio = (RadioButton) findViewById(R.id.rdNon);
+            radio.setChecked(true);
+        }else if(note >5 && note <=10){
+            imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_satisfait_moyen));
+            radio = (RadioButton) findViewById(R.id.rdMoyen);
+            radio.setChecked(true);
+        }else if(note >10){
+            imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_satisfait));
+            radio = (RadioButton) findViewById(R.id.rdOui);
+            radio.setChecked(true);
+        }
+
+        note = 0;
+
+
+
     }
 }
 

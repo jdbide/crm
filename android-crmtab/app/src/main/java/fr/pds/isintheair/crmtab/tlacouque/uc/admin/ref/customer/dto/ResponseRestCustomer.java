@@ -2,12 +2,13 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto;
 
 import java.util.List;
 
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfo;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty;
 
 
@@ -32,6 +33,12 @@ public class ResponseRestCustomer {
     private List<Independant> independants;
 
     private List<Customer> customers;
+
+    private MapInfo mapInfo;
+
+    private double lat;
+
+    private double lng;
 
 
     public boolean getIsInserted() {
@@ -90,4 +97,29 @@ public class ResponseRestCustomer {
     public void setIndependants(List<Independant> independants) {
         this.independants = independants;
     }
+
+    public MapInfo getMapInfo() {
+        return mapInfo;
+    }
+
+    public void setMapInfo(MapInfo mapInfo) {
+        this.mapInfo = mapInfo;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
 }

@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by tlacouque on 23/01/2016.
  */
-public class CreateHCFragmentTest {
+ public class CreateHCFragmentTest {
 
     @Test
     public void testCreateHCWithValidHTTPResponse() throws Exception {

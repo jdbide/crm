@@ -11,14 +11,14 @@ import org.mongodb.morphia.Morphia;
 
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
  * Created by tlacouque on 17/01/2016.
  */
-public class SpecialtyDAOTest {
+ public class SpecialtyDAOTest {
     MongoClient mongoClient;
     Morphia morphia;
     Datastore datastore;

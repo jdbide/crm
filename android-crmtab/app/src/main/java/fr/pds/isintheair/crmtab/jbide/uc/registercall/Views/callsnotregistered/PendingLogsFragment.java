@@ -3,7 +3,6 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +12,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.CallEndedEvent;
+import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 
 /**
@@ -24,9 +25,6 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
  */
 public class PendingLogsFragment extends Fragment {
 
-
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 1;
     private List<CallEndedEvent> liste;
     private OnListFragmentInteractionListener mListener;
     private PendingLogsRecyclerViewAdapter adapter;
@@ -38,33 +36,27 @@ public class PendingLogsFragment extends Fragment {
     public PendingLogsFragment() {
     }
 
-    public static PendingLogsFragment newInstance (int columnCount) {
+    public static PendingLogsFragment newInstance() {
         PendingLogsFragment fragment = new PendingLogsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        liste = Constants.getInstance().getPendingCallList();
-        adapter = new PendingLogsRecyclerViewAdapter(liste, mListener);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+        liste = CallEndedDAO.getAll();
+        //liste = Constants.getInstance().getPendindList();
+        adapter = new PendingLogsRecyclerViewAdapter(liste, mListener,(MainActivity)getActivity());
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.pending_calls_container, container, false);
 
-        // Set the adapter
+            View view = inflater.inflate(R.layout.pending_calls_container, container, false);
+            // Set the adapter
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             //set adapter
@@ -72,6 +64,7 @@ public class PendingLogsFragment extends Fragment {
 
         return view;
     }
+
 
 
     @Override

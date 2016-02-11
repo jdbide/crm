@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by tlacouque on 17/01/2016.
  */
 
-public class IndependantDAOTest {
+ public class IndependantDAOTest {
     MongoClient mongoClient;
     Morphia morphia;
     Datastore datastore;
@@ -33,7 +33,7 @@ public class IndependantDAOTest {
 
     @Test
     public void testfindAllWithoutUserId() throws Exception {
-        List<Independant> independants = independantDAO.findAllWithoutUserId("1");
+        List<Independant> independants = independantDAO.findAllWithUserId("1");
         assertNotNull(independants);
     }
 }

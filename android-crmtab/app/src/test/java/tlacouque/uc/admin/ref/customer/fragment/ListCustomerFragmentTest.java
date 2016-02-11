@@ -20,7 +20,7 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by tlacouque on 23/01/2016.
  */
-public class ListCustomerFragmentTest {
+ public class ListCustomerFragmentTest {
     
     @Test
     public void testCreateIndepWithValidHTTPResponse() throws Exception {

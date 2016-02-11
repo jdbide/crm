@@ -35,14 +35,15 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.asynctask.TileDownloader;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding_Table;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral_Table;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.enumeration.EtablishmentType;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;
@@ -229,7 +230,11 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         healthCenter.setStreetName(streetName.getText().toString());
         healthCenter.setTown(town.getText().toString());
         healthCenter.setZipCode(Integer.decode(zipCode.getText().toString()));
-        healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
+        if(bedNumber.getText().toString().equals("")) {
+            healthCenter.setBedNumber(0);
+        } else {
+            healthCenter.setBedNumber(Integer.decode(bedNumber.getText().toString()));
+        }
         healthCenter.setWebSite(webSite.getText().toString());
         healthCenter.setOrigin("Prospection");
         healthCenter.setIdUser(Constants.getInstance().getCurrentUser().getId());
@@ -282,6 +287,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance().getCustomerService()
                                                                       .createHealthCenter(messageRestCustomer);
         healthCenter.save();
+
         call.enqueue(new Callback<ResponseRestCustomer>() {
             /**
              * Called when a good HTTP response is return
@@ -293,14 +299,19 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                 if (response.errorBody() != null) {
                     createCalledisNOk = true;
                 } else {
-                    if (response.body().getIsInserted()) {
+                    if (response.body().getIsInserted() && response.body().getLat() != 0
+                            && response.body().getLng() != 0) {
                         createCalledisOk = true;
+                        response.body().getMapInfo().save();
+                        healthCenter.setLattitude(response.body().getLat());
+                        healthCenter.setLongitude(response.body().getLng());
+                        healthCenter.save();
+                        new TileDownloader().execute(response.body().getMapInfo());
                     } else {
                         errorServRest = true;
                     }
                 }
                 returnToListCustomer();
-
             }
 
             /**

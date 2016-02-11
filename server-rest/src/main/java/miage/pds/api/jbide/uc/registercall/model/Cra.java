@@ -15,7 +15,7 @@ public class Cra {
 	private String contactname;
 	private String date;
 	private Long duration;
-	private Long idcontact;
+	private String idcontact;
 	private String iduser;
 	private String subject;
 
@@ -132,7 +132,7 @@ public class Cra {
 	* @return
 	* The idcontact
 	*/
-	public Long getIdcontact() {
+	public String getIdcontact() {
 	return idcontact;
 	}
 
@@ -141,7 +141,7 @@ public class Cra {
 	* @param idcontact
 	* The idcontact
 	*/
-	public void setIdcontact(Long idcontact) {
+	public void setIdcontact(String idcontact) {
 	this.idcontact = idcontact;
 	}
 

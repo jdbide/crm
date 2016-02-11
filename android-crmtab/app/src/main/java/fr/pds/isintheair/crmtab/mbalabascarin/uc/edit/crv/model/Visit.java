@@ -8,9 +8,45 @@ import java.io.Serializable;
 public class Visit implements Serializable {
 
     private int id;
-    private Enum subject;
+    private String[] subject;
+    private String date;
+    private long idContact;
+
 
     public Visit(){
 
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String[] getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String[] subject) {
+        this.subject = subject;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public long getIdContact() {
+        return idContact;
+    }
+
+    public void setIdClient(long idContact) {
+        this.idContact = idContact;
+    }
+
+
 }

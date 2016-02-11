@@ -1,19 +1,9 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity;
 
-import android.app.Fragment;
-import android.test.ActivityInstrumentationTestCase2;
-
-import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.ListCustomerFragment;
-
-
 /**
  * Created by tlacouque on 18/01/2016.
  */
-public class CRUDCustomerActivityTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
+/* public class CRUDCustomerActivityTest extends ActivityInstrumentationTestCase2<CRUDCustomerActivity> {
 
     CRUDCustomerActivity activity;
 
@@ -80,4 +70,4 @@ public class CRUDCustomerActivityTest extends ActivityInstrumentationTestCase2<C
     public void tearDown() throws Exception {
         activity.finish();
     }
-}
+} */

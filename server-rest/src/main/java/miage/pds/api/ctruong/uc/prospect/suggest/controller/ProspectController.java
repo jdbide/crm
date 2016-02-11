@@ -1,298 +1,204 @@
 package miage.pds.api.ctruong.uc.prospect.suggest.controller;
 
-import miage.pds.api.ctruong.uc.prospect.suggest.dao.SalesDAO;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.Sales;
-import miage.pds.api.ctruong.uc.prospect.suggest.dao.ProspectDAO;
-import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserClientRelationDAO;
-import miage.pds.api.ctruong.uc.prospect.suggest.dao.UserDAO;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.Prospect;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.User;
-import miage.pds.api.ctruong.uc.prospect.suggest.model.UserClientRelation;
+import miage.pds.api.ctruong.uc.prospect.suggest.dao.*;
+import miage.pds.api.ctruong.uc.prospect.suggest.model.*;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.util.*;
 
 /**
  * This is a class which control the algorithm to find the prospect for each user.
- *
+ * <p/>
  * Created by Truong on 12/20/2015.
+ *
  * @version 1.1.19
  * @serial 111912202015
  */
 public class ProspectController {
 
-    private MongoService            mongoService;
-    private ProspectDAO             prospectDAO;
-    private SalesDAO salesDAO;
-    private UserClientRelationDAO   userClientRelationDAO;
-    private UserDAO                 userDAO;
+    private MongoService mongoService;
     private static Logger logger = LoggerFactory.getLogger(ProspectController.class);
+    private ProspectDAO prospectDAO;
+    private RelationUserClientDAO relationUserClientDAO;
+    private SalesDAO salesDAO;
+    private RelationClientDAO relationClientDAO;
+    private CommandDAO commandDAO;
 
 
     /**
      * Constructor allows to create new instance of Controller
      */
     public ProspectController() {
-        this.mongoService           = new MongoService();
-        this.prospectDAO            = new ProspectDAOImpl(Prospect.class, mongoService.getDatastore());
-        this.salesDAO               = new SalesDAOImpl(Sales.class, mongoService.getDatastore());
-        this.userDAO                = new UserDAOImpl(User.class, mongoService.getDatastore());
-        this.userClientRelationDAO  = new UserClientRelationDAOImpl(UserClientRelation.class, mongoService.getDatastore());
+        this.mongoService = new MongoService();
+        this.prospectDAO = new ProspectDAOImp(Prospect.class, mongoService.getDatastore());
+        this.salesDAO = new SalesDAOImpl(Sales.class, mongoService.getDatastore());
+        this.relationUserClientDAO = new RelationUserClientDAOImpl(RelationUserClient.class, mongoService.getDatastore());
+        this.relationClientDAO = new RelationClientDAOImpl(RelationClient.class, mongoService.getDatastore());
+        this.commandDAO = new CommandDAOImpl(Command.class, mongoService.getDatastore());
     }
 
     /**
-     * The function which analyzes prospect in the database.
-     * It analyzes by sales volume then relationship level and finally by place.
-     * @return userListHashMap
+     * @return
      */
-    public HashMap<User, ArrayList<Prospect>> analyseProspect() {
-        HashMap<User, ArrayList<Prospect>>              userListHashMap = getProspectListForEachUser();
-        analyzeProspectBySales(userListHashMap);
-        Iterator<Map.Entry<User, ArrayList<Prospect>>>  entryIterator   = userListHashMap.entrySet().iterator();
+    public List<Prospect> analyseProspect() {
+        List<Prospect> prospects = getProspectByTurnover();
+        List<Prospect> prospectsList = prospectDAO.getListProspect();
+        List<Prospect> prospectsAnalyse;
+        if (prospects.size() > 0) {
+            prospectsAnalyse = getProspectByRelationship(prospects);
+            getProspectByCommand(prospectsAnalyse);
 
-        // Refill the list of prospect for each user
-        while (entryIterator.hasNext()){
-            Map.Entry<User, ArrayList<Prospect>>    userArrayListEntry  = entryIterator.next();
-            ArrayList<Prospect>                     prospects           = userArrayListEntry.getValue();
-            User userKey = userArrayListEntry.getKey();
-            if (prospects.size() == 0){
-                List<Prospect>      prospectList    = prospectDAO.getAllProspect();
-                ArrayList<Prospect> newProspectList = new ArrayList<Prospect>();
-                for (Prospect prospect: prospectList){
-                    boolean         isRelationship  = userClientRelationDAO.checkRelation(userKey.getId(), prospect.getId());
-                    if (isRelationship == true){
-                        newProspectList.add(prospect);
-                    }
-                }
-                userListHashMap.put(userKey, newProspectList);
-            }
-        }
-        analyzeProspectByRelationLv(userListHashMap);
-        analyzeProspectByPlaceNumber(userListHashMap);
-        return userListHashMap;
-    }
-
-    /**
-     * The function allows to get a list of prospect for each user.
-     * It puts user and prospect list into a map to make easier to control
-     * @return userListHashMap
-     */
-    public HashMap<User, ArrayList<Prospect>> getProspectListForEachUser() {
-        logger.info("Get the first prospects list is launching ...");
-        HashMap<User, ArrayList<Prospect>>  userListHashMap = new HashMap<User, ArrayList<Prospect>>();
-        List<User>                          userList        = userDAO.getAllUsers();
-
-        // Check prospect list for each user
-        for (User user : userList) {
-            List<Prospect>      prospects       = prospectDAO.getAllProspect();
-            ArrayList<Prospect> prospectList    = new ArrayList<Prospect>();
-
-            // If it doesn't have a relationship between user and prospect, put into the list.
-            for (Prospect prospect : prospects) {
-                boolean         isRelationship  = userClientRelationDAO.checkRelation(user.getId(), prospect.getId());
-                if (isRelationship == false) {
-                    prospectList.add(prospect);
+        } else {
+            Iterator<Prospect> iterator = prospectsList.iterator();
+            while (iterator.hasNext()) {
+                Prospect prospect = iterator.next();
+                if (relationUserClientDAO.checkRelationBetweenUserAndClient(prospect.getId()) == true) {
+                    iterator.remove();
                 }
             }
-            userListHashMap.put(user, prospectList);
+            prospectsAnalyse = getProspectByRelationship(prospectsList);
+            getProspectByCommand(prospectsAnalyse);
         }
-        logger.info("End of the function");
-        return userListHashMap;
+        logger.info(String.valueOf(prospectsAnalyse.size()));
+        logger.info(prospectsAnalyse.toString());
+        return prospectsAnalyse;
+    }
+
+
+    /**
+     * @return
+     */
+    private List<Prospect> getProspectByTurnover() {
+        List<Prospect> prospects = prospectDAO.getListProspect();
+        Iterator<Prospect> iterator = prospects.iterator();
+        while (iterator.hasNext()) {
+            Prospect prospect = iterator.next();
+            if (relationUserClientDAO.checkRelationBetweenUserAndClient(prospect.getId()) == true) {
+                iterator.remove();
+            }
+        }
+        logger.info("The system found " + prospects.size() + " prospects which haven't relationship with commercials");
+        long average = getSalesAverage(prospects);
+        Iterator<Prospect> iterator1 = prospects.iterator();
+        while (iterator1.hasNext()) {
+            Prospect prospect = iterator1.next();
+            if (prospect.getTurnover() == 0 || prospect.getTurnover() < average) {
+                iterator1.remove();
+            }
+        }
+        logger.info("The system found " + prospects.size() + " prospects which have their name in the market during 6 month");
+        Collections.sort(prospects, new Comparator<Prospect>() {
+            @Override
+            public int compare(Prospect o1, Prospect o2) {
+                return (int) (o2.getTurnover() - o1.getTurnover());
+            }
+        });
+
+        if (prospects.size() > 5) {
+            for (int i = prospects.size(); i > 5; i--) {
+                prospects.remove(i - 1);
+
+            }
+        }
+        return prospects;
     }
 
     /**
-     * Within the map of user and prospect list, it finds the sales volumes of each prospect in the prospect list.
-     * Before, It find only the sales after 6 month ago and calculates the sum of sales of each prospect.
-     * Next, it finds the average of sales.
-     * Then, it compares the prospect sales average and the average global.
-     * If the prospect sales average is superior than global, it keeps the prospect in the list.
-     * Else, it removes from the list.
-     * Finally, its reduces in the map.
-     * @param userHashMap
-     * @return userHashMap
+     * @param prospectsList
+     * @return
      */
-    public HashMap<User, ArrayList<Prospect>> analyzeProspectBySales(HashMap<User, ArrayList<Prospect>> userHashMap) {
-        logger.info("The function analyze prospect by Sales volume is launching ...");
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userHashMap.entrySet().iterator();
+    public List<Prospect> getProspectByRelationship(List<Prospect> prospectsList) {
+        Iterator<Prospect> prospectIterator = prospectsList.iterator();
+        while (prospectIterator.hasNext()) {
+            Prospect prospect = prospectIterator.next();
+            if (relationClientDAO.checkRelationWithClient(prospect.getId()) == false) {
+                prospectIterator.remove();
 
-        // The date 6 month before
+            }
+        }
+        return prospectsList;
+    }
+
+    public List<Prospect> getProspectByCommand(List<Prospect> prospectList) {
+        List<Prospect> prospects = null;
+        Iterator<Prospect> iterator = prospectList.iterator();
+        while (iterator.hasNext()) {
+            Prospect prospect = iterator.next();
+            if (commandDAO.checkExistCommandOfProspect(prospect.getId()) == true) {
+                prospects.add(prospect);
+            }
+        }
+
+        if (prospects == null) {
+            if (prospectList.size() > 1) {
+                for (int i = prospectList.size(); i > 1; i--) {
+                    prospectList.remove(i - 1);
+                }
+
+            }
+            return prospectList;
+        } else if (prospects.size() == 1) {
+            return prospects;
+        } else {
+            Collections.sort(prospects, new Comparator<Prospect>() {
+                @Override
+                public int compare(Prospect o1, Prospect o2) {
+                    return (int) (o2.getTurnover() - o1.getTurnover());
+
+                }
+            });
+            for (int i = prospects.size(); i > 1; i--) {
+                prospects.remove(i - 1);
+            }
+            return prospects;
+        }
+
+
+    }
+
+
+    /**
+     * @param prospectsList
+     * @return
+     */
+    public long getSalesAverage(List<Prospect> prospectsList) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -6);
         Date date = calendar.getTime();
-
-        // Average global
-        double salesAverageTotal = getSalesAverage();
-        // For each user, it has a list of prospects different
-        while (entryIterator.hasNext()) {
-            Map.Entry<User, ArrayList<Prospect>> userListEntry = entryIterator.next();
-            User user = userListEntry.getKey();
-            // Analyse the list of prospects
-            ArrayList<Prospect>     prospects        = userListEntry.getValue();
-            Iterator<Prospect>      prospectIterator = prospects.iterator();
-            while (prospectIterator.hasNext()) {
-                Prospect prospect = prospectIterator.next();
-                double salesTotal = 0.0d;
-                double salesAveByPros = 0.0d;
-
-                // Get sales from each prospect
-                List<Sales>             sales = salesDAO.getSalesByIDClient(prospect.getId());
-                Iterator<Sales> salesIterator = sales.iterator();
-                if (sales.size() > 0) {
-
-                    // Analyze the list of sales
-                    while (salesIterator.hasNext()) {
-                        Sales sales1 = salesIterator.next();
-
-                        // Condition which remove all sales before 6 month ago
-                        if (sales1.getDate().after(date)) {
-                            salesTotal = salesTotal + sales1.getValue();
-                        } else {
-                            salesIterator.remove();
-                        }
-                    }
-                } else {
-                    prospectIterator.remove();
-                }
-
-                // The average for each prospect
-                salesAveByPros = salesTotal / sales.size();
-                if (user.getId() == 1){
-                    logger.info("The user: " + user.getLogin() + "\r\n");
-                    logger.info("The prospect" + prospect.getName() + " with sales volume: " + salesAveByPros + "\r\n");
-                }
-                // Remove the prospect in the list inside the map if the average is under global
-                if (salesAveByPros < salesAverageTotal) {
-                    prospectIterator.remove();
-                }
+        logger.info("6 month ago was: " + String.valueOf(date));
+        HashMap<Prospect, Long> hashMap = new HashMap<Prospect, Long>();
+        List<Prospect> prospects = prospectsList;
+        Iterator<Prospect> iterator = prospects.iterator();
+        while (iterator.hasNext()) {
+            Prospect prospect = iterator.next();
+            List<Sales> sales = salesDAO.getSalesSixMonthEachProspect(prospect.getId(), date);
+            long turnover = 0;
+            for (Sales sale : sales) {
+                turnover += sale.getValue();
+            }
+            if (sales.size() == 0) {
+                long marketShare = 0;
+                prospect.setTurnover(marketShare);
+                hashMap.put(prospect, marketShare);
+            } else {
+                long marketShare = turnover / sales.size();
+                prospect.setTurnover(marketShare);
+                hashMap.put(prospect, marketShare);
             }
         }
-        logger.info("The end of the function.");
-        return userHashMap;
-    }
 
-    /**
-     * The function which analyze the prospect list by their relationship lv.
-     * It counts the max value of relationship level in the database.
-     * After, it compares each prospect's relationship level and the max value.
-     * Remove in the ArrayList<Prospect> if the value is under the max.
-     * It keeps only the value equal max.
-     * @param userHashMap
-     * @return userHashMap
-     */
-    public HashMap<User, ArrayList<Prospect>> analyzeProspectByRelationLv(HashMap<User, ArrayList<Prospect>> userHashMap){
-        logger.info("The function analyze prospect by Relation level is launching ...");
-
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userHashMap.entrySet().iterator();
-
-        // Analyze the HashMap<User, ArrayList<Prospect>>
-        while (entryIterator.hasNext()){
-            Map.Entry<User, ArrayList<Prospect>>    userListEntry   = entryIterator.next();
-            ArrayList<Prospect>                     prospects       = userListEntry.getValue();
-            User user = userListEntry.getKey();
-            // Create new HashMap<Prospect, long> to compare which prospect is greater relationship level
-            HashMap<Prospect, Long>             prospectLongHashMap = new HashMap<Prospect, Long>();
-            if (prospects.size() > 0){
-
-                // Put into the map
-                for (Prospect prospect: prospects){
-                    long count = userClientRelationDAO.countRelationshipByClientID(prospect.getId());
-                    prospectLongHashMap.put(prospect, count);
-                }
-                long max = Collections.max(prospectLongHashMap.values());
-                // Compare all prospects in the list with the max value of relationship level
-                for (Map.Entry<Prospect, Long> prospectLongEntry : prospectLongHashMap.entrySet()){
-                    Prospect prospect = prospectLongEntry.getKey();
-                    if (prospectLongEntry.getValue() != max){
-                        prospects.remove(prospectLongEntry.getKey());
-                    }
-                    if (user.getId() == 1){
-                        logger.info("The prospect relation level: " + prospectLongEntry.getValue() + "\r\n");
-                    }
-
-                }
-            }
+        long sum = 0;
+        for (long s : hashMap.values()) {
+            sum += s;
         }
-        logger.info("End of the function");
-
-        return userHashMap;
-    }
-
-    /**
-     * Function analyzes the prospect list by the number of place.
-     * It finds the max of place.
-     * It compares between the prospect's place and the max. If under the max value, remove the prospect from the list.
-     * @param userHashMap
-     * @return userHashMap
-     */
-    public HashMap<User, ArrayList<Prospect>> analyzeProspectByPlaceNumber(HashMap<User, ArrayList<Prospect>> userHashMap){
-        logger.info("The function analyze prospect by place number is launching ...");
-        Iterator<Map.Entry<User, ArrayList<Prospect>>> entryIterator = userHashMap.entrySet().iterator();
-
-        // Analyze the map
-        while (entryIterator.hasNext()){
-            Map.Entry<User, ArrayList<Prospect>> userArrayListEntry = entryIterator.next();
-            ArrayList<Prospect>                     prospects       = userArrayListEntry.getValue();
-            User user = userArrayListEntry.getKey();
-            // If the prospect list more than one element
-            if (prospects.size() > 1){
-                ArrayList<Integer> placeList = new ArrayList<Integer>();
-
-                // Create new list to check the max place
-                for (Prospect prospect: prospects){
-                    placeList.add(prospect.getPlace());
-                }
-                int maxPlace = Collections.max(placeList);
-                Iterator<Prospect> prospectIterator = prospects.iterator();
-
-                // Remove the prospect if out of condition
-                while (prospectIterator.hasNext()){
-                    Prospect prospect = prospectIterator.next();
-                    if (prospect.getPlace() < maxPlace){
-                        prospectIterator.remove();
-                    }
-                    if (user.getId() == 1){
-                        logger.info("The size of this prospect: " + prospect.getPlace());
-                    }
-                }
-
-            }
+        logger.info("TurnOver's sum: " + sum);
+        long average = sum / hashMap.size();
+        logger.info("Average is " + average);
 
 
-        }
-        logger.info("End of the function");
-        return userHashMap;
-    }
-
-    /**
-     * Function calculate the average of all sales in the table.
-     * Firstly, it counts all sales in the table
-     * Secondly, it calculates all sales value
-     * average = sum / count.
-     * @return average
-     */
-    public double getSalesAverage() {
-        logger.info("The function which gets the sales average ... ");
-        double  sumSalesValue   = 0.0d;
-
-        // Get the count of sales list
-        long        count       = salesDAO.getCountAllSales();
-
-        // Get all sales from the database
-        List<Sales> sales       = salesDAO.getAllSales();
-
-        // Calculate sum
-        for (Sales sales1 : sales) {
-            sumSalesValue       = sumSalesValue + sales1.getValue();
-        }
-
-        // Average
-        double  average         = sumSalesValue / count;
-        logger.info("The average global is " + average);
         return average;
     }
-
 
 }

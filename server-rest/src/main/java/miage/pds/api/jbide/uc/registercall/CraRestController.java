@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.common.LoggingRestController;
 import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
 
@@ -29,7 +30,8 @@ public class CraRestController {
 	CraDAO dao = new CraDAO(MongoDatastoreConfig.getDataStore());
 
 	public CraRestController() {
-		
+		dao.dropTableCraAndAddMock();
+
 	}
 	
 	/**
