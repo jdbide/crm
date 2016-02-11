@@ -14,7 +14,7 @@ import retrofit.http.Path;
  */
 public interface CustomerService {
 
-   static String BASE_URL = "http://192.168.20.3:8082";
+   static String BASE_URL = "http://192.168.20.3:8081";
    // static String BEGIN_URL = "/SpringRESTapi";
 
 
