@@ -17,14 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
+
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.bonuspack.overlays.Marker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -179,13 +182,14 @@ public class DetailHCFragment extends Fragment {
         GeoPoint startPoint = new GeoPoint(healthCenter.getLattitude(), healthCenter.getLongitude());
         mapController.setCenter(startPoint);
 
-      /**  Marker marker = new Marker(map);
+
+       Marker marker = new Marker(map);
         marker.setPosition(startPoint);
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        marker.setIcon(getResources().getDrawable(android.R.drawable.star_on));
-        marker.setTitle("Start point");
+        marker.setIcon(getResources().getDrawable(android.R.drawable.star_on,null));
+        marker.setTitle(healthCenter.getName());
         map.getOverlays().add(marker);
-        map.invalidate();*/
+        map.invalidate();
 
         map.setOnTouchListener(new View.OnTouchListener() {
 
