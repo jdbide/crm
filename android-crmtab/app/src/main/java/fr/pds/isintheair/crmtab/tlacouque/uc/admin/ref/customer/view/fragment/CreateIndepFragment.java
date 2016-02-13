@@ -36,6 +36,7 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.asynctask.TileDownloader;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company_Table;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
@@ -315,8 +316,14 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
                 if (response.errorBody() != null) {
                     createCalledisNOk = true;
                 } else {
-                    if (response.body().getIsInserted()) {
+                    if (response.body().getIsInserted() && response.body().getLat() != 0
+                            && response.body().getLng() != 0) {
                         createCalledisOk = true;
+                        response.body().getMapInfo().save();
+                        independant.setLattitude(response.body().getLat());
+                        independant.setLongitude(response.body().getLng());
+                        independant.save();
+                        new TileDownloader().execute(response.body().getMapInfo());
                     } else {
                         errorServRest = true;
                     }
