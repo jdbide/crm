@@ -1,5 +1,6 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest;
 
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.constant.Constant;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import retrofit.Call;
@@ -14,7 +15,9 @@ import retrofit.http.Path;
  */
 public interface CustomerService {
 
-   static String BASE_URL = "http://192.168.20.3:8081";
+
+   static String BASE_URL = Constant.REST_URL;
+
    // static String BEGIN_URL = "/SpringRESTapi";
 
 
