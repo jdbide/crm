@@ -19,6 +19,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.DBPortPool.NoMoreConnection;
 
+import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.mbalabascarin.uc.editcrv.model.Product;
 import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
 import miage.pds.api.mbalabascarin.uc.editcrv.model.Reporting;
@@ -28,34 +29,29 @@ public class CrvMorphiaDao {
 	Long count;
 	Morphia morphia;
 	Datastore datastore;
-	
+
 	public CrvMorphiaDao(){}
 
 	public boolean ConnectDB(){		
-		/**** Connect to MongoDB ****/
-		MongoClient mongo;
 		
-		try {
 
-			mongo = new MongoClient(Config.URL, Config.PORT);
-			morphia = new Morphia();
-			
-			/**** Get database ****/
-			// if database doesn't exists, MongoDB will create it for you
-			datastore = morphia.createDatastore(mongo, "crm");
+		/**** Get database ****/
+		// if database doesn't exists, MongoDB will create it for you
+		//datastore = morphia.createDatastore(mongo, "crm");
+
+		datastore = MongoDatastoreConfig.getDataStore();
+
+		if(datastore != null){
 			return true;
-
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+
 		return false;
 
 	}
 
 	//insert or update a report 
 	public boolean createOrModifyCrv(Report report){
-			
+
 		//check if connected to DB
 		if(ConnectDB()){
 			if(report.getId().equals("")){
@@ -66,9 +62,9 @@ public class CrvMorphiaDao {
 			return true;
 		}
 		return false;
-			
+
 	}
-	
+
 	//get all reports for a specific client
 	public List<Report> getAllReportsForClient(String id){
 		List<Report> list = new ArrayList<Report>();
@@ -77,11 +73,11 @@ public class CrvMorphiaDao {
 					.filter("client =", id)
 					.asList();
 		}
-		
-		
+
+
 		return list;
 	}
-	
+
 	//delete a report by given id
 	public Boolean deleteReportById(String id){
 		Report report;
@@ -94,9 +90,9 @@ public class CrvMorphiaDao {
 				// TODO Auto-generated catch block
 				e.getMessage();
 			}
-					
+
 		}
 		return false;
 	}
-	
+
 }
