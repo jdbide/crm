@@ -21,7 +21,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 //Commented to check jenkins configuration and some other jenkins plugins
 //will be uncommented once jenkins is finalised
 
-/*
+
 @RunWith(MockitoJUnitRunner.class)
 public class CrvDaoTestClass {
 	private CrvMorphiaDao CrvDaoObject;
@@ -151,4 +151,3 @@ public class CrvDaoTestClass {
 		assertFalse(CrvDaoObject.deleteReportById("0"));
 	}
 } 
-*/
