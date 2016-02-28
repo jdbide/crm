@@ -26,7 +26,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class TileDownloaderThreadTest {
 
     String catalinaBaseUrl;
-    String catalinaUrl = "/home/datour";
+    String catalinaUrl = "/home/datour/Bureau";
     private static String URL_BASE = "http://tile.openstreetmap.org/";
     File file;
     MapInfo mapInfo;
