@@ -26,7 +26,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
  public class TileDownloaderTest {
 
     String catalinaBaseUrl;
-    String catalinaUrl = "/home/datour/Bureau";
+    String catalinaUrl = System.getProperty("user.home");
     File file;
 
     @Before
