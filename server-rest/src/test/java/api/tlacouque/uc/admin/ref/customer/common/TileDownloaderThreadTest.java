@@ -1,60 +1,75 @@
 package api.tlacouque.uc.admin.ref.customer.common;
 
-import miage.pds.api.tlacouque.uc.admin.ref.customer.common.TileDownloader;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.common.TileDownloaderThread;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.util.FileSystemUtils;
 
-import static org.junit.Assert.*;
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 /**
- * Created by tlacouque on 02/02/2016.
+ * Created by tlacouque on 28/02/2016.
  */
- @RunWith(PowerMockRunner.class)
- @PrepareForTest( { System.class })
- public class TileDownloaderThreadTest {
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest( { System.class})
+public class TileDownloaderThreadTest {
 
     String catalinaBaseUrl;
     String catalinaUrl = "C:\\Users\\user\\Desktop";
+    private static String URL_BASE = "http://tile.openstreetmap.org/";
     File file;
+    MapInfo mapInfo;
 
     @Before
     public void setUp() throws Exception {
-        catalinaBaseUrl = System.getProperty("catalina.base");
         System.setProperty("catalina.base",catalinaUrl);
-
-    }
-
-    @Test
-    public void testdwdTile() throws Exception {
-       PowerMockito.mockStatic(System.class);
-        when(System.getProperty("catalina.base")).thenReturn("C:\\Users\\user\\Desktop");
-
-
-        MapInfo mapInfo = PowerMockito.mock(MapInfo.class);
+        mapInfo = PowerMockito.mock(MapInfo.class);
         when(mapInfo.getX()).thenReturn(15);
         when(mapInfo.getY()).thenReturn(16597);
         when(mapInfo.getZ()).thenReturn(11270);
-        TileDownloader.dwdTile(mapInfo);
+    }
+
+    @Test
+    public void testsaveImage() throws Exception {
+        TileDownloaderThread tdt = new TileDownloaderThread(mapInfo);
+        String url = TileDownloaderThread.formatUrl(mapInfo);
+        String imageUrl = URL_BASE+url;
+        String destinationFile = System.getProperty("catalina.base")+"/webapps/image/"+url;
+        new File(destinationFile).getParentFile().mkdirs();
+        tdt.saveImage(imageUrl,destinationFile);
         file = new File(catalinaUrl+"/webapps/image/" +TileDownloaderThread.formatUrl(mapInfo));
         assertTrue(file.exists());
+    }
+
+    @Test
+    public void testRun() throws Exception {
+        TileDownloaderThread tdt = new TileDownloaderThread(mapInfo);
+        tdt.run();
+        file = new File(catalinaUrl+"/webapps/image/" +TileDownloaderThread.formatUrl(mapInfo));
+        assertTrue(file.exists());
+    }
+
+    @Test
+    public void testFormatUrl() throws Exception {
+        assertEquals(TileDownloaderThread.formatUrl(mapInfo),"15/16597/11270.png");
     }
 
     @After
     public void tearDown() throws Exception {
         File index = new File(catalinaUrl+"/webapps");
         FileSystemUtils.deleteRecursively(index);
-        System.setProperty("catalina.base",catalinaBaseUrl);
+        System.setProperty("catalina.base","null");
+
     }
 }
