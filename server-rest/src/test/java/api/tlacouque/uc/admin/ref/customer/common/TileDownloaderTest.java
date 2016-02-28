@@ -53,8 +53,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
     @After
     public void tearDown() throws Exception {
-        File index = new File(catalinaUrl+"/webapps");
-        FileSystemUtils.deleteRecursively(index);
+     //   File index = new File(catalinaUrl+"/webapps");
+     //   FileSystemUtils.deleteRecursively(index);
         System.setProperty("catalina.base",catalinaBaseUrl);
     }
 }
