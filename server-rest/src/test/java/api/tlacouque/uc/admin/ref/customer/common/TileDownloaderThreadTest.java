@@ -26,7 +26,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class TileDownloaderThreadTest {
 
     String catalinaBaseUrl;
-    String catalinaUrl = "/home/datour/Bureau";
+    String catalinaUrl = System.getProperty("user.home");
     private static String URL_BASE = "http://tile.openstreetmap.org/";
     File file;
     MapInfo mapInfo;
@@ -67,8 +67,8 @@ public class TileDownloaderThreadTest {
 
     @After
     public void tearDown() throws Exception {
-      //  File index = new File(catalinaUrl+"/webapps");
-      //  FileSystemUtils.deleteRecursively(index);
+        File index = new File(catalinaUrl+"/webapps");
+        FileSystemUtils.deleteRecursively(index);
         System.setProperty("catalina.base","null");
 
     }
