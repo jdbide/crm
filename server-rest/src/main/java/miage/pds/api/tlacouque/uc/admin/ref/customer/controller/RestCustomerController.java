@@ -25,7 +25,7 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.message.ResponseRestCustome
 
 import miage.pds.api.tlacouque.uc.admin.ref.customer.SpringMongoConfig;
 
-import org.mockito.Mockito;
+
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+
 
 
 /**
