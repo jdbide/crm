@@ -26,7 +26,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
  public class TileDownloaderTest {
 
     String catalinaBaseUrl;
-    String catalinaUrl = "C:\\Users\\user\\Desktop";
+    String catalinaUrl = "/home/datour";
     File file;
 
     @Before
@@ -39,7 +39,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
     @Test
     public void testdwdTile() throws Exception {
        PowerMockito.mockStatic(System.class);
-        when(System.getProperty("catalina.base")).thenReturn("C:\\Users\\user\\Desktop");
+        when(System.getProperty("catalina.base")).thenReturn(catalinaUrl);
 
 
         MapInfo mapInfo = PowerMockito.mock(MapInfo.class);
