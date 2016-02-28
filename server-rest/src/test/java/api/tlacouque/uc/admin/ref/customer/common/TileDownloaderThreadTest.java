@@ -67,8 +67,8 @@ public class TileDownloaderThreadTest {
 
     @After
     public void tearDown() throws Exception {
-        File index = new File(catalinaUrl+"/webapps");
-        FileSystemUtils.deleteRecursively(index);
+      //  File index = new File(catalinaUrl+"/webapps");
+      //  FileSystemUtils.deleteRecursively(index);
         System.setProperty("catalina.base","null");
 
     }
