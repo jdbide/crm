@@ -69,7 +69,7 @@ public class FormatValidator {
      * @return String
      */
     public static String formatUrlPathTile(MapInfo mapInfo) {
-        return File.separator+mapInfo.getX()+File.separator+ mapInfo.getY()+File.separator+
+        return "/"+mapInfo.getX()+"/"+ mapInfo.getY()+"/"+
                 mapInfo.getZ()+".png";
     }
 
