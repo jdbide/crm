@@ -37,6 +37,11 @@ android {
             applicationIdSuffix = "dev"
         }
     }
+    testOptions {
+
+        unitTests.returnDefaultValues = true
+
+    }
 }
 
 dependencies {
@@ -68,6 +73,17 @@ dependencies {
     androidTestCompile 'com.crittercism.dexmaker:dexmaker:1.4'
     androidTestCompile 'com.crittercism.dexmaker:dexmaker-dx:1.4'
     androidTestCompile 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
-    compile project(':osmbonuspack_v5.5')
+    compile(name:'osmbonuspack_v5.5', ext:'aar')
+
+
+    testCompile('org.powermock:powermock-module-junit4:1.6.4') {
+        exclude module: 'hamcrest-core'
+        exclude module: 'objenesis'
+    }
+
+    testCompile('org.powermock:powermock-api-mockito:1.6.4') {
+        exclude module: 'hamcrest-core'
+        exclude module: 'objenesis'
+    }
 
 }

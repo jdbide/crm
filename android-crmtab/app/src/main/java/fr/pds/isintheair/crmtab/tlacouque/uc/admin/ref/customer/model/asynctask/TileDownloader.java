@@ -57,7 +57,7 @@ public class TileDownloader extends AsyncTask<MapInfo,Integer,Boolean> {
     }
 
 
-    private Bitmap downloadBitmap(String url) {
+    public Bitmap downloadBitmap(String url) {
         HttpURLConnection urlConnection = null;
         try {
             URL uri = new URL(url);

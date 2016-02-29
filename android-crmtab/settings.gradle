@@ -1,1 +1,1 @@
-include ':app', ':osmbonuspack_v5.5'
+include ':app'
