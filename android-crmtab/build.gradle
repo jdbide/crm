@@ -5,11 +5,16 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+
+
     }
 }
 
 allprojects {
     repositories {
+        flatDir{
+            dirs 'libs'
+        }
         jcenter()
         maven { url "https://jitpack.io" }
     }
