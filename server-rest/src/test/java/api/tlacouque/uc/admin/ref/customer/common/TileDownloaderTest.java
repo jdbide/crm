@@ -27,6 +27,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
     String catalinaBaseUrl;
     String catalinaUrl = "/home/datour";
+   // String catalinaUrl = "C:\\Users\\user\\Desktop\\";
     File file;
 
     @Before
@@ -37,7 +38,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
     }
 
     @Test
-    public void testdwdTile() throws Exception {
+    public void testdwdTileOk() throws Exception {
        PowerMockito.mockStatic(System.class);
         when(System.getProperty("catalina.base")).thenReturn(catalinaUrl);
 
@@ -50,6 +51,23 @@ import static org.powermock.api.mockito.PowerMockito.when;
         file = new File(catalinaUrl+"/webapps/image/" +TileDownloaderThread.formatUrl(mapInfo));
         assertTrue(file.exists());
     }
+
+    @Test
+    public void testdwdTileTileNotFound() throws Exception {
+        PowerMockito.mockStatic(System.class);
+        when(System.getProperty("catalina.base")).thenReturn(catalinaUrl);
+
+
+        MapInfo mapInfo = PowerMockito.mock(MapInfo.class);
+        when(mapInfo.getX()).thenReturn(32);
+        when(mapInfo.getY()).thenReturn(16598);
+        when(mapInfo.getZ()).thenReturn(11271);
+        TileDownloader.dwdTile(mapInfo);
+        file = new File(catalinaUrl+"/webapps/image/" +TileDownloaderThread.formatUrl(mapInfo));
+        assertFalse(file.exists());
+    }
+
+
 
     @After
     public void tearDown() throws Exception {

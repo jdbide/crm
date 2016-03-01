@@ -14,6 +14,7 @@ import org.springframework.util.FileSystemUtils;
 import java.io.File;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -27,6 +28,7 @@ public class TileDownloaderThreadTest {
 
     String catalinaBaseUrl;
     String catalinaUrl = "/home/datour";
+   // String catalinaUrl = "C:\\Users\\user\\Desktop\\";
     private static String URL_BASE = "http://tile.openstreetmap.org/";
     File file;
     MapInfo mapInfo;
@@ -53,11 +55,20 @@ public class TileDownloaderThreadTest {
     }
 
     @Test
-    public void testRun() throws Exception {
+    public void testRunOk() throws Exception {
         TileDownloaderThread tdt = new TileDownloaderThread(mapInfo);
         tdt.run();
         file = new File(catalinaUrl+"/webapps/image/" +TileDownloaderThread.formatUrl(mapInfo));
         assertTrue(file.exists());
+    }
+
+    @Test
+    public void testRunNOk() throws Exception {
+        when(mapInfo.getX()).thenReturn(32);
+        TileDownloaderThread tdt = new TileDownloaderThread(mapInfo);
+        tdt.run();
+        file = new File(catalinaUrl+"/webapps/image/" +TileDownloaderThread.formatUrl(mapInfo));
+        assertFalse(file.exists());
     }
 
     @Test
