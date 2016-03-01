@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -68,6 +69,28 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
         String string = FormatValidator.formatPathTile(mapInfo);
         assertEquals("/osmdroid/tiles/Mapnik/15/16595/11271.png.tile",string);
+
+    }
+
+
+    @Test
+    public void testFormatUrlPathTile() throws Exception {
+        MapInfo mapInfo = Mockito.mock(MapInfo.class);
+        when(mapInfo.getX()).thenReturn(15);
+        when(mapInfo.getY()).thenReturn(1212);
+        when(mapInfo.getZ()).thenReturn(888);
+        String returnString = FormatValidator.formatUrlPathTile(mapInfo);
+        assertEquals(returnString,"/15/1212/888.png");
+    }
+
+    @Test
+    public void testFormatUrlTile() throws Exception {
+        MapInfo mapInfo = Mockito.mock(MapInfo.class);
+        when(mapInfo.getX()).thenReturn(15);
+        when(mapInfo.getY()).thenReturn(1212);
+        when(mapInfo.getZ()).thenReturn(888);
+        String returnString = FormatValidator.formatUrlTile(mapInfo);
+        assertEquals(returnString,"\\image/15/1212/888.png");
 
     }
 }

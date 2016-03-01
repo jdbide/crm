@@ -28,7 +28,9 @@ public class TileDownloaderThreadTest {
 
     String catalinaBaseUrl;
 
+
     String catalinaUrl = System.getProperty("user.home");
+
 
     private static String URL_BASE = "http://tile.openstreetmap.org/";
     File file;
