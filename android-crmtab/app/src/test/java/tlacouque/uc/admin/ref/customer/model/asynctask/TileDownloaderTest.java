@@ -30,6 +30,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Map
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -67,17 +68,13 @@ public class TileDownloaderTest {
         Bitmap bitmap = td.downloadBitmap(PATH);
         assertNotNull(bitmap);
     }
-/**
-    @Test
-    public void testDoInBackground() throws Exception {
-        MapInfo mapInfo = Mockito.mock(MapInfo.class);
-        when(mapInfo.getX()).thenReturn(15);
-        when(mapInfo.getY()).thenReturn(16595);
-        when(mapInfo.getZ()).thenReturn(11271);
-        td.execute(mapInfo);
-        File file = new File("/");
 
-    }*/
+    @Test
+    public void testDownloadBitmapNOk() throws Exception {
+        String PATH = "http://a.tile.openstreetmap.org/32/16595/11271.png";
+        Bitmap bitmap = td.downloadBitmap(PATH);
+        assertNull(bitmap);
+    }
 
     @After
     public void tearDown() throws Exception {
