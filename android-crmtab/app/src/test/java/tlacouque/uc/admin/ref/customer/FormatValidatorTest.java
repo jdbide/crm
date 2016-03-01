@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -90,7 +89,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
         when(mapInfo.getY()).thenReturn(1212);
         when(mapInfo.getZ()).thenReturn(888);
         String returnString = FormatValidator.formatUrlTile(mapInfo);
-        assertEquals(returnString,"\\image/15/1212/888.png");
+        assertEquals(returnString,"/image/15/1212/888.png");
 
     }
 }
