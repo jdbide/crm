@@ -94,10 +94,10 @@
             android:exported="false" />
 
         <activity android:name=".common.view.activity.ContactDetailActivity2" />
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
+        <activity
+            android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".mbalabascarin.uc.mock.contacts.view.ImportContactActivity"></activity>
     </application>
 
 </manifest>
