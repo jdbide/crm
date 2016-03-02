@@ -14,11 +14,9 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerContactRetrofit;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerConvertCsv2Pojo;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerReadFile;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.model.Contact;
@@ -124,11 +122,12 @@ public class ImportContactActivity extends Activity {
                     File file = new File(path);
 
                     //make conversion: csv to contact object
-                    List<Contact> contacts = new ArrayList<Contact>();
+                    List<Contact> contacts ;
                     contacts = new ControllerConvertCsv2Pojo().convertCsv2Contact(file);
 
                     // Initiate the upload
-                    new ControllerContactRetrofit().addContacts(contacts,this);
+                    //new ControllerContactRetrofit().addContacts(contacts,this);
+                    Toast.makeText(ImportContactActivity.this, "size: "+ contacts.size(), Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
