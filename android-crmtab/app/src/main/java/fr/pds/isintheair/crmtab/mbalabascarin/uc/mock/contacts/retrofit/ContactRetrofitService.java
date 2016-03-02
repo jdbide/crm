@@ -11,7 +11,7 @@ import retrofit.http.POST;
 /**
  * Created by Muthu on 30/12/2015.
  */
-public interface CrvRetrofitService {
+public interface ContactRetrofitService {
     @POST("contact/addContacts")
     Call<Boolean> addContacts(@Body List<Contact> contacts);
 

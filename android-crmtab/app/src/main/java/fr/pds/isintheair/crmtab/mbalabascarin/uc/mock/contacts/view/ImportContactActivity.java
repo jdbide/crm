@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerContactRetrofit;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerConvertCsv2Pojo;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerReadFile;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.model.Contact;
@@ -127,6 +128,7 @@ public class ImportContactActivity extends Activity {
                     contacts = new ControllerConvertCsv2Pojo().convertCsv2Contact(file);
 
                     // Initiate the upload
+                    new ControllerContactRetrofit().addContacts(contacts,this);
                 }
                 break;
         }
