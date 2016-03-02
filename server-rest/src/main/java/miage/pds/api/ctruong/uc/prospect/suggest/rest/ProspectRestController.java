@@ -72,6 +72,11 @@ public class ProspectRestController {
         return prospect;
     }
 
+    @RequestMapping(value = "/suggestion/prospects", method = RequestMethod.GET)
+    public @ResponseBody List<Prospect> analyseProcess(){
+        return controller.analyseProspect();
+    }
+
     @RequestMapping(value = "/suggestion/prospect/demo", method = RequestMethod.GET)
     public @ResponseBody String demo(){
         String message = "";
