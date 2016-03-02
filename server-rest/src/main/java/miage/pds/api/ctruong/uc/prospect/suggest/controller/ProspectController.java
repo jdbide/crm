@@ -96,12 +96,6 @@ public class ProspectController {
             }
         });
 
-        if (prospects.size() > 5) {
-            for (int i = prospects.size(); i > 5; i--) {
-                prospects.remove(i - 1);
-
-            }
-        }
         return prospects;
     }
 
