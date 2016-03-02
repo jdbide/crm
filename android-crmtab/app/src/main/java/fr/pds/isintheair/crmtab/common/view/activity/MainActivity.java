@@ -36,12 +36,9 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.ClientListFragment;
-import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
-
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
-
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.view.ImportContactActivity;
+import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
@@ -132,6 +129,10 @@ public class MainActivity extends AppCompatActivity
             PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
             startActivity(new Intent(this, LoginActivity.class));
             return true;
+        }
+
+        if (id == R.id.import_contact){
+            startActivity(new Intent(this, ImportContactActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

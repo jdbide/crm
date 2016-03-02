@@ -9,13 +9,18 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerConvertCsv2Pojo;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.controller.ControllerReadFile;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.model.Contact;
 
 public class ImportContactActivity extends Activity {
 
@@ -77,6 +82,11 @@ public class ImportContactActivity extends Activity {
         }
     }
 
+
+    public void importCsv(View view){
+        showFileChooser();
+    }
+
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
@@ -111,16 +121,10 @@ public class ImportContactActivity extends Activity {
                     //Log.d(TAG, "File Path: " + path);
                     // Get the file instance
                     File file = new File(path);
-                    try {
-                        String content = ControllerReadFile.getStringFromFile(path);
-                        //Log.d("conent: ", content);
-                        Toast.makeText(ImportContactActivity.this, content, Toast.LENGTH_SHORT).show();
 
-                        //do conversion
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    //make conversion: csv to contact object
+                    List<Contact> contacts = new ArrayList<Contact>();
+                    contacts = new ControllerConvertCsv2Pojo().convertCsv2Contact(file);
 
                     // Initiate the upload
                 }
