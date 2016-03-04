@@ -5,6 +5,6 @@ public class Constant {
     public static String REST_URL = "http://192.168.20.3:8082";
 
     //url for mock client
-   // public static final String BASE_URL = "http://192.168.20.3:8082/api/";
-    public static final String BASE_URL = "http://192.168.1.53:8080/api/";
+    public static final String BASE_URL = "http://192.168.20.3:8082/api/";
+
 }
