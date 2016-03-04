@@ -100,7 +100,7 @@ public class RestCustomerController {
         customerInserted = false;
     }
         ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-       LocationController.getLocation(responseRestCustomer,independant);
+        LocationController.getLocation(responseRestCustomer,independant);
         new IndependantDAO(MongoDatastoreConfig.getDataStore()).save(independant);
         MapInfo mapInfo = XYZCalcul.getMapInfo(independant);
         TileDownloader.dwdTile(mapInfo);

@@ -18,7 +18,8 @@ public class MongoDatastoreConfig {
     public static Datastore getDataStore() {
         if(datastore == null ) {
             try {
-                datastore = morphia.createDatastore(new MongoClient(MongoConfig.VM_DEV_IP,MongoConfig.VM_DEV_PORT),
+                //datastore = morphia.createDatastore(new MongoClient(MongoConfig.VM_DEV_IP,MongoConfig.VM_DEV_PORT),
+                  datastore = morphia.createDatastore(new MongoClient("localhost",MongoConfig.VM_DEV_PORT),
                         SpringMongoConfig.DB_NAME);
             } catch (UnknownHostException e) {
                 e.printStackTrace();

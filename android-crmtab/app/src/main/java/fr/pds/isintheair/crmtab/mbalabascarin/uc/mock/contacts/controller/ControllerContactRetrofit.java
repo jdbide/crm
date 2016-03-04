@@ -6,8 +6,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.List;
-
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.constant.Constant;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.model.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.retrofit.ContactRetrofitService;
@@ -22,7 +20,7 @@ import retrofit.Retrofit;
  */
 public class ControllerContactRetrofit {
 
-    public Boolean addContacts(List<Contact> contacts, final Context context){
+    public Boolean addContacts(Contact contact, final Context context){
 
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
@@ -35,12 +33,17 @@ public class ControllerContactRetrofit {
 
         //retrofit.client().setConnectTimeout(5000, TimeUnit.MILLISECONDS);
         ContactRetrofitService iContactRetrofitService = retrofit.create(ContactRetrofitService.class);
-        Call<Boolean> call = iContactRetrofitService.addContacts(contacts);
+        Call<Boolean> call = iContactRetrofitService.addContacts(contact);
         call.enqueue(new Callback<Boolean>() {
 
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
-                Toast.makeText(context, "Les contacts ont bien été importé :)", Toast.LENGTH_LONG).show();
+                if(response.isSuccess()){
+                    //Toast.makeText(context, "En cours d'import...", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(context, response.message(), Toast.LENGTH_LONG).show();
+                }
+                Toast.makeText(context, "Success !", Toast.LENGTH_SHORT).show();
             }
 
             @Override
