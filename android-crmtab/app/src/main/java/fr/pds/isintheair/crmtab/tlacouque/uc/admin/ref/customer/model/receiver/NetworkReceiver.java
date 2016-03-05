@@ -14,6 +14,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.De
 public class NetworkReceiver extends BroadcastReceiver {
 
     DetailFragmentNetworkInterface fragmentNetworkInterface;
+    public boolean networkAvailable;
 
     public NetworkReceiver(DetailFragmentNetworkInterface fragment) {
         fragmentNetworkInterface = fragment;
@@ -31,8 +32,10 @@ public class NetworkReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if(CheckInternetConnexion.isNetworkAvailable(context)) {
             fragmentNetworkInterface.initOnlineMap();
+            networkAvailable = true;
         } else {
             fragmentNetworkInterface.initOfflineMap(true);
+            networkAvailable = false;
         }
     }
 }
