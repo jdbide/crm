@@ -3,7 +3,9 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +21,8 @@ import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,17 +35,20 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 
 /**
  * Created by tlacouque on 01/01/2016.
  * Controller which is used to display an independant. He used to display the view, and to open
  * a web navigator if the user click on the website textview.
  */
-public class DetailIndepFragment extends Fragment {
+public class DetailIndepFragment extends Fragment implements DetailFragmentNetworkInterface {
 
     //Used to have the same key to pass independant from customer list view holder to this fragment
     public static final String KEY_INDEP_ARGS = "INDEP";
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    NetworkReceiver networkReceiver;
 
     @Bind(R.id.detail_indep_fragment_name)
     TextView name;
@@ -137,6 +144,17 @@ public class DetailIndepFragment extends Fragment {
     }
 
     /**
+     * Called when the fragment pass to the first plan,
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        networkReceiver = new NetworkReceiver(this);
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(networkReceiver,intentFilter);
+    }
+
+    /**
      * Initialise the map in this view
      */
     private void initMap() {
@@ -144,12 +162,25 @@ public class DetailIndepFragment extends Fragment {
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setUseDataConnection(true);
+        if(CheckInternetConnexion.isNetworkAvailable(this.getContext())) {
+            initOnlineMap();
+        } else {
+            initOfflineMap(true);
+        }
+    }
+
+    /**
+     * Init map when there is no internet connexion depend on the
+     * offline parameter
+     * @param offline
+     */
+    public void initOfflineMap(boolean offline) {
         IMapController mapController = map.getController();
         mapController.setZoom(15);
         GeoPoint startPoint = new GeoPoint(independant.getLattitude(), independant.getLongitude());
-        mapController.setCenter(startPoint);
-
-
+        if(offline) {
+            mapController.setCenter(startPoint);
+        }
         Marker marker = new Marker(map);
         marker.setPosition(startPoint);
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -158,6 +189,23 @@ public class DetailIndepFragment extends Fragment {
         map.getOverlays().add(marker);
         map.invalidate();
     }
+
+    /**
+     * Initialise the map when there is an internet connexion
+     */
+    public void initOnlineMap() {
+
+        MyLocationNewOverlay locationOverlay = new MyLocationNewOverlay(getContext(),map);
+        GpsMyLocationProvider gpsMyLocationProvider = new GpsMyLocationProvider(this.getContext());
+        gpsMyLocationProvider.startLocationProvider(locationOverlay);
+        gpsMyLocationProvider.setLocationUpdateMinTime(1);
+        gpsMyLocationProvider.setLocationUpdateMinDistance(1);
+        locationOverlay.enableMyLocation(gpsMyLocationProvider);
+        locationOverlay.enableFollowLocation();
+        map.getOverlays().add(locationOverlay);
+        initOfflineMap(false);
+    }
+
 
     /**
      * Open a navigator and with the url pass by the website textview
@@ -169,6 +217,7 @@ public class DetailIndepFragment extends Fragment {
         intentWeb.setData(Uri.parse(url));
         startActivity(intentWeb);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -237,5 +286,12 @@ public class DetailIndepFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
+    /**
+     * Used to unregister the broadcast receiver.
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(networkReceiver);
+    }
 }

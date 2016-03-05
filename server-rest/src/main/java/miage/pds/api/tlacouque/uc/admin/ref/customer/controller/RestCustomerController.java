@@ -249,16 +249,4 @@ public class RestCustomerController {
        return responseRestCustomer;
     }
 
-    @RequestMapping(value = "/customer/test", method = RequestMethod.GET)
-    public void test() {
-        logger.info("test is called");
-        MapInfo mapInfo = new MapInfo(1,15,16597,11270);
-
-
-        TileDownloader.dwdTile(mapInfo);
-
-
-    }
-
-
 }

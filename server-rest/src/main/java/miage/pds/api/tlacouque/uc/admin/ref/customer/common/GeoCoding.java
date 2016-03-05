@@ -13,6 +13,7 @@ import java.net.Proxy;
 
 /**
  * Created by tlacouque on 01/02/2016.
+ * Class used to return the lat and long for a customer by using google geocoding service/api.
  */
 public class GeoCoding {
 
