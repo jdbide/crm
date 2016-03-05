@@ -20,7 +20,7 @@ public class CallService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "CrvRetrofitService created");
+        Log.d(TAG, "ContactRetrofitService created");
     }
 
     @Override
