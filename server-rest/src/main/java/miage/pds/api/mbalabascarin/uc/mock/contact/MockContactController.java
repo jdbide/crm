@@ -6,7 +6,7 @@ import miage.pds.api.mbalabascarin.uc.editcrv.model.Reporting;
 import miage.pds.api.mbalabascarin.uc.mock.contact.dao.ContactDao;
 import miage.pds.api.mbalabascarin.uc.mock.contact.model.Contact;
 
-import org.apache.log4j.Logger;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
