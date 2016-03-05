@@ -274,5 +274,9 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         void onFragmentInteraction(Uri uri);
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(networkReceiver);
+    }
 }
