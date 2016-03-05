@@ -4,6 +4,7 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletContext;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -16,7 +17,7 @@ import java.net.URL;
 public class TileDownloaderThread implements Runnable  {
 
     MapInfo mapInfo;
-    private static String URL_BASE = "http://tile.openstreetmap.org/";
+    public static String URL_BASE = "http://tile.openstreetmap.org/";
     private boolean saveDone;
     private static final Logger logger = LoggerFactory.getLogger(TileDownloaderThread.class);
 
@@ -29,8 +30,9 @@ public class TileDownloaderThread implements Runnable  {
         String url = formatUrl(mapInfo);
         String imageUrl = URL_BASE+url;
         String destinationFile = System.getProperty("catalina.base")+"/webapps/image/"+url;
-        logger.error("CatalinaPath",destinationFile);
-        logger.error("ImageUrl",imageUrl);
+
+        System.out.println("CatalinaPath : " + destinationFile);
+        System.out.println("ImageUrl : "+imageUrl);
         new File(destinationFile).getParentFile().mkdirs();
 
         try {

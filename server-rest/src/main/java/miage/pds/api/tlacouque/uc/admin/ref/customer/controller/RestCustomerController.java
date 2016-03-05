@@ -8,6 +8,7 @@ import miage.pds.MongoConfig;
 import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.common.GeoCoding;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.common.TileDownloader;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.common.TileDownloaderThread;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.common.XYZCalcul;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HealthCenterDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HoldingDAO;
@@ -247,6 +248,17 @@ public class RestCustomerController {
         }
 
        return responseRestCustomer;
+    }
+
+    @RequestMapping(value = "/customer/test", method = RequestMethod.GET)
+    public  @ResponseBody String test() {
+        logger.info("Get customers is called");
+        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
+        MapInfo mapInfo = new MapInfo(1L,15,16590,11279);
+        String url = TileDownloaderThread.formatUrl(mapInfo);
+        String imageUrl = TileDownloaderThread.URL_BASE+url;
+        String destinationFile = System.getProperty("catalina.base")+"/webapps/image/"+url;
+        return "{imageurl : " +imageUrl+", destinationFile :"+destinationFile;
     }
 
 }
