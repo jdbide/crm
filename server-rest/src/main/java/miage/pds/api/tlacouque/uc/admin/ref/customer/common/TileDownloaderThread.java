@@ -30,9 +30,6 @@ public class TileDownloaderThread implements Runnable  {
         String url = formatUrl(mapInfo);
         String imageUrl = URL_BASE+url;
         String destinationFile = System.getProperty("catalina.base")+"/webapps/image/"+url;
-
-        System.out.println("CatalinaPath : " + destinationFile);
-        System.out.println("ImageUrl : "+imageUrl);
         new File(destinationFile).getParentFile().mkdirs();
 
         try {

@@ -250,15 +250,4 @@ public class RestCustomerController {
        return responseRestCustomer;
     }
 
-    @RequestMapping(value = "/customer/test", method = RequestMethod.GET)
-    public  @ResponseBody String test() {
-        logger.info("Get customers is called");
-        ResponseRestCustomer responseRestCustomer = new ResponseRestCustomer();
-        MapInfo mapInfo = new MapInfo(1L,15,16590,11279);
-        String url = TileDownloaderThread.formatUrl(mapInfo);
-        String imageUrl = TileDownloaderThread.URL_BASE+url;
-        String destinationFile = System.getProperty("catalina.base")+"/webapps/image/"+url;
-        return "{imageurl : " +imageUrl+", destinationFile :"+destinationFile;
-    }
-
 }
