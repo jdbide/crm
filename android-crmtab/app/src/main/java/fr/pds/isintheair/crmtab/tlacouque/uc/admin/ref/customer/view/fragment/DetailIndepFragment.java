@@ -3,7 +3,9 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +21,6 @@ import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MyLocationOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -34,6 +35,7 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 
 /**
@@ -41,11 +43,12 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.Check
  * Controller which is used to display an independant. He used to display the view, and to open
  * a web navigator if the user click on the website textview.
  */
-public class DetailIndepFragment extends Fragment {
+public class DetailIndepFragment extends Fragment implements DetailFragmentNetworkInterface {
 
     //Used to have the same key to pass independant from customer list view holder to this fragment
     public static final String KEY_INDEP_ARGS = "INDEP";
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    NetworkReceiver networkReceiver;
 
     @Bind(R.id.detail_indep_fragment_name)
     TextView name;
@@ -140,6 +143,14 @@ public class DetailIndepFragment extends Fragment {
         longTermFidelity.setText(String.valueOf(independant.getLongTermFidelity()));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        networkReceiver = new NetworkReceiver(this);
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(networkReceiver,intentFilter);
+    }
+
     /**
      * Initialise the map in this view
      */
@@ -155,7 +166,7 @@ public class DetailIndepFragment extends Fragment {
         }
     }
 
-    private void initOfflineMap(boolean offline) {
+    public void initOfflineMap(boolean offline) {
         IMapController mapController = map.getController();
         mapController.setZoom(15);
         GeoPoint startPoint = new GeoPoint(independant.getLattitude(), independant.getLongitude());
@@ -171,7 +182,7 @@ public class DetailIndepFragment extends Fragment {
         map.invalidate();
     }
 
-    private void initOnlineMap() {
+    public void initOnlineMap() {
 
         MyLocationNewOverlay locationOverlay = new MyLocationNewOverlay(getContext(),map);
         GpsMyLocationProvider gpsMyLocationProvider = new GpsMyLocationProvider(this.getContext());
