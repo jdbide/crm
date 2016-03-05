@@ -9,6 +9,7 @@ import java.net.URL;
 
 /**
  * Created by tlacouque on 03/02/2016.
+ * Thread used to download the tile from the mapinfo
  */
 public class TileDownloaderThread implements Runnable  {
 
@@ -40,6 +41,12 @@ public class TileDownloaderThread implements Runnable  {
         return saveDone;
     }
 
+    /**
+     * Download/save the image on the tomcat directory
+     * @param imageUrl
+     * @param destinationFile
+     * @throws IOException
+     */
     public void saveImage(String imageUrl, String destinationFile) throws IOException {
         URL url = new URL(imageUrl);
        // Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("proxy.inside.esiag.info",3128));
@@ -58,7 +65,11 @@ public class TileDownloaderThread implements Runnable  {
         os.close();
     }
 
-
+    /**
+     * Format the url to save it on the right directory
+     * @param mapInfo
+     * @return
+     */
     public static String formatUrl(MapInfo mapInfo) {
         return mapInfo.getX()+ "/" + mapInfo.getY()+"/"+mapInfo.getZ()+".png";
     }
