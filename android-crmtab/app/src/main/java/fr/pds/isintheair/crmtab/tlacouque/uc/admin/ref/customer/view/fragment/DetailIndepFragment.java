@@ -143,6 +143,9 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         longTermFidelity.setText(String.valueOf(independant.getLongTermFidelity()));
     }
 
+    /**
+     * Called when the fragment pass to the first plan,
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -166,6 +169,11 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         }
     }
 
+    /**
+     * Init map when there is no internet connexion depend on the
+     * offline parameter
+     * @param offline
+     */
     public void initOfflineMap(boolean offline) {
         IMapController mapController = map.getController();
         mapController.setZoom(15);
@@ -182,6 +190,9 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         map.invalidate();
     }
 
+    /**
+     * Initialise the map when there is an internet connexion
+     */
     public void initOnlineMap() {
 
         MyLocationNewOverlay locationOverlay = new MyLocationNewOverlay(getContext(),map);
@@ -206,6 +217,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         intentWeb.setData(Uri.parse(url));
         startActivity(intentWeb);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -274,6 +286,9 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         void onFragmentInteraction(Uri uri);
     }
 
+    /**
+     * Used to unregister the broadcast receiver.
+     */
     @Override
     public void onPause() {
         super.onPause();

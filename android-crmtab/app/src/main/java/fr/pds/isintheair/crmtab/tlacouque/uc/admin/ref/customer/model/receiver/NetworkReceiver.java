@@ -22,6 +22,11 @@ public class NetworkReceiver extends BroadcastReceiver {
     public NetworkReceiver() {
     }
 
+    /**
+     * Called when internet connexion changed, it will change the fragment.
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         if(CheckInternetConnexion.isNetworkAvailable(context)) {
