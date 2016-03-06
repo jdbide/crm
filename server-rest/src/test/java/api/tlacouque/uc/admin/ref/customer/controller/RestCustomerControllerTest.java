@@ -53,7 +53,7 @@ public void setUp()throws UnknownHostException {
 
         }
 
-/**
+@SuppressWarnings("unchecked")
 @Test
 public void testCreateHC()throws Exception{
         HealthCenter healthCenter=new HealthCenter();
@@ -71,6 +71,7 @@ public void testCreateHC()throws Exception{
         assertTrue(responseRestCustomer.getIsInserted());
         }
 
+ @SuppressWarnings("unchecked")
 @Test public void testCreateIndep()throws Exception{
         Independant independant = new Independant();
         independant.setSiretNumber(1L);
@@ -85,7 +86,7 @@ public void testCreateHC()throws Exception{
         new IndependantDAO(datastore).delete(independant);
         assertEquals(nbIndepbeforeTest, nbIndepAfterTest);
         }
-*/
+
 @Test public void testGetHolding()throws Exception{
         ResponseRestCustomer responseRestCustomer=restCustomerController.getHoldings();
         assertNotNull(responseRestCustomer.getHoldings());
@@ -117,6 +118,7 @@ public void testCreateHC()throws Exception{
         ResponseRestCustomer responseRestCustomer=restCustomerController.getIndependants("1");
         assertEquals(independantNumber,responseRestCustomer.getIndependants().size());
         }
+
 
 @Test public void testGetCustomers()throws Exception{
         int independantNumber=new IndependantDAO(datastore).findAllWithUserId("1").size();

@@ -20,9 +20,16 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.Custo
 
 /**
  * Created by tlacouque on 04/02/2016.
+ * A sync task used to download and save an image on the disk
  */
 public class TileDownloader extends AsyncTask<MapInfo,Integer,Boolean> {
 
+    /**
+     * Method called when the TileDownloader Asynctask is executed.
+     * Download and save an image on the disk
+     * @param params, mapinfo which represent where to download the map
+     * @return
+     */
     @Override
     protected Boolean doInBackground(MapInfo... params) {
         MapInfo mapInfo = params[0];
@@ -43,21 +50,14 @@ public class TileDownloader extends AsyncTask<MapInfo,Integer,Boolean> {
 
         return saveImage(img,FormatValidator.formatPathTile(mapInfo));
 
-
-       /**
-        * Environment.getExternalStorageDirectory().toString()+
-        "/osmdroid/tiles/Mapnik/15/16597/test.png.tile"
-        *
-        *
-        * MapTile mapTile = new MapTile(mapInfo.getX(),mapInfo.getY(),mapInfo.getZ());
-        ITileSource tileSource = TileSourceFactory.MAPNIK;
-        return  new TileWriter().saveFile(tileSource,mapTile,img);
-*/
-      //  return true;
     }
 
-
-    private Bitmap downloadBitmap(String url) {
+    /**
+     * Method used to download and return a bitmap from an image.
+     * @param url, url to the image
+     * @return Bitmap, Bitmap from image downloaded
+     */
+    public Bitmap downloadBitmap(String url) {
         HttpURLConnection urlConnection = null;
         try {
             URL uri = new URL(url);
@@ -90,7 +90,12 @@ public class TileDownloader extends AsyncTask<MapInfo,Integer,Boolean> {
         return null;
     }
 
-
+    /**
+     * Method used to save an image on the disk from a bitmap and to a path
+     * @param bitmap, bitmap downloaded with the method dowmloadBitmap()
+     * @param path, path where the file has to be save
+     * @return boolean
+     */
     public boolean saveImage(Bitmap bitmap, String path) {
         OutputStream fOut = null;
         File file = new File(path); // the File to save to

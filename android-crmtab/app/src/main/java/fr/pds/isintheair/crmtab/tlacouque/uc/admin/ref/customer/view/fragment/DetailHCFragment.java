@@ -3,7 +3,9 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,17 +19,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
-
+import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.bonuspack.overlays.Marker;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,13 +37,15 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 
 /**
  * Created by tlacouque on 01/01/2016.
  * Controller which is used to display an health center. He used to display the view, and to open
  * a web navigator if the user click on the website textview.
  */
-public class DetailHCFragment extends Fragment {
+public class DetailHCFragment extends Fragment implements DetailFragmentNetworkInterface {
 
     //Used to have the same key to pass healthcenter from customer list view holder to this fragment
     public static final String KEY_HC_ARGS = "HC";
@@ -93,6 +97,8 @@ public class DetailHCFragment extends Fragment {
     MapView map;
     private HealthCenter healthCenter;
     private OnFragmentInteractionListener mListener;
+    private MyLocationNewOverlay locationOverlay;
+    private NetworkReceiver networkReceiver;
 
     public DetailHCFragment() {
         // Required empty public constructor
@@ -117,6 +123,17 @@ public class DetailHCFragment extends Fragment {
             checkPermissions();
         }
 
+    }
+
+    /**
+     * Called when the fragment pass to the first plan,
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        networkReceiver = new NetworkReceiver(this);
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(networkReceiver, intentFilter);
     }
 
     @Override
@@ -177,19 +194,11 @@ public class DetailHCFragment extends Fragment {
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setUseDataConnection(true);
-        IMapController mapController = map.getController();
-        mapController.setZoom(15);
-        GeoPoint startPoint = new GeoPoint(healthCenter.getLattitude(), healthCenter.getLongitude());
-        mapController.setCenter(startPoint);
-
-
-       Marker marker = new Marker(map);
-        marker.setPosition(startPoint);
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        marker.setIcon(getResources().getDrawable(android.R.drawable.star_on,null));
-        marker.setTitle(healthCenter.getName());
-        map.getOverlays().add(marker);
-        map.invalidate();
+        if(CheckInternetConnexion.isNetworkAvailable(this.getContext())) {
+            initOnlineMap();
+        } else {
+            initClientLocation(true);
+        }
 
         map.setOnTouchListener(new View.OnTouchListener() {
 
@@ -215,6 +224,47 @@ public class DetailHCFragment extends Fragment {
         });
         map.invalidate();
     }
+
+    /**
+     * Init client when there is no internet connexion depend on the actual connexion
+     * offline parameter
+     * @param offline
+     */
+    public void initClientLocation(boolean offline) {
+        IMapController mapController = map.getController();
+        mapController.setZoom(15);
+        GeoPoint startPoint = new GeoPoint(healthCenter.getLattitude(), healthCenter.getLongitude());
+        if(offline) {
+            mapController.setCenter(startPoint);
+            if(locationOverlay != null) {
+                map.getOverlays().remove(locationOverlay);
+            }
+        }
+        Marker marker = new Marker(map);
+        marker.setPosition(startPoint);
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setIcon(getResources().getDrawable(android.R.drawable.star_on, null));
+        marker.setTitle(healthCenter.getName());
+        map.getOverlays().add(marker);
+        map.invalidate();
+    }
+
+    /**
+     * Initialise the map when there is an internet connexion
+     */
+    public void initOnlineMap() {
+        locationOverlay = new MyLocationNewOverlay(getContext(),map);
+        GpsMyLocationProvider gpsMyLocationProvider = new GpsMyLocationProvider(this.getContext());
+        gpsMyLocationProvider.startLocationProvider(locationOverlay);
+        gpsMyLocationProvider.setLocationUpdateMinTime(10);
+        gpsMyLocationProvider.setLocationUpdateMinDistance(5);
+        locationOverlay.enableMyLocation(gpsMyLocationProvider);
+        locationOverlay.enableFollowLocation();
+        map.getOverlays().add(locationOverlay);
+        initClientLocation(false);
+    }
+
+
 
     /**
      * Open a navigator and with the url pass by the website textview
@@ -292,8 +342,9 @@ public class DetailHCFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
-
-
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(networkReceiver);
+    }
 }
