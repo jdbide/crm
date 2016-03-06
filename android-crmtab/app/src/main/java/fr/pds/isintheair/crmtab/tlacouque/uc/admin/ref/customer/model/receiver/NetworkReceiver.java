@@ -34,7 +34,7 @@ public class NetworkReceiver extends BroadcastReceiver {
             fragmentNetworkInterface.initOnlineMap();
             networkAvailable = true;
         } else {
-            fragmentNetworkInterface.initOfflineMap(true);
+            fragmentNetworkInterface.initClientLocation(true);
             networkAvailable = false;
         }
     }
