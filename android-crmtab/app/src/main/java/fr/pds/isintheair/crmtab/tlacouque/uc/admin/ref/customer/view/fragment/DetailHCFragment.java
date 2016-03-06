@@ -197,7 +197,7 @@ public class DetailHCFragment extends Fragment implements DetailFragmentNetworkI
         if(CheckInternetConnexion.isNetworkAvailable(this.getContext())) {
             initOnlineMap();
         } else {
-            initOfflineMap(true);
+            initClientLocation(true);
         }
 
         map.setOnTouchListener(new View.OnTouchListener() {
@@ -226,11 +226,11 @@ public class DetailHCFragment extends Fragment implements DetailFragmentNetworkI
     }
 
     /**
-     * Init map when there is no internet connexion depend on the actual connexion
+     * Init client when there is no internet connexion depend on the actual connexion
      * offline parameter
      * @param offline
      */
-    public void initOfflineMap(boolean offline) {
+    public void initClientLocation(boolean offline) {
         IMapController mapController = map.getController();
         mapController.setZoom(15);
         GeoPoint startPoint = new GeoPoint(healthCenter.getLattitude(), healthCenter.getLongitude());
@@ -261,7 +261,7 @@ public class DetailHCFragment extends Fragment implements DetailFragmentNetworkI
         locationOverlay.enableMyLocation(gpsMyLocationProvider);
         locationOverlay.enableFollowLocation();
         map.getOverlays().add(locationOverlay);
-        initOfflineMap(false);
+        initClientLocation(false);
     }
 
 

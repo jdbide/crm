@@ -165,16 +165,16 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         if(CheckInternetConnexion.isNetworkAvailable(this.getContext())) {
             initOnlineMap();
         } else {
-            initOfflineMap(true);
+            initClientLocation(true);
         }
     }
 
     /**
-     * Init map when there is no internet connexion depend on the actual connexion
+     * Init client location when there is no internet connexion depend on the actual connexion
      * offline parameter
      * @param offline
      */
-    public void initOfflineMap(boolean offline) {
+    public void initClientLocation(boolean offline) {
         IMapController mapController = map.getController();
         mapController.setZoom(15);
         GeoPoint startPoint = new GeoPoint(independant.getLattitude(), independant.getLongitude());
@@ -205,7 +205,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         locationOverlay.enableMyLocation(gpsMyLocationProvider);
         locationOverlay.enableFollowLocation();
         map.getOverlays().add(locationOverlay);
-        initOfflineMap(false);
+        initClientLocation(false);
     }
 
 
