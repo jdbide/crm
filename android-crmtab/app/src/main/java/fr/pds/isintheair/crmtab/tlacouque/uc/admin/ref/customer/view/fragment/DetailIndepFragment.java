@@ -74,7 +74,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
     MapView map;
     private Independant independant;
     private OnFragmentInteractionListener mListener;
-
+    private MyLocationNewOverlay locationOverlay;
     public DetailIndepFragment() {
         // Required empty public constructor
     }
@@ -151,7 +151,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         super.onResume();
         networkReceiver = new NetworkReceiver(this);
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        getActivity().registerReceiver(networkReceiver,intentFilter);
+        getActivity().registerReceiver(networkReceiver, intentFilter);
     }
 
     /**
@@ -180,6 +180,9 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         GeoPoint startPoint = new GeoPoint(independant.getLattitude(), independant.getLongitude());
         if(offline) {
             mapController.setCenter(startPoint);
+            if(locationOverlay != null) {
+                map.getOverlays().remove(locationOverlay);
+            }
         }
         Marker marker = new Marker(map);
         marker.setPosition(startPoint);
@@ -194,8 +197,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
      * Initialise the map when there is an internet connexion
      */
     public void initOnlineMap() {
-
-        MyLocationNewOverlay locationOverlay = new MyLocationNewOverlay(getContext(),map);
+        locationOverlay = new MyLocationNewOverlay(getContext(),map);
         GpsMyLocationProvider gpsMyLocationProvider = new GpsMyLocationProvider(this.getContext());
         gpsMyLocationProvider.startLocationProvider(locationOverlay);
         gpsMyLocationProvider.setLocationUpdateMinTime(10);
