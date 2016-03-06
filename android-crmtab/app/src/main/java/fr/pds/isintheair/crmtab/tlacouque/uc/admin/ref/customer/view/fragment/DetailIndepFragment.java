@@ -170,7 +170,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
     }
 
     /**
-     * Init map when there is no internet connexion depend on the
+     * Init map when there is no internet connexion depend on the actual connexion
      * offline parameter
      * @param offline
      */
