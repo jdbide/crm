@@ -3,7 +3,9 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 
 /**
@@ -42,7 +45,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.Check
  * Controller which is used to display an health center. He used to display the view, and to open
  * a web navigator if the user click on the website textview.
  */
-public class DetailHCFragment extends Fragment {
+public class DetailHCFragment extends Fragment implements DetailFragmentNetworkInterface {
 
     //Used to have the same key to pass healthcenter from customer list view holder to this fragment
     public static final String KEY_HC_ARGS = "HC";
@@ -95,6 +98,7 @@ public class DetailHCFragment extends Fragment {
     private HealthCenter healthCenter;
     private OnFragmentInteractionListener mListener;
     private MyLocationNewOverlay locationOverlay;
+    private NetworkReceiver networkReceiver;
 
     public DetailHCFragment() {
         // Required empty public constructor
@@ -119,6 +123,17 @@ public class DetailHCFragment extends Fragment {
             checkPermissions();
         }
 
+    }
+
+    /**
+     * Called when the fragment pass to the first plan,
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        networkReceiver = new NetworkReceiver(this);
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(networkReceiver, intentFilter);
     }
 
     @Override
@@ -327,8 +342,9 @@ public class DetailHCFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
-
-
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(networkReceiver);
+    }
 }
