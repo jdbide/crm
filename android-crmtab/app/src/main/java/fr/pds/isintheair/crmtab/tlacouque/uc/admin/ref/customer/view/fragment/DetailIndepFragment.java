@@ -198,8 +198,8 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         MyLocationNewOverlay locationOverlay = new MyLocationNewOverlay(getContext(),map);
         GpsMyLocationProvider gpsMyLocationProvider = new GpsMyLocationProvider(this.getContext());
         gpsMyLocationProvider.startLocationProvider(locationOverlay);
-        gpsMyLocationProvider.setLocationUpdateMinTime(1);
-        gpsMyLocationProvider.setLocationUpdateMinDistance(1);
+        gpsMyLocationProvider.setLocationUpdateMinTime(10);
+        gpsMyLocationProvider.setLocationUpdateMinDistance(5);
         locationOverlay.enableMyLocation(gpsMyLocationProvider);
         locationOverlay.enableFollowLocation();
         map.getOverlays().add(locationOverlay);
