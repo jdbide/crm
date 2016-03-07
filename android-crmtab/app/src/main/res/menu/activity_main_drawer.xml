@@ -30,7 +30,7 @@
         <item
             android:id="@+id/nav_suggestion_prospect"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Envoyer sms"/>
+            android:title="Prospect suggestion"/>
 
     </item>
 
