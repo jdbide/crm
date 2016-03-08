@@ -134,5 +134,6 @@
     <string name="prospect_tv_town">City</string>
     <string name="prospect_tv_website">Website</string>
     <string name="prospect_tv_etablishmentType">Etablishment type</string>
+    <string name="prospect_tv_turnover">Turnover</string>
 
 </resources>
