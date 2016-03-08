@@ -345,7 +345,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
     /**
      * Called when one or several Rules fail from the validator.
-     * Called after  validator.validate(true); from insertHE method
+     * Called after  validator.validate(true); from insertIndep method
      *
      * @param errors
      */
