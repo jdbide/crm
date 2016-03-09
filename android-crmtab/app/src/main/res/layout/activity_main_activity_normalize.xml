@@ -9,10 +9,5 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.MainActivityNormalize">
 
-    <fragment
-        android:name="fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.SpellCheckerFragment"
-        android:id="@+id/fragment_place"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>

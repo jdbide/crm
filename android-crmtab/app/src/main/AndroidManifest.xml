@@ -98,7 +98,8 @@
             android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".mbalabascarin.uc.mock.contacts.view.ImportContactActivity" />
-        <activity android:name=".mbalabascarin.uc.normalize.MainActivityNormalize"></activity>
+        <activity android:name=".mbalabascarin.uc.normalize.MainActivityNormalize" />
+        <activity android:name=".mbalabascarin.uc.normalize.SpellCheckActivity"></activity>
     </application>
 
 </manifest>
