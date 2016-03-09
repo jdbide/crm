@@ -13,7 +13,11 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.io.File;
+
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfo;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 
 /**
@@ -96,12 +100,14 @@ public class MapUtils {
     }
 
 
-
-
     /**
      * Init client when there is no internet connexion depend on the actual connexion
      * offline parameter
      * @param offline
+     * @param map
+     * @param customer
+     * @param locationOverlay
+     * @param fragment
      */
     public static void initClientLocation(boolean offline, MapView map, Customer customer,
                                    MyLocationNewOverlay locationOverlay, Fragment fragment) {
@@ -125,6 +131,10 @@ public class MapUtils {
 
     /**
      * Initialise the map when there is an internet connexion
+     * @param map
+     * @param fragment
+     * @param locationOverlay
+     * @param customer
      */
     public static void initOnlineMap(final MapView map,Fragment fragment,
                               MyLocationNewOverlay locationOverlay,Customer customer) {
@@ -139,7 +149,14 @@ public class MapUtils {
         initClientLocation(false, map, customer, locationOverlay, fragment);
     }
 
-
+    /**
+     * Method used to know if there is the tile of a mapinfo saved on a device.
+     * @param mapInfo
+     * @return boolean
+     */
+    public static boolean isTileSaveOnDevice(MapInfo mapInfo) {
+      return  new File(FormatValidator.formatPathTile(mapInfo)).exists();
+    }
 
 
 }
