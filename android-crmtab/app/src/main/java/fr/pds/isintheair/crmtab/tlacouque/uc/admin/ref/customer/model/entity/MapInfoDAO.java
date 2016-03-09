@@ -19,4 +19,13 @@ public class MapInfoDAO extends UserDAO {
     public static boolean isMapInfoExist(long siretNumber) {
         return new Select().from(MapInfo.class).where(MapInfo_Table.siretNumber.eq(siretNumber)).hasData();
     }
+
+    /**
+     * Return a map info which have the current siret number.
+     * @param siretNumber
+     * @return
+     */
+    public static MapInfo getMapInfo(long siretNumber) {
+        return new Select().from(MapInfo.class).where(MapInfo_Table.siretNumber.eq(siretNumber)).querySingle();
+    }
 }

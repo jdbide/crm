@@ -18,6 +18,7 @@ import java.io.File;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfo;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfoDAO;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 
 /**
@@ -150,12 +151,18 @@ public class MapUtils {
     }
 
     /**
-     * Method used to know if there is the tile of a mapinfo saved on a device.
+     * Method used to know if there is a tile file of a mapinfo saved on a device.
      * @param mapInfo
      * @return boolean
      */
-    public static boolean isTileSaveOnDevice(MapInfo mapInfo) {
+    public static boolean isTileFileSavedOnDevice(MapInfo mapInfo) {
       return  new File(FormatValidator.formatPathTile(mapInfo)).exists();
+    }
+
+    public static boolean isTileSavedOnDevice(long siretNumber) {
+        if(MapInfoDAO.isMapInfoExist(siretNumber)) return false;
+        if(isTileFileSavedOnDevice(MapInfoDAO.getMapInfo(siretNumber))) return true;
+        return false;
     }
 
 
