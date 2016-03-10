@@ -160,7 +160,7 @@ public class MapUtils {
     }
 
     public static boolean isTileSavedOnDevice(long siretNumber) {
-        if(MapInfoDAO.isMapInfoExist(siretNumber)) return false;
+        if(!MapInfoDAO.isMapInfoExist(siretNumber)) return false;
         if(isTileFileSavedOnDevice(MapInfoDAO.getMapInfo(siretNumber))) return true;
         return false;
     }

@@ -32,6 +32,7 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.MapUtils;
 
 /**
@@ -89,6 +90,10 @@ public class DetailHCFragment extends Fragment implements DetailFragmentNetworkI
 
     @Bind(R.id.detail_hc_fragment_map)
     MapView map;
+
+    @Bind(R.id.detail_hc_fragment_map_unavailable)
+    TextView mapUnavailable;
+
     private HealthCenter healthCenter;
     private OnFragmentInteractionListener mListener;
     private MyLocationNewOverlay locationOverlay;
@@ -184,7 +189,15 @@ public class DetailHCFragment extends Fragment implements DetailFragmentNetworkI
      * Initialise the map in this view
      */
     public void initMap() {
-        MapUtils.initMap(map,this,scrollView,locationOverlay,healthCenter);
+        if(MapUtils.isTileSavedOnDevice(healthCenter.getSiretNumber())
+                || CheckInternetConnexion.isNetworkAvailable(getContext())) {
+            map.setVisibility(View.VISIBLE);
+            mapUnavailable.setVisibility(View.INVISIBLE);
+            MapUtils.initMap(map, this, scrollView, locationOverlay, healthCenter);
+        } else {
+            map.setVisibility(View.INVISIBLE);
+            mapUnavailable.setVisibility(View.VISIBLE);
+        }
     }
 
 
