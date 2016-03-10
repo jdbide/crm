@@ -16,12 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.osmdroid.api.IMapController;
-import org.osmdroid.bonuspack.overlays.Marker;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
@@ -37,6 +32,7 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.MapUtils;
 
 /**
  * Created by tlacouque on 01/01/2016.
@@ -72,6 +68,8 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
     TextView longTermFidelity;
     @Bind(R.id.detail_indep_fragment_map)
     MapView map;
+    @Bind(R.id.detail_hc_fragment_map_unavailable)
+    TextView mapUnavailable;
     private Independant independant;
     private OnFragmentInteractionListener mListener;
     private MyLocationNewOverlay locationOverlay;
@@ -158,55 +156,17 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
      * Initialise the map in this view
      */
     public void initMap() {
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
-        map.setMultiTouchControls(true);
-        map.setUseDataConnection(true);
-        if(CheckInternetConnexion.isNetworkAvailable(this.getContext())) {
-            initOnlineMap();
+        if(MapUtils.isTileSavedOnDevice(independant.getSiretNumber())
+                || CheckInternetConnexion.isNetworkAvailable(getContext())) {
+            map.setVisibility(View.VISIBLE);
+
+            MapUtils.initMap(map, this, locationOverlay, independant);
         } else {
-            initClientLocation(true);
+            map.setVisibility(View.INVISIBLE);
+
         }
     }
 
-    /**
-     * Init client location when there is no internet connexion depend on the actual connexion
-     * offline parameter
-     * @param offline
-     */
-    public void initClientLocation(boolean offline) {
-        IMapController mapController = map.getController();
-        mapController.setZoom(15);
-        GeoPoint startPoint = new GeoPoint(independant.getLattitude(), independant.getLongitude());
-        if(offline) {
-            mapController.setCenter(startPoint);
-            if(locationOverlay != null) {
-                map.getOverlays().remove(locationOverlay);
-            }
-        }
-        Marker marker = new Marker(map);
-        marker.setPosition(startPoint);
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        marker.setIcon(getResources().getDrawable(android.R.drawable.star_on, null));
-        marker.setTitle(independant.getName());
-        map.getOverlays().add(marker);
-        map.invalidate();
-    }
-
-    /**
-     * Initialise the map when there is an internet connexion
-     */
-    public void initOnlineMap() {
-        locationOverlay = new MyLocationNewOverlay(getContext(),map);
-        GpsMyLocationProvider gpsMyLocationProvider = new GpsMyLocationProvider(this.getContext());
-        gpsMyLocationProvider.startLocationProvider(locationOverlay);
-        gpsMyLocationProvider.setLocationUpdateMinTime(10);
-        gpsMyLocationProvider.setLocationUpdateMinDistance(5);
-        locationOverlay.enableMyLocation(gpsMyLocationProvider);
-        locationOverlay.enableFollowLocation();
-        map.getOverlays().add(locationOverlay);
-        initClientLocation(false);
-    }
 
 
     /**
