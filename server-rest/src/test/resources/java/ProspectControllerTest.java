@@ -22,7 +22,7 @@ import java.util.*;
  * @version 1.1.19
  * @serial 111912202015
  */
-public class ProspectControllerTest {
+/* public class ProspectControllerTest {
     private static final Logger         log = LoggerFactory.getLogger(ProspectControllerTest.class);
     private MongoClient                 mongoClient;
     private Morphia                     morphia;
@@ -161,4 +161,4 @@ public class ProspectControllerTest {
         double      average   = sum /count;
         assertTrue(average == prospectController.getSalesAverage());
     }
-}
+} */

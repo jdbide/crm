@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
  * @version 1.1.19
  * @serial 111912202015
  */
-public class ProspectDAOImplTest {
+/* public class ProspectDAOImplTest {
     private final static Logger log         = LoggerFactory.getLogger(ProspectDAOImplTest.class);
     private MongoClient         mongoClient;
     private Morphia             morphia;
@@ -52,4 +52,4 @@ public class ProspectDAOImplTest {
         assertEquals(prospect.getId(), prospect1.getId());
         assertEquals(prospect.getPlace(), prospect1.getPlace());
     }
-}
+} */

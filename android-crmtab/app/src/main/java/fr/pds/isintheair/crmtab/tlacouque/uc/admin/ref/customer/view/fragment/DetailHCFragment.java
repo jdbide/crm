@@ -175,9 +175,17 @@ public class DetailHCFragment extends Fragment {
         map.setMultiTouchControls(true);
         map.setUseDataConnection(true);
         IMapController mapController = map.getController();
-        mapController.setZoom(10);
-        GeoPoint startPoint = new GeoPoint(48.8534100, 2.3488000);
+        mapController.setZoom(15);
+        GeoPoint startPoint = new GeoPoint(healthCenter.getLattitude(), healthCenter.getLongitude());
         mapController.setCenter(startPoint);
+
+      /**  Marker marker = new Marker(map);
+        marker.setPosition(startPoint);
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setIcon(getResources().getDrawable(android.R.drawable.star_on));
+        marker.setTitle("Start point");
+        map.getOverlays().add(marker);
+        map.invalidate();*/
 
         map.setOnTouchListener(new View.OnTouchListener() {
 

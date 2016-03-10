@@ -1,17 +1,9 @@
 package fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
-import junit.framework.TestCase;
-
-import org.junit.Before;
-import org.junit.Test;
-
 /**
  * Created by Muthu on 02/01/2016.
  */
-public class RandomInformationTest extends TestCase {
+/* public class RandomInformationTest extends TestCase {
 RandomInformation randomInformation;
     @Before
     public void setUp() throws Exception {
@@ -35,4 +27,4 @@ RandomInformation randomInformation;
         assertEquals(true, random<5);
 
     }
-}
+} */

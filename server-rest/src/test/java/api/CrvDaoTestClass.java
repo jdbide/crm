@@ -1,26 +1,11 @@
 package api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import miage.pds.api.mbalabascarin.uc.editcrv.dao.Config;
-import miage.pds.api.mbalabascarin.uc.editcrv.dao.CrvMorphiaDao;
-import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class) 
-public class CrvDaoTestClass {
-	private CrvMorphiaDao CrvDaoObject;
+/*@RunWith(MockitoJUnitRunner.class)
+ public class CrvDaoTestClass {
+    private CrvMorphiaDao CrvDaoObject;
 	private Report report;
 
 	@Before
@@ -107,4 +92,4 @@ public class CrvDaoTestClass {
 		assertTrue(CrvDaoObject.createOrModifyCrv(report)==true);
 
 	}
-}
+} */

@@ -21,14 +21,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.adapter.ListCustomerAdapter;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.InitValue;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.RESTCustomerHandlerSingleton;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.adapter.ListCustomerAdapter;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -164,11 +164,13 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
     public void initCustomers() {
 
         final List<Customer> customers = (List<Customer>) (List<?>) new Select().from(HealthCenter.class).queryList();
-        final List<Customer> indeps    = (List<Customer>) (List<?>) new Select().from(Independant.class).queryList();
-        customers.addAll(indeps);
+        final List<Customer> customersindeps    = (List<Customer>) (List<?>) new Select().from(Independant.class).queryList();
+        final List<HealthCenter> healthCenterList = new Select().from(HealthCenter.class).queryList();
+        final List<Independant> independantList = new Select().from(Independant.class).queryList();
+        customers.addAll(customersindeps);
         //Check if there is a network available
         if (CheckInternetConnexion.isNetworkAvailable(this.getActivity().getApplicationContext())) {
-            callRest(customers);
+            callRest(customers,healthCenterList,independantList);
         } else {
             initAdapter(customers);
         }
@@ -179,7 +181,8 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
      *
      * @param customers
      */
-    private void callRest(final List<Customer> customers) {
+    private void callRest(final List<Customer> customers,final List<HealthCenter> healthCenterList,
+                          final List<Independant> independantList) {
 
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
                                                                       .getCustomerService().getCustomers(this.idUser);
@@ -187,13 +190,22 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
         call.enqueue(new Callback<ResponseRestCustomer>() {
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-                List<HealthCenter> healthCenters = response.body().getHealthCenters();
-                List<Independant> independants = response.body().getIndependants();
-                if(response.errorBody() == null) {
 
+                if(response.errorBody() == null) {
+                    List<HealthCenter> healthCenters = response.body().getHealthCenters();
+                    List<Independant> independants = response.body().getIndependants();
                         if(healthCenters != null) {
                             for (HealthCenter healthCenter : response.body().getHealthCenters()) {
-                                customers.add(healthCenter);
+                                boolean alreadyOnTablet = false;
+                                    for(HealthCenter healthCenterTab : healthCenterList) {
+                                        if(healthCenterTab.getSiretNumber() == healthCenter.getSiretNumber()) {
+                                            alreadyOnTablet = true;
+                                        }
+                                    }
+                                if(!alreadyOnTablet) {
+                                   customers.add(healthCenter);
+                                }
+
                             }
                         }
                         if(independants != null) {

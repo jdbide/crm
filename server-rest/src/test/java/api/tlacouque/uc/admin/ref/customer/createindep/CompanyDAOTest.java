@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by tlacouque on 17/01/2016.
  */
-public class CompanyDAOTest {
+/*public class CompanyDAOTest {
 
     MongoClient mongoClient;
     Morphia morphia;
@@ -40,4 +40,4 @@ public class CompanyDAOTest {
         assertEquals(34,companies.size());
         assertThat(35,not(companies.size()));
     }
-}
+} */

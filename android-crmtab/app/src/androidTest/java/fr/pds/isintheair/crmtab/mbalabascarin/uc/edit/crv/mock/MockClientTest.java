@@ -12,7 +12,7 @@ import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 /**
  * Created by Muthu on 02/01/2016.
  */
-public class MockClientTest extends TestCase {
+/* public class MockClientTest extends TestCase {
     MockClient mock;
 
     @Before
@@ -66,4 +66,4 @@ public class MockClientTest extends TestCase {
         assertEquals("5 Rue de Paris 75016", client5.getClientAddress());
     }
 
-}
+} */

@@ -14,7 +14,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
-import fr.pds.isintheair.crmtab.common.view.activity.ContactDetailActivity;
+import fr.pds.isintheair.crmtab.common.view.activity.ContactDetailActivity2;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 
 /******************************************
  * Created by        : jdatour            *
@@ -26,10 +27,12 @@ import fr.pds.isintheair.crmtab.common.view.activity.ContactDetailActivity;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private List<Contact> contacts;
     private Context       context;
+    private Client        client;
 
-    public ContactAdapter(Context context, List<Contact> contacts) {
+    public ContactAdapter(Context context, List<Contact> contacts, Client client) {
         this.contacts = contacts;
         this.context = context;
+        this.client = client;
     }
 
     @Override
@@ -47,10 +50,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ContactDetailActivity.class);
+                Intent intent = new Intent(context, ContactDetailActivity2.class);
 
                 intent.putExtra("contact", contact);
-
+                intent.putExtra("client", client);
                 context.startActivity(intent);
             }
         });
