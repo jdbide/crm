@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.otto.Subscribe;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -13,6 +15,7 @@ import fr.pds.isintheair.crmtab.common.helper.NetworkHelper;
 import fr.pds.isintheair.crmtab.common.helper.ResourceHelper;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallFailedEvent;
 
 /******************************************
  * Created by        : jdatour            *
@@ -38,7 +41,6 @@ public class ContactDetailActivity extends Activity {
             if (NetworkHelper.isNetworkAvailable()) {
                 CallController.call(currentContact.getPhoneNumber());
             }
-
             else {
                 Toast.makeText(this, ResourceHelper.getString(R.string.message_failed_no_internet), Toast.LENGTH_LONG).show();
             }
@@ -57,5 +59,10 @@ public class ContactDetailActivity extends Activity {
             String callInformations = currentContact.getFirstName() + " " + currentContact.getLastName() + " - " + currentContact.getPhoneNumber();
             callInformationTextview.setText(callInformations);
         }
+    }
+
+    @Subscribe
+    public void onPhoneCallFailedEvent(PhoneCallFailedEvent phoneCallFailedEvent) {
+        Toast.makeText(this, ResourceHelper.getString(R.string.message_failed_no_pair), Toast.LENGTH_LONG).show();
     }
 }
