@@ -1,10 +1,12 @@
 package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import fr.pds.isintheair.crmtab.common.CrmTabApplication;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallEndedEvent;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallHookedEvent;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view.CallActivity;
@@ -13,6 +15,15 @@ public class CallController {
     public static void call(String phoneNumber) {
         MessageController.sendCallMessage(phoneNumber);
         startCallActivity(phoneNumber, MessageType.CALL_PASSED);
+    }
+
+    public static void callFailed() {
+        Activity callActivity = CallActivity.instance;
+
+        if (callActivity != null)
+            callActivity.finish();
+
+        BusHandlerSingleton.getInstance().getBus().post(new PhoneCallFailedEvent(""));
     }
 
     public static void callHooked() {
