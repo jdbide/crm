@@ -68,7 +68,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
     TextView longTermFidelity;
     @Bind(R.id.detail_indep_fragment_map)
     MapView map;
-    @Bind(R.id.detail_hc_fragment_map_unavailable)
+    @Bind(R.id.detail_indep_fragment_map_unavailable)
     TextView mapUnavailable;
     private Independant independant;
     private OnFragmentInteractionListener mListener;
@@ -159,11 +159,11 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
         if(MapUtils.isTileSavedOnDevice(independant.getSiretNumber())
                 || CheckInternetConnexion.isNetworkAvailable(getContext())) {
             map.setVisibility(View.VISIBLE);
-
+            mapUnavailable.setVisibility(View.INVISIBLE);
             MapUtils.initMap(map, this, locationOverlay, independant);
         } else {
             map.setVisibility(View.INVISIBLE);
-
+            mapUnavailable.setVisibility(View.VISIBLE);
         }
     }
 
