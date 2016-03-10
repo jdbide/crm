@@ -31,10 +31,10 @@ public class NetworkReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(CheckInternetConnexion.isNetworkAvailable(context)) {
-            fragmentNetworkInterface.initOnlineMap();
+            fragmentNetworkInterface.initMap();
             networkAvailable = true;
         } else {
-            fragmentNetworkInterface.initClientLocation(true);
+            fragmentNetworkInterface.initMap();
             networkAvailable = false;
         }
     }

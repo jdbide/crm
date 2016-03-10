@@ -11,19 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.osmdroid.api.IMapController;
-import org.osmdroid.bonuspack.overlays.Marker;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
@@ -38,7 +32,7 @@ import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.MapUtils;
 
 /**
  * Created by tlacouque on 01/01/2016.
@@ -189,79 +183,8 @@ public class DetailHCFragment extends Fragment implements DetailFragmentNetworkI
     /**
      * Initialise the map in this view
      */
-    private void initMap() {
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
-        map.setMultiTouchControls(true);
-        map.setUseDataConnection(true);
-        if(CheckInternetConnexion.isNetworkAvailable(this.getContext())) {
-            initOnlineMap();
-        } else {
-            initClientLocation(true);
-        }
-
-        map.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                scrollView.requestDisallowInterceptTouchEvent(true);
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_MOVE:
-                        scrollView.requestDisallowInterceptTouchEvent(true);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        scrollView.requestDisallowInterceptTouchEvent(true);
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        scrollView.requestDisallowInterceptTouchEvent(true);
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                        scrollView.requestDisallowInterceptTouchEvent(true);
-                        break;
-                }
-                return map.onTouchEvent(event);
-            }
-        });
-        map.invalidate();
-    }
-
-    /**
-     * Init client when there is no internet connexion depend on the actual connexion
-     * offline parameter
-     * @param offline
-     */
-    public void initClientLocation(boolean offline) {
-        IMapController mapController = map.getController();
-        mapController.setZoom(15);
-        GeoPoint startPoint = new GeoPoint(healthCenter.getLattitude(), healthCenter.getLongitude());
-        if(offline) {
-            mapController.setCenter(startPoint);
-            if(locationOverlay != null) {
-                map.getOverlays().remove(locationOverlay);
-            }
-        }
-        Marker marker = new Marker(map);
-        marker.setPosition(startPoint);
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        marker.setIcon(getResources().getDrawable(android.R.drawable.star_on, null));
-        marker.setTitle(healthCenter.getName());
-        map.getOverlays().add(marker);
-        map.invalidate();
-    }
-
-    /**
-     * Initialise the map when there is an internet connexion
-     */
-    public void initOnlineMap() {
-        locationOverlay = new MyLocationNewOverlay(getContext(),map);
-        GpsMyLocationProvider gpsMyLocationProvider = new GpsMyLocationProvider(this.getContext());
-        gpsMyLocationProvider.startLocationProvider(locationOverlay);
-        gpsMyLocationProvider.setLocationUpdateMinTime(10);
-        gpsMyLocationProvider.setLocationUpdateMinDistance(5);
-        locationOverlay.enableMyLocation(gpsMyLocationProvider);
-        locationOverlay.enableFollowLocation();
-        map.getOverlays().add(locationOverlay);
-        initClientLocation(false);
+    public void initMap() {
+        MapUtils.initMap(map,this,scrollView,locationOverlay,healthCenter);
     }
 
 

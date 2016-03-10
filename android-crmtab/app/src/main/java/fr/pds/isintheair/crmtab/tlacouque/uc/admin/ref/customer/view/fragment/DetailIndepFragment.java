@@ -157,7 +157,7 @@ public class DetailIndepFragment extends Fragment implements DetailFragmentNetwo
     /**
      * Initialise the map in this view
      */
-    private void initMap() {
+    public void initMap() {
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
