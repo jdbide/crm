@@ -200,6 +200,49 @@ public class NormalizeDemoActivity extends Activity implements SpellCheckerSessi
         }
     }
 
+    public String getLocal(){
+
+        return  Locale.getDefault().getCountry();
+    }
+
+    public boolean checkWithGeocode(String adresse){
+        lstAdress = (ListView) findViewById(R.id.lstAdresses);
+        final EditText txtAddress = (EditText) findViewById(R.id.txtAdresseCheck);
+        List<String> lstAdresseLine = new ArrayList<>();
+        try {
+        List<Address> addresseList;
+
+        Geocoder geocoder = new Geocoder(this,Locale.FRANCE);
+
+            addresseList = geocoder.getFromLocationName(adresse,5);
+
+            for(int i=0 ; i<addresseList.size(); i++){
+                lstAdresseLine.add(addresseList.get(i).getAddressLine(0) +", " +addresseList.get(i).getAddressLine(1));
+
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, lstAdresseLine);
+
+            lstAdress.setAdapter(adapter);
+            lstAdress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    // ListView Clicked item index
+                    int itemPosition = position;
+
+                    // ListView Clicked item value
+                    String  selectedAdresse = (String) lstAdress.getItemAtPosition(position);
+                    txtAddress.setText(selectedAdresse);
+                }
+            });
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
 
