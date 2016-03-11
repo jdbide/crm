@@ -192,6 +192,15 @@ public class NormalizeDemoActivity extends Activity implements SpellCheckerSessi
         return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
     }
 
+    public void checkAdresse(View view){
+        EditText txtAddress = (EditText) findViewById(R.id.txtAdresseCheck);
+        TextView error = (TextView) findViewById(R.id.lblMessage1);
+        if(!checkWithGeocode(txtAddress.getText().toString())){
+            error.setText("Adresse non valide !");
+        }
+    }
+
+
 
 
 }
