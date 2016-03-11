@@ -126,5 +126,6 @@
 
     <string name="title_activity_scrolling_visit">Visites</string>
     <string name="btn_finding_prospect">Find prospect</string>
+    <string name="title_activity_agenda">AgendaActivity</string>
 
 </resources>

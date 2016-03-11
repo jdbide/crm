@@ -36,6 +36,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
+import fr.pds.isintheair.crmtab.jdatour.wi.agenda.mock.AgendaFragment;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.view.ImportContactActivity;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
@@ -50,12 +51,12 @@ public class MainActivity extends AppCompatActivity
         PendingLogsFragment.OnListFragmentInteractionListener, CreateCustomerAlertDialog.AlertPositiveListener,
         ListCustomerFragment.OnListFragmentInteractionListener {
 
+    public static String TagAddLogFragment = "FRAGMENT_AJOUT";
     Toolbar toolbar;
+    User    currentUser;
     // UC Register a call
     private PendingLogsFragment pend;
-    private AndroidBus bus;
-    public static String TagAddLogFragment = "FRAGMENT_AJOUT";
-    User              currentUser;
+    private AndroidBus          bus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,8 @@ public class MainActivity extends AppCompatActivity
         bus = Constants.getInstance().getCurrentBusInstance();
         bus.register(this);
 
-                          currentUser = new User();
-        SharedPreferences prefs       = PreferenceManager.getDefaultSharedPreferences(this);
+        currentUser = new User();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         currentUser.setEmail(prefs.getString("email", null));
         currentUser.setPassword(prefs.getString("password", null));
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity
 
         MainLogoFragment    mainLogoFragment = new MainLogoFragment();
         FragmentTransaction transaction      = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, mainLogoFragment,"TAG");
+        transaction.replace(R.id.container, mainLogoFragment, "TAG");
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-        if (id == R.id.import_contact){
+        if (id == R.id.import_contact) {
             startActivity(new Intent(this, ImportContactActivity.class));
         }
 
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_lister_appel) {
-            fragment = DisplayCallLogFragment.newInstance() ;
+            fragment = DisplayCallLogFragment.newInstance();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim);
             ft.replace(R.id.container, fragment, "FRAGMENT_LISTE_CRA").addToBackStack(null).commit();
@@ -192,9 +193,17 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, ActivityHome.class));
 
         }
-        else if (id == R.id.nav_suggestion_prospect){
+        else if (id == R.id.nav_suggestion_prospect) {
             startActivity(new Intent(this, ProspectActivity.class));
 
+        }
+
+        else if (id == R.id.agenda) {
+            fragment = new AgendaFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.container, fragment).addToBackStack("menu");
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -229,7 +238,7 @@ public class MainActivity extends AppCompatActivity
                 , event.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant"
                 , true);
 
-        ft.replace(R.id.container, fragment,TagAddLogFragment).addToBackStack(null).commit();
+        ft.replace(R.id.container, fragment, TagAddLogFragment).addToBackStack(null).commit();
     }
 
 

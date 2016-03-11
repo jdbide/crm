@@ -7,6 +7,12 @@
             android:id="@+id/nav_passer_appel"
             android:icon="@drawable/ic_menu_camera"
             android:title="Mes contacts"/>
+
+        <item
+            android:id="@+id/agenda"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Mno agenda"/>
+
         <item
             android:id="@+id/nav_historiser_appel"
             android:icon="@drawable/ic_menu_camera"
