@@ -2,7 +2,10 @@ package fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,20 +14,30 @@ import android.view.textservice.SpellCheckerSession;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 import android.view.textservice.TextServicesManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
+
 import fr.pds.isintheair.crmtab.R;
 
-public class SpellCheckActivity extends Activity implements SpellCheckerSession.SpellCheckerSessionListener {
+public class NormalizeDemoActivity extends Activity implements SpellCheckerSession.SpellCheckerSessionListener {
 
     private SpellCheckerSession mScs;
     private View view;
     private EditText txtToCheck;
     private TextView sugg1,sugg2,sugg3,sugg4,sugg5;
     private Button btnCheck;
+    ListView lstAdress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +64,12 @@ public class SpellCheckActivity extends Activity implements SpellCheckerSession.
 
             @Override
             public void afterTextChanged(Editable editable) {
+                String testString = txtToCheck.getText().toString();
+                String[] parts = testString.split(" ");
+                String lastWord = parts[parts.length - 1];
 
                 try {
-                    mScs.getSuggestions(new TextInfo(txtToCheck.getText().toString()), 5);
+                    mScs.getSuggestions(new TextInfo(lastWord), 5);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -106,7 +122,7 @@ public class SpellCheckActivity extends Activity implements SpellCheckerSession.
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //Toast.makeText(SpellCheckActivity.this, sb.toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(NormalizeDemoActivity.this, sb.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -115,25 +131,67 @@ public class SpellCheckActivity extends Activity implements SpellCheckerSession.
     }
     public void replaceText(View view){
 
+        String lastWord = txtToCheck.getText().toString().replaceAll("^.*?(\\w+)\\W*$", "$1");
+        String phrase = txtToCheck.getText().toString();
 
         switch (view.getId()) {
             case R.id.txtSugg1:
-                txtToCheck.setText(sugg1.getText().toString());
+
+                String result = phrase.replaceAll(lastWord, sugg1.getText().toString());
+                txtToCheck.setText(result);
                 break;
             case R.id.txtSugg2:
-                txtToCheck.setText(sugg2.getText().toString());
+
+                String result1 = phrase.replaceAll(lastWord, sugg2.getText().toString());
+                txtToCheck.setText(result1);
                 break;
             case R.id.txtSugg3:
-                txtToCheck.setText(sugg3.getText().toString());
+
+                String result2 = phrase.replaceAll(lastWord, sugg3.getText().toString());
+                txtToCheck.setText(result2);
                 break;
             case R.id.txtSugg4:
-                txtToCheck.setText(sugg4.getText().toString());
+
+                String result3 = phrase.replaceAll(lastWord, sugg4.getText().toString());
+                txtToCheck.setText(result3);
                 break;
             case R.id.txtSugg5:
-                txtToCheck.setText(sugg5.getText().toString());
+
+                String result4 =phrase.replaceAll(lastWord, sugg5.getText().toString());
+                txtToCheck.setText(result4);
+                break;
         }
 
-        Toast.makeText(SpellCheckActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(NormalizeDemoActivity.this, "clicked", Toast.LENGTH_SHORT).show();
 
     }
+
+    public String normalizeNumber(String number){
+
+        return PhoneNumberUtils.normalizeNumber(number);
+    }
+
+    public String formatTelNumber(String number){
+        return PhoneNumberUtils.formatNumber(normalizeNumber(number), Locale.getDefault().getCountry());
+    }
+
+
+    public void checkPhoneNumber(View view){
+        EditText tel = (EditText) findViewById(R.id.txtTelCheck);
+        TextView lblMessage = (TextView) findViewById(R.id.lblMessage);
+
+        String formattedNumber = formatTelNumber(tel.getText().toString());
+        tel.setText(formattedNumber);
+        if(checkIfRightNumber(formattedNumber)){
+            lblMessage.setText("Error in phone number");
+        }else{
+            lblMessage.setText("");
+        }
+    }
+    public boolean checkIfRightNumber(String phoneNumber){
+        return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
+    }
+
+
+
 }
