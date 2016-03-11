@@ -252,7 +252,19 @@ public class NormalizeDemoActivity extends Activity implements SpellCheckerSessi
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                     ")+"
     );
+    private boolean isValidEmail(String email) {
+        return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
+    }
 
+    public void mailCheck (View view){
+        EditText txtMail = (EditText) findViewById(R.id.txtMailCheck);
+        TextView error = (TextView)findViewById(R.id.lblMessage3);
+        if(!isValidEmail(txtMail.getText().toString())){
+            error.setText("Mail non valide !");
+        }else{
+            error.setText("");
+        }
+    }
 
 
 }
