@@ -159,6 +159,12 @@ public class MapUtils {
       return  new File(FormatValidator.formatPathTile(mapInfo)).exists();
     }
 
+    /**
+     * Method used to know if there is a tile saved on a device for a siret number.
+     * It will check if there is a mapinfo for a customer and a tile.
+     * @param siretNumber
+     * @return boolean
+     */
     public static boolean isTileSavedOnDevice(long siretNumber) {
         if(!MapInfoDAO.isMapInfoExist(siretNumber)) return false;
         if(isTileFileSavedOnDevice(MapInfoDAO.getMapInfo(siretNumber))) return true;
