@@ -2,13 +2,11 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
-import fr.pds.isintheair.crmtab.common.model.database.dao.UserDAO;
-
 /**
  * Created by tlacouque on 09/03/2016.
  * Class used to know if there is an instance of a mapInfo on the device
  */
-public class MapInfoDAO extends UserDAO {
+public class MapInfoDAO {
 
     /**
      * Method used to know if there is an instance of mapinfo which has the siretNumber in parameter.

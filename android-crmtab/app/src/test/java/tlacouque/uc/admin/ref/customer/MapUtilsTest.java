@@ -31,6 +31,8 @@ public class MapUtilsTest {
     File file;
 
 
+
+
     @Test
     public void testIsTileFileSavedOnDeviceOk() throws Exception {
         MapInfo mapInfo = Mockito.mock(MapInfo.class);
@@ -53,7 +55,7 @@ public class MapUtilsTest {
         fakeMapInfo.createNewFile();
         assertTrue(MapUtils.isTileFileSavedOnDevice(mapInfo));
         fakeMapInfo.delete();
-       // fakeMapInfo.getParentFile().delete()
+
     }
 
     @Test
@@ -83,7 +85,51 @@ public class MapUtilsTest {
         fakeMapInfo.createNewFile();
         assertFalse(MapUtils.isTileFileSavedOnDevice(mapInfoTile));
         fakeMapInfo.delete();
-        // fakeMapInfo.getParentFile().delete()
     }
 
+    // This test and other on isTileSavedOnDeviceOk() are not done because of some unexpected error
+    // on dbflow library
+
+    /**
+    @Test
+    public void testisTileSavedOnDeviceOk() throws Exception {
+
+        MapInfo mapInfoFile = Mockito.mock(MapInfo.class);
+        when(mapInfoFile.getX()).thenReturn(15);
+        when(mapInfoFile.getY()).thenReturn(16595);
+        when(mapInfoFile.getZ()).thenReturn(11271);
+
+
+        // Setup mocking for Environment and File classes
+        mockStatic(Environment.class, File.class, MapInfoDAO.class);
+
+        PowerMockito.when(MapInfoDAO.getMapInfo(mapInfoFile.getSiretNumber()))
+                .thenReturn(mapInfoFile);
+
+        PowerMockito.when(MapInfoDAO.isMapInfoExist(mapInfoFile.getSiretNumber()))
+                .thenReturn(true);
+
+
+
+
+        // Make the Environment class return a mocked external storage directory
+        when(Environment.getExternalStorageDirectory())
+                .thenReturn(file);
+        when(file.toString()).thenReturn("");
+
+        String string = FormatValidator.formatPathTile(mapInfoFile);
+        File fakeMapInfo = new File(string);
+        fakeMapInfo.getParentFile().mkdirs();
+        fakeMapInfo.createNewFile();
+        assertTrue(MapUtils.isTileSavedOnDevice(1L));
+        fakeMapInfo.delete();
+
+    }
+
+
+    @After
+    public void tearDown() throws Exception {
+        FlowManager.destroy();
+    }
+    */
 }
