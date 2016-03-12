@@ -3,6 +3,7 @@
     <string name="title_activity_login">CRM-TAB</string>
 
     <!-- jdatour.uc.phone.call.receive -->
+    <string name="message_failed_no_pair">Pas d\'appairage</string>
     <string name="message_failed_no_internet">pas de connection internet</string>
     <string name="message_failed_websocket_connection_killed">la connexion avec le serveur a échoué, veuillez réessayer</string>
 

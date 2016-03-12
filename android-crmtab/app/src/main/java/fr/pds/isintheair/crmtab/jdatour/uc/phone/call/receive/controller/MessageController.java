@@ -19,6 +19,9 @@ public class MessageController {
             case CALL_ENDED:
                 CallController.endCall();
                 break;
+            case CALL_FAILED:
+                CallController.callFailed();
+                break;
             case CALL_HOOKED:
                 CallController.callHooked();
                 break;

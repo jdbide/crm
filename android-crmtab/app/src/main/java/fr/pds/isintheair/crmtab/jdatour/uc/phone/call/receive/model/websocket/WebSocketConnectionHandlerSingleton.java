@@ -52,7 +52,6 @@ public class WebSocketConnectionHandlerSingleton {
 
     public void sendMessage(Message message) {
         if (webSocketConnection == null) {
-            connect();
             String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_websocket_connection_killed);
             BusHandlerSingleton.getInstance().getBus().post(new PhoneCallFailedEvent(errorMessage));
             WebSocketConnectionHandlerSingleton.getInstance().connect();
