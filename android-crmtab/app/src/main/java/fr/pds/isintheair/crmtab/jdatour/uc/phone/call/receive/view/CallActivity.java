@@ -30,6 +30,8 @@ import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.eve
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
 
 public class CallActivity extends Activity {
+    public static Activity instance;
+
     @Bind(R.id.phone_state_textview)
     TextView phoneStateTextview;
 
@@ -37,11 +39,9 @@ public class CallActivity extends Activity {
     TextView timerTextview;
 
     private long        callDuration;
-    private Contact     currentContact;
     private MessageType currentMessageType;
     private String      currentPhoneNumber;
     private long        startCallTime;
-
     private String TAG = getClass().getSimpleName();
 
     @OnClick(R.id.phone_imageview)
@@ -52,18 +52,20 @@ public class CallActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Activity created");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call);
+
         ButterKnife.bind(this);
         BusHandlerSingleton.getInstance().getBus().register(this);
+
+        instance = this;
 
         String phoneStateMessage = null;
 
         currentMessageType = (MessageType) getIntent().getSerializableExtra("messageType");
         currentPhoneNumber = getIntent().getStringExtra("phoneNumber");
-        currentContact = new Select().from(Contact.class).where(Contact_Table.phoneNumber.is(currentPhoneNumber)).querySingle();
+
+        Contact currentContact = new Select().from(Contact.class).where(Contact_Table.phoneNumber.is(currentPhoneNumber)).querySingle();
 
         if (currentContact != null) {
             String fullContactName = currentContact.getFirstName() + " " + currentContact.getLastName();

@@ -20,7 +20,6 @@ public class BootServiceBrodcastReceiver extends BroadcastReceiver {
             final Intent serviceIntent = new Intent(context, CallService.class);
 
             context.startService(serviceIntent);
-
         }
     }
 }

@@ -364,7 +364,17 @@
                 android:layout_height="wrap_content"
                 />
 
+
+
         </LinearLayout>
+                    <TextView
+                        android:id="@+id/detail_hc_fragment_map_unavailable"
+                        android:text="@string/display_hc_fragment_map_unavailable"
+                        android:textSize="@dimen/detail_hc_size_text_text_view"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
                 </LinearLayout>
 
         <LinearLayout
@@ -380,6 +390,8 @@
                 android:layout_height="300dp"
                 android:layout_gravity="center_horizontal"
                 />
+
+
 
             </LinearLayout>
 

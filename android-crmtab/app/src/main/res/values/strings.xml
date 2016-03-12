@@ -3,6 +3,7 @@
     <string name="title_activity_login">CRM-TAB</string>
 
     <!-- jdatour.uc.phone.call.receive -->
+    <string name="message_failed_no_pair">Pas d\'appairage</string>
     <string name="message_failed_no_internet">pas de connection internet</string>
     <string name="message_failed_websocket_connection_killed">la connexion avec le serveur a échoué, veuillez réessayer</string>
 
@@ -109,6 +110,8 @@
     <string name="display_hc_fragment_ispublic_yes_textview">Oui</string>
     <string name="display_hc_fragment_ispublic_no_textview">Non</string>
     <string name="display_hc_fragment_map_textview">Carte de </string>
+    <string name="display_hc_fragment_map_unavailable">La carte représentant la position du client n’a pas été pré-téléchargé.
+        \nIl le sera à votre prochaine connexion au service en ligne.</string>
 
     <!-- Strings related to the display of an independant customer -->
     <string name="display_independant_fragment_title_action_bar">Détail d\'un indépendant</string>
