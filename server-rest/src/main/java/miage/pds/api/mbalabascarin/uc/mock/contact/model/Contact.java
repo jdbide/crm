@@ -1,9 +1,9 @@
 package miage.pds.api.mbalabascarin.uc.mock.contact.model;
 
-import java.util.List;
-
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+
+import java.util.List;
 
 /**
  * Created by Muthu on 04/03/2016.

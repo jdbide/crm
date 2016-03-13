@@ -128,5 +128,18 @@
 
     <string name="title_activity_scrolling_visit">Visites</string>
     <string name="btn_finding_prospect">Find prospect</string>
+    <string name="prospect_tv_name">Name</string>
+    <string name="prospect_tv_siret">Siret Number</string>
+    <string name="prospect_tv_finess">Finess number</string>
+    <string name="prospect_tv_streetNumber">Street number</string>
+    <string name="prospect_tv_streetName">Street name</string>
+    <string name="prospect_tv_zipCode">Zip Code</string>
+    <string name="prospect_tv_town">City</string>
+    <string name="prospect_tv_website">Website</string>
+    <string name="prospect_tv_etablishmentType">Etablishment type</string>
+    <string name="prospect_tv_turnover">Turnover</string>
+    <string name="prospect_bt_insert">Insert new client</string>
+    <string name="prospect_bt_back">Back</string>
+    <string name="prospect_tv_bed">Bed Number</string>
 
 </resources>

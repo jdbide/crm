@@ -1,28 +1,13 @@
 package miage.pds.api.mbalabascarin.uc.editcrv.dao;
 
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bson.types.ObjectId;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.mongodb.DB;
+import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
-import com.mongodb.DBPortPool.NoMoreConnection;
-
-import miage.pds.MongoDatastoreConfig;
-import miage.pds.api.mbalabascarin.uc.editcrv.model.Product;
-import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
-import miage.pds.api.mbalabascarin.uc.editcrv.model.Reporting;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CrvMorphiaDao {
 	DB db;

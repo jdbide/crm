@@ -6,27 +6,9 @@
     android:orientation="vertical"
     tools:context="fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity">
 
-    <Button
-        android:id="@+id/btn_prospect"
+    <ListView
+        android:id="@+id/lview_prospect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="findingProspect"
-        android:padding="5dp"
-        android:text="@string/btn_finding_prospect" />
-
-    <TableLayout
-        android:id="@+id/tl_prospect"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TableRow
-            android:id="@+id/row_prospect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView android:id="@+id/tv_prospect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </TableRow>
-    </TableLayout>
+        android:dividerHeight="1dp"></ListView>
 </LinearLayout>

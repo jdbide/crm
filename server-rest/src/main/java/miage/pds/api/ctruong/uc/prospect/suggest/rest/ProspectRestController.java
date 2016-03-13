@@ -7,6 +7,7 @@ import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,6 +73,21 @@ public class ProspectRestController {
         return prospect;
     }
 
+    @RequestMapping(value = "/suggestion/prospect/{siret}", method = RequestMethod.POST)
+    public @ResponseBody Prospect createNewClient(@PathVariable long siret){
+        Prospect prospect = prospectDAO.getProspectBySiret(siret);
+        RelationUserClient relation = new RelationUserClient(prospect.getId(), "bd299fa2-244c-4k6b-9966-49a84192cc8c");
+        relationUserClientDAO.save(relation);
+        relation.toString();
+        return prospect;
+    }
+
+    @RequestMapping(value = "/suggestion/prospects", method = RequestMethod.GET)
+    public @ResponseBody List<Prospect> analyseProcess(){
+        List<Prospect> prospects = controller.analyseProspect();
+        return prospects;
+    }
+
     @RequestMapping(value = "/suggestion/prospect/demo", method = RequestMethod.GET)
     public @ResponseBody String demo(){
         String message = "";
@@ -122,7 +138,7 @@ public class ProspectRestController {
         message += "-----------------------------------------------------------------------------------------<br><br>";
 
         for (Prospect prospect: prospects){
-            if (commandDAO.checkExistCommandOfProspect(prospect.getId()) == true){
+            if (commandDAO.checkExistCommandOfProspect(prospect.getId()) == 1){
                 message += "The prospect " + prospect.getName() + " has command by someone<br>";
             } else {
                 message += "The prospect " + prospect.getName() + " hasn't command by someone<br>";

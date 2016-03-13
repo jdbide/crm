@@ -14,6 +14,7 @@ import java.util.List;
 public class ProspectDAOImp extends BasicDAO<Prospect, ObjectId> implements ProspectDAO{
 
     private static final String ID= "_id";
+    private static final String SIRET= "siretNumber";
 
     public ProspectDAOImp(Class<Prospect> entityClass, Datastore ds) {
         super(entityClass, ds);
@@ -31,4 +32,12 @@ public class ProspectDAOImp extends BasicDAO<Prospect, ObjectId> implements Pros
         Query<Prospect> query = createQuery();
         return query.asList();
     }
+
+    @Override
+    public Prospect getProspectBySiret(long siret) {
+        Query<Prospect> query = createQuery().field(SIRET).equal(siret);
+        return query.get();
+    }
+
+
 }

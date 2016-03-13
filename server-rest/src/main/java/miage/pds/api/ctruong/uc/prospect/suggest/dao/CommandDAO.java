@@ -13,5 +13,5 @@ public interface CommandDAO extends DAO<Command, ObjectId>{
 
     public List<Command> getAllCommand();
 
-    public boolean checkExistCommandOfProspect(ObjectId prospectId);
+    public int checkExistCommandOfProspect(ObjectId prospectId);
 }

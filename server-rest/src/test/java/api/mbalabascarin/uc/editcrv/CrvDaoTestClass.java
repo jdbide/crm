@@ -1,17 +1,15 @@
 package api.mbalabascarin.uc.editcrv;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
-import miage.pds.api.mbalabascarin.uc.editcrv.dao.*;
-import miage.pds.api.mbalabascarin.uc.editcrv.model.*;
-
+import miage.pds.api.mbalabascarin.uc.editcrv.dao.CrvMorphiaDao;
+import miage.pds.api.mbalabascarin.uc.editcrv.model.Report;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by: Muthu

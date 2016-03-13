@@ -1,14 +1,7 @@
 package miage.pds.api.tlacouque.uc.admin.ref.customer.controller;
 
-import com.mongodb.MongoClient;
-
-
-import miage.pds.MongoConfig;
-
 import miage.pds.MongoDatastoreConfig;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.common.GeoCoding;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.common.TileDownloader;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.common.TileDownloaderThread;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.common.XYZCalcul;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HealthCenterDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HoldingDAO;
@@ -18,23 +11,15 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.Holding;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.dao.CompanyDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.dao.IndependantDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.dao.SpecialtyDAO;
-
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Independant;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.message.MessageRestCustomer;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
-
-import miage.pds.api.tlacouque.uc.admin.ref.customer.SpringMongoConfig;
-
-
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.UnknownHostException;
 import java.util.List;
 
 
