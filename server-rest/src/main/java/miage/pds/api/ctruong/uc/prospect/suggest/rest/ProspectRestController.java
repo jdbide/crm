@@ -78,12 +78,14 @@ public class ProspectRestController {
         Prospect prospect = prospectDAO.getProspectBySiret(siret);
         RelationUserClient relation = new RelationUserClient(prospect.getId(), "bd299fa2-244c-4k6b-9966-49a84192cc8c");
         relationUserClientDAO.save(relation);
+        relation.toString();
         return prospect;
     }
 
     @RequestMapping(value = "/suggestion/prospects", method = RequestMethod.GET)
     public @ResponseBody List<Prospect> analyseProcess(){
-        return controller.analyseProspect();
+        List<Prospect> prospects = controller.analyseProspect();
+        return prospects;
     }
 
     @RequestMapping(value = "/suggestion/prospect/demo", method = RequestMethod.GET)
@@ -136,7 +138,7 @@ public class ProspectRestController {
         message += "-----------------------------------------------------------------------------------------<br><br>";
 
         for (Prospect prospect: prospects){
-            if (commandDAO.checkExistCommandOfProspect(prospect.getId()) == true){
+            if (commandDAO.checkExistCommandOfProspect(prospect.getId()) == 1){
                 message += "The prospect " + prospect.getName() + " has command by someone<br>";
             } else {
                 message += "The prospect " + prospect.getName() + " hasn't command by someone<br>";
