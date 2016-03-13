@@ -6,15 +6,9 @@
     android:orientation="vertical"
     tools:context="fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity">
 
-    <Button
-        android:id="@+id/btn_prospect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="@string/btn_finding_prospect" />
-
     <ListView
         android:id="@+id/lview_prospect"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:dividerHeight="1dp"></ListView>
 </LinearLayout>
