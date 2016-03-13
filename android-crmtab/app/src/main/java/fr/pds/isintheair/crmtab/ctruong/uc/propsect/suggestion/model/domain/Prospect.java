@@ -49,10 +49,6 @@ public class Prospect{
     public Prospect() {
     }
 
-    public Prospect(long siretNumber, String name) {
-        this.siretNumber = siretNumber;
-        this.name = name;
-    }
 
     public long getSiretNumber() {
         return siretNumber;
