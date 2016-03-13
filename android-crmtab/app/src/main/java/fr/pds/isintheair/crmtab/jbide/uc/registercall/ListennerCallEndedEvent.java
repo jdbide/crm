@@ -13,13 +13,12 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
+import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
-import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.PendingLogEvent;
 
 
 /**
@@ -56,7 +55,7 @@ public class ListennerCallEndedEvent extends Service {
         //mNM.cancel(NOTIFICATION);
 
         // Tell the user we stopped.
-        Toast.makeText(this, "CrvRetrofitService stopped", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "ContactRetrofitService stopped", Toast.LENGTH_SHORT).show();
     }
 
 

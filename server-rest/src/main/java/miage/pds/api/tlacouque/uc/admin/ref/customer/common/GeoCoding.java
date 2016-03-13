@@ -2,17 +2,12 @@ package miage.pds.api.tlacouque.uc.admin.ref.customer.common;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
-import com.google.maps.GeocodingApiRequest;
-import com.google.maps.PendingResult;
 import com.google.maps.model.GeocodingResult;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.HealthCenter;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.Customer;
-
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 /**
  * Created by tlacouque on 01/02/2016.
+ * Class used to return the lat and long for a customer by using google geocoding service/api.
  */
 public class GeoCoding {
 

@@ -3,7 +3,9 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,10 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.osmdroid.api.IMapController;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,17 +30,21 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.MapUtils;
 
 /**
  * Created by tlacouque on 01/01/2016.
  * Controller which is used to display an independant. He used to display the view, and to open
  * a web navigator if the user click on the website textview.
  */
-public class DetailIndepFragment extends Fragment {
+public class DetailIndepFragment extends Fragment implements DetailFragmentNetworkInterface {
 
     //Used to have the same key to pass independant from customer list view holder to this fragment
     public static final String KEY_INDEP_ARGS = "INDEP";
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    NetworkReceiver networkReceiver;
 
     @Bind(R.id.detail_indep_fragment_name)
     TextView name;
@@ -64,9 +68,11 @@ public class DetailIndepFragment extends Fragment {
     TextView longTermFidelity;
     @Bind(R.id.detail_indep_fragment_map)
     MapView map;
+    @Bind(R.id.detail_indep_fragment_map_unavailable)
+    TextView mapUnavailable;
     private Independant independant;
     private OnFragmentInteractionListener mListener;
-
+    private MyLocationNewOverlay locationOverlay;
     public DetailIndepFragment() {
         // Required empty public constructor
     }
@@ -136,19 +142,32 @@ public class DetailIndepFragment extends Fragment {
     }
 
     /**
+     * Called when the fragment pass to the first plan,
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        networkReceiver = new NetworkReceiver(this);
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(networkReceiver, intentFilter);
+    }
+
+    /**
      * Initialise the map in this view
      */
-    private void initMap() {
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
-        map.setMultiTouchControls(true);
-        map.setUseDataConnection(true);
-        IMapController mapController = map.getController();
-        mapController.setZoom(10);
-        GeoPoint startPoint = new GeoPoint(48.8534100, 2.3488000);
-        mapController.setCenter(startPoint);
-        map.invalidate();
+    public void initMap() {
+        if(MapUtils.isTileSavedOnDevice(independant.getSiretNumber())
+                || CheckInternetConnexion.isNetworkAvailable(getContext())) {
+            map.setVisibility(View.VISIBLE);
+            mapUnavailable.setVisibility(View.INVISIBLE);
+            MapUtils.initMap(map, this, locationOverlay, independant);
+        } else {
+            map.setVisibility(View.INVISIBLE);
+            mapUnavailable.setVisibility(View.VISIBLE);
+        }
     }
+
+
 
     /**
      * Open a navigator and with the url pass by the website textview
@@ -160,6 +179,7 @@ public class DetailIndepFragment extends Fragment {
         intentWeb.setData(Uri.parse(url));
         startActivity(intentWeb);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -228,5 +248,12 @@ public class DetailIndepFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
+    /**
+     * Used to unregister the broadcast receiver.
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(networkReceiver);
+    }
 }

@@ -31,47 +31,49 @@ import static org.junit.Assert.assertNotNull;
  */
 public class RestCustomerControllerTest {
 
-private MockHttpServletRequest request;
-private MockHttpServletResponse response;
-RestCustomerController restCustomerController;
-/**
- * @Autowired private HandlerAdapter handlerAdapter;
- * @Autowired private HandlerMapping handlerMapping;
- */
-MongoClient mongoClient;
-        Morphia morphia;
-        Datastore datastore;
-        String dbName="crm";
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
+    RestCustomerController restCustomerController;
+    /**
+     * @Autowired private HandlerAdapter handlerAdapter;
+     * @Autowired private HandlerMapping handlerMapping;
+     */
+    MongoClient mongoClient;
+    Morphia morphia;
+    Datastore datastore;
+    String dbName = "crm";
 
-@Before
-public void setUp()throws UnknownHostException {
+    @Before
+    public void setUp() throws UnknownHostException {
 
-        this.datastore= MongoDatastoreConfig.getDataStore();
+        this.datastore = MongoDatastoreConfig.getDataStore();
 
 
-        restCustomerController=new RestCustomerController();
+        restCustomerController = new RestCustomerController();
 
-        }
+    }
 
-/**
-@Test
-public void testCreateHC()throws Exception{
-        HealthCenter healthCenter=new HealthCenter();
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testCreateHC() throws Exception {
+        HealthCenter healthCenter = new HealthCenter();
         healthCenter.setSiretNumber(1L);
         healthCenter.setName("TestHc");
 
-        MessageRestCustomer messageRestCustomer=new MessageRestCustomer(1,healthCenter);
-        List<HealthCenter> list=new HealthCenterDAO(datastore).find().asList();
-        int nbHCbeforeTest=new HealthCenterDAO(datastore).find().asList().size();
-        nbHCbeforeTest=nbHCbeforeTest+1;
-        ResponseRestCustomer responseRestCustomer=restCustomerController.createHealthCenter(messageRestCustomer);
-        int nbHCAfterTest=new HealthCenterDAO(datastore).find().asList().size();
+        MessageRestCustomer messageRestCustomer = new MessageRestCustomer(1, healthCenter);
+        List<HealthCenter> list = new HealthCenterDAO(datastore).find().asList();
+        int nbHCbeforeTest = new HealthCenterDAO(datastore).find().asList().size();
+        nbHCbeforeTest = nbHCbeforeTest + 1;
+        ResponseRestCustomer responseRestCustomer = restCustomerController.createHealthCenter(messageRestCustomer);
+        int nbHCAfterTest = new HealthCenterDAO(datastore).find().asList().size();
         new HealthCenterDAO(datastore).delete(healthCenter);
-        assertEquals(nbHCbeforeTest,nbHCAfterTest);
+        assertEquals(nbHCbeforeTest, nbHCAfterTest);
         assertTrue(responseRestCustomer.getIsInserted());
-        }
+    }
 
-@Test public void testCreateIndep()throws Exception{
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testCreateIndep() throws Exception {
         Independant independant = new Independant();
         independant.setSiretNumber(1L);
         independant.setName("TestIndep");
@@ -84,45 +86,53 @@ public void testCreateHC()throws Exception{
         int nbIndepAfterTest = new IndependantDAO(datastore).find().asList().size();
         new IndependantDAO(datastore).delete(independant);
         assertEquals(nbIndepbeforeTest, nbIndepAfterTest);
-        }
-*/
-@Test public void testGetHolding()throws Exception{
-        ResponseRestCustomer responseRestCustomer=restCustomerController.getHoldings();
+    }
+
+    @Test
+    public void testGetHolding() throws Exception {
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getHoldings();
         assertNotNull(responseRestCustomer.getHoldings());
-        }
+    }
 
-@Test public void testGetPurchasingCentrals()throws Exception{
-        ResponseRestCustomer responseRestCustomer=restCustomerController.getPurchasingCentrals();
+    @Test
+    public void testGetPurchasingCentrals() throws Exception {
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getPurchasingCentrals();
         assertNotNull(responseRestCustomer.getPurchasingCentrals());
-        }
+    }
 
-@Test public void testGetCompanies()throws Exception{
-        ResponseRestCustomer responseRestCustomer=restCustomerController.getCompanies();
+    @Test
+    public void testGetCompanies() throws Exception {
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getCompanies();
         assertNotNull(responseRestCustomer.getCompanies());
-        }
+    }
 
-@Test public void testGetSpecialty()throws Exception{
-        ResponseRestCustomer responseRestCustomer=restCustomerController.getSpecialties();
+    @Test
+    public void testGetSpecialty() throws Exception {
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getSpecialties();
         assertNotNull(responseRestCustomer.getSpecialties());
-        }
+    }
 
-@Test public void testGetHealthCenters()throws Exception{
-        int healthCentersNumber=new HealthCenterDAO(datastore).findAllWithUserId("1").size();
-        ResponseRestCustomer responseRestCustomer=restCustomerController.getHealthCenters("1");
-        assertEquals(healthCentersNumber,responseRestCustomer.getHealthCenters().size());
-        }
+    @Test
+    public void testGetHealthCenters() throws Exception {
+        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithUserId("1").size();
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getHealthCenters("1");
+        assertEquals(healthCentersNumber, responseRestCustomer.getHealthCenters().size());
+    }
 
-@Test public void testGetIndependants()throws Exception{
-        int independantNumber=new IndependantDAO(datastore).findAllWithUserId("1").size();
-        ResponseRestCustomer responseRestCustomer=restCustomerController.getIndependants("1");
-        assertEquals(independantNumber,responseRestCustomer.getIndependants().size());
-        }
+    @Test
+    public void testGetIndependants() throws Exception {
+        int independantNumber = new IndependantDAO(datastore).findAllWithUserId("1").size();
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getIndependants("1");
+        assertEquals(independantNumber, responseRestCustomer.getIndependants().size());
+    }
 
-@Test public void testGetCustomers()throws Exception{
-        int independantNumber=new IndependantDAO(datastore).findAllWithUserId("1").size();
-        int healthCentersNumber=new HealthCenterDAO(datastore).findAllWithUserId("1").size();
-        ResponseRestCustomer responseRestCustomer=restCustomerController.getCustomers("1");
-        assertEquals(healthCentersNumber,responseRestCustomer.getHealthCenters().size());
-        assertEquals(independantNumber,responseRestCustomer.getIndependants().size());
-        }
-        }
+
+    @Test
+    public void testGetCustomers() throws Exception {
+        int independantNumber = new IndependantDAO(datastore).findAllWithUserId("1").size();
+        int healthCentersNumber = new HealthCenterDAO(datastore).findAllWithUserId("1").size();
+        ResponseRestCustomer responseRestCustomer = restCustomerController.getCustomers("1");
+        assertEquals(healthCentersNumber, responseRestCustomer.getHealthCenters().size());
+        assertEquals(independantNumber, responseRestCustomer.getIndependants().size());
+    }
+}

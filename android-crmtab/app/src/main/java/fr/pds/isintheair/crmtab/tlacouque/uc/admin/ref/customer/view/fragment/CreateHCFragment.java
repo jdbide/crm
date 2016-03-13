@@ -342,8 +342,8 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
                     (getActivity().getApplicationContext()) + ".\n";
         }
 
-        AlertDialog alertDialog =
-                new AlertDialog.Builder(this.getActivity()).create();
+        ErrorCustomerAlertDialog alertDialog =
+                new ErrorCustomerAlertDialog(getContext());
         alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
         alertDialog.setMessage(errorString);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",

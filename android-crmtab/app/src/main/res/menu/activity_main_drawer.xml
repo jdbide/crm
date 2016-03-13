@@ -6,31 +6,35 @@
         <item
             android:id="@+id/nav_passer_appel"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Mes contacts"/>
+            android:title="Mes contacts" />
         <item
             android:id="@+id/nav_historiser_appel"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Historiser un appel"/>
+            android:title="Historiser un appel" />
         <item
             android:id="@+id/nav_lister_appel"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Comptes-rendus d'appel"/>
+            android:title="Comptes-rendus d'appel" />
         <item
             android:id="@+id/nav_editer_crv"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Editer CRV"/>
+            android:title="Editer CRV" />
         <item
             android:id="@+id/nav_ref_client"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Admin ref client"/>
+            android:title="Admin ref client" />
         <item
             android:id="@+id/nav_envoyer_sms"
             android:icon="@drawable/ic_menu_send"
-            android:title="Envoyer sms"/>
+            android:title="Envoyer sms" />
         <item
             android:id="@+id/nav_suggestion_prospect"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Prospect suggestion"/>
+            android:title="Prospect suggestion" />
+        <item
+            android:id="@+id/nav_normalize"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Normalize" />
 
     </item>
 

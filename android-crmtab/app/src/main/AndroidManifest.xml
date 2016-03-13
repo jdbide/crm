@@ -82,10 +82,7 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService"
-            android:enabled="true"
-            android:exported="false" />
+
         <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService" />
         <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent" />
         <service
@@ -94,14 +91,20 @@
             android:exported="false" />
 
         <activity android:name=".common.view.activity.ContactDetailActivity2" />
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+
+        <activity
+            android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+        <activity
+            android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".mbalabascarin.uc.mock.contacts.view.ImportContactActivity" />
+        <activity android:name=".mbalabascarin.uc.normalize.NormalizeDemoActivity"></activity>
+
     </application>
 
 </manifest>

@@ -2,10 +2,6 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer;
 
 import android.os.Environment;
 
-import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
-
-import java.io.File;
-
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfo;
 
 /**
@@ -60,7 +56,7 @@ public class FormatValidator {
      * @return String
      */
     public static String formatUrlTile(MapInfo mapInfo) {
-        return File.separator+"image"+formatUrlPathTile(mapInfo);
+        return "/image"+formatUrlPathTile(mapInfo);
     }
 
     /**
@@ -69,7 +65,7 @@ public class FormatValidator {
      * @return String
      */
     public static String formatUrlPathTile(MapInfo mapInfo) {
-        return File.separator+mapInfo.getX()+File.separator+ mapInfo.getY()+File.separator+
+        return "/"+mapInfo.getX()+"/"+ mapInfo.getY()+"/"+
                 mapInfo.getZ()+".png";
     }
 
