@@ -39,7 +39,7 @@ public class Prospect implements Parcelable{
     @SerializedName("town")
     private String town;
     @Expose
-    @SerializedName("website")
+    @SerializedName("webSite")
     private String website;
     @Expose
     @SerializedName("etablishmentType")
