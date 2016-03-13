@@ -17,7 +17,7 @@ public interface ProspectRetrofitAPI {
     Call<Prospect> getProspect();
 
     @POST("suggestion/prospect/{siret}")
-    Call<Prospect> insertProspect(@Path("siret") long siret);
+    Call<Prospect> createClient(@Path("siret") long siret);
 
     @GET("suggestion/prospects")
     Call<List<Prospect>> getProspects();
