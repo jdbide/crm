@@ -50,7 +50,7 @@ public class ProspectActivity extends Activity {
         setContentView(R.layout.activity_prospect);
         ButterKnife.bind(this);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ProspectRestConfig.BASE_URL_LOCAL).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ProspectRestConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         ProspectRetrofitAPI api = retrofit.create(ProspectRetrofitAPI.class);
         Call<List<Prospect>> call = api.getProspects();
         call.enqueue(new Callback<List<Prospect>>() {
@@ -79,7 +79,7 @@ public class ProspectActivity extends Activity {
                         intent.putExtra(PROSPECT_ES_TYPE, prospect.getEtablishmentType());
                         intent.putExtra(PROSPECT_BED, prospect.getBedNumber());
                         startActivityForResult(intent, 0);
-                        Log.i(TAG, "onItemClick:" + prospect.getWebsite());
+                        Log.i(TAG, "onItemClick: checked");
                     }
                 });
             }
