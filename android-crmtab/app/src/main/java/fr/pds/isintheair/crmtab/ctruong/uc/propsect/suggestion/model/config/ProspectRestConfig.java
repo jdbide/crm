@@ -5,4 +5,5 @@ package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.config;
  */
 public interface ProspectRestConfig {
     static final String BASE_URL = "http://192.168.20.3:8082/api/";
+//    static final String BASE_URL = "http://192.168.0.11:8080/";
 }
