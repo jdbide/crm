@@ -13,9 +13,12 @@ import retrofit.http.Path;
  */
 public interface ProspectRetrofitAPI {
 
-    @GET("suggestion/prospect")
-    Call<List<Prospect>> getProspect();
+    @GET("suggestion/prospect/demo")
+    Call<Prospect> getProspect();
 
     @POST("suggestion/prospect/{siret}")
     Call<Prospect> insertProspect(@Path("siret") long siret);
+
+    @GET("suggestion/prospects")
+    Call<List<Prospect>> getProspects();
 }
