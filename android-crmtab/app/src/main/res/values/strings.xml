@@ -136,5 +136,7 @@
     <string name="prospect_tv_etablishmentType">Etablishment type</string>
     <string name="prospect_tv_turnover">Turnover</string>
     <string name="prospect_bt_insert">Insert new client</string>
+    <string name="prospect_bt_back">Back</string>
+    <string name="prospect_tv_bed">Bed Number</string>
 
 </resources>
