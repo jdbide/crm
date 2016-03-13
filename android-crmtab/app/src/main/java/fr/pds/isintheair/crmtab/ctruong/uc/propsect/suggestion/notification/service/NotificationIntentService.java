@@ -15,7 +15,7 @@ import de.tavendo.autobahn.WebSocketConnectionHandler;
 import de.tavendo.autobahn.WebSocketException;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.config.WebsocketConfig;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ConsultProspect;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.DetailProspect;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -47,15 +47,15 @@ public class NotificationIntentService extends IntentService {
     private void pushNotif(String message){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Prospect").setSmallIcon(R.drawable.logo).setContentText(message).setAutoCancel(true).setVibrate(new long[]{1000, 1000, 1000, 1000, 1000}).setLights(Color.RED, 3000, 3000);
-        Intent intent = new Intent(this, ConsultProspect.class);
+        Intent intent = new Intent(this, DetailProspect.class);
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
-        taskStackBuilder.addParentStack(ConsultProspect.class);
+        taskStackBuilder.addParentStack(DetailProspect.class);
         taskStackBuilder.addNextIntent(intent);
         PendingIntent resultPendingIntent = taskStackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // notificationID allows you to update the notification later on.
+        //notificationID allows you to update the notification later on.
         mNotificationManager.notify(1, builder.build());
     }
 
