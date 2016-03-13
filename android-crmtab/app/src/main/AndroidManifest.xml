@@ -98,6 +98,10 @@
             android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
+
+        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
