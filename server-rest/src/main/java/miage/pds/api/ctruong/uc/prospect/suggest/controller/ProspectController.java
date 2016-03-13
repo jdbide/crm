@@ -116,37 +116,32 @@ public class ProspectController {
     }
 
     public List<Prospect> getProspectByCommand(List<Prospect> prospectList) {
-        List<Prospect> prospects = null;
         Iterator<Prospect> iterator = prospectList.iterator();
         while (iterator.hasNext()) {
             Prospect prospect = iterator.next();
-            if (commandDAO.checkExistCommandOfProspect(prospect.getId()) == true) {
-                prospects.add(prospect);
+            if (commandDAO.checkExistCommandOfProspect(prospect.getId()) == 1) {
+            } else {
+                iterator.remove();
             }
+
         }
+        logger.info(prospectList.toString());
 
-        if (prospects == null) {
-            if (prospectList.size() > 1) {
-                for (int i = prospectList.size(); i > 1; i--) {
-                    prospectList.remove(i - 1);
-                }
-
-            }
+        if (prospectList == null) {
+            logger.info("No prospect");
+            return null;
+        } else if (prospectList.size() == 1) {
             return prospectList;
-        } else if (prospects.size() == 1) {
-            return prospects;
         } else {
-            Collections.sort(prospects, new Comparator<Prospect>() {
+            Collections.sort(prospectList, new Comparator<Prospect>() {
                 @Override
                 public int compare(Prospect o1, Prospect o2) {
                     return (int) (o2.getTurnover() - o1.getTurnover());
 
                 }
             });
-            for (int i = prospects.size(); i > 1; i--) {
-                prospects.remove(i - 1);
-            }
-            return prospects;
+
+            return prospectList;
         }
 
 
