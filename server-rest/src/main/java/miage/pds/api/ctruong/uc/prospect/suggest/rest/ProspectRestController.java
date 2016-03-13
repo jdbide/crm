@@ -75,8 +75,8 @@ public class ProspectRestController {
 
     @RequestMapping(value = "/suggestion/prospect/{siret}", method = RequestMethod.POST)
     public @ResponseBody Prospect createNewClient(@PathVariable long siret){
-        Prospect prospect = new Prospect();
-        RelationUserClient relation = new RelationUserClient();
+        Prospect prospect = prospectDAO.getProspectBySiret(siret);
+        RelationUserClient relation = new RelationUserClient(prospect.getId(), "bd299fa2-244c-4k6b-9966-49a84192cc8c");
         relationUserClientDAO.save(relation);
         return prospect;
     }
