@@ -39,6 +39,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.jdatour.wi.agenda.mock.AgendaFragment;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.view.ImportContactActivity;
+import fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.NormalizeDemoActivity;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
@@ -195,6 +196,10 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_suggestion_prospect) {
             startActivity(new Intent(this, ProspectActivity.class));
+
+        }
+        else if (id == R.id.nav_normalize){
+            startActivity(new Intent(this, NormalizeDemoActivity.class));
 
         }
 

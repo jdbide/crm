@@ -1,14 +1,12 @@
 package miage.pds.api.mbalabascarin.uc.mock.contact.dao;
 
-import java.util.List;
-
+import com.mongodb.DB;
 import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.mbalabascarin.uc.mock.contact.model.Contact;
-
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
-import com.mongodb.DB;
+import java.util.List;
 
 public class ContactDao {
 	DB db;

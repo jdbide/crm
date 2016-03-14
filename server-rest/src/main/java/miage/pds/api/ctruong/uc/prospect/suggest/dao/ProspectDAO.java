@@ -19,4 +19,6 @@ public interface ProspectDAO extends DAO<Prospect, ObjectId>{
      */
     public List<Prospect> getListProspect();
 
+    public Prospect getProspectBySiret(long siret);
+
 }

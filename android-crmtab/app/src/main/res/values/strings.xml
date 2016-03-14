@@ -110,6 +110,8 @@
     <string name="display_hc_fragment_ispublic_yes_textview">Oui</string>
     <string name="display_hc_fragment_ispublic_no_textview">Non</string>
     <string name="display_hc_fragment_map_textview">Carte de </string>
+    <string name="display_hc_fragment_map_unavailable">La carte représentant la position du client n’a pas été pré-téléchargé.
+        \nIl le sera à votre prochaine connexion au service en ligne.</string>
 
     <!-- Strings related to the display of an independant customer -->
     <string name="display_independant_fragment_title_action_bar">Détail d\'un indépendant</string>
@@ -127,5 +129,19 @@
     <string name="title_activity_scrolling_visit">Visites</string>
     <string name="btn_finding_prospect">Find prospect</string>
     <string name="title_activity_agenda">AgendaActivity</string>
+    <string name="prospect_tv_name">Name</string>
+    <string name="prospect_tv_siret">Siret Number</string>
+    <string name="prospect_tv_finess">Finess number</string>
+    <string name="prospect_tv_streetNumber">Street number</string>
+    <string name="prospect_tv_streetName">Street name</string>
+    <string name="prospect_tv_zipCode">Zip Code</string>
+    <string name="prospect_tv_town">City</string>
+    <string name="prospect_tv_website">Website</string>
+    <string name="prospect_tv_etablishmentType">Etablishment type</string>
+    <string name="prospect_tv_turnover">Turnover</string>
+    <string name="prospect_bt_insert">Insert new client</string>
+    <string name="prospect_bt_back">Back</string>
+    <string name="prospect_tv_bed">Bed Number</string>
+    >>>>>>> dev
 
 </resources>

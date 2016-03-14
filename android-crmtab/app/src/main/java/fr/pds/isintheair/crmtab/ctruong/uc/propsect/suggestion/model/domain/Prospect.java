@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Truong on 2/10/2016.
  */
-public class Prospect implements Parcelable{
+public class Prospect{
 
     @Expose
     @SerializedName("siretNumber")
@@ -39,58 +39,16 @@ public class Prospect implements Parcelable{
     @SerializedName("town")
     private String town;
     @Expose
-    @SerializedName("website")
+    @SerializedName("webSite")
     private String website;
     @Expose
     @SerializedName("etablishmentType")
     private String etablishmentType;
 
 
-    protected Prospect(Parcel in) {
-        siretNumber = in.readLong();
-        finessNumber = in.readLong();
-        turnover = in.readLong();
-        streetNumber = in.readInt();
-        zipCode = in.readInt();
-        bedNumber = in.readInt();
-        name = in.readString();
-        streetName = in.readString();
-        town = in.readString();
-        website = in.readString();
-        etablishmentType = in.readString();
+    public Prospect() {
     }
 
-    public static final Creator<Prospect> CREATOR = new Creator<Prospect>() {
-        @Override
-        public Prospect createFromParcel(Parcel in) {
-            return new Prospect(in);
-        }
-
-        @Override
-        public Prospect[] newArray(int size) {
-            return new Prospect[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(siretNumber);
-        dest.writeLong(finessNumber);
-        dest.writeLong(turnover);
-        dest.writeInt(streetNumber);
-        dest.writeInt(zipCode);
-        dest.writeInt(bedNumber);
-        dest.writeString(name);
-        dest.writeString(streetName);
-        dest.writeString(town);
-        dest.writeString(website);
-        dest.writeString(etablishmentType);
-    }
 
     public long getSiretNumber() {
         return siretNumber;

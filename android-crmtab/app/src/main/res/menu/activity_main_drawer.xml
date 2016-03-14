@@ -11,7 +11,7 @@
         <item
             android:id="@+id/agenda"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Mno agenda"/>
+            android:title="Mon agenda"/>
 
         <item
             android:id="@+id/nav_historiser_appel"
@@ -36,7 +36,11 @@
         <item
             android:id="@+id/nav_suggestion_prospect"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Envoyer sms"/>
+            android:title="Prospect suggestion"/>
+        <item
+            android:id="@+id/nav_normalize"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Normalize"/>
 
     </item>
 

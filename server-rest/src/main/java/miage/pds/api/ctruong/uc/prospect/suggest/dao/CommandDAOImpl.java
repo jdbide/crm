@@ -25,12 +25,12 @@ public class CommandDAOImpl extends BasicDAO<Command, ObjectId> implements Comma
     }
 
     @Override
-    public boolean checkExistCommandOfProspect(ObjectId prospectId) {
+    public int checkExistCommandOfProspect(ObjectId prospectId) {
         Query<Command> query = createQuery().field(PROSPECT_ID).equal(prospectId);
-        if (query.asList().size() > 0){
-            return true;
+        if (query.asList().size() != 0){
+            return 1;
         } else {
-            return false;
+            return 0;
         }
 
     }

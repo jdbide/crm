@@ -9,5 +9,7 @@ package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity;
 public interface Customer  {
     String getName();
     String getAdress();
+    double getLattitude();
+    double getLongitude();
 
 }

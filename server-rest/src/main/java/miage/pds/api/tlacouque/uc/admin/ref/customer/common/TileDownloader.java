@@ -2,11 +2,6 @@ package miage.pds.api.tlacouque.uc.admin.ref.customer.common;
 
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 
-import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.URL;
-
 /**
  * Created by tlacouque on 01/02/2016.
  * Class used to start the tileDownloaderThread

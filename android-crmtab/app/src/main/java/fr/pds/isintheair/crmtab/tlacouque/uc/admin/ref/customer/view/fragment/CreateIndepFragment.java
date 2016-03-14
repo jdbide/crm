@@ -36,6 +36,8 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
+import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.asynctask.TileDownloader;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company_Table;
@@ -43,8 +45,6 @@ import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Ind
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty_Table;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.enumeration.IndependantType;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;
@@ -345,7 +345,7 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
 
     /**
      * Called when one or several Rules fail from the validator.
-     * Called after  validator.validate(true); from insertHE method
+     * Called after  validator.validate(true); from insertIndep method
      *
      * @param errors
      */
@@ -356,8 +356,8 @@ public class CreateIndepFragment extends Fragment implements Validator.Validatio
             errorString = errorString + error.getCollatedErrorMessage
                     (getActivity().getApplicationContext()) + ".\n";
         }
-        AlertDialog alertDialog =
-                new AlertDialog.Builder(this.getActivity()).create();
+        ErrorCustomerAlertDialog alertDialog =
+                new ErrorCustomerAlertDialog(this.getActivity());
         alertDialog.setTitle(R.string.create_he_fragment_dialog_error_title);
         alertDialog.setMessage(errorString);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
