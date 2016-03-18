@@ -16,8 +16,8 @@ import android.widget.RelativeLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import static fr.pds.isintheair.crmtab.common.controller.LoginService.TryLogin;
 
+import static fr.pds.isintheair.crmtab.common.controller.LoginService.TryLogin;
 
 
 /**
@@ -47,6 +47,10 @@ public class LoginActivity extends Activity {
                              WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+        ButterKnife.bind(this);
+
+        mail.setText("test@crm.fr");
+        pass.setText("motdepasse");
 
         SharedPreferences        prefs  = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
@@ -61,12 +65,12 @@ public class LoginActivity extends Activity {
         con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 TryLogin(mail.getText().toString(), pass.getText().toString(), getApplicationContext(), loading, coordlayout);
                 loading.setVisibility(View.VISIBLE);
             }
         });
 
+        con.callOnClick();
     }
 
 }

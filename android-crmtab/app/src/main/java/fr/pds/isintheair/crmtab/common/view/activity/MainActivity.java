@@ -36,7 +36,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-import fr.pds.isintheair.crmtab.jdatour.wi.agenda.mock.AgendaFragment;
+import fr.pds.isintheair.crmtab.jdatour.wi.agenda.mock.AgendaActivity;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.view.ImportContactActivity;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.NormalizeDemoActivity;
@@ -198,17 +198,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, ProspectActivity.class));
 
         }
-        else if (id == R.id.nav_normalize){
+        else if (id == R.id.nav_normalize) {
             startActivity(new Intent(this, NormalizeDemoActivity.class));
 
         }
 
         else if (id == R.id.agenda) {
-            fragment = new AgendaFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-            transaction.replace(R.id.container, fragment).addToBackStack("menu");
-            transaction.commit();
+            startActivity(new Intent(this, AgendaActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -142,6 +142,7 @@
     <string name="prospect_bt_insert">Insert new client</string>
     <string name="prospect_bt_back">Back</string>
     <string name="prospect_tv_bed">Bed Number</string>
+    <string name="title_activity_main2">Main2Activity</string>
     >>>>>>> dev
 
 </resources>

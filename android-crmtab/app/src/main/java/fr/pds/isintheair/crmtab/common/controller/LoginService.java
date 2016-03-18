@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+
 import java.nio.charset.StandardCharsets;
 
 import fr.pds.isintheair.crmtab.common.model.database.entity.User;
@@ -35,10 +36,10 @@ import retrofit.Retrofit;
  */
 public class LoginService {
 
-    public static void TryLogin(final String mail,String password ,final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
+    public static void TryLogin(final String mail, String password, final Context context, final RelativeLayout anim, final CoordinatorLayout coordlayout) {
 
         String credentials = mail + ":" + password;
-        byte[] data = credentials.getBytes(StandardCharsets.UTF_8);
+        byte[] data        = credentials.getBytes(StandardCharsets.UTF_8);
         final String basic =
                 Base64.encodeToString(data, Base64.NO_WRAP);
         User user = new User();
@@ -94,6 +95,17 @@ public class LoginService {
                         context.startService(intent1);
                     }
                     else {
+                        User user = new User();
+                        user.setEmail("test@crm.fr");
+                        user.save();
+
+                        final Intent intent = new Intent(context, CallService.class);
+                        context.startService(intent);
+
+                        context.startActivity(new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        Intent intent1 = new Intent(context, NotificationIntentService.class);
+                        context.startService(intent1);
+
                         Snackbar.make(coordlayout, "User: " + mail + " : Wrong Credentials or not registererd ", Snackbar.LENGTH_LONG).show();
                     }
 
