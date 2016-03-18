@@ -23,8 +23,8 @@ import fr.pds.isintheair.crmtab.common.model.database.entity.User;
 import fr.pds.isintheair.crmtab.common.model.rest.LoginServiceInterface;
 import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CallService;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.constant.Constant;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -57,7 +57,7 @@ public class LoginService {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.getInstance().getBaseUrl())
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
