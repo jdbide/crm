@@ -24,7 +24,7 @@ public class CallService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        WebSocketConnectionHandlerSingleton.getInstance().connect();
+        WebSocketConnectionHandlerSingleton.getInstance().connectToCall();
 
         return START_STICKY;
     }

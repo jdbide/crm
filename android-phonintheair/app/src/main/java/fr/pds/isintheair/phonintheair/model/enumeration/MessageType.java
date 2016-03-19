@@ -1,6 +1,7 @@
 package fr.pds.isintheair.phonintheair.model.enumeration;
 
 public enum MessageType {
+    CALENDAR_FULL_SYNC,
     CALL,
     CALL_ENDED,
     CALL_FAILED,

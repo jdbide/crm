@@ -10,9 +10,11 @@ import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import fr.pds.isintheair.phonintheair.model.entity.CalendarData;
+import fr.pds.isintheair.phonintheair.model.entity.Agenda;
+import fr.pds.isintheair.phonintheair.model.entity.Event;
 
 /******************************************
  * Created by        : jdatour            *
@@ -22,17 +24,25 @@ import fr.pds.isintheair.phonintheair.model.entity.CalendarData;
  ******************************************/
 
 public class CalendarProvider {
-    public static final String[] EVENT_PROJECTION = new String[]{
+    public static final String[] AGENDA_PROJECTION = new String[]{
             CalendarContract.Calendars._ID,
-            CalendarContract.Calendars.ACCOUNT_NAME,
             CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
             CalendarContract.Calendars.OWNER_ACCOUNT
     };
 
-    private static final int PROJECTION_ID_INDEX            = 0;
-    private static final int PROJECTION_ACCOUNT_NAME_INDEX  = 1;
-    private static final int PROJECTION_DISPLAY_NAME_INDEX  = 2;
-    private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
+    public static final String[] EVENT_PROJECTION = new String[]{
+            CalendarContract.Events.TITLE,
+            CalendarContract.Events.DTSTART,
+            CalendarContract.Events.DTEND
+    };
+
+    private static final int AGENDA_PROJECTION_ID_INDEX            = 0;
+    private static final int AGENDA_PROJECTION_DISPLAY_NAME_INDEX  = 1;
+    private static final int AGENDA_PROJECTION_OWNER_ACCOUNT_INDEX = 2;
+
+    private static final int EVENT_PROJECTION_TITLE_INDEX  = 0;
+    private static final int EVENT_PROJECTION_DSTART_INDEX = 1;
+    private static final int EVENT_PROJECTION_DTEND_INDEX  = 2;
 
     private Context context;
 
@@ -40,37 +50,69 @@ public class CalendarProvider {
         this.context = context;
     }
 
-    public List<CalendarData> getCalendars(String account) {
-        ContentResolver    contentResolver    = context.getContentResolver();
-        Cursor             cursor             = null;
-        List<CalendarData> foundCalendarsData = new ArrayList<>();
-        Uri                uri                = CalendarContract.Calendars.CONTENT_URI;
-
-
-        //String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
-        //+CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
-        //        + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
-
-        //String[] selectionArgs = new String[]{account, "com.google", account};
+    public List<Agenda> getAgendas(String account) {
+        List<Agenda>    agendas         = new ArrayList<>();
+        ContentResolver contentResolver = context.getContentResolver();
+        Cursor          cursor          = null;
+        Uri             uri             = CalendarContract.Calendars.CONTENT_URI;
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
-            cursor = contentResolver.query(uri, EVENT_PROJECTION, null, null, null);
+            cursor = contentResolver.query(uri, AGENDA_PROJECTION, null, null, null);
 
             if (cursor != null) {
-                CalendarData foundCalendarData = new CalendarData();
-
                 while (cursor.moveToNext()) {
-                    foundCalendarData.setId(cursor.getLong(PROJECTION_ID_INDEX));
-                    foundCalendarData.setName(cursor.getString(PROJECTION_DISPLAY_NAME_INDEX));
-                    foundCalendarData.setOwner(cursor.getString(PROJECTION_OWNER_ACCOUNT_INDEX));
+                    Agenda agenda = new Agenda();
 
-                    foundCalendarsData.add(foundCalendarData);
+                    agenda.setId(cursor.getLong(AGENDA_PROJECTION_ID_INDEX));
+                    agenda.setName(cursor.getString(AGENDA_PROJECTION_DISPLAY_NAME_INDEX));
+                    agenda.setOwner(cursor.getString(AGENDA_PROJECTION_OWNER_ACCOUNT_INDEX));
+
+                    agendas.add(agenda);
                 }
 
                 cursor.close();
             }
         }
 
-        return foundCalendarsData;
+        return agendas;
+    }
+
+    public List<Event> getEvents(Long agendaId) {
+        List<Event> events        = new ArrayList<>();
+        String      selection     = "(" + CalendarContract.Events.CALENDAR_ID + " = ?)";
+        String[]    selectionArgs = new String[]{String.valueOf(agendaId)};
+        Uri         uri           = CalendarContract.Events.CONTENT_URI;
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+            Cursor cursor = context.getContentResolver().query(uri, EVENT_PROJECTION, selection, selectionArgs, CalendarContract.Events.DTSTART + " ASC");
+
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    String startTimeData = cursor.getString(EVENT_PROJECTION_DSTART_INDEX);
+                    String endTimeData = cursor.getString(EVENT_PROJECTION_DTEND_INDEX);
+
+                    if (startTimeData != null && endTimeData != null) {
+                        Event event = new Event();
+
+                        event.setTitle(cursor.getString(EVENT_PROJECTION_TITLE_INDEX));
+
+                        Calendar start = Calendar.getInstance();
+                        Calendar end = Calendar.getInstance();
+
+                        start.setTimeInMillis(Long.parseLong(startTimeData));
+                        end.setTimeInMillis(Long.parseLong(endTimeData));
+
+                        event.setStartTime(start);
+                        event.setEndTime(end);
+
+                        events.add(event);
+                    }
+                }
+
+                cursor.close();
+            }
+        }
+
+        return events;
     }
 }

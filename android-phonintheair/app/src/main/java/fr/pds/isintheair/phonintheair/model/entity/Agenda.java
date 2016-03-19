@@ -7,7 +7,7 @@ package fr.pds.isintheair.phonintheair.model.entity;
  * Modification date :                    *
  ******************************************/
 
-public class CalendarData {
+public class Agenda {
     private Long   id;
     private String name;
     private String owner;

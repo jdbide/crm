@@ -3,6 +3,9 @@ package fr.pds.isintheair.phonintheair.model.websocket;
 import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnectionHandler;
+import fr.pds.isintheair.phonintheair.controller.CalendarController;
+import fr.pds.isintheair.phonintheair.helper.JSONHelper;
+import fr.pds.isintheair.phonintheair.model.entity.CalendarMessage;
 
 /******************************************
  * Created by        : jdatour            *
@@ -16,17 +19,20 @@ public class CalendarWebsocketHandler extends WebSocketConnectionHandler {
 
     @Override
     public void onOpen() {
-        Log.d(TAG, "Calendar session opened");
+        Log.d(TAG, "Agenda session opened");
     }
 
     @Override
     public void onClose(int code, String reason) {
-        Log.d(TAG, "Calendar session closed with code : " + code + " with reason : " + reason);
-        WebSocketConnectionHandlerSingleton.getInstance().connectToAgenda();
+        Log.d(TAG, "Agenda session closed with code : " + code + " with reason : " + reason);
+        WebSocketConnectionHandlerSingleton.getInstance().connectToCalendar();
     }
 
     @Override
     public void onTextMessage(String payload) {
         Log.d(TAG, "Message received : " + payload);
+
+        if (!payload.isEmpty())
+            CalendarController.handleMessage((CalendarMessage) JSONHelper.deserialize(payload, CalendarMessage.class));
     }
 }

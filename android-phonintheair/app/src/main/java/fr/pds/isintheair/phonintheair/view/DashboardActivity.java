@@ -11,7 +11,8 @@ import java.util.List;
 import fr.pds.isintheair.phonintheair.R;
 import fr.pds.isintheair.phonintheair.helper.GoogleAccountHelper;
 import fr.pds.isintheair.phonintheair.model.calendar.CalendarProvider;
-import fr.pds.isintheair.phonintheair.model.entity.CalendarData;
+import fr.pds.isintheair.phonintheair.model.entity.Agenda;
+import fr.pds.isintheair.phonintheair.model.entity.Event;
 
 public class DashboardActivity extends Activity {
     @Override
@@ -43,8 +44,13 @@ public class DashboardActivity extends Activity {
 
         CalendarProvider calendarProvider = new CalendarProvider(this);
 
-        List<String>       accountNames  = GoogleAccountHelper.getAccountNames(this);
-        List<CalendarData> calendarDatas = calendarProvider.getCalendars(accountNames.get(0));
+        List<String> accountNames = GoogleAccountHelper.getAccountNames(this);
+        List<Agenda> agendas      = calendarProvider.getAgendas(accountNames.get(0));
+
+        List<Event> events  = calendarProvider.getEvents(((Agenda) agendas.get(0)).getId());
+        List<Event> events2 = calendarProvider.getEvents(((Agenda) agendas.get(1)).getId());
+        List<Event> events3 = calendarProvider.getEvents(((Agenda) agendas.get(2)).getId());
+        List<Event> events4 = calendarProvider.getEvents(((Agenda) agendas.get(3)).getId());
     }
 
 

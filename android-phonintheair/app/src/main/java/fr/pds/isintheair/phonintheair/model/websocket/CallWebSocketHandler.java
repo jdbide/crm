@@ -6,7 +6,7 @@ import de.tavendo.autobahn.WebSocketConnectionHandler;
 import fr.pds.isintheair.phonintheair.controller.MessageController;
 import fr.pds.isintheair.phonintheair.helper.JSONHelper;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
-import fr.pds.isintheair.phonintheair.model.entity.Message;
+import fr.pds.isintheair.phonintheair.model.entity.CallMessage;
 
 public class CallWebSocketHandler extends WebSocketConnectionHandler {
     private String TAG = getClass().getSimpleName();
@@ -23,7 +23,7 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
     @Override
     public void onClose(int code, String reason) {
         Log.d(TAG, "Session closed with code : " + code + " with reason : " + reason);
-        WebSocketConnectionHandlerSingleton.getInstance().connect();
+        WebSocketConnectionHandlerSingleton.getInstance().connectToCall();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
         Log.d(TAG, "Message received : " + payload);
 
         if (!payload.isEmpty())
-            MessageController.handleMessage((Message) JSONHelper.deserialize(payload, Message.class));
+            MessageController.handleMessage((CallMessage) JSONHelper.deserialize(payload, CallMessage.class));
     }
 }
 

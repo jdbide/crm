@@ -22,7 +22,7 @@ public class CalendarService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        WebSocketConnectionHandlerSingleton.getInstance().connectToAgenda();
+        WebSocketConnectionHandlerSingleton.getInstance().connectToCalendar();
 
         return START_STICKY;
     }

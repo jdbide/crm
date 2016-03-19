@@ -30,7 +30,7 @@ public class WebSocketConnectionHandlerSingleton {
     /**
      * Connect to web socket server
      */
-    public void connect() {
+    public void connectToCall() {
         CallWebSocketHandler callWebSocketHandler = new CallWebSocketHandler();
 
         try {
@@ -42,7 +42,7 @@ public class WebSocketConnectionHandlerSingleton {
         }
     }
 
-    public void connectToAgenda() {
+    public void connectToCalendar() {
         CalendarWebsocketHandler calendarWebsocketHandler = new CalendarWebsocketHandler();
 
         try {
