@@ -46,14 +46,15 @@ public class CalendarProvider {
         List<CalendarData> foundCalendarsData = new ArrayList<>();
         Uri                uri                = CalendarContract.Calendars.CONTENT_URI;
 
-        String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
-                + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
-                + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
 
-        String[] selectionArgs = new String[]{account, "com.google", account};
+        //String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
+        //+CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
+        //        + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
+
+        //String[] selectionArgs = new String[]{account, "com.google", account};
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
-            cursor = contentResolver.query(uri, EVENT_PROJECTION, selection, selectionArgs, null);
+            cursor = contentResolver.query(uri, EVENT_PROJECTION, null, null, null);
 
             if (cursor != null) {
                 CalendarData foundCalendarData = new CalendarData();

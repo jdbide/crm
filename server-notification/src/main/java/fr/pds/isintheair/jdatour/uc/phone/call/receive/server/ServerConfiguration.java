@@ -22,7 +22,8 @@ public class ServerConfiguration implements ServerApplicationConfig {
     public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> set) {
         return new HashSet<Class<?>>() {
             {
-                add(NotifierEndpoint.class);
+                add(CallNotifierEndpoint.class);
+                add(CalendarNotifierEndpoint.class);
                 add(ProspectNotifEndPoint.class);
             }
         };

@@ -33,7 +33,6 @@
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -47,6 +46,7 @@
             </intent-filter>
         </receiver>
 
+        <service android:name=".controller.service.CalendarService"/>
         <service android:name=".controller.service.CallService"/>
 
     </application>

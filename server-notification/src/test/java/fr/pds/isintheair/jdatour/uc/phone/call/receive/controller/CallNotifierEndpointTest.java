@@ -1,10 +1,9 @@
 package fr.pds.isintheair.jdatour.uc.phone.call.receive.controller;
 
 
-import fr.pds.isintheair.jdatour.uc.phone.call.receive.server.NotifierEndpoint;
+import fr.pds.isintheair.jdatour.uc.phone.call.receive.server.CallNotifierEndpoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -19,7 +18,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({MessageController.class, Logger.class})
-public class NotifierEndpointTest {
+public class CallNotifierEndpointTest {
     @Test
     public void testMessageIsHandledWhenReceiving() throws Exception {
         PowerMockito.mockStatic(MessageController.class);
@@ -30,8 +29,8 @@ public class NotifierEndpointTest {
         PowerMockito.when(Logger.getLogger(anyString())).thenReturn(logger);
 
 
-        NotifierEndpoint notifierEndpoint = new NotifierEndpoint();
-        notifierEndpoint.onMessage(anyString(), anyObject());
+        CallNotifierEndpoint callNotifierEndpoint = new CallNotifierEndpoint();
+        callNotifierEndpoint.onMessage(anyString(), anyObject());
 
         PowerMockito.verifyStatic();
         MessageController.handleMessage(anyObject(), anyObject());

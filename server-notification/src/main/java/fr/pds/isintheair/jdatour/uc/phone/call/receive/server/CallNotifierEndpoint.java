@@ -10,12 +10,12 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.logging.Logger;
 
 @ServerEndpoint("/call")
-public class NotifierEndpoint {
-    private final static Logger logger = Logger.getLogger(NotifierEndpoint.class.getName());
+public class CallNotifierEndpoint {
+    private final static Logger logger = Logger.getLogger(CallNotifierEndpoint.class.getName());
 
     @OnOpen
     public void onOpen(Session session) {
-        logger.info("Session opened");
+        logger.info("Call session opened");
     }
 
     @OnError

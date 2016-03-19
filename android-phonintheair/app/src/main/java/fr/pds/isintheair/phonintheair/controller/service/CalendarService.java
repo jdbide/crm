@@ -9,14 +9,12 @@ import fr.pds.isintheair.phonintheair.model.websocket.WebSocketConnectionHandler
 
 /******************************************
  * Created by        : jdatour            *
- * Creation date     : 01/24/16           *
+ * Creation date     : 03/19/16           *
  * Modified by       :                    *
  * Modification date :                    *
  ******************************************/
 
-public class CallService extends Service {
-    private String TAG = getClass().getName();
-
+public class CalendarService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return new CallBinder();
@@ -24,14 +22,14 @@ public class CallService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        WebSocketConnectionHandlerSingleton.getInstance().connect();
+        WebSocketConnectionHandlerSingleton.getInstance().connectToAgenda();
 
         return START_STICKY;
     }
 
     public class CallBinder extends Binder {
-        CallService getService() {
-            return CallService.this;
+        CalendarService getService() {
+            return CalendarService.this;
         }
     }
 }

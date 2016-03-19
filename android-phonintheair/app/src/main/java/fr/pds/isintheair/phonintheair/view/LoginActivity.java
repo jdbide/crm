@@ -9,6 +9,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.phonintheair.R;
+import fr.pds.isintheair.phonintheair.controller.service.CalendarService;
 import fr.pds.isintheair.phonintheair.controller.service.CallService;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 
@@ -26,9 +27,11 @@ public class LoginActivity extends Activity {
         userId = email.getText().toString().hashCode();
         SharedPreferencesHelper.writeInteger("userId", userId);
 
-        Intent callServiceIntent = new Intent(this, CallService.class);
-        Intent dashboardIntent   = new Intent(this, DashboardActivity.class);
+        Intent calendarServiceIntent = new Intent(this, CalendarService.class);
+        Intent callServiceIntent     = new Intent(this, CallService.class);
+        Intent dashboardIntent       = new Intent(this, DashboardActivity.class);
 
+        startService(calendarServiceIntent);
         startService(callServiceIntent);
         startActivity(dashboardIntent);
     }

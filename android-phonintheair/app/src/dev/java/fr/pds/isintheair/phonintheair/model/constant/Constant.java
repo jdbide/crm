@@ -8,5 +8,8 @@ package fr.pds.isintheair.phonintheair.model.constant;
  ******************************************/
 
 public class Constant {
-    public static String WS_URL = "ws://192.168.20.3:8084/call";
+    //public static String WEBSOCKET_CALL_ENDPOINT     = "ws://192.168.20.3:8084/call";
+    public static String WEBSOCKET_CALL_ENDPOINT     = "ws://192.168.1.1:8084/call";
+    //public static String WEBSOCKET_CALENDAR_ENDPOINT = "ws://192.168.20.3:8084/calendar";
+    public static String WEBSOCKET_CALENDAR_ENDPOINT = "ws://192.168.1.1:8084/calendar";
 }
