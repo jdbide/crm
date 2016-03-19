@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.controller;
+package fr.pds.isintheair.phonintheair.helper;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 
 import fr.pds.isintheair.phonintheair.PhonintheairApp;
 
-public class CallController {
+public class CallHelper {
     public static void call(String phoneNumber) {
         Intent  callIntent         = new Intent(Intent.ACTION_CALL);
         Context applicationContext = PhonintheairApp.context;

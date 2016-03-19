@@ -1,5 +1,6 @@
 package fr.pds.isintheair.phonintheair.controller;
 
+import fr.pds.isintheair.phonintheair.helper.CallHelper;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 import fr.pds.isintheair.phonintheair.model.entity.Call;
 import fr.pds.isintheair.phonintheair.model.entity.CallMessage;
@@ -14,11 +15,11 @@ public class MessageController {
     public static void handleMessage(CallMessage message) {
         switch (message.getMessageMeta().getMessageType()) {
             case CALL:
-                CallController.call(message.getCall().getPhoneNumber());
+                CallHelper.call(message.getCall().getPhoneNumber());
                 SharedPreferencesHelper.writeString("lastMessage", message.getMessageMeta().getMessageType().toString());
                 break;
             case CALL_ENDED:
-                CallController.endCall();
+                CallHelper.endCall();
                 break;
         }
     }

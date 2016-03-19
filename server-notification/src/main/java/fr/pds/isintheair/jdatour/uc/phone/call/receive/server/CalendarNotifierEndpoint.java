@@ -21,8 +21,8 @@ public class CalendarNotifierEndpoint {
     }
 
     @OnMessage
-    public void onMessage(String body, Session session) {
-        logger.info("Message received : " + body);
+    public void onMessage(String body, Session session) throws IOException {
+        session.getBasicRemote().sendText("Hello i'm calendar notifier");
     }
 
     @OnClose
