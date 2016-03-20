@@ -8,7 +8,20 @@ import java.util.List;
 public class Contact {
     public int contactId;
     public long clientId;
-    public String contactName, contactFname, contactTel, contactStatus;
+    public String contactName;
+    public String contactFname;
+    public String contactTel;
+    public String contactJob;
+
+    public String getContactJob() {
+        return contactJob;
+    }
+
+    public void setContactJob(String contactJob) {
+        this.contactJob = contactJob;
+    }
+
+    public String contactStatus;
 
     public List<Contact> getContactList() {
         return contactList;

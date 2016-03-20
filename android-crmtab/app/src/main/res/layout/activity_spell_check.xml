@@ -72,7 +72,7 @@
 
                 <android.support.v7.widget.CardView android:id="@+id/card_view3" android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent" android:layout_height="300dp" android:layout_margin="5dp"
+                    android:layout_width="match_parent" android:layout_height="450dp" android:layout_margin="5dp"
                     card_view:cardCornerRadius="5dp" card_view:contentPadding="10dp">
 
                     <LinearLayout
@@ -194,7 +194,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Normaliser l'adresse mail"/>
+                        android:text="Texte avec symboles diacritiques"/>
 
 
                     <LinearLayout
@@ -205,7 +205,8 @@
                         <EditText
                             android:id="@+id/txtDiacriticCheck"
                             android:layout_width="400dp"
-                            android:layout_height="50dp" />
+                            android:layout_height="50dp"
+                            android:text="çÇãÃáÁéÉíÍõÕóÓúÚ"/>
 
                         <Button
                             android:layout_width="wrap_content"
