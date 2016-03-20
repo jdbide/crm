@@ -32,7 +32,7 @@ public class ControllerConvertCsv2Pojo {
                 contact.setContactTel(line.split(";")[3]);
                 contact.setContactJob(line.split(";")[4]);
                 contact.setContactStatus(line.split(";")[5]);
-                contact.setClientId(Long.parseLong(line.split(";")[6]));
+                contact.setClientId(line.split(";")[6]);
 
                 contacts.add(contact);
             }

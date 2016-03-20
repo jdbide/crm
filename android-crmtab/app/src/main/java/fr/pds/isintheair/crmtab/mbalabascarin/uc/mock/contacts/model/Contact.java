@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Contact {
     public int contactId;
-    public long clientId;
+    public String clientId;
     public String contactName;
     public String contactFname;
     public String contactTel;
@@ -41,11 +41,11 @@ public class Contact {
         this.contactId = contactId;
     }
 
-    public long getClientId() {
+    public String getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
+    public void setClientId(String clientId) {
         this.clientId = clientId;
     }
 
