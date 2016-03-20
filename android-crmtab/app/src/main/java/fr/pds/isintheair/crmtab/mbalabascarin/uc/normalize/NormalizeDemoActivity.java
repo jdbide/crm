@@ -5,7 +5,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 import fr.pds.isintheair.crmtab.R;
 
@@ -38,10 +36,12 @@ public class NormalizeDemoActivity extends Activity implements SpellCheckerSessi
     private TextView sugg1,sugg2,sugg3,sugg4,sugg5;
     private Button btnCheck;
     ListView lstAdress;
+    ControllerNormalize controllerNormalize;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spell_check);
+        controllerNormalize = new ControllerNormalize();
         txtToCheck = (EditText) findViewById(R.id.txtTextToCheck);
         sugg1 = (TextView) findViewById(R.id.txtSugg1);
         sugg2 = (TextView) findViewById(R.id.txtSugg2);
@@ -166,31 +166,19 @@ public class NormalizeDemoActivity extends Activity implements SpellCheckerSessi
 
     }
 
-    public String normalizeNumber(String number){
-
-        return PhoneNumberUtils.normalizeNumber(number);
-    }
-
-    public String formatTelNumber(String number){
-        return PhoneNumberUtils.formatNumber(normalizeNumber(number), Locale.getDefault().getCountry());
-    }
-
-
     public void checkPhoneNumber(View view){
         EditText tel = (EditText) findViewById(R.id.txtTelCheck);
         TextView lblMessage = (TextView) findViewById(R.id.lblMessage);
 
-        String formattedNumber = formatTelNumber(tel.getText().toString());
+        String formattedNumber = controllerNormalize.formatTelNumber(tel.getText().toString());
         tel.setText(formattedNumber);
-        if(checkIfRightNumber(formattedNumber)){
+        if(controllerNormalize.checkIfRightNumber(formattedNumber)){
             lblMessage.setText("Error in phone number");
         }else{
             lblMessage.setText("");
         }
     }
-    public boolean checkIfRightNumber(String phoneNumber){
-        return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
-    }
+
 
     public void checkAdresse(View view){
         EditText txtAddress = (EditText) findViewById(R.id.txtAdresseCheck);
@@ -200,10 +188,7 @@ public class NormalizeDemoActivity extends Activity implements SpellCheckerSessi
         }
     }
 
-    public String getLocal(){
 
-        return  Locale.getDefault().getCountry();
-    }
 
     public boolean checkWithGeocode(String adresse){
         lstAdress = (ListView) findViewById(R.id.lstAdresses);
@@ -243,27 +228,24 @@ public class NormalizeDemoActivity extends Activity implements SpellCheckerSessi
         return false;
     }
 
-    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                    "\\@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                    "(" +
-                    "\\." +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                    ")+"
-    );
-    private boolean isValidEmail(String email) {
-        return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
-    }
 
     public void mailCheck (View view){
         EditText txtMail = (EditText) findViewById(R.id.txtMailCheck);
         TextView error = (TextView)findViewById(R.id.lblMessage3);
-        if(!isValidEmail(txtMail.getText().toString())){
+        if(!controllerNormalize.isValidEmail(txtMail.getText().toString())){
             error.setText("Mail non valide !");
         }else{
             error.setText("");
         }
+    }
+
+    public void removeDiacritic(View view){
+        TextView txtPhraseDiacritic = (TextView) findViewById(R.id.txtDiacriticCheck);
+        String phrase = txtPhraseDiacritic.getText().toString();
+
+        String normalizedText = controllerNormalize.removeDiacritics(phrase);
+        txtPhraseDiacritic.setText(normalizedText);
+
     }
 
 
