@@ -45,6 +45,9 @@ public class ProspectClientWS {
             this.messageHandler.handleMessage(message);
         }
     }
+    public void addMessageHandler(MessageHandler msgHandler) {
+        this.messageHandler = msgHandler;
+    }
 
 
     public void sendMessage(String message) {
