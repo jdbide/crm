@@ -1,18 +1,16 @@
 package fr.pds.isintheair.crmtab.view.activity;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
 import com.github.tibolte.agendacalendarview.CalendarPickerController;
-import com.github.tibolte.agendacalendarview.models.BaseCalendarEvent;
 import com.github.tibolte.agendacalendarview.models.CalendarEvent;
 import com.github.tibolte.agendacalendarview.models.DayItem;
+import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -20,7 +18,12 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.view.drawing.DrawableEventRenderer;
+import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
+import fr.pds.isintheair.crmtab.controller.bus.event.CalendarFullSyncEvent;
+import fr.pds.isintheair.crmtab.controller.message.CalendarController;
+import fr.pds.isintheair.crmtab.helper.CalendarHelper;
+import fr.pds.isintheair.crmtab.model.dao.EventDAO;
+import fr.pds.isintheair.crmtab.model.entity.Event;
 
 /******************************************
  * Created by        : jdatour            *
@@ -40,19 +43,11 @@ public class AgendaActivity extends AppCompatActivity implements CalendarPickerC
         setContentView(R.layout.activity_agenda);
 
         ButterKnife.bind(this);
+        BusHandlerSingleton.getInstance().getBus().register(this);
 
-        Calendar minDate = Calendar.getInstance();
-        Calendar maxDate = Calendar.getInstance();
+        List<Event> events = EventDAO.getAll();
 
-        minDate.add(Calendar.MONTH, -2);
-        minDate.set(Calendar.DAY_OF_MONTH, 1);
-        maxDate.add(Calendar.YEAR, 1);
-
-        List<CalendarEvent> eventList = new ArrayList<>();
-        mockList(eventList);
-
-        agendaCalendarView.init(eventList, minDate, maxDate, Locale.getDefault(), this);
-        agendaCalendarView.addEventRenderer(new DrawableEventRenderer());
+        refreshCalendar(events);
     }
 
     @Override
@@ -67,17 +62,7 @@ public class AgendaActivity extends AppCompatActivity implements CalendarPickerC
         int id = item.getItemId();
 
         if (id == R.id.action_refresh) {
-            Calendar minDate = Calendar.getInstance();
-            Calendar maxDate = Calendar.getInstance();
-
-            minDate.add(Calendar.MONTH, -2);
-            minDate.set(Calendar.DAY_OF_MONTH, 1);
-            maxDate.add(Calendar.YEAR, 1);
-
-            List<CalendarEvent> eventList = new ArrayList<>();
-            mockList(eventList);
-
-            agendaCalendarView.init(eventList, minDate, maxDate, Locale.getDefault(), this);
+            CalendarController.sendFullSyncMessage();
 
             return true;
         }
@@ -85,35 +70,33 @@ public class AgendaActivity extends AppCompatActivity implements CalendarPickerC
         return super.onOptionsItemSelected(item);
     }
 
-    private void mockList(List<CalendarEvent> eventList) {
-        Calendar startTime1 = Calendar.getInstance();
-        Calendar endTime1   = Calendar.getInstance();
-        endTime1.add(Calendar.MONTH, 1);
-        BaseCalendarEvent event1 = new BaseCalendarEvent("Thibault travels in Iceland", "A wonderful journey!", "Iceland",
-                                                         ContextCompat.getColor(this, R.color.colorPrimary), startTime1, endTime1, true);
-        eventList.add(event1);
+    private void refreshCalendar(List<Event> events) {
+        List<CalendarEvent> baseCalendarEvents = CalendarHelper.createBaseEventList(events);
+        Calendar            minDate            = Calendar.getInstance();
+        Calendar            maxDate            = Calendar.getInstance();
 
-        Calendar startTime2 = Calendar.getInstance();
-        startTime2.add(Calendar.DAY_OF_YEAR, 1);
-        Calendar endTime2 = Calendar.getInstance();
-        endTime2.add(Calendar.DAY_OF_YEAR, 3);
-        BaseCalendarEvent event2 = new BaseCalendarEvent("Visit to Dalvík", "A beautiful small town", "Dalvík",
-                                                         ContextCompat.getColor(this, R.color.colorPrimaryDark), startTime2, endTime2, true);
-        eventList.add(event2);
+        minDate.add(Calendar.MONTH, -2);
+        minDate.set(Calendar.DAY_OF_MONTH, 1);
+        maxDate.add(Calendar.YEAR, 1);
+
+        //agendaCalendarView.addEventRenderer(new DrawableEventRenderer());
+        agendaCalendarView.init(baseCalendarEvents, minDate, maxDate, Locale.getDefault(), this);
+    }
+
+    @Subscribe
+    public void onFullSyncEvent(CalendarFullSyncEvent calendarFullSyncEvent) {
+        refreshCalendar(calendarFullSyncEvent.getEvents());
     }
 
     @Override
     public void onDaySelected(DayItem dayItem) {
-
     }
 
     @Override
     public void onEventSelected(CalendarEvent event) {
-
     }
 
     @Override
     public void onScrollToDate(Calendar calendar) {
-
     }
 }

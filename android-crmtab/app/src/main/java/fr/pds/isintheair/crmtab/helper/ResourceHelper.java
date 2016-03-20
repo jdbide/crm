@@ -1,5 +1,7 @@
 package fr.pds.isintheair.crmtab.helper;
 
+import android.support.v4.content.ContextCompat;
+
 import fr.pds.isintheair.crmtab.CrmTabApplication;
 
 /******************************************
@@ -12,5 +14,9 @@ import fr.pds.isintheair.crmtab.CrmTabApplication;
 public class ResourceHelper {
     public static String getString(int stringId) {
         return CrmTabApplication.context.getResources().getString(stringId);
+    }
+
+    public static Integer getColor(int colorId) {
+        return ContextCompat.getColor(CrmTabApplication.context, colorId);
     }
 }

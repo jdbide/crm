@@ -1,6 +1,13 @@
 package fr.pds.isintheair.crmtab.model.entity;
 
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 import java.util.Calendar;
+
+import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
 
 /******************************************
  * Created by        :                    *
@@ -9,9 +16,19 @@ import java.util.Calendar;
  * Modification date :                    *
  ******************************************/
 
-public class Event {
-    private String   title;
+@Table(database = OrmTabDataBase.class)
+public class Event extends BaseModel {
+    @PrimaryKey
+    @Column
+    Long id;
+
+    @Column
+    private String title;
+
+    @Column
     private Calendar startTime;
+
+    @Column
     private Calendar endTime;
 
     public String getTitle() {

@@ -20,8 +20,6 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.model.entity.User;
-import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
@@ -40,10 +38,12 @@ import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvControll
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.view.ImportContactActivity;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.NormalizeDemoActivity;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
+import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.ListCustomerFragment;
+import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.MainLogoFragment;
 
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        MainLogoFragment mainLogoFragment = new MainLogoFragment();
+        MainLogoFragment    mainLogoFragment = new MainLogoFragment();
         FragmentTransaction transaction      = getFragmentManager().beginTransaction();
         transaction.replace(R.id.container, mainLogoFragment, "TAG");
         transaction.addToBackStack(null);

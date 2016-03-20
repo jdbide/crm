@@ -4,16 +4,16 @@ import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
-import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.CrmTabApplication;
-import fr.pds.isintheair.crmtab.helper.NetworkHelper;
+import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.helper.JSONHelper;
-import fr.pds.isintheair.crmtab.phoning.model.constant.Constant;
+import fr.pds.isintheair.crmtab.helper.NetworkHelper;
 import fr.pds.isintheair.crmtab.model.entity.CalendarMessage;
 import fr.pds.isintheair.crmtab.model.entity.CallMessage;
 import fr.pds.isintheair.crmtab.model.entity.Message;
+import fr.pds.isintheair.crmtab.Constant;
 
 public class WebSocketConnectionHandlerSingleton {
 
@@ -23,8 +23,6 @@ public class WebSocketConnectionHandlerSingleton {
     private        WebSocketConnection                 callWebsocketConnection     = null;
 
     private WebSocketConnectionHandlerSingleton() {
-        calendarWebsocketConnection = new WebSocketConnection();
-        callWebsocketConnection = new WebSocketConnection();
     }
 
     public static synchronized WebSocketConnectionHandlerSingleton getInstance() {
@@ -37,6 +35,8 @@ public class WebSocketConnectionHandlerSingleton {
 
     public void connectToCall() {
         CallWebSocketHandler callWebSocketHandler = new CallWebSocketHandler();
+
+        callWebsocketConnection = new WebSocketConnection();
 
         try {
             callWebsocketConnection.connect(Constant.WEBSOCKET_CALL_ENDPOINT, callWebSocketHandler);
@@ -51,6 +51,8 @@ public class WebSocketConnectionHandlerSingleton {
     public void connectToCalendar() {
         CalendarWebsocketHandler calendarWebsocketHandler = new CalendarWebsocketHandler();
 
+        calendarWebsocketConnection = new WebSocketConnection();
+
         try {
             calendarWebsocketConnection.connect(Constant.WEBSOCKET_CALENDAR_ENDPOINT, calendarWebsocketHandler);
         }
@@ -61,33 +63,31 @@ public class WebSocketConnectionHandlerSingleton {
     }
 
     public void sendMessage(Message message) {
-        if (callWebsocketConnection == null) {
-            String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_websocket_connection_killed);
+        if (NetworkHelper.isNetworkAvailable()) {
+            String serializedMessage = JSONHelper.serialize(message, message.getClass());
+
+            if (calendarWebsocketConnection == null) {
+                connectToCalendar();
+            }
+
+            if (callWebsocketConnection == null) {
+                connectToCall();
+            }
+
+            if (message instanceof CalendarMessage) {
+                calendarWebsocketConnection.sendTextMessage(serializedMessage);
+            }
+
+            else if (message instanceof CallMessage) {
+                callWebsocketConnection.sendTextMessage(serializedMessage);
+            }
+
+            Log.d(TAG, "Sending message : " + serializedMessage);
+        }
+        else {
+            String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_no_internet);
 
             BusHandlerSingleton.getInstance().getBus().post(new PhoneCallFailedEvent(errorMessage));
-        }
-
-        else {
-            if (NetworkHelper.isNetworkAvailable()) {
-                String serializedMessage = JSONHelper.serialize(message, message.getClass());
-
-                if (message instanceof CalendarMessage) {
-                    calendarWebsocketConnection.sendTextMessage(serializedMessage);
-                }
-
-                else if (message instanceof CallMessage) {
-                    callWebsocketConnection.sendTextMessage(serializedMessage);
-                }
-
-                callWebsocketConnection.sendTextMessage(serializedMessage);
-
-                Log.d(TAG, "Sending message : " + serializedMessage);
-            }
-            else {
-                String errorMessage = CrmTabApplication.context.getResources().getString(R.string.message_failed_no_internet);
-
-                BusHandlerSingleton.getInstance().getBus().post(new PhoneCallFailedEvent(errorMessage));
-            }
         }
     }
 }

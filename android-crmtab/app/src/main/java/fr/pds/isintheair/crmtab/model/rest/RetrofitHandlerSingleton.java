@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.raizlabs.android.dbflow.structure.ModelAdapter;
 
 import fr.pds.isintheair.crmtab.model.rest.service.LoginService;
-import fr.pds.isintheair.crmtab.phoning.model.constant.Constant;
+import fr.pds.isintheair.crmtab.Constant;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 

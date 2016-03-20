@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class NotifierServer {
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         try {
             runServer();
         }
@@ -21,9 +21,9 @@ public class NotifierServer {
         }
     }
 
-    public static void runServer() throws URISyntaxException, IOException {
-        String port = null;
-        Properties properties = new Properties();
+    public static void runServer () throws URISyntaxException, IOException {
+        String      port        = null;
+        Properties  properties  = new Properties();
         InputStream inputStream = null;
 
         try {
@@ -36,7 +36,6 @@ public class NotifierServer {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-
 
         Server server = new Server("localhost", Integer.parseInt(port), "/", ServerConfiguration.class);
 

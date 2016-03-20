@@ -5,7 +5,6 @@ import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 import fr.pds.isintheair.phonintheair.model.entity.Call;
 import fr.pds.isintheair.phonintheair.model.entity.CallMessage;
 import fr.pds.isintheair.phonintheair.model.entity.DeviceType;
-import fr.pds.isintheair.phonintheair.model.entity.Message;
 import fr.pds.isintheair.phonintheair.model.entity.MessageInfo;
 import fr.pds.isintheair.phonintheair.model.entity.MessageType;
 import fr.pds.isintheair.phonintheair.model.entity.NotificationType;
@@ -39,7 +38,7 @@ public class CallController {
         MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL_RECEIVED).build();
         SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALL).addUserId(userId).build();
         Call        call        = new Call(phoneNumber);
-        Message     message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addCall(call).build();
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addCall(call).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
@@ -49,7 +48,7 @@ public class CallController {
         MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL_PASSED).build();
         SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALL).addUserId(userId).build();
         Call        call        = new Call(phoneNumber);
-        Message     message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addCall(call).build();
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addCall(call).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }

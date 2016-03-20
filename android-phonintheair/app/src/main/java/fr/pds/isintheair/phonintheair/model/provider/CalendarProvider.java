@@ -78,10 +78,11 @@ public class CalendarProvider {
     }
 
     public List<Event> getEvents(Long agendaId) {
-        List<Event> events        = new ArrayList<>();
-        String      selection     = "(" + CalendarContract.Events.CALENDAR_ID + " = ?)";
-        String[]    selectionArgs = new String[]{String.valueOf(agendaId)};
-        Uri         uri           = CalendarContract.Events.CONTENT_URI;
+        List<Event> events = new ArrayList<>();
+        //String      selection     = "(" + CalendarContract.Events.CALENDAR_ID + " = ?)";
+        String   selection     = "(( " + CalendarContract.Events.DTSTART + " >= " + " ? ) AND (" + CalendarContract.Events.CALENDAR_ID + " = ?))";
+        String[] selectionArgs = new String[]{String.valueOf(Calendar.getInstance().getTimeInMillis()), String.valueOf(agendaId)};
+        Uri      uri           = CalendarContract.Events.CONTENT_URI;
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
             Cursor cursor = context.getContentResolver().query(uri, EVENT_PROJECTION, selection, selectionArgs, CalendarContract.Events.DTSTART + " ASC");

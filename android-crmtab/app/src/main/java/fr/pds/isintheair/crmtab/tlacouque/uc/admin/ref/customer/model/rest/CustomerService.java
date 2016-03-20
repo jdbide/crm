@@ -1,7 +1,7 @@
 package fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest;
 
 
-import fr.pds.isintheair.crmtab.phoning.model.constant.Constant;
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.MessageRestCustomer;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
 import retrofit.Call;

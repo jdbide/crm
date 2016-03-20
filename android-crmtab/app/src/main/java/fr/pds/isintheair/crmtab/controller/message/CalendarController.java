@@ -1,9 +1,13 @@
 package fr.pds.isintheair.crmtab.controller.message;
 
+import java.util.List;
+
+import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
+import fr.pds.isintheair.crmtab.controller.bus.event.CalendarFullSyncEvent;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.CalendarMessage;
-import fr.pds.isintheair.crmtab.model.entity.CallMessage;
 import fr.pds.isintheair.crmtab.model.entity.DeviceType;
+import fr.pds.isintheair.crmtab.model.entity.Event;
 import fr.pds.isintheair.crmtab.model.entity.MessageInfo;
 import fr.pds.isintheair.crmtab.model.entity.MessageType;
 import fr.pds.isintheair.crmtab.model.entity.NotificationType;
@@ -18,15 +22,37 @@ import fr.pds.isintheair.crmtab.model.websocket.WebSocketConnectionHandlerSingle
  ******************************************/
 
 public class CalendarController {
-    public static void handleMessage(CalendarMessage message) {
+    public static void handleMessage(CalendarMessage calendarMessage) {
+        switch (calendarMessage.getMessageInfo().getMessageType()) {
+            case CALENDAR_FULL_SYNC:
+                handleFullSync(calendarMessage.getEvents());
+                break;
+        }
     }
 
     public static void sendRegisterMessage() {
-        Integer     userId      = UserDAO.getCurrentUser().getEmail().hashCode();
-        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.REGISTER).build();
-        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.TABLET).addNotificationType(NotificationType.CALENDAR).addUserId(userId).build();
-        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
+        Integer         userId      = UserDAO.getCurrentUser().getEmail().hashCode();
+        MessageInfo     messageInfo = new MessageInfo.Builder().addMessageType(MessageType.REGISTER).build();
+        SessionInfo     sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.TABLET).addNotificationType(NotificationType.CALENDAR).addUserId(userId).build();
+        CalendarMessage message     = new CalendarMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
+    public static void sendFullSyncMessage() {
+        Integer         userId      = UserDAO.getCurrentUser().getEmail().hashCode();
+        MessageInfo     messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALENDAR_FULL_SYNC).build();
+        SessionInfo     sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.TABLET).addNotificationType(NotificationType.CALENDAR).addUserId(userId).build();
+        CalendarMessage message     = new CalendarMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
+    private static void handleFullSync(List<Event> events) {
+        for (Event event : events) {
+            event.save();
+        }
+
+        BusHandlerSingleton.getInstance().getBus().post(new CalendarFullSyncEvent(events));
     }
 }

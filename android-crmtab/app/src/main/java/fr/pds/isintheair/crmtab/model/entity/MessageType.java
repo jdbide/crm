@@ -1,6 +1,7 @@
 package fr.pds.isintheair.crmtab.model.entity;
 
 public enum MessageType {
+    CALENDAR_FULL_SYNC,
     CALL,
     CALL_ENDED,
     CALL_FAILED,
@@ -8,6 +9,4 @@ public enum MessageType {
     CALL_PASSED,
     CALL_RECEIVED,
     REGISTER,
-    REGISTER_PHONE,
-    REGISTER_TABLET
 }

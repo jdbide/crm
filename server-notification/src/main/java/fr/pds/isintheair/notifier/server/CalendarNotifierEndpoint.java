@@ -24,7 +24,7 @@ public class CalendarNotifierEndpoint {
         logger.info("Calendar error : " + throwable.getMessage());
     }
 
-    @OnMessage
+    @OnMessage()
     public void onMessage (String body, Session session) throws IOException {
         logger.info("Calendar message received : " + body);
 
