@@ -48,7 +48,7 @@ public class MapUtilsTest {
         // Make the Environment class return a mocked external storage directory
         when(Environment.getExternalStorageDirectory())
                 .thenReturn(file);
-        when(file.toString()).thenReturn("");
+        when(file.toString()).thenReturn("/test/mapinfo");
 
         String string = FormatValidator.formatPathTile(mapInfo);
         File fakeMapInfo = new File(string);
@@ -78,7 +78,7 @@ public class MapUtilsTest {
         // Make the Environment class return a mocked external storage directory
         when(Environment.getExternalStorageDirectory())
                 .thenReturn(file);
-        when(file.toString()).thenReturn("");
+        when(file.toString()).thenReturn("/test/mapinfo");
 
         String string = FormatValidator.formatPathTile(mapInfoFile);
         File fakeMapInfo = new File(string);
