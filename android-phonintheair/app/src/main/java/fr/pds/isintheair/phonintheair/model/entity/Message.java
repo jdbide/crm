@@ -8,26 +8,38 @@ package fr.pds.isintheair.phonintheair.model.entity;
  ******************************************/
 
 public class Message {
-    private MessageMeta messageMeta;
+    private MessageInfo messageInfo;
+    private SessionInfo sessionInfo;
 
     public Message() {
     }
 
     protected Message(Builder messageBuilder) {
-        this.messageMeta = messageBuilder.messageMeta;
+        this.messageInfo = messageBuilder.messageInfo;
+        this.sessionInfo = messageBuilder.sessionInfo;
     }
 
-    public MessageMeta getMessageMeta() {
-        return messageMeta;
+    public MessageInfo getMessageInfo() {
+        return messageInfo;
+    }
+
+    public SessionInfo getSessionInfo() {
+        return sessionInfo;
     }
 
     public abstract static class Builder<T extends Builder<T>> {
-        public MessageMeta messageMeta;
+        public MessageInfo messageInfo;
+        public SessionInfo sessionInfo;
 
         protected abstract T getThis();
 
-        public T addMessageMeta(MessageMeta messageMeta) {
-            this.messageMeta = messageMeta;
+        public T addMessageInfo(MessageInfo messageInfo) {
+            this.messageInfo = messageInfo;
+            return getThis();
+        }
+
+        public T addSessionInfo(SessionInfo sessionInfo) {
+            this.sessionInfo = sessionInfo;
             return getThis();
         }
 

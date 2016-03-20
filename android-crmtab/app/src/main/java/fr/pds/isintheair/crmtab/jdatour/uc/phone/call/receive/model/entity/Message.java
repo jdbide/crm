@@ -1,58 +1,46 @@
 package fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 01/24/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class Message {
-    private Call        call;
-    private MessageMeta messageMeta;
-    private Register    register;
+    private MessageInfo messageInfo;
+    private SessionInfo sessionInfo;
 
-    private Message(MessageBuilder messageBuilder) {
-        this.call = messageBuilder.call;
-        this.messageMeta = messageBuilder.messageMeta;
-        this.register = messageBuilder.register;
+    public Message() {
     }
 
-    public MessageMeta getMessageMeta() {
-        return messageMeta;
+    protected Message(Builder messageBuilder) {
+        this.messageInfo = messageBuilder.messageInfo;
+        this.sessionInfo = messageBuilder.sessionInfo;
     }
 
-    public void setMessageMeta(MessageMeta messageMeta) {
-        this.messageMeta = messageMeta;
+    public MessageInfo getMessageInfo() {
+        return messageInfo;
     }
 
-    public Register getRegister() {
-        return register;
+    public SessionInfo getSessionInfo() {
+        return sessionInfo;
     }
 
-    public void setRegister(Register register) {
-        this.register = register;
-    }
+    public abstract static class Builder<T extends Builder<T>> {
+        public MessageInfo messageInfo;
+        public SessionInfo sessionInfo;
 
-    public Call getCall() {
-        return call;
-    }
+        protected abstract T getThis();
 
-    public void setCall(Call call) {
-        this.call = call;
-    }
-
-    public static class MessageBuilder {
-        public Call        call;
-        public MessageMeta messageMeta;
-        public Register    register;
-
-        public MessageBuilder addCall(Call call) {
-            this.call = call;
-            return this;
+        public T addMessageInfo(MessageInfo messageInfo) {
+            this.messageInfo = messageInfo;
+            return getThis();
         }
 
-        public MessageBuilder addMessageMeta(MessageMeta messageMeta) {
-            this.messageMeta = messageMeta;
-            return this;
-        }
-
-        public MessageBuilder addRegister(Register register) {
-            this.register = register;
-            return this;
+        public T addSessionInfo(SessionInfo sessionInfo) {
+            this.sessionInfo = sessionInfo;
+            return getThis();
         }
 
         public Message build() {

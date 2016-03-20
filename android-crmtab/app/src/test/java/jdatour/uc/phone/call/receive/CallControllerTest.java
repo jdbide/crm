@@ -25,7 +25,7 @@ package jdatour.uc.phone.call.receive;
 
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_PHONE).build();
         Call        call        = new Call("0610772364");
-        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).addCall(call).build();
+        Message     message     = new Message.MessageBuilder().addMessageInfo(messageMeta).addCall(call).build();
 
         CallController.call("0610772364");
         verify(webSocketConnectionHandlerSingleton, times(1)).sendMessage(message);

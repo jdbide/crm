@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
 
 public class CallService extends Service {
-    private String TAG = getClass().getSimpleName();
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -19,13 +16,8 @@ public class CallService extends Service {
     }
 
     @Override
-    public void onCreate() {
-        Log.d(TAG, "ContactRetrofitService created");
-    }
-
-    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        WebSocketConnectionHandlerSingleton.getInstance().connect();
+        WebSocketConnectionHandlerSingleton.getInstance().connectToCall();
 
         return START_STICKY;
     }

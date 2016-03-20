@@ -6,6 +6,8 @@ import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import fr.pds.isintheair.phonintheair.helper.JSONHelper;
 import fr.pds.isintheair.phonintheair.model.constant.Constant;
+import fr.pds.isintheair.phonintheair.model.entity.CalendarMessage;
+import fr.pds.isintheair.phonintheair.model.entity.CallMessage;
 import fr.pds.isintheair.phonintheair.model.entity.Message;
 
 public class WebSocketConnectionHandlerSingleton {
@@ -60,10 +62,16 @@ public class WebSocketConnectionHandlerSingleton {
      * @param message the message to send
      */
     public void sendMessage(Message message) {
-        String serializedMessage = JSONHelper.serialize(message, Message.class);
+        String serializedMessage = JSONHelper.serialize(message, message.getClass());
+
+        if (message instanceof CalendarMessage) {
+            calendarWebsocketConnection.sendTextMessage(serializedMessage);
+        }
+
+        else if (message instanceof CallMessage) {
+            callWebsocketConnection.sendTextMessage(serializedMessage);
+        }
 
         Log.d(TAG, "Sending : " + serializedMessage);
-
-        callWebsocketConnection.sendTextMessage(serializedMessage);
     }
 }

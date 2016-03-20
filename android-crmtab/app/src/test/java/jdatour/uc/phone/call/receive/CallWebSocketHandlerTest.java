@@ -14,9 +14,9 @@ package jdatour.uc.phone.call.receive;
 
         MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_PHONE).build();
         Register    register    = new Register(42);
-        Message     message     = new Message.MessageBuilder().addMessageMeta(messageMeta).addRegister(register).build();
+        Message     message     = new Message.MessageBuilder().addMessageInfo(messageMeta).addRegister(register).build();
 
-        WebSocketConnectionHandlerSingleton.getInstance().connect();
+        WebSocketConnectionHandlerSingleton.getInstance().connectToCall();
         Mockito.verify(webSocketConnectionHandlerSingleton, Mockito.times(1)).sendMessage(message);
     }
 } */

@@ -1,32 +1,27 @@
 package fr.pds.isintheair.phonintheair.model.entity;
 
 /******************************************
- * Created by        :                    *
- * Creation date     : 03/19/16            *
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
  * Modified by       :                    *
  * Modification date :                    *
  ******************************************/
 
 public class CallMessage extends Message {
-    private Call     call;
-    private Register register;
+    private Call call;
 
-    private CallMessage(Builder messageBuilder) {
-        this.call = messageBuilder.call;
-        this.register = messageBuilder.register;
+    private CallMessage(Builder builder) {
+        super(builder);
+
+        this.call = builder.call;
     }
 
     public Call getCall() {
         return call;
     }
 
-    public Register getRegister() {
-        return register;
-    }
-
     public static class Builder extends Message.Builder<Builder> {
-        public Call     call;
-        public Register register;
+        public Call call;
 
         @Override
         protected Builder getThis() {
@@ -35,11 +30,6 @@ public class CallMessage extends Message {
 
         public Builder addCall(Call call) {
             this.call = call;
-            return this;
-        }
-
-        public Builder addRegister(Register register) {
-            this.register = register;
             return this;
         }
 

@@ -22,12 +22,12 @@ import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.common.model.database.entity.Contact_Table;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.MessageController;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallEndedEvent;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallHookedEvent;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.MessageType;
 
 public class CallActivity extends Activity {
     public static Activity instance;
@@ -46,7 +46,7 @@ public class CallActivity extends Activity {
 
     @OnClick(R.id.phone_imageview)
     public void onPhoneClick() {
-        MessageController.sendEndCallMessage();
+        CallController.sendEndCallMessage();
         finish();
     }
 
@@ -105,12 +105,10 @@ public class CallActivity extends Activity {
                 callType = CallType.INCOMING;
         }
 
-        CallEndedEvent callEndedEvent = new CallEndedEvent(callType,
-                                                           Calendar.getInstance().toString(),
-                                                           Long.toString(callDuration / 1000),
-                                                           currentPhoneNumber);
+        CallEndedEvent callEndedEvent = new CallEndedEvent(callType, Calendar.getInstance().toString(), Long.toString(callDuration / 1000), currentPhoneNumber);
 
         BusHandlerSingleton.getInstance().getBus().post(callEndedEvent);
+
         finish();
     }
 

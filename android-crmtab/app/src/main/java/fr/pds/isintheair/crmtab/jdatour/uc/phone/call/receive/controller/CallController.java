@@ -4,16 +4,50 @@ import android.app.Activity;
 import android.content.Intent;
 
 import fr.pds.isintheair.crmtab.common.CrmTabApplication;
+import fr.pds.isintheair.crmtab.common.model.database.dao.UserDAO;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallEndedEvent;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.bus.event.PhoneCallHookedEvent;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.enumeration.MessageType;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.Call;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.CallMessage;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.DeviceType;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.MessageInfo;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.MessageType;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.NotificationType;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.entity.SessionInfo;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.websocket.WebSocketConnectionHandlerSingleton;
 import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.view.CallActivity;
 
 public class CallController {
+    public static void handleMessage(CallMessage message) {
+        switch (message.getMessageInfo().getMessageType()) {
+            case CALL:
+                CallController.call(message.getCall().getPhoneNumber());
+                break;
+            case CALL_ENDED:
+                CallController.endCall();
+                break;
+            case CALL_FAILED:
+                CallController.callFailed();
+                break;
+            case CALL_HOOKED:
+                CallController.callHooked();
+                break;
+            case CALL_PASSED:
+            case CALL_RECEIVED:
+                String phoneNumber = null;
+
+                if (message.getCall() != null)
+                    phoneNumber = message.getCall().getPhoneNumber();
+
+                CallController.notifyCallFromPhone(phoneNumber, message.getMessageInfo().getMessageType());
+                break;
+        }
+    }
+
     public static void call(String phoneNumber) {
-        MessageController.sendCallMessage(phoneNumber);
+        CallController.sendCallMessage(phoneNumber);
         startCallActivity(phoneNumber, MessageType.CALL_PASSED);
     }
 
@@ -47,5 +81,33 @@ public class CallController {
         intent.putExtra("messageType", messageType);
 
         CrmTabApplication.context.startActivity(intent);
+    }
+
+    public static void sendCallMessage(String phoneNumber) {
+        Integer     userId      = UserDAO.getCurrentUser().getEmail().hashCode();
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.TABLET).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        Call        call        = new Call(phoneNumber);
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addCall(call).build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
+    public static void sendEndCallMessage() {
+        Integer     userId      = UserDAO.getCurrentUser().getEmail().hashCode();
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL_ENDED).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.TABLET).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
+    public static void sendRegisterMessage() {
+        Integer     userId      = UserDAO.getCurrentUser().getEmail().hashCode();
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.REGISTER).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.TABLET).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
 }

@@ -16,8 +16,9 @@ import android.widget.RelativeLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-
-import static fr.pds.isintheair.crmtab.common.controller.LoginService.TryLogin;
+import fr.pds.isintheair.crmtab.common.model.database.entity.User;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CalendarService;
+import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.service.CallService;
 
 
 /**
@@ -65,8 +66,16 @@ public class LoginActivity extends Activity {
         con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TryLogin(mail.getText().toString(), pass.getText().toString(), getApplicationContext(), loading, coordlayout);
-                loading.setVisibility(View.VISIBLE);
+                User user = new User();
+                user.setEmail("");
+                user.save();
+
+                startService(new Intent(LoginActivity.this, CallService.class));
+                startService(new Intent(LoginActivity.this, CalendarService.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                /* TryLogin(mail.getText().toString(), pass.getText().toString(), getApplicationContext(), loading, coordlayout);
+                loading.setVisibility(View.VISIBLE);*/
             }
         });
 
