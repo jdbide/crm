@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
+import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.adapter.VisitAdapter;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockVisit;

@@ -3,7 +3,7 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.common.model.database.entity.User;
+import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 
 

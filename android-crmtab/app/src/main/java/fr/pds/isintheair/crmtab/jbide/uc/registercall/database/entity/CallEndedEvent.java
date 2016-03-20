@@ -5,7 +5,7 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import fr.pds.isintheair.crmtab.common.model.database.OrmTabDataBase;
+import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 

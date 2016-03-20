@@ -14,8 +14,8 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
-import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
+import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;

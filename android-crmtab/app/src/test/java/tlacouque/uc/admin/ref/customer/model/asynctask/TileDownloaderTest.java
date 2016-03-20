@@ -12,27 +12,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.view.activity.LoginActivity;
-import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
+import fr.pds.isintheair.crmtab.view.activity.LoginActivity;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.asynctask.TileDownloader;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfo;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by tlacouque on 29/02/2016.

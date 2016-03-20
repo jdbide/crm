@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.model.constant.Constant;
+import fr.pds.isintheair.crmtab.phoning.model.constant.Constant;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.model.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.retrofit.ContactRetrofitService;
 import retrofit.Call;

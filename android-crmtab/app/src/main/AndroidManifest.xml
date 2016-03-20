@@ -14,25 +14,26 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".common.CrmTabApplication"
+        android:name=".CrmTabApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".common.view.activity.LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".common.view.activity.ContactDetailActivity"
+            android:name=".view.activity.ContactDetailActivity"
             android:theme="@style/FullscreenTheme"/>
         <activity
             android:name=".mmefire.uc.sms.send.receive.activity.ActivityHome"
@@ -44,7 +45,7 @@
             android:name=".mmefire.uc.sms.send.receive.activity.ActivityNewMessage"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".common.view.activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
@@ -53,9 +54,7 @@
         <activity
             android:name=".tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".common.view.activity.AbstractActivity"
-            android:label="@string/title_activity_abstract"/>
+
         <activity
             android:name=".mbalabascarin.uc.edit.crv.view.CrvMainActivity"
             android:label="@string/app_name"
@@ -66,7 +65,7 @@
         <activity
             android:name=".mbalabascarin.uc.edit.crv.view.CrvHomeActivity"
             android:label="CRM-tab"/>
-        <activity android:name=".jdatour.uc.phone.call.receive.view.CallActivity"/>
+        <activity android:name=".view.activity.CallActivity"/>
         <activity
             android:name=".mbalabascarin.uc.edit.crv.view.CrvPreformatedMessage"
             android:label="@string/title_activity_crv_preformated_message"
@@ -74,7 +73,7 @@
         <activity android:name=".mbalabascarin.uc.edit.crv.view.VisitActivity"/>
 
         <receiver
-            android:name=".jdatour.uc.phone.call.receive.controller.broadcastreceiver.BootServiceBrodcastReceiver"
+            android:name=".controller.broadcastreceiver.BootServiceBrodcastReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -87,18 +86,17 @@
             android:name=".ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService"
             android:enabled="true"
             android:exported="false"/>
-        <service android:name=".jdatour.uc.phone.call.receive.controller.service.CallService"/>
-        <service android:name=".jdatour.uc.phone.call.receive.controller.service.CalendarService"/>
+        <service android:name=".controller.service.CallService"/>
+        <service android:name=".controller.service.CalendarService"/>
         <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
 
-        <activity android:name=".common.view.activity.ContactDetailActivity2"/>
         <activity
             android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".mbalabascarin.uc.mock.contacts.view.ImportContactActivity"/>
 
         <activity
-            android:name=".jdatour.wi.agenda.mock.AgendaActivity"
+            android:name=".view.activity.AgendaActivity"
             android:label="@string/title_activity_agenda">
         </activity>
 

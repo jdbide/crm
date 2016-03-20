@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
+import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Report;
