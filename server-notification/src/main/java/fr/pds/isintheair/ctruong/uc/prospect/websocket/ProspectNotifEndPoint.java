@@ -8,7 +8,6 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
@@ -26,9 +25,9 @@ public class ProspectNotifEndPoint {
             Executors.newSingleThreadScheduledExecutor();
 
     @OnOpen
-    public void onOpen(Session session){
+    public void onOpen(Session session) {
         log.info("I'm starting");
-        timer.scheduleAtFixedRate(() -> sendTimeToAll(session), 7, 7, TimeUnit.HOURS);
+        sendTimeToAll(session);
     }
 
 
@@ -41,12 +40,12 @@ public class ProspectNotifEndPoint {
     }
 
     @OnMessage
-    public void onMessage(Session session, String message){
+    public void onMessage(Session session, String message) {
         log.info(message);
     }
 
     @OnClose
-    public void onClose(Session session){
+    public void onClose(Session session) {
         log.info("I'm closing ...");
     }
 
