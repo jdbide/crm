@@ -64,17 +64,6 @@ public class ProspectRestController {
         return "Hello Davide's World 2016";
     }
 
-    @RequestMapping(value = "/suggestion/prospect", method = RequestMethod.GET)
-    public @ResponseBody Prospect startAnalyzeProscess(){
-        List<Prospect> prospects = controller.analyseProspect();
-        Iterator<Prospect> iterator = prospects.iterator();
-        Prospect prospect = new Prospect();
-        while (iterator.hasNext()){
-            prospect = iterator.next();
-
-        }
-        return prospect;
-    }
 
     @RequestMapping(value = "/suggestion/prospect/{siret}", method = RequestMethod.POST)
     public @ResponseBody Prospect createNewClient(@PathVariable long siret){
