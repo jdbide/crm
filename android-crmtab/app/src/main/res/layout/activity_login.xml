@@ -1,84 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/LogincoordinatorLayout"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#dfdfdf"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1"
+    tools:context=".view.activity.LoginActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:background="#dfdfdf"
-                  android:orientation="vertical"
-                  android:paddingBottom="@dimen/activity_vertical_margin"
-                  android:paddingLeft="@dimen/activity_horizontal_margin"
-                  android:paddingRight="@dimen/activity_horizontal_margin"
-                  android:paddingTop="@dimen/activity_vertical_margin"
-                  android:weightSum="1"
-                  tools:context=".common.view.activity.LoginActivity">
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center|top"
+        android:src="@drawable/logo"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="CUSTOMER RELATIONSHIP MANAGEMENT"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#134b01"
+        android:typeface="sans"/>
 
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center|top"
-            android:src="@drawable/logo"/>
+    <EditText
+        android:id="@+id/login_edittext"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="CUSTOMER RELATIONSHIP MANAGEMENT"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+    <EditText
+        android:id="@+id/password_edittext"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword"/>
 
-            android:textColor="#134b01"
-            android:typeface="sans"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:progressDrawable="@drawable/circular_progress_bar"/>
 
+    <Button
+        android:id="@+id/connection_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Connexion"/>
 
-        <RelativeLayout
-            android:id="@+id/loadingPanel"
-            style="@style/GenericProgressBackground"
-            >
-
-            <ProgressBar
-                style="@style/GenericProgressIndicator"/>
-        </RelativeLayout>
-
-        <EditText
-            android:id="@+id/loginemail"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            />
-
-        <EditText
-            android:id="@+id/loginpassword"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="password"
-            android:inputType="textPassword"
-            />
-
-
-        <Button
-            android:id="@+id/btnSuivant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-
-            android:text="Connexion"/>
-
-
-    </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

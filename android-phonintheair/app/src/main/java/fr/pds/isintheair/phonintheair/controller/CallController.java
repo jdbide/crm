@@ -1,49 +1,73 @@
 package fr.pds.isintheair.phonintheair.controller;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.telephony.TelephonyManager;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import fr.pds.isintheair.phonintheair.PhonintheairApp;
+import fr.pds.isintheair.phonintheair.helper.CallHelper;
+import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
+import fr.pds.isintheair.phonintheair.model.entity.Call;
+import fr.pds.isintheair.phonintheair.model.entity.CallMessage;
+import fr.pds.isintheair.phonintheair.model.entity.DeviceType;
+import fr.pds.isintheair.phonintheair.model.entity.MessageInfo;
+import fr.pds.isintheair.phonintheair.model.entity.MessageType;
+import fr.pds.isintheair.phonintheair.model.entity.NotificationType;
+import fr.pds.isintheair.phonintheair.model.entity.SessionInfo;
+import fr.pds.isintheair.phonintheair.model.websocket.WebSocketConnectionHandlerSingleton;
 
 public class CallController {
-    public static void call(String phoneNumber) {
-        Intent  callIntent         = new Intent(Intent.ACTION_CALL);
-        Context applicationContext = PhonintheairApp.context;
-
-        callIntent.setData(Uri.parse("tel:" + phoneNumber));
-        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        if (applicationContext.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            applicationContext.startActivity(callIntent);
+    public static void handleMessage(CallMessage message) {
+        switch (message.getMessageInfo().getMessageType()) {
+            case CALL:
+                CallHelper.call(message.getCall().getPhoneNumber());
+                SharedPreferencesHelper.writeString("lastMessage", message.getMessageInfo().getMessageType().toString());
+                break;
+            case CALL_ENDED:
+                CallHelper.endCall();
+                break;
         }
     }
 
-    public static void endCall() {
-        TelephonyManager tm = (TelephonyManager) PhonintheairApp.context.getSystemService(Context.TELEPHONY_SERVICE);
+    public static void sendCallHookMessage() {
+        Integer     userId      = SharedPreferencesHelper.readInteger("userId", 0);
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL_HOOKED).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
 
-        try {
-            Class c = Class.forName(tm.getClass().getName());
-            Method m = c.getDeclaredMethod("getITelephony");
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
 
-            m.setAccessible(true);
+    public static void sendCallReceivedMessage(String phoneNumber) {
+        Integer     userId      = SharedPreferencesHelper.readInteger("userId", 0);
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL_RECEIVED).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        Call        call        = new Call(phoneNumber);
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addCall(call).build();
 
-            Object telephonyService = m.invoke(tm);
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
 
-            c = Class.forName(telephonyService.getClass().getName());
-            m = c.getDeclaredMethod("endCall");
+    public static void sendCallPassedMessage(String phoneNumber) {
+        Integer     userId      = SharedPreferencesHelper.readInteger("userId", 0);
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL_PASSED).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        Call        call        = new Call(phoneNumber);
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addCall(call).build();
 
-            m.setAccessible(true);
-            m.invoke(telephonyService);
-        }
-        catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-            //TODO handle exception
-        }
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
+    public static void sendEndCallMessage() {
+        Integer     userId      = SharedPreferencesHelper.readInteger("userId", 0);
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL_ENDED).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
+    }
+
+    public static void sendRegisterMessage() {
+        Integer     userId      = SharedPreferencesHelper.readInteger("userId", 0);
+        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.REGISTER).build();
+        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALL).addUserId(userId).build();
+        CallMessage message     = new CallMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).build();
+
+        WebSocketConnectionHandlerSingleton.getInstance().sendMessage(message);
     }
 }

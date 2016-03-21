@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import fr.pds.isintheair.phonintheair.controller.MessageController;
+import fr.pds.isintheair.phonintheair.controller.CallController;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
-import fr.pds.isintheair.phonintheair.model.enumeration.MessageType;
+import fr.pds.isintheair.phonintheair.model.entity.MessageType;
 
 /******************************************
  * Created by        : jdatour            *
@@ -34,20 +34,20 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
             Log.d(TAG, "Phone number : " + phoneNumber);
 
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                MessageController.sendCallReceivedMessage(phoneNumber);
+                CallController.sendCallReceivedMessage(phoneNumber);
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                MessageController.sendEndCallMessage();
+                CallController.sendEndCallMessage();
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                MessageController.sendCallHookMessage();
+                CallController.sendCallHookMessage();
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 if (!lastMessage.equals(MessageType.CALL))
-                    MessageController.sendCallPassedMessage(phoneNumber);
+                    CallController.sendCallPassedMessage(phoneNumber);
             }
 
             SharedPreferencesHelper.writeString("lastMessage", "");
