@@ -82,15 +82,19 @@ public class ProspectRestController {
         RelationUserClient relation = new RelationUserClient(prospect.getId(), "bd299fa2-244c-4k6b-9966-49a84192cc8c");
         relationUserClientDAO.save(relation);
         relation.toString();
+        log.info("check");
         try {
-            final ProspectClientWS clientWS = new ProspectClientWS(new URI("ws://192.168.20.3:8090/prospect"));
+            ProspectClientWS clientWS = new ProspectClientWS(new URI("ws://192.168.20.3:8090/prospect"));
+            log.info("check1");
             clientWS.addMessageHandler(new ProspectClientWS.MessageHandler() {
                 @Override
                 public void handleMessage(String message) {
                     log.info(message);
                 }
             });
+            log.info("check2");
             clientWS.sendMessage(prospect.getName());
+            log.info("check3");
             Thread.sleep(1000);
         } catch (URISyntaxException e) {
             log.error("InterruptedException exception: " + e.getMessage());
