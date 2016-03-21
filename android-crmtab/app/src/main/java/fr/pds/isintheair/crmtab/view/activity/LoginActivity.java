@@ -62,10 +62,10 @@ public class LoginActivity extends Activity implements Callback<User> {
 
         //END
 
-        /*LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
+        /* LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
         Call<User>   call         = loginService.login(currentUser);
 
-        call.enqueue(LoginActivity.this);*/
+        call.enqueue(LoginActivity.this); */
     }
 
     @Override
@@ -75,6 +75,8 @@ public class LoginActivity extends Activity implements Callback<User> {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        loginEditText.setText("test@crm.fr");
+        passwordEditText.setText("motdepasse");
         progressBar.setVisibility(View.GONE);
 
         currentUser = UserDAO.getCurrentUser();
@@ -85,6 +87,7 @@ public class LoginActivity extends Activity implements Callback<User> {
 
         else {
             currentUser = new User();
+            onConnectionClick();
         }
     }
 
@@ -97,7 +100,7 @@ public class LoginActivity extends Activity implements Callback<User> {
             if (currentUser == null) {
                 currentUser = new User();
 
-                currentUser.setEmail("");
+                currentUser.setEmail("test@crm.fr");
             }
 
             currentUser.save();

@@ -1,3 +1,5 @@
+package fr.pds.isintheair.crmtab;
+
 import android.os.Build;
 
 import com.raizlabs.android.dbflow.config.FlowManager;

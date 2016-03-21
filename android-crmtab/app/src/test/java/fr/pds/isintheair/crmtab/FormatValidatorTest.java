@@ -1,3 +1,5 @@
+package fr.pds.isintheair.crmtab;
+
 import android.os.Environment;
 
 import org.junit.Assert;

@@ -1,3 +1,5 @@
+package fr.pds.isintheair.crmtab;
+
 import android.util.Log;
 
 import org.junit.Before;

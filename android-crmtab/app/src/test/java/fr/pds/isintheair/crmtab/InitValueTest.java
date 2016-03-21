@@ -1,3 +1,5 @@
+package fr.pds.isintheair.crmtab;
+
 import com.squareup.okhttp.ResponseBody;
 
 import org.junit.Test;

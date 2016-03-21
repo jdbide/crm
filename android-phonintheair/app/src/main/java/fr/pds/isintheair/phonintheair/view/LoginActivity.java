@@ -3,6 +3,7 @@ package fr.pds.isintheair.phonintheair.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 
 import butterknife.Bind;
@@ -19,6 +20,9 @@ public class LoginActivity extends Activity {
 
     @Bind(R.id.password_edtitext)
     EditText password;
+
+    @Bind(R.id.connexion_button)
+    Button connectionButton;
 
     private Integer userId;
 
@@ -46,6 +50,13 @@ public class LoginActivity extends Activity {
 
         if (!userId.equals(0)) {
             startActivity(new Intent(this, DashboardActivity.class));
+        }
+
+        else {
+            email.setText("test@crm.fr");
+            password.setText("motdepasse");
+
+            connectionButton.callOnClick();
         }
     }
 

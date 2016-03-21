@@ -1,3 +1,5 @@
+package fr.pds.isintheair.crmtab;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
