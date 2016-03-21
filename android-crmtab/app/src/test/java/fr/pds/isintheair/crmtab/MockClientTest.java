@@ -1,11 +1,5 @@
-import junit.framework.TestCase;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 
 /**
  * Created by Muthu on 02/01/2016.

@@ -63,8 +63,6 @@ public class LoginActivity extends Activity implements Callback<User> {
         startService(new Intent(LoginActivity.this, NotificationIntentService.class));
         startActivity(new Intent(LoginActivity.this, MainActivity.class)); */
 
-        //END
-
         LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
         Call<User>   call         = loginService.login(currentUser);
 

@@ -5,7 +5,7 @@ import android.util.Log;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.ControllerNormalize;
+import fr.pds.isintheair.crmtab.controller.message.ControllerNormalize;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

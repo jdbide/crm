@@ -25,8 +25,8 @@ import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallHookedEvent;
 import fr.pds.isintheair.crmtab.controller.message.CallController;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-import fr.pds.isintheair.crmtab.model.entity.Contact;
-import fr.pds.isintheair.crmtab.model.entity.Contact_Table;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
+import fr.pds.isintheair.crmtab.model.mock.Contact_Table;
 import fr.pds.isintheair.crmtab.model.entity.MessageType;
 
 public class CallActivity extends Activity {

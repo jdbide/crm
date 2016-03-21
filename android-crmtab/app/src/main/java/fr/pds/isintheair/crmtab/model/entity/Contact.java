@@ -1,111 +1,83 @@
 package fr.pds.isintheair.crmtab.model.entity;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.PrimaryKey;
-import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
-
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
-import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
+/**
+ * Created by Muthu on 02/03/2016.
+ */
+public class Contact {
+    public int contactId;
+    public String clientId;
+    public String contactName;
+    public String contactFname;
+    public String contactTel;
+    public String contactJob;
 
-/******************************************
- * Created by        : mbalabascarin      *
- * Creation date     : 01/08/2016         *
- * Modified by       : jdatour            *
- * Modification date : 01/23/2016         *
- * Modified by       : jbide              *
- * Modification date : 01/27/2016         *
- ******************************************/
-
-@Table(database = OrmTabDataBase.class)
-public class Contact extends BaseModel implements Parcelable {
-    public static final Parcelable.Creator<Contact> CREATOR = new Parcelable.Creator<Contact>() {
-        public Contact createFromParcel(Parcel source) {
-            return new Contact(source);
-        }
-
-        public Contact[] newArray(int size) {
-            return new Contact[size];
-        }
-    };
-
-    @Column
-    @PrimaryKey
-    public String phoneNumber;
-
-    @Column
-    public String firstName;
-
-    @Column
-    public String lastName;
-
-    public Contact() {
+    public String getContactJob() {
+        return contactJob;
     }
 
-    public Contact(String phoneNumber, String firstName, String lastName) {
-        this.phoneNumber = phoneNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public void setContactJob(String contactJob) {
+        this.contactJob = contactJob;
     }
 
-    protected Contact(Parcel in) {
-        this.phoneNumber = in.readString();
-        this.firstName = in.readString();
-        this.lastName = in.readString();
+    public String contactStatus;
+
+    public List<Contact> getContactList() {
+        return contactList;
     }
 
-    public static Contact getNameFromNumber(String num) {
-        List<Contact> contacts = ContactDAO.getAll();
-        Contact       result   = null;
-
-        for (int i = 0; i < contacts.size(); i++) {
-            if (contacts.get(i).getPhoneNumber().equals(num)) {
-                result = contacts.get(i);
-                break;
-            }
-        }
-
-        return result;
+    public void setContactList(List<Contact> contactList) {
+        this.contactList = contactList;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public List<Contact> contactList;
+
+    public int getContactId() {
+        return contactId;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getContactName() {
+        return contactName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getContactFname() {
+        return contactFname;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.phoneNumber);
-        dest.writeString(this.firstName);
-        dest.writeString(this.lastName);
+    public void setContactFname(String contactFname) {
+        this.contactFname = contactFname;
+    }
+
+    public String getContactTel() {
+        return contactTel;
+    }
+
+    public void setContactTel(String contactTel) {
+        this.contactTel = contactTel;
+    }
+
+    public String getContactStatus() {
+        return contactStatus;
+    }
+
+    public void setContactStatus(String contactStatus) {
+        this.contactStatus = contactStatus;
     }
 }

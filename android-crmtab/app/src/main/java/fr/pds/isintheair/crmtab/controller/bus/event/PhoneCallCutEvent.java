@@ -1,6 +1,6 @@
 package fr.pds.isintheair.crmtab.controller.bus.event;
 
-import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
 
 /******************************************
  * Created by        : jdatour            *

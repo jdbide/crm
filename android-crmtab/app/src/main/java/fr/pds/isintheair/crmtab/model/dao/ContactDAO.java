@@ -4,7 +4,7 @@ import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
 
 /******************************************
  * Created by        : jdatour            *

@@ -16,8 +16,8 @@ import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.adapter.ContactAdapter;
 import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
-import fr.pds.isintheair.crmtab.model.entity.Contact;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
+import fr.pds.isintheair.crmtab.model.entity.Client;
 
 
 /**
