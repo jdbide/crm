@@ -19,14 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".view.LoginActivity">
+        <activity android:name=".view.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.DashboardActivity"/>
+        <activity android:name=".view.activity.DashboardActivity"/>
 
         <receiver
             android:name=".controller.broadcastreceiver.BootServiceBroadcastReceiver"
