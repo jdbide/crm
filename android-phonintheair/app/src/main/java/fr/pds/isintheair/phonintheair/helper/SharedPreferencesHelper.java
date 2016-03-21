@@ -26,6 +26,20 @@ public class SharedPreferencesHelper {
         editor.apply();
     }
 
+    public static Long readLong(String key, Integer value) {
+        SharedPreferences sharedPreferences = PhonintheairApp.context.getSharedPreferences("pref", 0);
+
+        return sharedPreferences.getLong(key, value);
+    }
+
+    public static void writeLong(String key, Long value) {
+        SharedPreferences        sharedPreferences = PhonintheairApp.context.getSharedPreferences("pref", 0);
+        SharedPreferences.Editor editor            = sharedPreferences.edit();
+
+        editor.putLong(key, value);
+        editor.apply();
+    }
+
     public static String readString(String key, String value) {
         SharedPreferences sharedPreferences = PhonintheairApp.context.getSharedPreferences("pref", 0);
 
