@@ -20,7 +20,7 @@ import retrofit.Retrofit;
  */
 public class ControllerContactRetrofit {
 
-    public Boolean addContacts(Contact contact, final Context context){
+    public Boolean addContacts(Contact contact, final Context context) {
 
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
@@ -33,14 +33,15 @@ public class ControllerContactRetrofit {
 
         //retrofit.client().setConnectTimeout(5000, TimeUnit.MILLISECONDS);
         ContactRetrofitService iContactRetrofitService = retrofit.create(ContactRetrofitService.class);
-        Call<Boolean> call = iContactRetrofitService.addContacts(contact);
+        Call<Boolean>          call                    = iContactRetrofitService.addContacts(contact);
         call.enqueue(new Callback<Boolean>() {
 
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
-                if(response.isSuccess()){
+                if (response.isSuccess()) {
                     //Toast.makeText(context, "En cours d'import...", Toast.LENGTH_SHORT).show();
-                }else {
+                }
+                else {
                     Toast.makeText(context, response.message(), Toast.LENGTH_LONG).show();
                 }
                 Toast.makeText(context, "Success !", Toast.LENGTH_SHORT).show();

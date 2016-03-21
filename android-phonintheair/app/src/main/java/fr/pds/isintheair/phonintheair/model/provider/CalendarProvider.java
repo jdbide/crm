@@ -77,6 +77,27 @@ public class CalendarProvider {
         return agendas;
     }
 
+    public Agenda getAgendaById(Long id) {
+        Agenda          agenda          = new Agenda();
+        ContentResolver contentResolver = context.getContentResolver();
+        String          selection       = "( " + CalendarContract.Calendars._ID + " = " + " ? )";
+        String[]        selectionArgs   = new String[]{String.valueOf(id)};
+        Cursor          cursor          = null;
+        Uri             uri             = CalendarContract.Calendars.CONTENT_URI;
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+            cursor = contentResolver.query(uri, AGENDA_PROJECTION, selection, selectionArgs, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                agenda.setId(cursor.getLong(AGENDA_PROJECTION_ID_INDEX));
+                agenda.setName(cursor.getString(AGENDA_PROJECTION_DISPLAY_NAME_INDEX));
+                agenda.setOwner(cursor.getString(AGENDA_PROJECTION_OWNER_ACCOUNT_INDEX));
+            }
+        }
+
+        return agenda;
+    }
+
     public List<Event> getEvents(Long agendaId) {
         List<Event> events = new ArrayList<>();
         //String      selection     = "(" + CalendarContract.Events.CALENDAR_ID + " = ?)";
