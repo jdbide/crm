@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".mbalabascarin.uc.normalize.NormalizeDemoActivity">
+    tools:context=".view.activity.NormalizeDemoActivity">
     
     <ScrollView
         android:layout_width="match_parent"
@@ -19,66 +19,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-                <android.support.v7.widget.CardView android:id="@+id/card_view1" android:layout_gravity="center"
-                    android:layout_width="match_parent" android:layout_height="150dp" android:layout_margin="5dp"
-                    card_view:cardCornerRadius="5dp" card_view:contentPadding="10dp">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Correcteur d'orthographe"/>
-
-                        <EditText
-                            android:id="@+id/txtTextToCheck"
-                            android:layout_marginTop="20dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/txtSugg1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClick="replaceText"/>
-                            <TextView
-                                android:id="@+id/txtSugg2"
-                                android:layout_marginLeft="20dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClick="replaceText"/>
-                            <TextView
-                                android:id="@+id/txtSugg3"
-                                android:layout_marginLeft="20dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClick="replaceText"/>
-                            <TextView
-                                android:id="@+id/txtSugg4"
-                                android:layout_marginLeft="20dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClick="replaceText"/>
-                            <TextView
-                                android:id="@+id/txtSugg5"
-                                android:layout_marginLeft="20dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:onClick="replaceText"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
 
 
                 <android.support.v7.widget.CardView android:id="@+id/card_view2" android:layout_gravity="center"
@@ -132,7 +72,7 @@
 
                 <android.support.v7.widget.CardView android:id="@+id/card_view3" android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent" android:layout_height="150dp" android:layout_margin="5dp"
+                    android:layout_width="match_parent" android:layout_height="450dp" android:layout_margin="5dp"
                     card_view:cardCornerRadius="5dp" card_view:contentPadding="10dp">
 
                     <LinearLayout
@@ -174,20 +114,22 @@
                                 android:layout_height="wrap_content" />
 
 
+
                         </LinearLayout>
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Adresses possibles"/>
+                        <ListView
+                            android:id="@+id/lstAdresses"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        </ListView>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-                <TextView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Adresses possibles"/>
-                <ListView
-                    android:id="@+id/lstAdresses"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </ListView>
+
 
 
                 <android.support.v7.widget.CardView android:id="@+id/card_view4" android:layout_gravity="center"
@@ -237,6 +179,107 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:id="@+id/card_view5" android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:layout_width="match_parent" android:layout_height="150dp" android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp" card_view:contentPadding="10dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Texte avec symboles diacritiques"/>
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/txtDiacriticCheck"
+                            android:layout_width="400dp"
+                            android:layout_height="50dp"
+                            android:text="çÇãÃáÁéÉíÍõÕóÓúÚ"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="removeDiacritic"
+                            android:text="Normalize"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:id="@+id/card_view1" android:layout_gravity="center"
+                android:layout_width="match_parent" android:layout_height="150dp" android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp" card_view:contentPadding="10dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Correcteur d'orthographe"/>
+
+                    <EditText
+                        android:id="@+id/txtTextToCheck"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtSugg1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="replaceText"/>
+                        <TextView
+                            android:id="@+id/txtSugg2"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="replaceText"/>
+                        <TextView
+                            android:id="@+id/txtSugg3"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="replaceText"/>
+                        <TextView
+                            android:id="@+id/txtSugg4"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="replaceText"/>
+                        <TextView
+                            android:id="@+id/txtSugg5"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="replaceText"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
