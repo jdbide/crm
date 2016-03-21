@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.database.entity.User;
-import fr.pds.isintheair.crmtab.common.view.fragment.ContactListFragment;
+import fr.pds.isintheair.crmtab.model.entity.User;
+import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.MockClient;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
 

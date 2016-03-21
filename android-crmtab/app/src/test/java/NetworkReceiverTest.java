@@ -19,7 +19,7 @@ import org.robolectric.shadows.ShadowConnectivityManager;
 import org.robolectric.shadows.ShadowNetworkInfo;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
-import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
 import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailIndepFragment;
 

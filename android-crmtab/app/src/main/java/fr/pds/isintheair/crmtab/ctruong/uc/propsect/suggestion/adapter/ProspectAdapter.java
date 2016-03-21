@@ -1,7 +1,6 @@
 package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,9 @@ import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.domain.Pros
  */
 public class ProspectAdapter extends ArrayAdapter<Prospect> {
 
-    private Context context;
-    private List<Prospect> prospects;
     TextView textView;
+    private Context        context;
+    private List<Prospect> prospects;
 
     public ProspectAdapter(Context context, int resource, List<Prospect> object) {
         super(context, resource, object);
@@ -31,8 +30,8 @@ public class ProspectAdapter extends ArrayAdapter<Prospect> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.listview_prospect, parent, false);
-        Prospect prospect = prospects.get(position);
+        View           view     = inflater.inflate(R.layout.listview_prospect, parent, false);
+        Prospect       prospect = prospects.get(position);
         textView = (TextView) view.findViewById(R.id.tv_prospect);
         textView.setText(prospect.getName());
         return view;

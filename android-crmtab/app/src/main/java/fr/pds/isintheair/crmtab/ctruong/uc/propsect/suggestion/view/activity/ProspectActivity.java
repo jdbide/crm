@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
@@ -26,23 +25,22 @@ import retrofit.Retrofit;
 
 public class ProspectActivity extends Activity {
 
+    final static String TAG                    = ProspectActivity.class.getSimpleName();
+    final static String PROSPECT_NAME          = "name";
+    final static String PROSPECT_FINESS        = "finess";
+    final static String PROSPECT_SIRET         = "siret";
+    final static String PROSPECT_STREET_NUMBER = "number";
+    final static String PROSPECT_STREET_NAME   = "street";
+    final static String PROSPECT_CODE          = "code";
+    final static String PROSPECT_TOWN          = "town";
+    final static String PROSPECT_WEBSITE       = "website";
+    final static String PROSPECT_TURNOVER      = "turnover";
+    final static String PROSPECT_ES_TYPE       = "type";
+    final static String PROSPECT_BED           = "bed";
     @Bind(R.id.lview_prospect)
     ListView lview_prospect;
-
-    List<Prospect> prospects;
+    List<Prospect>  prospects;
     ProspectAdapter adapter;
-    final static String TAG = ProspectActivity.class.getSimpleName();
-    final static String PROSPECT_NAME = "name";
-    final static String PROSPECT_FINESS = "finess";
-    final static String PROSPECT_SIRET = "siret";
-    final static String PROSPECT_STREET_NUMBER = "number";
-    final static String PROSPECT_STREET_NAME = "street";
-    final static String PROSPECT_CODE = "code";
-    final static String PROSPECT_TOWN = "town";
-    final static String PROSPECT_WEBSITE = "website";
-    final static String PROSPECT_TURNOVER = "turnover";
-    final static String PROSPECT_ES_TYPE = "type";
-    final static String PROSPECT_BED = "bed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +48,9 @@ public class ProspectActivity extends Activity {
         setContentView(R.layout.activity_prospect);
         ButterKnife.bind(this);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ProspectRestConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        ProspectRetrofitAPI api = retrofit.create(ProspectRetrofitAPI.class);
-        Call<List<Prospect>> call = api.getProspects();
+        Retrofit             retrofit = new Retrofit.Builder().baseUrl(ProspectRestConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        ProspectRetrofitAPI  api      = retrofit.create(ProspectRetrofitAPI.class);
+        Call<List<Prospect>> call     = api.getProspects();
         call.enqueue(new Callback<List<Prospect>>() {
 
             @Override
@@ -65,7 +63,7 @@ public class ProspectActivity extends Activity {
                 lview_prospect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplication(), DetailProspect.class);
+                        Intent   intent   = new Intent(getApplication(), DetailProspect.class);
                         Prospect prospect = prospects.get(position);
                         intent.putExtra(PROSPECT_NAME, prospect.getName());
                         intent.putExtra(PROSPECT_FINESS, prospect.getFinessNumber());

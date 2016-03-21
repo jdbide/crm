@@ -10,6 +10,9 @@ public class CalendarMessageController {
             case REGISTER:
                 PeerHandlerSingleton.getInstance().addPeer(session, calendarMessage.getSessionInfo());
                 break;
+            case CALENDAR_FULL_SYNC:
+                CalendarController.sendFullSync(calendarMessage.getSessionInfo(), calendarMessage.getEvents());
+                break;
         }
     }
 }

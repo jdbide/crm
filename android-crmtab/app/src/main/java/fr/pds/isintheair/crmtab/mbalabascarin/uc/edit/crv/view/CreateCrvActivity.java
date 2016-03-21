@@ -42,8 +42,8 @@ import java.util.List;
 import java.util.Locale;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.model.database.entity.User;
-import fr.pds.isintheair.crmtab.jdatour.uc.phone.call.receive.controller.CallController;
+import fr.pds.isintheair.crmtab.model.entity.User;
+import fr.pds.isintheair.crmtab.controller.message.CallController;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.cache.CacheDao;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvConfig;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.mock.RandomInformation;
