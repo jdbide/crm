@@ -12,9 +12,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.File;
 
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.FormatValidator;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.MapInfo;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.MapUtils;
+import fr.pds.isintheair.crmtab.helper.FormatValidator;
+import fr.pds.isintheair.crmtab.model.entity.MapInfo;
+import fr.pds.isintheair.crmtab.helper.MapUtils;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

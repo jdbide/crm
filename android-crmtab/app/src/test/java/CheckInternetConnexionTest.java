@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -17,11 +16,9 @@ import org.robolectric.internal.ShadowExtractor;
 import org.robolectric.shadows.ShadowConnectivityManager;
 import org.robolectric.shadows.ShadowNetworkInfo;
 
-import java.lang.reflect.Field;
-
 import fr.pds.isintheair.crmtab.BuildConfig;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.rest.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.view.activity.CRUDCustomerActivity;
+import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

@@ -20,8 +20,8 @@ import org.robolectric.shadows.ShadowNetworkInfo;
 
 import fr.pds.isintheair.crmtab.BuildConfig;
 import fr.pds.isintheair.crmtab.view.activity.MainActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.receiver.NetworkReceiver;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailIndepFragment;
+import fr.pds.isintheair.crmtab.controller.broadcastreceiver.NetworkReceiver;
+import fr.pds.isintheair.crmtab.view.fragment.DetailIndepFragment;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

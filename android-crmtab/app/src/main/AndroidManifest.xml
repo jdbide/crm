@@ -52,7 +52,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="net.hockeyapp.android.UpdateActivity"/>
         <activity
-            android:name=".tlacouque.uc.admin.ref.customer.view.activity.CRUDCustomerActivity"
+            android:name=".view.activity.CRUDCustomerActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

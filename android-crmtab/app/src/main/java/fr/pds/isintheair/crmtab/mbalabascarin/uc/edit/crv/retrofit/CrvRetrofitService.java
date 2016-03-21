@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Report;
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Reporting;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;

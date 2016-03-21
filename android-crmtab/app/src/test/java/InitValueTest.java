@@ -5,11 +5,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Holding;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.PurchasingCentral;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.model.entity.Company;
+import fr.pds.isintheair.crmtab.model.entity.Holding;
+import fr.pds.isintheair.crmtab.model.entity.PurchasingCentral;
+import fr.pds.isintheair.crmtab.model.entity.Specialty;
 import retrofit.Response;
 
 import static org.junit.Assert.assertTrue;

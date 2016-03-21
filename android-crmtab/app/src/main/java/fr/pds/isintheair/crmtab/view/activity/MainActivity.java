@@ -39,10 +39,10 @@ import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.view.ImportContac
 import fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.NormalizeDemoActivity;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
 import fr.pds.isintheair.crmtab.model.entity.User;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateCustomerAlertDialog;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateHCFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.CreateIndepFragment;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.ListCustomerFragment;
+import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
+import fr.pds.isintheair.crmtab.view.fragment.CreateHCFragment;
+import fr.pds.isintheair.crmtab.view.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.view.fragment.ListCustomerFragment;
 import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.MainLogoFragment;
 

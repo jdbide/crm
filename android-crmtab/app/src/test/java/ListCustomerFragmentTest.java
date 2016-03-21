@@ -3,10 +3,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.dto.ResponseRestCustomer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Customer;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.model.entity.Customer;
+import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.model.entity.Independant;
 import retrofit.Response;
 
 import static org.junit.Assert.assertEquals;

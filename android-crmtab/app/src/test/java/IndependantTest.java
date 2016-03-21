@@ -9,12 +9,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.lang.reflect.Field;
-
 import fr.pds.isintheair.crmtab.BuildConfig;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Company;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Independant;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.Specialty;
+import fr.pds.isintheair.crmtab.model.entity.Company;
+import fr.pds.isintheair.crmtab.model.entity.Independant;
+import fr.pds.isintheair.crmtab.model.entity.Specialty;
 
 import static org.junit.Assert.assertEquals;
 

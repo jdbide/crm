@@ -26,8 +26,8 @@ import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.ControllerCra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.entity.HealthCenter;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.view.fragment.DetailHCFragment;
+import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.view.fragment.DetailHCFragment;
 
 
 public class AddLogFragment extends Fragment {

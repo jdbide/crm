@@ -18,7 +18,7 @@ import java.io.File;
 import fr.pds.isintheair.crmtab.BuildConfig;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.view.activity.LoginActivity;
-import fr.pds.isintheair.crmtab.tlacouque.uc.admin.ref.customer.model.asynctask.TileDownloader;
+import fr.pds.isintheair.crmtab.model.asynctask.TileDownloader;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
