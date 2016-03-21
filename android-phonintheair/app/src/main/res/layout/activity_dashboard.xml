@@ -4,6 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DashboardActivity">
+    android:orientation="vertical"
+    tools:context=".view.activity.DashboardActivity">
+
+    <fragment
+        android:name="fr.pds.isintheair.phonintheair.view.fragment.PhoneInfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
+
+    <fragment
+        android:name="fr.pds.isintheair.phonintheair.view.fragment.CalendarInfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 
 </LinearLayout>

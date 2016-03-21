@@ -36,7 +36,7 @@ public class CallController {
         Call        call        = new Call(phoneNumber);
         CallMessage callMessage = new CallMessage.Builder().addMessageMeta(messageInfo).addCall(call).build();
 
-        tabletSession.getAsyncRemote().sendText(JSONHelper.serialize(call, CallMessage.class));
+        tabletSession.getAsyncRemote().sendText(JSONHelper.serialize(callMessage, CallMessage.class));
     }
 
     public static void notifyCallReceived (Session tabletSession, String phoneNumber) {
@@ -44,6 +44,6 @@ public class CallController {
         Call        call        = new Call(phoneNumber);
         CallMessage callMessage = new CallMessage.Builder().addMessageMeta(messageInfo).addCall(call).build();
 
-        tabletSession.getAsyncRemote().sendText(JSONHelper.serialize(call, CallMessage.class));
+        tabletSession.getAsyncRemote().sendText(JSONHelper.serialize(callMessage, CallMessage.class));
     }
 }

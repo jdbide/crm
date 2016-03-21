@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.view;
+package fr.pds.isintheair.phonintheair.view.activity;
 
 import android.Manifest;
 import android.app.Activity;
