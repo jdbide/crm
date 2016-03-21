@@ -12,10 +12,9 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.NetworkHelper;
 import fr.pds.isintheair.crmtab.helper.ResourceHelper;
-import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
 import fr.pds.isintheair.crmtab.controller.message.CallController;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.model.Client;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.view.VisitActivity;
+import fr.pds.isintheair.crmtab.model.entity.Client;
 
 public class ContactDetailActivity extends Activity {
     Contact currentContact;

@@ -34,9 +34,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.edit.crv.controller.CrvController;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.mock.contacts.view.ImportContactActivity;
-import fr.pds.isintheair.crmtab.mbalabascarin.uc.normalize.NormalizeDemoActivity;
+import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;

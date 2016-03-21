@@ -14,7 +14,7 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.helper.JSONHelper;
 import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
-import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
 
 public class CrmTabApplication extends Application {
     public static Context context;
