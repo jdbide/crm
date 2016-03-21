@@ -24,13 +24,13 @@ public class CallMessageController {
                     CallController.endCall(peerSession);
                     break;
                 case CALL_HOOKED:
-                    CallController.notifyCallHooked(session);
+                    CallController.notifyCallHooked(peerSession);
                     break;
                 case CALL_PASSED:
-                    CallController.notifyCallPassed(session, callMessage.getCall().getPhoneNumber());
+                    CallController.notifyCallPassed(peerSession, callMessage.getCall().getPhoneNumber());
                     break;
                 case CALL_RECEIVED:
-                    CallController.notifyCallReceived(session, callMessage.getCall().getPhoneNumber());
+                    CallController.notifyCallReceived(peerSession, callMessage.getCall().getPhoneNumber());
                     break;
             }
         }

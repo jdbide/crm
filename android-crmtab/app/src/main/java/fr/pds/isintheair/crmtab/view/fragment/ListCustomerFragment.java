@@ -20,15 +20,15 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.controller.adapter.ListCustomerAdapter;
+import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
-import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.model.rest.InitValue;
 import fr.pds.isintheair.crmtab.model.rest.RESTCustomerHandlerSingleton;
-import fr.pds.isintheair.crmtab.controller.adapter.ListCustomerAdapter;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -39,7 +39,7 @@ import retrofit.Retrofit;
  */
 public class ListCustomerFragment extends Fragment implements CreateCustomerAlertDialog.AlertPositiveListener {
 
-    public String idUser = Constants.getInstance().getCurrentUser().getId();
+    public String idUser = UserDAO.getCurrentUser().getId();
     public List<Customer> customers;
     @Bind(R.id.list_customer_recycler_view)
     RecyclerView recyclerView;
@@ -163,15 +163,16 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
      */
     public void initCustomers() {
 
-        final List<Customer> customers = (List<Customer>) (List<?>) new Select().from(HealthCenter.class).queryList();
-        final List<Customer> customersindeps    = (List<Customer>) (List<?>) new Select().from(Independant.class).queryList();
+        final List<Customer>     customers        = (List<Customer>) (List<?>) new Select().from(HealthCenter.class).queryList();
+        final List<Customer>     customersindeps  = (List<Customer>) (List<?>) new Select().from(Independant.class).queryList();
         final List<HealthCenter> healthCenterList = new Select().from(HealthCenter.class).queryList();
-        final List<Independant> independantList = new Select().from(Independant.class).queryList();
+        final List<Independant>  independantList  = new Select().from(Independant.class).queryList();
         customers.addAll(customersindeps);
         //Check if there is a network available
         if (CheckInternetConnexion.isNetworkAvailable(this.getActivity().getApplicationContext())) {
-            callRest(customers,healthCenterList,independantList);
-        } else {
+            callRest(customers, healthCenterList, independantList);
+        }
+        else {
             initAdapter(customers);
         }
     }
@@ -181,7 +182,7 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
      *
      * @param customers
      */
-    private void callRest(final List<Customer> customers,final List<HealthCenter> healthCenterList,
+    private void callRest(final List<Customer> customers, final List<HealthCenter> healthCenterList,
                           final List<Independant> independantList) {
 
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
@@ -191,28 +192,28 @@ public class ListCustomerFragment extends Fragment implements CreateCustomerAler
             @Override
             public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
 
-                if(response.errorBody() == null) {
+                if (response.errorBody() == null) {
                     List<HealthCenter> healthCenters = response.body().getHealthCenters();
                     List<Independant> independants = response.body().getIndependants();
-                        if(healthCenters != null) {
-                            for (HealthCenter healthCenter : response.body().getHealthCenters()) {
-                                boolean alreadyOnTablet = false;
-                                    for(HealthCenter healthCenterTab : healthCenterList) {
-                                        if(healthCenterTab.getSiretNumber() == healthCenter.getSiretNumber()) {
-                                            alreadyOnTablet = true;
-                                        }
-                                    }
-                                if(!alreadyOnTablet) {
-                                   customers.add(healthCenter);
+                    if (healthCenters != null) {
+                        for (HealthCenter healthCenter : response.body().getHealthCenters()) {
+                            boolean alreadyOnTablet = false;
+                            for (HealthCenter healthCenterTab : healthCenterList) {
+                                if (healthCenterTab.getSiretNumber() == healthCenter.getSiretNumber()) {
+                                    alreadyOnTablet = true;
                                 }
+                            }
+                            if (!alreadyOnTablet) {
+                                customers.add(healthCenter);
+                            }
 
-                            }
                         }
-                        if(independants != null) {
-                            for (Independant independant : response.body().getIndependants()) {
-                                customers.add(independant);
-                            }
+                    }
+                    if (independants != null) {
+                        for (Independant independant : response.body().getIndependants()) {
+                            customers.add(independant);
                         }
+                    }
                 }
                 initAdapter(customers);
             }
