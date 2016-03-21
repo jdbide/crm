@@ -17,6 +17,9 @@ import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.serv
 import fr.pds.isintheair.crmtab.helper.CredentialHelper;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
+import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
+import fr.pds.isintheair.crmtab.model.rest.service.LoginService;
+import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -53,19 +56,19 @@ public class LoginActivity extends Activity implements Callback<User> {
         currentUser.setPassword(basic);
 
         //TODO Remove it
-        currentUser.save();
+        /* currentUser.save();
 
         startService(new Intent(LoginActivity.this, CallService.class));
         startService(new Intent(LoginActivity.this, CalendarService.class));
         startService(new Intent(LoginActivity.this, NotificationIntentService.class));
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class)); */
 
         //END
 
-        /*LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
+        LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
         Call<User>   call         = loginService.login(currentUser);
 
-        call.enqueue(LoginActivity.this);*/
+        call.enqueue(LoginActivity.this);
     }
 
     @Override
