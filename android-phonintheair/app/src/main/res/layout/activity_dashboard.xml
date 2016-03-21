@@ -8,10 +8,12 @@
     tools:context=".view.activity.DashboardActivity">
 
     <fragment
+        android:id="@+id/fragment_phone_info"
         android:name="fr.pds.isintheair.phonintheair.view.fragment.PhoneInfoFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_phone_info"/>
 
     <View
         android:layout_width="match_parent"
@@ -19,9 +21,11 @@
         android:background="@color/black"/>
 
     <fragment
+        android:id="@+id/fragment_calendar_info"
         android:name="fr.pds.isintheair.phonintheair.view.fragment.CalendarInfoFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_calendar_info"/>
 
 </LinearLayout>
