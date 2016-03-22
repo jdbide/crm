@@ -14,11 +14,12 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.model.mock.Contact;
-import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
+import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 
 /**
@@ -45,7 +46,7 @@ public class ListennerCallEndedEvent extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("Listener", "ListenerCallEndedService start id " + startId + ": " + intent);
+        Log.i("LocalService", "Listener start id " + startId + ": " + intent);
         return START_NOT_STICKY;
     }
 
@@ -77,10 +78,10 @@ public class ListennerCallEndedEvent extends Service {
     public void showPopup(CallEndedEvent event) {
 
         boolean found = false;
-        List<CallEndedEvent> liste = CallEndedDAO.getAll();
+        List<Contact> liste = ContactDAO.getAll();
 
         for (int i=0; i < liste.size(); i++) {
-            Contact co = (Contact) Contact.getNameFromNumber(liste.get(i).getIdcontact());
+            Contact co = (Contact) Contact.getNameFromNumber(event.getIdcontact());
             if(co!=null)
                 found = true;
             break;
