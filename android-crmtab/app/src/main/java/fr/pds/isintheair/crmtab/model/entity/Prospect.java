@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.domain;
+package fr.pds.isintheair.crmtab.model.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

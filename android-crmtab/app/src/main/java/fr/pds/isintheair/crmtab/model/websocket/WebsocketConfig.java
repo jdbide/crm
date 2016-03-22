@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.config;
+package fr.pds.isintheair.crmtab.model.websocket;
 
 /**
  * The Websocket URI to connectToCall to the notification server

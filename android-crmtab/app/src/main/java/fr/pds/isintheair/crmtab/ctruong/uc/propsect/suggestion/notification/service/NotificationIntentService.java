@@ -14,7 +14,7 @@ import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketConnectionHandler;
 import de.tavendo.autobahn.WebSocketException;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.config.WebsocketConfig;
+import fr.pds.isintheair.crmtab.model.websocket.WebsocketConfig;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.DetailProspect;
 
 /**
