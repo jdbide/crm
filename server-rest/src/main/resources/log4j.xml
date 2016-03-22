@@ -20,10 +20,10 @@
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
+	<logger name="org.">
 		<level value="info" />
 	</logger>
-	
+	springframework.core
 	<logger name="org.springframework.beans">
 		<level value="info" />
 	</logger>
