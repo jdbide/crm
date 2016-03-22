@@ -1,13 +1,11 @@
-package fr.pds.isintheair.phonintheair.model.entity;
+package fr.pds.isintheair.phonintheair.controller.bus.event;
 
 /******************************************
  * Created by        : jdatour            *
- * Creation date     : 03/19/16           *
+ * Creation date     : 03/22/16           *
  * Modified by       :                    *
  * Modification date :                    *
  ******************************************/
 
-public enum NotificationType {
-    CALENDAR,
-    CALL
+public class CalendarWebSocketConnectionLostEvent {
 }

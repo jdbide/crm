@@ -4,9 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
-import fr.pds.isintheair.phonintheair.controller.CallController;
+import fr.pds.isintheair.phonintheair.controller.message.CallMessageController;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 import fr.pds.isintheair.phonintheair.model.entity.MessageType;
 
@@ -18,36 +17,30 @@ import fr.pds.isintheair.phonintheair.model.entity.MessageType;
  ******************************************/
 
 public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
-    private String TAG = getClass().getSimpleName();
-
     @Override
     public void onReceive(Context context, Intent intent) {
         String lastMessage   = SharedPreferencesHelper.readString("lastMessage", "");
         String previousState = SharedPreferencesHelper.readString("previousTelephonyState", "");
         String state         = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
 
-        Log.d(TAG, "State : " + state);
-
         if (state != null) {
             String phoneNumber = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
-            Log.d(TAG, "Phone number : " + phoneNumber);
-
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                CallController.sendCallReceivedMessage(phoneNumber);
+                CallMessageController.sendCallReceivedMessage(phoneNumber);
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                CallController.sendEndCallMessage();
+                CallMessageController.sendEndCallMessage();
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                CallController.sendCallHookMessage();
+                CallMessageController.sendCallHookMessage();
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 if (!lastMessage.equals(MessageType.CALL))
-                    CallController.sendCallPassedMessage(phoneNumber);
+                    CallMessageController.sendCallPassedMessage(phoneNumber);
             }
 
             SharedPreferencesHelper.writeString("lastMessage", "");

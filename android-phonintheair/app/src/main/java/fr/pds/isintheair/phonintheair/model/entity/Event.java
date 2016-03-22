@@ -3,8 +3,8 @@ package fr.pds.isintheair.phonintheair.model.entity;
 import java.util.Calendar;
 
 /******************************************
- * Created by        :                    *
- * Creation date     : 03/19/16            *
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
  * Modified by       :                    *
  * Modification date :                    *
  ******************************************/
