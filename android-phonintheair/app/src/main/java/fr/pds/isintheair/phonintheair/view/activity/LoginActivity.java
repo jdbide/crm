@@ -14,6 +14,13 @@ import fr.pds.isintheair.phonintheair.controller.service.CalendarService;
 import fr.pds.isintheair.phonintheair.controller.service.CallService;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/21/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class LoginActivity extends Activity {
     @Bind(R.id.email_edittext)
     EditText email;

@@ -1,11 +1,9 @@
-package fr.pds.isintheair.phonintheair.controller;
+package fr.pds.isintheair.phonintheair.controller.message;
 
 import java.util.List;
 
 import fr.pds.isintheair.phonintheair.PhonintheairApp;
-import fr.pds.isintheair.phonintheair.helper.GoogleAccountHelper;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
-import fr.pds.isintheair.phonintheair.model.entity.Agenda;
 import fr.pds.isintheair.phonintheair.model.entity.CalendarMessage;
 import fr.pds.isintheair.phonintheair.model.entity.DeviceType;
 import fr.pds.isintheair.phonintheair.model.entity.Event;
@@ -23,7 +21,7 @@ import fr.pds.isintheair.phonintheair.model.websocket.WebSocketConnectionHandler
  * Modification date :                    *
  ******************************************/
 
-public class CalendarController {
+public class CalendarMessageController {
     public static void handleMessage(CalendarMessage message) {
         switch (message.getMessageInfo().getMessageType()) {
             case CALENDAR_FULL_SYNC:
@@ -33,16 +31,11 @@ public class CalendarController {
     }
 
     public static void sendFullSyncMessage() {
-        List<Agenda> agendas = new CalendarProvider(PhonintheairApp.context).getAgendas(GoogleAccountHelper.getAccountNames(PhonintheairApp.context).get(0));
-
-        Integer     userId      = SharedPreferencesHelper.readInteger("userId", 0);
-        List<Event> events      = new CalendarProvider(PhonintheairApp.context).getEvents(2l);
-        MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALENDAR_FULL_SYNC).build();
-        SessionInfo sessionInfo = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE)
-                                                           .addNotificationType(NotificationType.CALENDAR)
-                                                           .addUserId(userId)
-                                                           .build();
-
+        Long            agendaId        = SharedPreferencesHelper.readLong("agendaId", 42);
+        Integer         userId          = SharedPreferencesHelper.readInteger("userId", 0);
+        List<Event>     events          = new CalendarProvider(PhonintheairApp.context).getEvents(agendaId);
+        MessageInfo     messageInfo     = new MessageInfo.Builder().addMessageType(MessageType.CALENDAR_FULL_SYNC).build();
+        SessionInfo     sessionInfo     = new SessionInfo.Builder().addDeviceType(DeviceType.PHONE).addNotificationType(NotificationType.CALENDAR).addUserId(userId).build();
         CalendarMessage calendarMessage = new CalendarMessage.Builder().addMessageInfo(messageInfo).addSessionInfo(sessionInfo).addEvents(events).build();
 
         WebSocketConnectionHandlerSingleton.getInstance().sendMessage(calendarMessage);

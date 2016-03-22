@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.controller;
+package fr.pds.isintheair.phonintheair.controller.message;
 
 import fr.pds.isintheair.phonintheair.helper.CallHelper;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
@@ -11,7 +11,14 @@ import fr.pds.isintheair.phonintheair.model.entity.NotificationType;
 import fr.pds.isintheair.phonintheair.model.entity.SessionInfo;
 import fr.pds.isintheair.phonintheair.model.websocket.WebSocketConnectionHandlerSingleton;
 
-public class CallController {
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
+public class CallMessageController {
     public static void handleMessage(CallMessage message) {
         switch (message.getMessageInfo().getMessageType()) {
             case CALL:

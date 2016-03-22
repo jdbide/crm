@@ -1,11 +1,11 @@
 package fr.pds.isintheair.phonintheair;
 
 /* @RunWith(PowerMockRunner.class)
-@PrepareForTest({CallController.class, SharedPreferencesHelper.class})
+@PrepareForTest({CallMessageController.class, SharedPreferencesHelper.class})
 public class CallWebSocketHandlerTest {
    @Test
     public void testRegisterCalledOnOpen() {
-        PowerMockito.mockStatic(CallController.class);
+        PowerMockito.mockStatic(CallMessageController.class);
         PowerMockito.mockStatic(SharedPreferencesHelper.class);
 
         PowerMockito.when(SharedPreferencesHelper.readInteger(anyString(), anyInt())).thenReturn(42);
@@ -14,6 +14,6 @@ public class CallWebSocketHandlerTest {
         callWebSocketHandler.onOpen();
 
         verifyStatic();
-        CallController.sendRegisterMessage(anyInt());
+        CallMessageController.sendRegisterMessage(anyInt());
     }
 } */

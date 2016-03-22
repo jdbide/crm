@@ -51,13 +51,11 @@ public class CalendarProvider {
     }
 
     public List<Agenda> getAgendas(String account) {
-        List<Agenda>    agendas         = new ArrayList<>();
-        ContentResolver contentResolver = context.getContentResolver();
-        Cursor          cursor          = null;
-        Uri             uri             = CalendarContract.Calendars.CONTENT_URI;
-
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
-            cursor = contentResolver.query(uri, AGENDA_PROJECTION, null, null, null);
+            List<Agenda> agendas = new ArrayList<>();
+            ContentResolver contentResolver = context.getContentResolver();
+            Uri uri = CalendarContract.Calendars.CONTENT_URI;
+            Cursor cursor = contentResolver.query(uri, AGENDA_PROJECTION, null, null, null);
 
             if (cursor != null) {
                 while (cursor.moveToNext()) {
@@ -72,40 +70,42 @@ public class CalendarProvider {
 
                 cursor.close();
             }
+
+            return agendas;
         }
 
-        return agendas;
+        return null;
     }
 
     public Agenda getAgendaById(Long id) {
-        Agenda          agenda          = new Agenda();
-        ContentResolver contentResolver = context.getContentResolver();
-        String          selection       = "( " + CalendarContract.Calendars._ID + " = " + " ? )";
-        String[]        selectionArgs   = new String[]{String.valueOf(id)};
-        Cursor          cursor          = null;
-        Uri             uri             = CalendarContract.Calendars.CONTENT_URI;
-
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
-            cursor = contentResolver.query(uri, AGENDA_PROJECTION, selection, selectionArgs, null);
+            Agenda agenda = new Agenda();
+            ContentResolver contentResolver = context.getContentResolver();
+            String selection = "( " + CalendarContract.Calendars._ID + " = " + " ? )";
+            String[] selectionArgs = new String[]{String.valueOf(id)};
+            Uri uri = CalendarContract.Calendars.CONTENT_URI;
+            Cursor cursor = contentResolver.query(uri, AGENDA_PROJECTION, selection, selectionArgs, null);
 
             if (cursor != null && cursor.moveToFirst()) {
                 agenda.setId(cursor.getLong(AGENDA_PROJECTION_ID_INDEX));
                 agenda.setName(cursor.getString(AGENDA_PROJECTION_DISPLAY_NAME_INDEX));
                 agenda.setOwner(cursor.getString(AGENDA_PROJECTION_OWNER_ACCOUNT_INDEX));
+
+                cursor.close();
             }
+
+            return agenda;
         }
 
-        return agenda;
+        return null;
     }
 
     public List<Event> getEvents(Long agendaId) {
-        List<Event> events = new ArrayList<>();
-        //String      selection     = "(" + CalendarContract.Events.CALENDAR_ID + " = ?)";
-        String   selection     = "(( " + CalendarContract.Events.DTSTART + " >= " + " ? ) AND (" + CalendarContract.Events.CALENDAR_ID + " = ?))";
-        String[] selectionArgs = new String[]{String.valueOf(Calendar.getInstance().getTimeInMillis()), String.valueOf(agendaId)};
-        Uri      uri           = CalendarContract.Events.CONTENT_URI;
-
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+            List<Event> events = new ArrayList<>();
+            String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + " ? ) AND (" + CalendarContract.Events.CALENDAR_ID + " = ?))";
+            String[] selectionArgs = new String[]{String.valueOf(Calendar.getInstance().getTimeInMillis()), String.valueOf(agendaId)};
+            Uri uri = CalendarContract.Events.CONTENT_URI;
             Cursor cursor = context.getContentResolver().query(uri, EVENT_PROJECTION, selection, selectionArgs, CalendarContract.Events.DTSTART + " ASC");
 
             if (cursor != null) {
@@ -133,8 +133,10 @@ public class CalendarProvider {
 
                 cursor.close();
             }
+
+            return events;
         }
 
-        return events;
+        return null;
     }
 }

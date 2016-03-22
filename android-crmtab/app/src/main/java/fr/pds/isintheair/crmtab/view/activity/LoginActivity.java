@@ -56,12 +56,12 @@ public class LoginActivity extends Activity implements Callback<User> {
         currentUser.setPassword(basic);
 
         //TODO Remove it
-        /* currentUser.save();
+        /*currentUser.save();
 
         startService(new Intent(LoginActivity.this, CallService.class));
         startService(new Intent(LoginActivity.this, CalendarService.class));
         startService(new Intent(LoginActivity.this, NotificationIntentService.class));
-        startActivity(new Intent(LoginActivity.this, MainActivity.class)); */
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));*/
 
         LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
         Call<User>   call         = loginService.login(currentUser);
