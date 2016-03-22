@@ -6,9 +6,9 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -21,28 +21,27 @@ import java.util.logging.Logger;
 @ServerEndpoint("/prospect")
 public class ProspectNotifEndPoint {
 
-    static final Logger                   log   = Logger.getLogger(ProspectNotifEndPoint.class.getSimpleName());
-    static       ScheduledExecutorService timer = Executors.newSingleThreadScheduledExecutor();
+    static final Logger log = Logger.getLogger(ProspectNotifEndPoint.class.getSimpleName());
+    private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 
     @OnOpen
-    public void onOpen (Session session) {
+    public void onOpen(Session session) {
         log.info("I'm starting");
-        timer.scheduleAtFixedRate(() -> sendTimeToAll(session), 7, 7, TimeUnit.HOURS);
-    }
-
-
-    private void sendTimeToAll (Session session) {
-        try {
-            session.getBasicRemote().sendText("We found new prospect. Are you interesting?");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        clients.add(session);
     }
 
     @OnMessage
-    public void onMessage (Session session, String message) {
+    public void onMessage(Session session, String message) throws IOException {
         log.info(message);
+        synchronized(clients){
+            // Iterate over the connected sessions
+            // and broadcast the received message
+            for(Session client : clients){
+                if (!client.equals(session)){
+                    client.getBasicRemote().sendText(message);
+                }
+            }
+        }
     }
 
     @OnClose

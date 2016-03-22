@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.config;
+package fr.pds.isintheair.crmtab.model.rest.service;
 
 /**
  * Created by Truong on 2/10/2016.
