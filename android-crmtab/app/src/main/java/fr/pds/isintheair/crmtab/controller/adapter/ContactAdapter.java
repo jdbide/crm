@@ -13,9 +13,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.model.entity.Client;
 import fr.pds.isintheair.crmtab.model.mock.Contact;
 import fr.pds.isintheair.crmtab.view.activity.ContactDetailActivity;
-import fr.pds.isintheair.crmtab.model.entity.Client;
 
 /******************************************
  * Created by        : jdatour            *
