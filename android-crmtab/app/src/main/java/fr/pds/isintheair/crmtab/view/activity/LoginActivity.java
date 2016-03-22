@@ -85,12 +85,12 @@ public class LoginActivity extends Activity implements Callback<User> {
         currentUser = UserDAO.getCurrentUser();
 
         if (currentUser != null) {
-            //startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
 
         else {
             currentUser = new User();
-            //onConnectionClick();
+            onConnectionClick();
         }
     }
 
@@ -98,21 +98,20 @@ public class LoginActivity extends Activity implements Callback<User> {
     public void onResponse(Response<User> response, Retrofit retrofit) {
         if (response.isSuccess()) {
             currentUser = response.body();
-            Log.v("rep",response.body().toString());
+            Log.v("rep", response.body().toString());
             //TODO FIx the real problem
             if (currentUser == null) {
                 currentUser = new User();
 
                 currentUser.setEmail("test@crm.fr");
+
                 /*currentUser.setFname("testFname");
                 currentUser.setLname("testLname");
                 currentUser.setPassword("password");
                 currentUser.setId("0762506058");*/
-
-
             }
-            currentUser.save();
 
+            currentUser.save();
 
             startService(new Intent(LoginActivity.this, CallService.class));
             startService(new Intent(LoginActivity.this, CalendarService.class));

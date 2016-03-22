@@ -10,8 +10,6 @@ import android.support.annotation.NonNull;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +17,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.phonintheair.R;
-import fr.pds.isintheair.phonintheair.controller.bus.event.CalendarWebSocketConnectionLostEvent;
-import fr.pds.isintheair.phonintheair.controller.bus.event.CalendarWebSocketConnectionRetrievedEvent;
-import fr.pds.isintheair.phonintheair.controller.bus.event.CallWebSocketConnectionLostEvent;
-import fr.pds.isintheair.phonintheair.controller.bus.event.CallWebSocketConnectionRetrievedEvent;
 import fr.pds.isintheair.phonintheair.controller.bus.handler.BusHandlerSingleton;
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 import fr.pds.isintheair.phonintheair.model.entity.Agenda;
@@ -137,7 +131,7 @@ public class DashboardActivity extends Activity {
         }
     }
 
-    @Subscribe
+    /* @Subscribe
     public void onCalendarWebSocketConnectionLost(CalendarWebSocketConnectionLostEvent event) {
         calendarConnectionState.setImageResource(R.drawable.red_circle);
     }
@@ -155,5 +149,5 @@ public class DashboardActivity extends Activity {
     @Subscribe
     public void onCallWebSocketConnectionRetrevied(CallWebSocketConnectionRetrievedEvent event) {
         callConnectionState.setImageResource(R.drawable.green_circle);
-    }
+    } */
 }
