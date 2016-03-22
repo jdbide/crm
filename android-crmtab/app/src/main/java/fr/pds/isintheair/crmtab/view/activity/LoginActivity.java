@@ -15,6 +15,7 @@ import fr.pds.isintheair.crmtab.controller.service.CalendarService;
 import fr.pds.isintheair.crmtab.controller.service.CallService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.helper.CredentialHelper;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
@@ -109,6 +110,7 @@ public class LoginActivity extends Activity implements Callback<User> {
             startService(new Intent(LoginActivity.this, CallService.class));
             startService(new Intent(LoginActivity.this, CalendarService.class));
             startService(new Intent(LoginActivity.this, NotificationIntentService.class));
+            startService(new Intent(LoginActivity.this, ListennerCallEndedEvent.class));
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
     }
