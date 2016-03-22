@@ -45,7 +45,7 @@ public class ListennerCallEndedEvent extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("LocalService", "Received start id " + startId + ": " + intent);
+        Log.i("Listener", "ListenerCallEndedService start id " + startId + ": " + intent);
         return START_NOT_STICKY;
     }
 

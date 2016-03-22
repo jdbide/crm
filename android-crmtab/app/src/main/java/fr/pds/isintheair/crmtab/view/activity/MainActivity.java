@@ -20,12 +20,12 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDetailsFragment;
@@ -34,14 +34,13 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
 import fr.pds.isintheair.crmtab.model.entity.User;
+import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateIndepFragment;
 import fr.pds.isintheair.crmtab.view.fragment.ListCustomerFragment;
-import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.MainLogoFragment;
 
 
@@ -64,8 +63,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Crm Tab");
-        //start local services
-        startService(new Intent(this, ListennerCallEndedEvent.class));
+        
         bus = Constants.getInstance().getCurrentBusInstance();
         bus.register(this);
 
@@ -128,7 +126,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.deco) {
             PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
             startActivity(new Intent(this, LoginActivity.class));
-            return true;
         }
 
         if (id == R.id.import_contact) {
