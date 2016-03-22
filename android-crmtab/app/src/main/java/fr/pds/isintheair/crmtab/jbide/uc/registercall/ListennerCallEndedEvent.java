@@ -14,11 +14,12 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.model.mock.Contact;
-import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
+import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 
 /**
@@ -45,7 +46,7 @@ public class ListennerCallEndedEvent extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("LocalService", "Received start id " + startId + ": " + intent);
+        Log.i("LocalService", "Listener start id " + startId + ": " + intent);
         return START_NOT_STICKY;
     }
 
@@ -75,18 +76,32 @@ public class ListennerCallEndedEvent extends Service {
     }*/
     @Subscribe
     public void showPopup(CallEndedEvent event) {
-        //if no popup displayed show
-        if(!Constants.getInstance().isPopUpDisplayed()) {
-            Constants.getInstance().setPopUpDisplayed(true);
-            Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
-        }else{  //else add to job
-            //add event to pending list
-            event.save();
-            //Constants.getInstance().getPendindList().add(event);
-            //tell subscribers that list has been updated
-            //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
-            notifyLocally();
+
+        boolean found = false;
+        List<Contact> liste = ContactDAO.getAll();
+
+        for (int i=0; i < liste.size(); i++) {
+            Contact co = (Contact) Contact.getNameFromNumber(event.getIdcontact());
+            if(co!=null)
+                found = true;
+            break;
         }
+
+       if(found) {
+
+           //if no popup displayed show
+           if (!Constants.getInstance().isPopUpDisplayed()) {
+               Constants.getInstance().setPopUpDisplayed(true);
+               Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
+           } else {  //else add to job
+               //add event to pending list
+               event.save();
+               //Constants.getInstance().getPendindList().add(event);
+               //tell subscribers that list has been updated
+               //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
+               notifyLocally();
+           }
+       }
     }
 
     /**

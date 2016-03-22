@@ -14,9 +14,17 @@
             android:title="Mon agenda"/>
 
         <item
-            android:id="@+id/nav_historiser_appel"
+            android:id="@+id/multiple_appel"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Historiser un appel"/>
+            android:title="Appels multiples"/>
+        <item
+            android:id="@+id/appel_prive"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Appel privé"/>
+        <item
+            android:id="@+id/appel_pro"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Appel professionel"/>
         <item
             android:id="@+id/nav_lister_appel"
             android:icon="@drawable/ic_menu_camera"
