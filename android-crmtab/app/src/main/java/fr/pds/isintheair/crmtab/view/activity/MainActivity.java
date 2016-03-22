@@ -3,7 +3,6 @@ package fr.pds.isintheair.crmtab.view.activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -35,6 +34,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpF
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
@@ -68,16 +68,9 @@ public class MainActivity extends AppCompatActivity
         bus.register(this);
 
         currentUser = new User();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        currentUser.setEmail(prefs.getString("email", null));
-        currentUser.setPassword(prefs.getString("passwordEditText", null));
-        currentUser.setTel(prefs.getString("tel", null));
-        currentUser.setFname(prefs.getString("fname", null));
-        currentUser.setId(prefs.getString("id", null));
-        currentUser.setLname(prefs.getString("lname", null));
 
-        Constants.getInstance().setCurrentUser(currentUser);
+        Constants.getInstance().setCurrentUser(UserDAO.getCurrentUser());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
