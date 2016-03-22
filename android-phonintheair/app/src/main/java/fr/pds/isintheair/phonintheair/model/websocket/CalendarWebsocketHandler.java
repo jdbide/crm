@@ -18,23 +18,34 @@ public class CalendarWebsocketHandler extends WebSocketConnectionHandler {
     private String TAG = getClass().getSimpleName();
 
     @Override
-    public void onOpen() {
+    public void onOpen () {
         Log.d(TAG, "Calendar session opened");
 
+        WebSocketConnectionHandlerSingleton.getInstance().setIsCalendarConnected(true);
         CalendarController.sendRegisterMessage();
     }
 
     @Override
-    public void onClose(int code, String reason) {
+    public void onClose (int code, String reason) {
         Log.d(TAG, "Calendar session closed with code : " + code + " with reason : " + reason);
+
+        try {
+            Thread.sleep(10000);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebSocketConnectionHandlerSingleton.getInstance().setIsCalendarConnected(false);
         WebSocketConnectionHandlerSingleton.getInstance().connectToCalendar();
     }
 
     @Override
-    public void onTextMessage(String payload) {
+    public void onTextMessage (String payload) {
         Log.d(TAG, "Calendar message received : " + payload);
 
-        if (!payload.isEmpty())
+        if (!payload.isEmpty()) {
             CalendarController.handleMessage((CalendarMessage) JSONHelper.deserialize(payload, CalendarMessage.class));
+        }
     }
 }
