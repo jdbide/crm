@@ -75,18 +75,32 @@ public class ListennerCallEndedEvent extends Service {
     }*/
     @Subscribe
     public void showPopup(CallEndedEvent event) {
-        //if no popup displayed show
-        if(!Constants.getInstance().isPopUpDisplayed()) {
-            Constants.getInstance().setPopUpDisplayed(true);
-            Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
-        }else{  //else add to job
-            //add event to pending list
-            event.save();
-            //Constants.getInstance().getPendindList().add(event);
-            //tell subscribers that list has been updated
-            //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
-            notifyLocally();
+
+        boolean found = false;
+        List<CallEndedEvent> liste = CallEndedDAO.getAll();
+
+        for (int i=0; i < liste.size(); i++) {
+            Contact co = (Contact) Contact.getNameFromNumber(liste.get(i).getIdcontact());
+            if(co!=null)
+                found = true;
+            break;
         }
+
+       if(found) {
+
+           //if no popup displayed show
+           if (!Constants.getInstance().isPopUpDisplayed()) {
+               Constants.getInstance().setPopUpDisplayed(true);
+               Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
+           } else {  //else add to job
+               //add event to pending list
+               event.save();
+               //Constants.getInstance().getPendindList().add(event);
+               //tell subscribers that list has been updated
+               //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
+               notifyLocally();
+           }
+       }
     }
 
     /**
