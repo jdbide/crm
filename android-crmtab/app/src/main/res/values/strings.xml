@@ -128,6 +128,7 @@
 
     <string name="title_activity_scrolling_visit">Visites</string>
     <string name="btn_finding_prospect">Find prospect</string>
+    <string name="title_activity_agenda">AgendaActivity</string>
     <string name="prospect_tv_name">Name</string>
     <string name="prospect_tv_siret">Siret Number</string>
     <string name="prospect_tv_finess">Finess number</string>
@@ -141,5 +142,7 @@
     <string name="prospect_bt_insert">Insert new client</string>
     <string name="prospect_bt_back">Back</string>
     <string name="prospect_tv_bed">Bed Number</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    >>>>>>> dev
 
 </resources>

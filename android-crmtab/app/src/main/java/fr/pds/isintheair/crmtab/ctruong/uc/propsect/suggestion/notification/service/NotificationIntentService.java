@@ -67,7 +67,7 @@ public class NotificationIntentService extends IntentService {
                 @Override
                 public void onOpen() {
                     super.onOpen();
-                    Log.i(TAG, "I'm connect with the server");
+                    Log.i(TAG, "I'm connectToCall with the server");
                 }
 
                 @Override

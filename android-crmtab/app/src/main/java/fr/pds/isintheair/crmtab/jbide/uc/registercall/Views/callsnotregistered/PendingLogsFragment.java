@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.common.view.activity.MainActivity;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 
 /**
  * A fragment representing a list of Items.

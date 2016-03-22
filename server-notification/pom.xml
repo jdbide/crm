@@ -63,7 +63,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>fr.pds.isintheair.jdatour.uc.phone.call.receive.server.NotifierServer</mainClass>
+                            <mainClass>fr.pds.isintheair.notifier.server.NotifierServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

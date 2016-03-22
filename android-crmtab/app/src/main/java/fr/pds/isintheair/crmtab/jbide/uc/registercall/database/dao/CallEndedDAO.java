@@ -1,13 +1,10 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao;
 
-import com.raizlabs.android.dbflow.sql.language.Condition;
 import com.raizlabs.android.dbflow.sql.language.Delete;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.common.model.database.entity.Contact;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent_Table;
 
@@ -20,6 +17,6 @@ public class CallEndedDAO {
     }
 
     public static void delete(Long idcall) {
-       new Delete().from(CallEndedEvent.class).where(CallEndedEvent_Table.id.eq(idcall)).query();
+        new Delete().from(CallEndedEvent.class).where(CallEndedEvent_Table.id.eq(idcall)).query();
     }
 }
