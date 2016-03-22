@@ -3,7 +3,6 @@ package fr.pds.isintheair.crmtab.view.activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -20,12 +19,12 @@ import com.squareup.otto.Subscribe;
 import java.util.Calendar;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.callsnotregistered.PendingLogsFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDetailsFragment;
@@ -34,14 +33,14 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
-import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
+import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateIndepFragment;
 import fr.pds.isintheair.crmtab.view.fragment.ListCustomerFragment;
-import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.MainLogoFragment;
 
 
@@ -64,22 +63,14 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Crm Tab");
-        //start local services
-        startService(new Intent(this, ListennerCallEndedEvent.class));
+        
         bus = Constants.getInstance().getCurrentBusInstance();
         bus.register(this);
 
         currentUser = new User();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        currentUser.setEmail(prefs.getString("email", null));
-        currentUser.setPassword(prefs.getString("passwordEditText", null));
-        currentUser.setTel(prefs.getString("tel", null));
-        currentUser.setFname(prefs.getString("fname", null));
-        currentUser.setId(prefs.getString("id", null));
-        currentUser.setLname(prefs.getString("lname", null));
 
-        Constants.getInstance().setCurrentUser(currentUser);
+        Constants.getInstance().setCurrentUser(UserDAO.getCurrentUser());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -128,7 +119,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.deco) {
             PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
             startActivity(new Intent(this, LoginActivity.class));
-            return true;
         }
 
         if (id == R.id.import_contact) {
@@ -153,7 +143,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         }
-        else if (id == R.id.nav_historiser_appel) {
+        else if (id == R.id.multiple_appel) {
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
             bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "0684894378"));
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0778801708"));
@@ -161,6 +151,14 @@ public class MainActivity extends AppCompatActivity
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
 
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
+
+        }
+        else if (id == R.id.appel_prive) {
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
+
+        }
+        else if (id == R.id.appel_pro) {
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1035", "0610772364"));
 
         }
         else if (id == R.id.nav_lister_appel) {

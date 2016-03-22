@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab.view.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -15,6 +16,7 @@ import fr.pds.isintheair.crmtab.controller.service.CalendarService;
 import fr.pds.isintheair.crmtab.controller.service.CallService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.helper.CredentialHelper;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
@@ -56,12 +58,12 @@ public class LoginActivity extends Activity implements Callback<User> {
         currentUser.setPassword(basic);
 
         //TODO Remove it
-        /* currentUser.save();
+        /*currentUser.save();
 
         startService(new Intent(LoginActivity.this, CallService.class));
         startService(new Intent(LoginActivity.this, CalendarService.class));
         startService(new Intent(LoginActivity.this, NotificationIntentService.class));
-        startActivity(new Intent(LoginActivity.this, MainActivity.class)); */
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));*/
 
         LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
         Call<User>   call         = loginService.login(currentUser);
@@ -96,12 +98,17 @@ public class LoginActivity extends Activity implements Callback<User> {
     public void onResponse(Response<User> response, Retrofit retrofit) {
         if (response.isSuccess()) {
             currentUser = response.body();
-
+            Log.v("rep", response.body().toString());
             //TODO FIx the real problem
             if (currentUser == null) {
                 currentUser = new User();
 
                 currentUser.setEmail("test@crm.fr");
+
+                /*currentUser.setFname("testFname");
+                currentUser.setLname("testLname");
+                currentUser.setPassword("password");
+                currentUser.setId("0762506058");*/
             }
 
             currentUser.save();
@@ -109,6 +116,7 @@ public class LoginActivity extends Activity implements Callback<User> {
             startService(new Intent(LoginActivity.this, CallService.class));
             startService(new Intent(LoginActivity.this, CalendarService.class));
             startService(new Intent(LoginActivity.this, NotificationIntentService.class));
+            startService(new Intent(LoginActivity.this, ListennerCallEndedEvent.class));
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
     }

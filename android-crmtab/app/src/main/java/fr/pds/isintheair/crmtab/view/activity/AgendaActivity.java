@@ -33,7 +33,6 @@ import fr.pds.isintheair.crmtab.model.entity.Event;
  ******************************************/
 
 public class AgendaActivity extends AppCompatActivity implements CalendarPickerController {
-
     @Bind(R.id.agenda_calendar_view)
     AgendaCalendarView agendaCalendarView;
 
@@ -79,7 +78,6 @@ public class AgendaActivity extends AppCompatActivity implements CalendarPickerC
         minDate.set(Calendar.DAY_OF_MONTH, 1);
         maxDate.add(Calendar.YEAR, 1);
 
-        //agendaCalendarView.addEventRenderer(new DrawableEventRenderer());
         agendaCalendarView.init(baseCalendarEvents, minDate, maxDate, Locale.getDefault(), this);
     }
 
