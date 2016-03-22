@@ -103,6 +103,11 @@ public class LoginActivity extends Activity implements Callback<User> {
                 currentUser = new User();
 
                 currentUser.setEmail("test@crm.fr");
+                currentUser.setFname("testFname");
+                currentUser.setLname("testLname");
+                currentUser.setPassword("password");
+                currentUser.setId("0762506058");
+                
             }
 
             currentUser.save();
