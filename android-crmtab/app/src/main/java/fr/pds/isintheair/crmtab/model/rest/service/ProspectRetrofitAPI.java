@@ -1,8 +1,8 @@
-package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.rest;
+package fr.pds.isintheair.crmtab.model.rest.service;
 
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.domain.Prospect;
+import fr.pds.isintheair.crmtab.model.entity.Prospect;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.POST;

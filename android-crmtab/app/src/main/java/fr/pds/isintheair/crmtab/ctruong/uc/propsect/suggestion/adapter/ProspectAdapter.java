@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.model.domain.Prospect;
+import fr.pds.isintheair.crmtab.model.entity.Prospect;
 
 /**
  * Created by Truong on 3/1/2016.

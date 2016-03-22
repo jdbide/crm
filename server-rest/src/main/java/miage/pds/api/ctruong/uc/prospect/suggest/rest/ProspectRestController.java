@@ -4,6 +4,7 @@ import miage.pds.api.ctruong.uc.prospect.suggest.controller.ProspectController;
 import miage.pds.api.ctruong.uc.prospect.suggest.dao.*;
 import miage.pds.api.ctruong.uc.prospect.suggest.model.*;
 import miage.pds.api.ctruong.uc.prospect.suggest.service.MongoService;
+import miage.pds.api.ctruong.uc.prospect.suggest.ws.ProspectClientWS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -61,17 +64,6 @@ public class ProspectRestController {
         return "Hello Davide's World 2016";
     }
 
-    @RequestMapping(value = "/suggestion/prospect", method = RequestMethod.GET)
-    public @ResponseBody Prospect startAnalyzeProscess(){
-        List<Prospect> prospects = controller.analyseProspect();
-        Iterator<Prospect> iterator = prospects.iterator();
-        Prospect prospect = new Prospect();
-        while (iterator.hasNext()){
-            prospect = iterator.next();
-
-        }
-        return prospect;
-    }
 
     @RequestMapping(value = "/suggestion/prospect/{siret}", method = RequestMethod.POST)
     public @ResponseBody Prospect createNewClient(@PathVariable long siret){
@@ -79,6 +71,25 @@ public class ProspectRestController {
         RelationUserClient relation = new RelationUserClient(prospect.getId(), "bd299fa2-244c-4k6b-9966-49a84192cc8c");
         relationUserClientDAO.save(relation);
         relation.toString();
+        log.info("check");
+        try {
+            ProspectClientWS clientWS = new ProspectClientWS(new URI("ws://192.168.20.3:8090/prospect"));
+            log.info("check1");
+            clientWS.addMessageHandler(new ProspectClientWS.MessageHandler() {
+                @Override
+                public void handleMessage(String message) {
+                    log.info(message);
+                }
+            });
+            log.info("check2");
+            clientWS.sendMessage(prospect.getName());
+            log.info("check3");
+            Thread.sleep(1000);
+        } catch (URISyntaxException e) {
+            log.error("InterruptedException exception: " + e.getMessage());
+        } catch (InterruptedException e) {
+            log.error("InterruptedException exception: " + e.getMessage());
+        }
         return prospect;
     }
 
