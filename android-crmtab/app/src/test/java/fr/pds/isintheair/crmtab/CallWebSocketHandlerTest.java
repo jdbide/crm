@@ -1,20 +1,56 @@
-/******************************************
- * Created by        : jdatour            *
- * Creation date     : 01/24/16           *
- * Modified by       :                    *
- * Modification date :                    *
- ******************************************/
+package fr.pds.isintheair.crmtab;
 
-/* public class CallWebSocketHandlerTest {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
+import fr.pds.isintheair.crmtab.model.entity.CallMessage;
+import fr.pds.isintheair.crmtab.model.websocket.CallWebSocketHandler;
+import fr.pds.isintheair.crmtab.model.websocket.WebSocketConnectionHandlerSingleton;
+
+import static org.mockito.Matchers.isA;
+import static org.powermock.api.mockito.PowerMockito.doNothing;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({CallMessageController.class, WebSocketConnectionHandlerSingleton.class})
+public class CallWebSocketHandlerTest {
     @Test
     public void testRegisterCalledOnOpen() {
-        WebSocketConnectionHandlerSingleton webSocketConnectionHandlerSingleton = Mockito.spy(WebSocketConnectionHandlerSingleton.getInstance());
+        PowerMockito.mockStatic(CallMessageController.class);
 
-        MessageMeta messageMeta = new MessageMeta.MessageMetaBuilder().addMessageType(MessageType.REGISTER_PHONE).build();
-        Register    register    = new Register(42);
-        Message     message     = new Message.MessageBuilder().addMessageInfo(messageMeta).addRegister(register).build();
+        CallWebSocketHandler callWebSocketHandler = new CallWebSocketHandler();
+        callWebSocketHandler.onOpen();
 
-        WebSocketConnectionHandlerSingleton.getInstance().connectToCall();
-        Mockito.verify(webSocketConnectionHandlerSingleton, Mockito.times(1)).sendMessage(message);
+        verifyStatic();
+        CallMessageController.sendRegisterMessage();
     }
-} */
+
+    @Test
+    public void testTryToReconnectWhenConnectionLost() {
+        WebSocketConnectionHandlerSingleton webSocketConnectionHandlerSingleton = PowerMockito.spy(WebSocketConnectionHandlerSingleton.getInstance());
+
+        doNothing().when(webSocketConnectionHandlerSingleton).connectToCall();
+
+        CallWebSocketHandler callWebSocketHandler = new CallWebSocketHandler();
+        callWebSocketHandler.onClose(0, "");
+
+        verifyStatic();
+        webSocketConnectionHandlerSingleton.connectToCall();
+    }
+
+    @Test
+    public void testMessageIshandledWhenReceived() {
+        PowerMockito.mockStatic(CallMessageController.class);
+
+        CallWebSocketHandler callWebSocketHandler = new CallWebSocketHandler();
+        callWebSocketHandler.onTextMessage(
+                "{\"messageInfo\":{\"messageType\":\"REGISTER\"},\"sessionInfo\":{\"deviceType\":\"TABLET\",\"notificationType\":\"CALENDAR\",\"userId\":1851270730}}");
+
+        verifyStatic();
+        CallMessageController.handleMessage(isA(CallMessage.class));
+    }
+}

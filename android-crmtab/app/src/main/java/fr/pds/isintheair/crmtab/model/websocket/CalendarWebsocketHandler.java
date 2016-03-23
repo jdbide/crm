@@ -3,7 +3,7 @@ package fr.pds.isintheair.crmtab.model.websocket;
 import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnectionHandler;
-import fr.pds.isintheair.crmtab.controller.message.CalendarController;
+import fr.pds.isintheair.crmtab.controller.message.CalendarMessageController;
 import fr.pds.isintheair.crmtab.helper.JSONHelper;
 import fr.pds.isintheair.crmtab.model.entity.CalendarMessage;
 
@@ -21,7 +21,7 @@ public class CalendarWebsocketHandler extends WebSocketConnectionHandler {
     public void onOpen() {
         Log.d(TAG, "Calendar session opened");
 
-        CalendarController.sendRegisterMessage();
+        CalendarMessageController.sendRegisterMessage();
     }
 
     @Override
@@ -35,6 +35,6 @@ public class CalendarWebsocketHandler extends WebSocketConnectionHandler {
         Log.d(TAG, "Calendar message received : " + payload);
 
         if (!payload.isEmpty())
-            CalendarController.handleMessage((CalendarMessage) JSONHelper.deserialize(payload, CalendarMessage.class));
+            CalendarMessageController.handleMessage((CalendarMessage) JSONHelper.deserialize(payload, CalendarMessage.class));
     }
 }

@@ -24,7 +24,7 @@ import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallEndedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallHookedEvent;
-import fr.pds.isintheair.crmtab.controller.message.CallController;
+import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
@@ -49,7 +49,7 @@ public class CallActivity extends Activity {
 
     @OnClick(R.id.phone_imageview)
     public void onPhoneClick() {
-        CallController.sendEndCallMessage();
+        CallMessageController.sendEndCallMessage();
         finish();
     }
 

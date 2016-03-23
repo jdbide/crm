@@ -43,8 +43,8 @@ import java.util.Locale;
 
 import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
 import fr.pds.isintheair.crmtab.model.entity.User;
-import fr.pds.isintheair.crmtab.controller.message.CallController;
 import fr.pds.isintheair.crmtab.model.dao.CacheDao;
 import fr.pds.isintheair.crmtab.model.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.model.entity.Client;
@@ -656,7 +656,7 @@ public class CreateCrvActivity extends AppCompatActivity {
 
     //call a contact
     public void callContact(View view){
-        CallController.call(tel.getText().toString());
+        CallMessageController.call(tel.getText().toString());
     }
 
     public void showSatisfactionDetail(View view){

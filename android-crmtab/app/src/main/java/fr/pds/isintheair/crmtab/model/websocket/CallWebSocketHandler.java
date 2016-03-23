@@ -3,7 +3,7 @@ package fr.pds.isintheair.crmtab.model.websocket;
 import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnectionHandler;
-import fr.pds.isintheair.crmtab.controller.message.CallController;
+import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
 import fr.pds.isintheair.crmtab.helper.JSONHelper;
 import fr.pds.isintheair.crmtab.model.entity.CallMessage;
 
@@ -14,7 +14,7 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
     public void onOpen() {
         Log.d(TAG, "Call session opened");
 
-        CallController.sendRegisterMessage();
+        CallMessageController.sendRegisterMessage();
     }
 
     @Override
@@ -28,6 +28,6 @@ public class CallWebSocketHandler extends WebSocketConnectionHandler {
         Log.d(TAG, "Call message received : " + payload);
 
         if (!payload.isEmpty())
-            CallController.handleMessage((CallMessage) JSONHelper.deserialize(payload, CallMessage.class));
+            CallMessageController.handleMessage((CallMessage) JSONHelper.deserialize(payload, CallMessage.class));
     }
 }

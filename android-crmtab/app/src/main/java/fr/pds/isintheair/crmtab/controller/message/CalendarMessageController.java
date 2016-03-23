@@ -22,7 +22,7 @@ import fr.pds.isintheair.crmtab.model.websocket.WebSocketConnectionHandlerSingle
  * Modification date :                    *
  ******************************************/
 
-public class CalendarController {
+public class CalendarMessageController {
     public static void handleMessage(CalendarMessage calendarMessage) {
         switch (calendarMessage.getMessageInfo().getMessageType()) {
             case CALENDAR_FULL_SYNC:
