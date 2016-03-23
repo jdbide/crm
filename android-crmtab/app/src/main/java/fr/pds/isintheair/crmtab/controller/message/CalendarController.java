@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.controller.bus.event.CalendarFullSyncEvent;
+import fr.pds.isintheair.crmtab.model.dao.EventDAO;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.CalendarMessage;
 import fr.pds.isintheair.crmtab.model.entity.DeviceType;
@@ -49,6 +50,12 @@ public class CalendarController {
     }
 
     private static void handleFullSync(List<Event> events) {
+        List<Event> databaseEvents = EventDAO.getAll();
+
+        for (Event event : databaseEvents) {
+            event.delete();
+        }
+
         for (Event event : events) {
             event.save();
         }
