@@ -9,6 +9,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class PeerHandlerSingleton {
     private static final Integer              CALL_PEER_INDEX     = 0;
     private static final Integer              CALENDAR_PEER_INDEX = 1;

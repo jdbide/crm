@@ -6,6 +6,13 @@ import fr.pds.isintheair.notifier.helper.JSONHelper;
 import javax.websocket.Session;
 import java.util.List;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class CalendarController {
     public static void sendFullSync (SessionInfo sessionInfo, List<Event> events) {
         Session                 peerSession = PeerHandlerSingleton.getInstance().findPeerSession(sessionInfo);

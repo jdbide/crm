@@ -1,6 +1,6 @@
-package fr.pds.isintheair.notifier.controller;
+package fr.pds.isintheair.notifier;
 
-
+import fr.pds.isintheair.notifier.controller.CallMessageController;
 import fr.pds.isintheair.notifier.server.CallNotifierEndpoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,26 +8,22 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.logging.Logger;
-
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/23/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({CallMessageController.class, Logger.class})
+@PrepareForTest({CallMessageController.class})
 public class CallNotifierEndpointTest {
     @Test
-    public void testMessageIsHandledWhenReceiving() throws Exception {
+    public void testMessageIsHandledWhenReceiving () throws Exception {
         PowerMockito.mockStatic(CallMessageController.class);
-        PowerMockito.mockStatic(Logger.class);
-
-        Logger logger = mock(Logger.class);
-        doNothing().when(logger).info(anyString());
-        PowerMockito.when(Logger.getLogger(anyString())).thenReturn(logger);
-
 
         CallNotifierEndpoint callNotifierEndpoint = new CallNotifierEndpoint();
         callNotifierEndpoint.onMessage(anyString(), anyObject());
