@@ -1,11 +1,32 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
+import fr.pds.isintheair.crmtab.model.entity.Client;
+import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.model.entity.User;
+import fr.pds.isintheair.crmtab.model.rest.service.CrvRetrofitService;
+import fr.pds.isintheair.crmtab.view.activity.CrvHomeActivity;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Created by j-d on 21/12/2015.
@@ -93,4 +114,10 @@ public class Constants {
     public List<CallEndedEvent> getPendindList() {
         return pendingList;
     }
+
+    List<Client> clients = new ArrayList<Client>();
+    List<HealthCenter> healthCenters = new ArrayList<HealthCenter>();
+    Client client;
+
+
 }
