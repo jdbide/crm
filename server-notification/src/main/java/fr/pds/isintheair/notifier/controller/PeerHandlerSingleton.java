@@ -35,6 +35,10 @@ public class PeerHandlerSingleton {
         return INSTANCE;
     }
 
+    public HashMap<Integer, Peer<Session, Session>[]> getPeers () {
+        return peers;
+    }
+
     public synchronized void addPeer (Session session, SessionInfo sessionInfo) {
         Peer<Session, Session>[] sessionPeers = peers.get(sessionInfo.getUserId());
         Peer<Session, Session>   peerType     = null;
