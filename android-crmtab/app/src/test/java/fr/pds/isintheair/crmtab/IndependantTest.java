@@ -36,7 +36,6 @@ public class IndependantTest {
         independant = new Independant();
     }
 
-
     @Test
     public void testGetPurchasingCentral() throws Exception {
         independant.setCompanyId(companyMSPDeDenfert.getId());
