@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import org.junit.Test;
 
@@ -58,6 +59,41 @@ public class RegisterCallTest {
         }
     });
 }
-    
 
+    @Test
+    public void testaddlog(){
+        //Interceptor
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient httpClient = new OkHttpClient();
+        // add logging as last interceptor
+        httpClient.interceptors().add(logging);
+
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.getInstance().getBaseUrl())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(httpClient)
+                .build();
+
+        SerciceGenerator service = retrofit.create(SerciceGenerator.class);
+        Call<Boolean> call = service.createcra(new Cra());
+
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Response<Boolean> response, Retrofit retrofit) {
+                assertTrue(response.isSuccess());
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+
+        });
+    }
 }
