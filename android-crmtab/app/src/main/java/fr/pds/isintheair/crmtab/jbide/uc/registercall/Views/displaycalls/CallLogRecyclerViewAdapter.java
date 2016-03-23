@@ -21,6 +21,16 @@ public class CallLogRecyclerViewAdapter extends RecyclerView.Adapter<CallLogRecy
         mListener = listener;
     }
 
+    public CallLogRecyclerViewAdapter(List<Cra> items) {
+        liste = items;
+        mListener = new DisplayCallLogFragment.OnListFragmentInteractionListener() {
+            @Override
+            public void onListFragmentInteraction(Cra item) {
+
+            }
+        };
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
