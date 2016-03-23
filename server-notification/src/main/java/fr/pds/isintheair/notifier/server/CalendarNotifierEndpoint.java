@@ -10,6 +10,13 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 @ServerEndpoint("/calendar")
 public class CalendarNotifierEndpoint {
     private final static Logger logger = Logger.getLogger(CalendarNotifierEndpoint.class.getName());
