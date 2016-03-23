@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import fr.pds.isintheair.crmtab.BuildConfig;
 import fr.pds.isintheair.crmtab.model.entity.Company;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
 import fr.pds.isintheair.crmtab.model.entity.Specialty;
@@ -22,14 +21,14 @@ import static org.junit.Assert.assertEquals;
  * Created by tlacouque on 20/01/2016.
  */
 
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "pds.isintheair.fr.crmtab")
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "fr.pds.isintheair.crmtab")
 @RunWith(RobolectricGradleTestRunner.class)
 public class IndependantTest {
     Independant independant;
-    Specialty specialtyRadiologue;
-    Specialty specialtyAucune;
-    Company companyAucune;
-    Company companyMSPDeDenfert;
+    Specialty   specialtyRadiologue;
+    Specialty   specialtyAucune;
+    Company     companyAucune;
+    Company     companyMSPDeDenfert;
 
     @Before
     public void setUp() throws Exception {
@@ -59,12 +58,12 @@ public class IndependantTest {
 
 
     public void initDb() {
-         specialtyAucune = new Specialty();
+        specialtyAucune = new Specialty();
         specialtyAucune.setName("Aucune");
         specialtyAucune.setId(0);
         specialtyAucune.save();
 
-         specialtyRadiologue = new Specialty();
+        specialtyRadiologue = new Specialty();
         specialtyRadiologue.setName("Radiologue");
         specialtyRadiologue.setId(1);
         specialtyRadiologue.save();
