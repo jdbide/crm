@@ -119,8 +119,7 @@ public class DetailProspect extends Activity {
 
     private void pushNotif(String message){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("Prospect").setSmallIcon(R.drawable.logo).setContentText("New client " + message + " was inserted inside the client list.").setAutoCancel(true).setVibrate(new long[]{1000, 1000, 1000, 1000, 1000}).setLights(Color.RED, 3000, 3000);
-        Log.i(TAG, "pushNotif: " + message);
+        builder.setContentTitle("Prospect").setSmallIcon(R.drawable.logo).setContentText("New client " + message + "was inserted inside the client list.").setAutoCancel(true).setVibrate(new long[]{1000, 1000, 1000, 1000, 1000}).setLights(Color.RED, 3000, 3000);
         Intent intent = new Intent(this, DetailProspect.class);
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
         taskStackBuilder.addParentStack(DetailProspect.class);
@@ -142,6 +141,7 @@ public class DetailProspect extends Activity {
                 public void onOpen() {
                     super.onOpen();
                     Log.i(TAG, "I'm connect with the server");
+
                     connection.sendTextMessage(message);
                 }
 
@@ -153,7 +153,6 @@ public class DetailProspect extends Activity {
                 @Override
                 public void onTextMessage(String payload) {
                     super.onTextMessage(payload);
-                    Log.i(TAG, "onTextMessage: " + payload);
                     pushNotif(message);
                 }
             });

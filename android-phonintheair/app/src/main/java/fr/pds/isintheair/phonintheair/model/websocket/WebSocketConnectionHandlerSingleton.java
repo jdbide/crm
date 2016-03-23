@@ -15,6 +15,8 @@ public class WebSocketConnectionHandlerSingleton {
     private        String                              TAG                         = getClass().getSimpleName();
     private        WebSocketConnection                 calendarWebsocketConnection = null;
     private        WebSocketConnection                 callWebsocketConnection     = null;
+    private        Boolean                             isCallConnected             = false;
+    private        Boolean                             isCalendarConnected         = false;
 
     private WebSocketConnectionHandlerSingleton() {
         calendarWebsocketConnection = new WebSocketConnection();
@@ -39,7 +41,7 @@ public class WebSocketConnectionHandlerSingleton {
             callWebsocketConnection.connect(Constant.WEBSOCKET_CALL_ENDPOINT, callWebSocketHandler);
         }
         catch (WebSocketException e) {
-            Log.d(TAG, "Websocket connection failed : " + e.getMessage());
+            Log.d(TAG, "Call websocket connection failed : " + e.getMessage());
             //TODO handle exception
         }
     }
@@ -51,7 +53,7 @@ public class WebSocketConnectionHandlerSingleton {
             calendarWebsocketConnection.connect(Constant.WEBSOCKET_CALENDAR_ENDPOINT, calendarWebsocketHandler);
         }
         catch (WebSocketException e) {
-            Log.d(TAG, "Websocket connection failed : " + e.getMessage());
+            Log.d(TAG, "Calendar websocket connection failed : " + e.getMessage());
             //TODO handle exception
         }
     }
@@ -73,5 +75,21 @@ public class WebSocketConnectionHandlerSingleton {
         }
 
         Log.d(TAG, "Sending : " + serializedMessage);
+    }
+
+    public Boolean getIsCallConnected() {
+        return isCallConnected;
+    }
+
+    public void setIsCallConnected(Boolean isCallConnected) {
+        this.isCallConnected = isCallConnected;
+    }
+
+    public Boolean getIsCalendarConnected() {
+        return isCalendarConnected;
+    }
+
+    public void setIsCalendarConnected(Boolean isCalendarConnected) {
+        this.isCalendarConnected = isCalendarConnected;
     }
 }
