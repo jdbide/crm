@@ -7,6 +7,13 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class NotifierServer {
 
     public static void main (String[] args) {

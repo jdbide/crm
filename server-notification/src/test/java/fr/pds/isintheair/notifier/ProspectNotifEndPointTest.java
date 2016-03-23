@@ -1,5 +1,6 @@
-package fr.pds.isintheair.notifier.server;
+package fr.pds.isintheair.notifier;
 
+import fr.pds.isintheair.notifier.server.ProspectNotifEndPoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.mock;
 public class ProspectNotifEndPointTest {
 
     @Test
-    public void onOpen() throws Exception {
+    public void onOpen () throws Exception {
         PowerMockito.mockStatic(ProspectNotifEndPoint.class);
         PowerMockito.mockStatic(Logger.class);
 
@@ -29,5 +30,4 @@ public class ProspectNotifEndPointTest {
         PowerMockito.when(Logger.getLogger(anyString())).thenReturn(logger);
 
     }
-
 }

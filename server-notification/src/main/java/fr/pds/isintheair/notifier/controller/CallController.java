@@ -8,6 +8,13 @@ import fr.pds.isintheair.notifier.helper.JSONHelper;
 
 import javax.websocket.Session;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class CallController {
     public static void call (Session phoneSession, String phoneNumber) {
         MessageInfo messageInfo = new MessageInfo.Builder().addMessageType(MessageType.CALL).build();

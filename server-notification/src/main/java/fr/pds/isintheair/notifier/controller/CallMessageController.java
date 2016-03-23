@@ -5,6 +5,13 @@ import fr.pds.isintheair.notifier.entity.MessageType;
 
 import javax.websocket.Session;
 
+/******************************************
+ * Created by        : jdatour            *
+ * Creation date     : 03/19/16           *
+ * Modified by       :                    *
+ * Modification date :                    *
+ ******************************************/
+
 public class CallMessageController {
     public static void handleMessage (CallMessage callMessage, Session session) {
         MessageType messageType = callMessage.getMessageInfo().getMessageType();

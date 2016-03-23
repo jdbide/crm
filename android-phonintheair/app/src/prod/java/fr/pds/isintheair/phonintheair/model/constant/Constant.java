@@ -12,4 +12,5 @@ public class Constant {
     //public static String WEBSOCKET_CALL_ENDPOINT     = "ws://192.168.1.1:8083/call";
     public static String WEBSOCKET_CALENDAR_ENDPOINT = "ws://192.168.20.3:8083/calendar";
     //public static String WEBSOCKET_CALENDAR_ENDPOINT = "ws://192.168.1.1:8083/calendar";
+
 }
