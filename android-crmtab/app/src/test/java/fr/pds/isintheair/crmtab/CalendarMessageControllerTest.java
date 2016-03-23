@@ -2,8 +2,11 @@ package fr.pds.isintheair.crmtab;
 
 import android.os.Build;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -63,5 +66,10 @@ public class CalendarMessageControllerTest {
 
         Assert.assertTrue(eventsInDatabase.size() != 0);
         Assert.assertEquals(eventsInDatabase.get(0).getTitle(), "OK");
+    }
+
+    @After
+    public void tearDown() {
+        FlowManager.destroy();
     }
 }
