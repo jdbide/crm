@@ -10,10 +10,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
 import fr.pds.isintheair.crmtab.helper.NetworkHelper;
 import fr.pds.isintheair.crmtab.helper.ResourceHelper;
 import fr.pds.isintheair.crmtab.model.mock.Contact;
-import fr.pds.isintheair.crmtab.controller.message.CallController;
 import fr.pds.isintheair.crmtab.model.entity.Client;
 
 public class ContactDetailActivity extends Activity {
@@ -58,7 +58,7 @@ public class ContactDetailActivity extends Activity {
     public void onPhoneClick() {
         if (currentContact != null) {
             if (NetworkHelper.isNetworkAvailable()) {
-                CallController.call(currentContact.getPhoneNumber());
+                CallMessageController.call(currentContact.getPhoneNumber());
             }
 
             else {

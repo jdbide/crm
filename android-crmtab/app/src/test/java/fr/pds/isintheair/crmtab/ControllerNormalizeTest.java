@@ -30,10 +30,11 @@ public class ControllerNormalizeTest {
      }*/
     @Test
     public void testNormalizeNumberWithNonCorrectTelephone() throws Exception {
-        String tel = "1234567890";
+        String tel        = "1234567890";
         String normalized = controllerNormalize.normalizeNumber(tel);
         assertFalse(controllerNormalize.checkIfRightNumber(normalized));
     }
+
     /* @Test
     public void testNormalizeNumberStartingWithInternationalCode() throws Exception {
         String tel = "+33778801708";
@@ -42,7 +43,7 @@ public class ControllerNormalizeTest {
     }*/
     @Test
     public void testNormalizeNumberStartingWithWrongInternationalCode() throws Exception {
-        String tel = "+330778801708";
+        String tel        = "+330778801708";
         String normalized = controllerNormalize.normalizeNumber(tel);
         assertFalse(controllerNormalize.checkIfRightNumber(normalized));
     }
@@ -51,17 +52,17 @@ public class ControllerNormalizeTest {
     @Test
     public void testGetLocal() throws Exception {
         Boolean isCorrect = false;
-        String local = controllerNormalize.getLocal();
-        if(local.contains("FR"))
+        String  local     = controllerNormalize.getLocal();
+        if (local.contains("FR"))
             isCorrect = true;
 
         assertTrue(isCorrect);
     }
 
     @Test
-     public void testIsValidEmail() throws Exception {
+    public void testIsValidEmail() throws Exception {
         Boolean isCorrect = false;
-        String mail = "test@crm.fr";
+        String  mail      = "test@crm.fr";
         isCorrect = controllerNormalize.isValidEmail(mail);
         assertTrue(isCorrect);
     }
@@ -69,30 +70,33 @@ public class ControllerNormalizeTest {
     @Test
     public void testIsNotValidEmail() throws Exception {
         Boolean isCorrect;
-        String mail = "testcrm.fr";
+        String  mail = "testcrm.fr";
         isCorrect = controllerNormalize.isValidEmail(mail);
         assertFalse(isCorrect);
     }
+
     @Test
-      public void testIsNotValidEmailOnlySymbols() throws Exception {
+    public void testIsNotValidEmailOnlySymbols() throws Exception {
         Boolean isCorrect;
-        String mail = "@.";
+        String  mail = "@.";
         isCorrect = controllerNormalize.isValidEmail(mail);
         assertFalse(isCorrect);
     }
+
     @Test
     public void testIsNotValidEmailMisplacedSymbols() throws Exception {
         Boolean isCorrect;
-        String mail = "com.crm@test";
+        String  mail = "com.crm@test";
         isCorrect = controllerNormalize.isValidEmail(mail);
         assertFalse(isCorrect);
     }
+
     @Test
     public void testRemoveDiacritics() throws Exception {
-        Boolean isCorrect = false;
-        String text = "é, è, ê, ë, à, â, î, ï, ô, ù, û, ü, ÿ, æ, œ et ç";
-        String normaizedText = controllerNormalize.removeDiacritics(text);
-        if(!normaizedText.equals(text)){
+        Boolean isCorrect     = false;
+        String  text          = "é, è, ê, ë, à, â, î, ï, ô, ù, û, ü, ÿ, æ, œ et ç";
+        String  normaizedText = controllerNormalize.removeDiacritics(text);
+        if (!normaizedText.equals(text)) {
             isCorrect = true;
         }
         assertTrue(isCorrect);
@@ -100,30 +104,32 @@ public class ControllerNormalizeTest {
 
     @Test
     public void testRemoveDiacriticsInNormalPhrase() throws Exception {
-        Boolean isCorrect = false;
-        String text = "client satisfait";
-        String normaizedText = controllerNormalize.removeDiacritics(text);
-        if(!normaizedText.equals(text)){
+        Boolean isCorrect     = false;
+        String  text          = "client satisfait";
+        String  normaizedText = controllerNormalize.removeDiacritics(text);
+        if (!normaizedText.equals(text)) {
             isCorrect = true;
         }
         assertFalse(isCorrect);
     }
+
     @Test
     public void testAsciiNormalizar() throws Exception {
-        Boolean isCorrect = false;
-        String text = "çÇãÃáÁéÉíÍõÕóÓúÚ";
-        String normalizeText = controllerNormalize.asciiNormalizar(text);
-        if(!normalizeText.equals(text))
+        Boolean isCorrect     = false;
+        String  text          = "çÇãÃáÁéÉíÍõÕóÓúÚ";
+        String  normalizeText = controllerNormalize.asciiNormalizar(text);
+        if (!normalizeText.equals(text))
             isCorrect = true;
 
         assertTrue(isCorrect);
     }
+
     @Test
     public void testAsciiNormalizarInNormalPhrase() throws Exception {
-        Boolean isCorrect = false;
-        String text = "phrase normale";
-        String normalizeText = controllerNormalize.asciiNormalizar(text);
-        if(normalizeText.contains("%20"))
+        Boolean isCorrect     = false;
+        String  text          = "phrase normale";
+        String  normalizeText = controllerNormalize.asciiNormalizar(text);
+        if (normalizeText.contains("%20"))
             isCorrect = true;
 
         assertTrue(isCorrect);

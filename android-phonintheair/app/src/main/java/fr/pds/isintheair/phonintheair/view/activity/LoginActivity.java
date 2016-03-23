@@ -62,9 +62,6 @@ public class LoginActivity extends Activity {
         else {
             email.setText("test@crm.fr");
             password.setText("motdepasse");
-
-            connectionButton.callOnClick();
         }
     }
-
 }

@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 
 import fr.pds.isintheair.crmtab.CrmTabApplication;
-import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallEndedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallHookedEvent;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.Call;
 import fr.pds.isintheair.crmtab.model.entity.CallMessage;
 import fr.pds.isintheair.crmtab.model.entity.DeviceType;
@@ -19,20 +19,20 @@ import fr.pds.isintheair.crmtab.model.entity.SessionInfo;
 import fr.pds.isintheair.crmtab.model.websocket.WebSocketConnectionHandlerSingleton;
 import fr.pds.isintheair.crmtab.view.activity.CallActivity;
 
-public class CallController {
+public class CallMessageController {
     public static void handleMessage(CallMessage message) {
         switch (message.getMessageInfo().getMessageType()) {
             case CALL:
-                CallController.call(message.getCall().getPhoneNumber());
+                CallMessageController.call(message.getCall().getPhoneNumber());
                 break;
             case CALL_ENDED:
-                CallController.endCall();
+                CallMessageController.endCall();
                 break;
             case CALL_FAILED:
-                CallController.callFailed();
+                CallMessageController.callFailed();
                 break;
             case CALL_HOOKED:
-                CallController.callHooked();
+                CallMessageController.callHooked();
                 break;
             case CALL_PASSED:
             case CALL_RECEIVED:
@@ -41,13 +41,13 @@ public class CallController {
                 if (message.getCall() != null)
                     phoneNumber = message.getCall().getPhoneNumber();
 
-                CallController.notifyCallFromPhone(phoneNumber, message.getMessageInfo().getMessageType());
+                CallMessageController.notifyCallFromPhone(phoneNumber, message.getMessageInfo().getMessageType());
                 break;
         }
     }
 
     public static void call(String phoneNumber) {
-        CallController.sendCallMessage(phoneNumber);
+        CallMessageController.sendCallMessage(phoneNumber);
         startCallActivity(phoneNumber, MessageType.CALL_PASSED);
     }
 

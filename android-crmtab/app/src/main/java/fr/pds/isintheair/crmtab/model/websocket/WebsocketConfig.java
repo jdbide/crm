@@ -7,5 +7,5 @@ package fr.pds.isintheair.crmtab.model.websocket;
  * @since 2016-01-24
  */
 public interface WebsocketConfig {
-    static final String WSURI = "ws://192.168.20.3:8090/prospect";
+    static final String WSURI = "ws://192.168.20.3:8084/prospect";
 }

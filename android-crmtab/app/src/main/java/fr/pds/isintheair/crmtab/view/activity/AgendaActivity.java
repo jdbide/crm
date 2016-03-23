@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.controller.bus.event.CalendarFullSyncEvent;
-import fr.pds.isintheair.crmtab.controller.message.CalendarController;
+import fr.pds.isintheair.crmtab.controller.message.CalendarMessageController;
 import fr.pds.isintheair.crmtab.helper.CalendarHelper;
 import fr.pds.isintheair.crmtab.model.dao.EventDAO;
 import fr.pds.isintheair.crmtab.model.entity.Event;
@@ -61,7 +61,7 @@ public class AgendaActivity extends AppCompatActivity implements CalendarPickerC
         int id = item.getItemId();
 
         if (id == R.id.action_refresh) {
-            CalendarController.sendFullSyncMessage();
+            CalendarMessageController.sendFullSyncMessage();
 
             return true;
         }

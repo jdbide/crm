@@ -9,20 +9,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.adapter.ContactAdapter;
+import fr.pds.isintheair.crmtab.helper.JSONHelper;
 import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
-import fr.pds.isintheair.crmtab.model.mock.Contact;
 import fr.pds.isintheair.crmtab.model.entity.Client;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
 
 
 /**
  * Created by: Julien Datour
- *
+ * <p/>
  * Modified by: BALABASCARIN Muthu
  * Date: 02/02/2015
  */
@@ -30,6 +36,7 @@ public class ContactListFragment extends Fragment {
     @Bind(R.id.contact_list)
     RecyclerView contactList;
     Client client;
+
     public ContactListFragment() {
     }
 
@@ -46,9 +53,12 @@ public class ContactListFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        //TODO Remove it when contacts are properly handled
+        generateMockedContactsIfNeeded();
+
         //get args from client list fragment --> args = selected client object
         Bundle bundle = getArguments();
-        if(bundle != null) {
+        if (bundle != null) {
             client = (Client) bundle.getSerializable("client");
         }
 
@@ -59,6 +69,40 @@ public class ContactListFragment extends Fragment {
         contactList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
+    }
+
+    private void generateMockedContactsIfNeeded() {
+        List<Contact> databaseContacts = ContactDAO.getAll();
+
+        if (databaseContacts.size() == 0) {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            InputStream inputStream = null;
+
+            try {
+                inputStream = getContext().getAssets().open("contact-mock.json");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                String input;
+
+                while ((input = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(input);
+                }
+
+                bufferedReader.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String contactJson = stringBuilder.toString();
+            Contact[] contactsJSon = (Contact[]) JSONHelper.deserialize(contactJson, Contact[].class);
+            List<Contact> contacts = Arrays.asList(contactsJSon);
+
+            for (int i = 0; i < contacts.size(); ++i) {
+                Contact contact = contacts.get(i);
+                contact.save();
+            }
+        }
     }
 
     @Override

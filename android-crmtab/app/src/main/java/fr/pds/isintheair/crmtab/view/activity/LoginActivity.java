@@ -90,7 +90,6 @@ public class LoginActivity extends Activity implements Callback<User> {
 
         else {
             currentUser = new User();
-            onConnectionClick();
         }
     }
 
