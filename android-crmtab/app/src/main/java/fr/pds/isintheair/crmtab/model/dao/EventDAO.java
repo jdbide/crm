@@ -5,6 +5,7 @@ import com.raizlabs.android.dbflow.sql.language.Select;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.model.entity.Event;
+import fr.pds.isintheair.crmtab.model.entity.Event_Table;
 
 /******************************************
  * Created by        : jdatour            *
@@ -15,6 +16,6 @@ import fr.pds.isintheair.crmtab.model.entity.Event;
 
 public class EventDAO {
     public static List<Event> getAll() {
-        return new Select().from(Event.class).queryList();
+        return new Select().from(Event.class).orderBy(Event_Table.startTime, true).queryList();
     }
 }

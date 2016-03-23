@@ -21,7 +21,7 @@ import static org.mockito.Mockito.mock;
 public class ProspectNotifEndPointTest {
 
     @Test
-    public void onOpen() throws Exception {
+    public void onOpen () throws Exception {
         PowerMockito.mockStatic(ProspectNotifEndPoint.class);
         PowerMockito.mockStatic(Logger.class);
 
@@ -30,5 +30,4 @@ public class ProspectNotifEndPointTest {
         PowerMockito.when(Logger.getLogger(anyString())).thenReturn(logger);
 
     }
-
 }

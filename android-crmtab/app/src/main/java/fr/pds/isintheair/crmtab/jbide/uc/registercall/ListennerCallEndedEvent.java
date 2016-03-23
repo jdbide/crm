@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -75,24 +76,31 @@ public class ListennerCallEndedEvent extends Service {
         }
     }*/
     @Subscribe
-    public void showPopup(CallEndedEvent event) {
+    public void showPopup(final CallEndedEvent event) {
 
         boolean found = false;
         List<Contact> liste = ContactDAO.getAll();
 
-        for (int i=0; i < liste.size(); i++) {
+
+            event.setIdcontact(event.getIdcontact().replace("+33","0"));
             Contact co = (Contact) Contact.getNameFromNumber(event.getIdcontact());
             if(co!=null)
                 found = true;
-            break;
-        }
+
+
 
        if(found) {
 
            //if no popup displayed show
            if (!Constants.getInstance().isPopUpDisplayed()) {
                Constants.getInstance().setPopUpDisplayed(true);
-               Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(event));
+
+               Handler handler = new Handler();
+               handler.postDelayed(new Thread(new delay(event)),2000);
+
+
+
+
            } else {  //else add to job
                //add event to pending list
                event.save();
@@ -103,6 +111,20 @@ public class ListennerCallEndedEvent extends Service {
            }
        }
     }
+
+    public class delay implements Runnable{
+
+        private CallEndedEvent myevent;
+        public delay(CallEndedEvent event){
+            myevent = event;
+        }
+
+        @Override
+        public void run() {
+            Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(myevent));
+        }
+    }
+
 
     /**
      * Shows notifications if popup already displayed
@@ -163,5 +185,7 @@ public class ListennerCallEndedEvent extends Service {
         // Send the notification.
         mNM.notify(notification_id, notification.build());
     }
+
+
 
 }

@@ -3,7 +3,7 @@ package fr.pds.isintheair.crmtab;
 /**
  * Create by jdatour
  * Modified by tlacouque on 06/03/2016
- * <p>
+ * <p/>
  * Class used to store url with static constant
  */
 public class Constant {

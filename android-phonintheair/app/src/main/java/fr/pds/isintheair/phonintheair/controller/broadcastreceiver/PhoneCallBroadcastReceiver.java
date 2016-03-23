@@ -39,7 +39,7 @@ public class PhoneCallBroadcastReceiver extends BroadcastReceiver {
             }
 
             else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) && previousState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                if (!lastMessage.equals(MessageType.CALL))
+                if (!lastMessage.equals(MessageType.CALL.toString()))
                     CallMessageController.sendCallPassedMessage(phoneNumber);
             }
 
