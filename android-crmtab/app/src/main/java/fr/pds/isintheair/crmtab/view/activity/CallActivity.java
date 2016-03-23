@@ -1,6 +1,7 @@
 package fr.pds.isintheair.crmtab.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.squareup.otto.Subscribe;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,11 +25,12 @@ import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallEndedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallHookedEvent;
 import fr.pds.isintheair.crmtab.controller.message.CallController;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
+import fr.pds.isintheair.crmtab.model.entity.MessageType;
 import fr.pds.isintheair.crmtab.model.mock.Contact;
 import fr.pds.isintheair.crmtab.model.mock.Contact_Table;
-import fr.pds.isintheair.crmtab.model.entity.MessageType;
 
 public class CallActivity extends Activity {
     public static Activity instance;
@@ -105,9 +108,20 @@ public class CallActivity extends Activity {
                 callType = CallType.INCOMING;
         }
 
-        CallEndedEvent callEndedEvent = new CallEndedEvent(callType, Calendar.getInstance().toString(), Long.toString(callDuration / 1000), currentPhoneNumber);
+        startActivity(new Intent(this, MainActivity.class));
 
-        BusHandlerSingleton.getInstance().getBus().post(callEndedEvent);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(cal.getTime());
+// Output "Wed Sep 26 14:23:28 EST 2012"
+
+        String formatted = format1.format(cal.getTime());
+
+
+        CallEndedEvent callEndedEvent = new CallEndedEvent(callType,formatted, Long.toString(callDuration / 1000), currentPhoneNumber);
+
+        Constants.getInstance().getCurrentBusInstance().post(callEndedEvent);
 
         finish();
     }
