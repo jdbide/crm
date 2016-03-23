@@ -22,7 +22,8 @@ public class MessageService {
     private MessageService () {
         logger.debug("Cr�ation du singleton MessageService");
         //  messageDAO = MessageDao.getIntance();
-		
+
+
     }
 
     /**
