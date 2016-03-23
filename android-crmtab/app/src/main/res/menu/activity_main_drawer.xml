@@ -14,10 +14,6 @@
             android:title="Mon agenda"/>
 
         <item
-            android:id="@+id/multiple_appel"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Appels multiples"/>
-        <item
             android:id="@+id/nav_lister_appel_non_enreg"
             android:icon="@drawable/ic_menu_camera"
             android:title="Appels à enregistrer"/>
