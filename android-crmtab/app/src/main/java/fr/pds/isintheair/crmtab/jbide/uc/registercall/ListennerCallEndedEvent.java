@@ -103,6 +103,7 @@ public class ListennerCallEndedEvent extends Service {
 
            } else {  //else add to job
                //add event to pending list
+
                event.save();
                //Constants.getInstance().getPendindList().add(event);
                //tell subscribers that list has been updated
@@ -140,7 +141,9 @@ public class ListennerCallEndedEvent extends Service {
                 .setTicker("Nouvel appel à historiser")  // the status text
                         //.setWhen(System.currentTimeMillis())  // the time stamp
                 .setContentTitle("CRM-TAB")  // the label of the entry
-                .setContentText("Appels en attente d'enregistrement");
+                .setContentText("Appels en attente d'enregistrement")
+                .setAutoCancel(true);
+
 
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();

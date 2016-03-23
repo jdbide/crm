@@ -2,6 +2,8 @@ package fr.pds.isintheair.crmtab.view.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,8 +18,6 @@ import android.view.MenuItem;
 
 import com.squareup.otto.Subscribe;
 
-import java.util.Calendar;
-
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
@@ -31,7 +31,6 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallDet
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.DisplayCallLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLogFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
@@ -144,23 +143,19 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.multiple_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
+            /*bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
             bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "0684894378"));
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0778801708"));
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
             bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
 
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
+            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));*/
 
         }
-        else if (id == R.id.appel_prive) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
-
+        else if (id == R.id.nav_lister_appel_non_enreg) {
+            showNotificationListFrag();
         }
-        else if (id == R.id.appel_pro) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1035", "0610772364"));
 
-        }
         else if (id == R.id.nav_lister_appel) {
             fragment = DisplayCallLogFragment.newInstance();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -210,6 +205,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void showNotificationListFrag() {
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(10000);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         pend = PendingLogsFragment.newInstance();
         ft.replace(R.id.container, pend, "FRAGMENT_LISTE_NOTIF").commit();
@@ -233,7 +231,7 @@ public class MainActivity extends AppCompatActivity
                 , event.getCallEndedEvent().getDate()
                 , event.getCallEndedEvent().getDuration()
                 , event.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant"
-                , true);
+                , true,event.pend,event.getCallEndedEvent().getId());
 
         ft.replace(R.id.container, fragment, TagAddLogFragment).addToBackStack(null).commit();
     }

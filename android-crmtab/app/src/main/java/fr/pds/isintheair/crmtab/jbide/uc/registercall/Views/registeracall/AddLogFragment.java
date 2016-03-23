@@ -17,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.model.entity.Client;
 import fr.pds.isintheair.crmtab.model.mock.Contact;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.ControllerCra;
@@ -45,7 +47,7 @@ public class AddLogFragment extends Fragment {
     @Bind(R.id.vocalcomment)  Button mic;
 
 
-    public static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype,boolean showmic) {
+    public static AddLogFragment newInstance(String idcontact,String date,String duration,String calltype,boolean showmic,boolean ispending,long eventid) {
         AddLogFragment f = new AddLogFragment();
         // Supply num input as an argument.
         Bundle args = new Bundle();
@@ -54,6 +56,9 @@ public class AddLogFragment extends Fragment {
         args.putString("date", date);
         args.putString("calltype", calltype);
         args.putBoolean("showmic", showmic);
+        args.putBoolean("ispending", ispending);
+        if(ispending)
+        args.putString("eventid", Long.toString(eventid));
         f.setArguments(args);
         return f;
     }
@@ -85,7 +90,10 @@ public class AddLogFragment extends Fragment {
         if(co!=null)
         contactname.setText(co.getLastName()+" "+co.getFirstName());
 
-        clientname.setText("Centre hospitalier Leon Binet");
+
+        List<Client> clients = new ArrayList<Client>();
+        clients = Constants.getInstance().getClientsForUser(Constants.getInstance().getCurrentUser().getId());
+        clientname.setText("Cinique des pays de Meaux");
 
         clientname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -153,7 +161,10 @@ clientname.setOnClickListener(new View.OnClickListener() {
                 //newCra.setId(0);
                 //newCra.save();
                 //save on server
-                ControllerCra.registerCra(newCra, getActivity());
+                if(getArguments().getBoolean("ispending"))
+                    ControllerCra.registerCra(newCra, getActivity(),getArguments().getString("idcontact"));
+                else
+                    ControllerCra.registerCra(newCra, getActivity());
             }
         });
         return view;

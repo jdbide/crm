@@ -50,7 +50,7 @@ public class PopUpFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //hide popup , addlog fragment  is below
                         Constants.getInstance().setPopUpDisplayed(false);
-                        ((MainActivity)getActivity()).showaddlogfragment(new DisplayAddLogFragmentEvent(callevent.getCallEndedEvent()));
+                        ((MainActivity)getActivity()).showaddlogfragment(new DisplayAddLogFragmentEvent(callevent.getCallEndedEvent(),false));
 
                     }
                 }).setNegativeButton("Non", new DialogInterface.OnClickListener() {

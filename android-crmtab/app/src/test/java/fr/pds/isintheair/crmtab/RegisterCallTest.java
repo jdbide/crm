@@ -1,7 +1,5 @@
 package fr.pds.isintheair.crmtab;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -30,6 +28,7 @@ public class RegisterCallTest {
 
 @Test
     public void testDisplayCallLogFragment(){
+
     List<Cra> listecra = new ArrayList<Cra>();
     CallLogRecyclerViewAdapter adapter = new CallLogRecyclerViewAdapter(listecra);
 
@@ -55,9 +54,7 @@ public class RegisterCallTest {
 
         @Override
         public void onFailure(Throwable t) {
-            //  Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
-            Log.v("listcraforuser Failure", "msg = " + t.getMessage());
-            //Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
     });
 }

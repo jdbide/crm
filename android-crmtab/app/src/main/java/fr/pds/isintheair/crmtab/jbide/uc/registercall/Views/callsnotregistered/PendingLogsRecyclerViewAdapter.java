@@ -47,7 +47,7 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
         Contact co = (Contact) Contact.getNameFromNumber(mValues.get(position).getIdcontact());
         if(co!=null)
         holder.mContact.setText(co.getLastName()+" "+co.getFirstName());
-        holder.mClient.setText("client name"/*mValues.get(position).getClientname()*/);
+        holder.mClient.setText("Clinique des pays de Meaux"/*mValues.get(position).getClientname()*/);
 
         holder.yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
                        mValues.get(position).getCalltype(),
                        mValues.get(position).getDate(),
                        mValues.get(position).getDuration(),
-                       mValues.get(position).getIdcontact())));
+                       mValues.get(position).getIdcontact()),true));
             }
         });
 
