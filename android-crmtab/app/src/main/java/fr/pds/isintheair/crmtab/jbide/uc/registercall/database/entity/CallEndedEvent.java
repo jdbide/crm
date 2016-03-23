@@ -30,6 +30,7 @@ public class CallEndedEvent extends BaseModel {
     private String iduser;
 
 
+
     public CallEndedEvent(){
     }
 
@@ -47,6 +48,7 @@ public class CallEndedEvent extends BaseModel {
         this.duration = duration;
         this.idcontact = idcontact;
         this.iduser = Constants.getInstance().getCurrentUser().getId();
+
     }
 
     public String getIduser() {

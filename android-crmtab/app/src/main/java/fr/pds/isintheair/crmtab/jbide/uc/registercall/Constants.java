@@ -1,14 +1,8 @@
 package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +15,6 @@ import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.model.rest.service.CrvRetrofitService;
-import fr.pds.isintheair.crmtab.view.activity.CrvHomeActivity;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -118,6 +111,58 @@ public class Constants {
     List<Client> clients = new ArrayList<Client>();
     List<HealthCenter> healthCenters = new ArrayList<HealthCenter>();
     Client client;
+
+    public  List<Client> getClientsForUser(String idUser){
+        Gson gson = new GsonBuilder()
+                .disableHtmlEscaping()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        retrofit.client().setConnectTimeout(5000, TimeUnit.MILLISECONDS);
+        CrvRetrofitService iCrvRetrofitService = retrofit.create(CrvRetrofitService.class);
+        Call<ResponseRestCustomer> call = iCrvRetrofitService.getClientList(idUser);
+        call.enqueue(new Callback<ResponseRestCustomer>() {
+
+            @Override
+            public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
+                if(response !=null) try {
+                    {
+                        healthCenters = response.body().getHealthCenters();
+                        if(healthCenters != null){
+                            for(HealthCenter hc : healthCenters){
+                                client = new Client();
+
+
+                                client.setClientId(hc.getSiretNumber());
+                                client.setClientName(hc.getName());
+                                client.setClientAddress(hc.getAdress());
+                                clients.add(client);
+
+
+                            }
+
+
+                        }
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
+
+        return clients;
+    }
 
 
 }

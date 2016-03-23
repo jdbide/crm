@@ -18,13 +18,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Appels multiples"/>
         <item
-            android:id="@+id/appel_prive"
+            android:id="@+id/nav_lister_appel_non_enreg"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Appel privé"/>
-        <item
-            android:id="@+id/appel_pro"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Appel professionel"/>
+            android:title="Appels à enregistrer"/>
         <item
             android:id="@+id/nav_lister_appel"
             android:icon="@drawable/ic_menu_camera"
