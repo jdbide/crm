@@ -1,6 +1,7 @@
-package fr.pds.isintheair.notifier.controller;
+package fr.pds.isintheair.notifier;
 
 
+import fr.pds.isintheair.notifier.controller.CallMessageController;
 import fr.pds.isintheair.notifier.server.CallNotifierEndpoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,5 +1,6 @@
-package fr.pds.isintheair.notifier.server;
+package fr.pds.isintheair.notifier;
 
+import fr.pds.isintheair.notifier.server.ProspectNotifEndPoint;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;

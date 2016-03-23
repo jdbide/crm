@@ -1,4 +1,4 @@
-package fr.pds.isintheair.notifier.controller;
+package fr.pds.isintheair.notifier;
 
 public class CallMessageControllerTest {
     /* Session phoneSession = Mockito.mock(Session.class);
