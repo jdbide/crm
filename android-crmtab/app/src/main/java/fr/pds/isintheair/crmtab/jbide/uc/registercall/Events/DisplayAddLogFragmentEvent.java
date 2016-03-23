@@ -8,13 +8,15 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedE
 public class DisplayAddLogFragmentEvent {
 
     private CallEndedEvent callEndedEvent;
+    public boolean pend;
 
     public CallEndedEvent getCallEndedEvent() {
         return callEndedEvent;
     }
 
-    public DisplayAddLogFragmentEvent(CallEndedEvent callEndedEvent) {
+    public DisplayAddLogFragmentEvent(CallEndedEvent callEndedEvent, boolean pending) {
 
         this.callEndedEvent = callEndedEvent;
+        pend = pending;
     }
 }
