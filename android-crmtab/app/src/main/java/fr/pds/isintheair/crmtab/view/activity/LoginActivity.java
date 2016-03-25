@@ -16,7 +16,7 @@ import fr.pds.isintheair.crmtab.controller.service.CalendarService;
 import fr.pds.isintheair.crmtab.controller.service.CallService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.helper.CredentialHelper;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
+import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
