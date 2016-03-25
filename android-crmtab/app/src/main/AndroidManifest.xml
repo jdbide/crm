@@ -88,7 +88,7 @@
             android:exported="false"/>
         <service android:name=".controller.service.CallService"/>
         <service android:name=".controller.service.CalendarService"/>
-        <service android:name=".jbide.uc.registercall.ListennerCallEndedEvent"/>
+        <service android:name=".controller.service.ListennerCallEndedEvent"/>
 
         <activity
             android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
