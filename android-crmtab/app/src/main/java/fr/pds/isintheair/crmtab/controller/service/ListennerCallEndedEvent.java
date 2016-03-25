@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.jbide.uc.registercall;
+package fr.pds.isintheair.crmtab.controller.service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,6 +15,7 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
