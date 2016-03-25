@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,7 +21,13 @@ public class CallHelper {
         callIntent.setData(Uri.parse("tel:" + phoneNumber));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        if (applicationContext.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            if (applicationContext.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                applicationContext.startActivity(callIntent);
+            }
+        }
+
+        else {
             applicationContext.startActivity(callIntent);
         }
     }

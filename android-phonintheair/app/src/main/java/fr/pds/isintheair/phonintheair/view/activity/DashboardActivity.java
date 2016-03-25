@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
@@ -79,21 +80,24 @@ public class DashboardActivity extends Activity {
 
         List<String> permissions = new ArrayList<>();
 
-        if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.CALL_PHONE);
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.CALL_PHONE);
+            }
+
+            if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.READ_CALENDAR);
+            }
+
+            if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.WRITE_CALENDAR);
+            }
+
+            if (permissions.size() > 0) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), 0);
+            }
         }
 
-        if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.READ_CALENDAR);
-        }
-
-        if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.WRITE_CALENDAR);
-        }
-
-        if (permissions.size() > 0) {
-            requestPermissions(permissions.toArray(new String[permissions.size()]), 0);
-        }
     }
 
     @Override
@@ -102,8 +106,14 @@ public class DashboardActivity extends Activity {
 
         Long agendaId = SharedPreferencesHelper.readLong("agendaId", 42);
 
-        if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            calendarAutorisationState.setImageResource(R.drawable.red_circle);
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                calendarAutorisationState.setImageResource(R.drawable.red_circle);
+            }
+
+            if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                callAutorisationState.setImageResource(R.drawable.red_circle);
+            }
         }
 
         if (agendaId != 42) {
@@ -111,10 +121,6 @@ public class DashboardActivity extends Activity {
             Agenda agenda = calendarProvider.getAgendaById(agendaId);
 
             calendarChosenTextview.setText(agenda.getName());
-        }
-
-        if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            callAutorisationState.setImageResource(R.drawable.red_circle);
         }
     }
 
