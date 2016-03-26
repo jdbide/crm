@@ -143,6 +143,14 @@
     <string name="prospect_bt_back">Back</string>
     <string name="prospect_tv_bed">Bed Number</string>
     <string name="title_activity_main2">Main2Activity</string>
-    >>>>>>> dev
+
+    <!-- Strings related to the creation of a phoning campaign -->
+    <string name="create_phoning_campaign_fragment_title_fragment">Creer une campagne de phoning</string>
+    <string name="create_phoning_campaign_fragment_title">Titre de la campagne : </string>
+    <string name="create_phoning_campaign_fragment_campaign_type">Type de campagne : </string>
+    <string name="create_phoning_campaign_fragment_objective">Objectif(s) : </string>
+    <string name="create_phoning_campaign_fragment_list_customer">Liste des clients à ajouter : </string>
+    <string name="create_phoning_campaign_fragment_list_customer_added">Liste des clients ajouté : </string>
+
 
 </resources>
