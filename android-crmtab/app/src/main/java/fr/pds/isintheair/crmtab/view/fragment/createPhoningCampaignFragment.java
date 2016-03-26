@@ -91,6 +91,7 @@ public class CreatePhoningCampaignFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_create_phoning_campaign, container, false);
         ButterKnife.bind(this, v);
+        initCustomers();
         return v;
     }
 

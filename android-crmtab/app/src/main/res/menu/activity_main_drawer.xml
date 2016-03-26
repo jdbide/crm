@@ -43,7 +43,7 @@
             android:title="Normalize"/>
         <item
             android:id="@+id/nav_phoning_campaign"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@android:drawable/sym_action_call"
             android:title="Campagne de phoning"/>
 
     </item>
