@@ -100,7 +100,11 @@
                     android:layout_height="wrap_content" />
 
 
-
+                <Button
+                    android:id="@+id/create_phoning_campaign_fragment_contact_list_button"
+                    android:text="@string/create_phoning_campaign_fragment_button_contact_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
         </LinearLayout>

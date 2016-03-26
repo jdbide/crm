@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
@@ -18,12 +21,15 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
+import fr.pds.isintheair.crmtab.model.entity.IndependantType;
+import fr.pds.isintheair.crmtab.model.entity.PhoningCampaignType;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.model.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
@@ -34,7 +40,7 @@ import retrofit.Retrofit;
 /**
  * Created by tlacouque on 26/03/2016.
  */
-public class CreatePhoningCampaignFragment extends Fragment {
+public class CreatePhoningCampaignFragment extends Fragment  implements Validator.ValidationListener {
 
     public String idUser = UserDAO.getCurrentUser().getId();
 
@@ -54,9 +60,14 @@ public class CreatePhoningCampaignFragment extends Fragment {
     @NotEmpty
     ListView customer;
 
+    @Bind(R.id.create_phoning_campaign_fragment_contact_list_button)
+    Button addContactButton;
+
     List<Customer> customers;
 
     List<Customer> customersAdded;
+
+    Validator       validator;
 
     public CreatePhoningCampaignFragment() {
         // Required empty public constructor
@@ -77,6 +88,8 @@ public class CreatePhoningCampaignFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
     }
 
 
@@ -88,6 +101,7 @@ public class CreatePhoningCampaignFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_create_phoning_campaign, container, false);
         ButterKnife.bind(this, v);
         initCustomers();
+        initSpinner();
         return v;
     }
 
@@ -188,4 +202,24 @@ public class CreatePhoningCampaignFragment extends Fragment {
         return customersName;
     }
 
+    private void initSpinner() {
+        type.setAdapter(new ArrayAdapter<PhoningCampaignType>
+                (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, PhoningCampaignType.values()));
+
+    }
+
+    @OnClick(R.id.create_phoning_campaign_fragment_contact_list_button)
+    public void onButtonClick(final View view) {
+        validator.validate(true);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+    }
 }

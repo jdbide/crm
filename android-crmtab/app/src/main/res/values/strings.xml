@@ -151,6 +151,7 @@
     <string name="create_phoning_campaign_fragment_objective">Objectif(s) : </string>
     <string name="create_phoning_campaign_fragment_list_customer">Liste des clients à ajouter : </string>
     <string name="create_phoning_campaign_fragment_list_customer_added">Liste des clients ajouté : </string>
+    <string name="create_phoning_campaign_fragment_button_contact_list">Ajouter des contacts</string>
 
 
 </resources>
