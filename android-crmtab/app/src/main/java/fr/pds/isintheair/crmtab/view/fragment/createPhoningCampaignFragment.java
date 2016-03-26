@@ -54,10 +54,6 @@ public class CreatePhoningCampaignFragment extends Fragment {
     @NotEmpty
     ListView customer;
 
-    @Bind(R.id.create_phoning_campaign_fragment_list_customer_added)
-    @NotEmpty
-    ListView customerAdded;
-
     List<Customer> customers;
 
     List<Customer> customersAdded;
@@ -176,6 +172,12 @@ public class CreatePhoningCampaignFragment extends Fragment {
                 android.R.layout.simple_list_item_multiple_choice, getCustomersName(customers));
         customer.setAdapter(adapter);
         customer.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        ViewGroup.LayoutParams params = customer.getLayoutParams();
+
+        // Set the height of the Item View
+        params.height = 1000;
+        customer.setLayoutParams(params);
+
     }
 
     public static List<String> getCustomersName(List<Customer> customers) {
