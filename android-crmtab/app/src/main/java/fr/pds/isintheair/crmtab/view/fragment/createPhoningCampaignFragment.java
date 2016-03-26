@@ -34,7 +34,7 @@ import retrofit.Retrofit;
 /**
  * Created by tlacouque on 26/03/2016.
  */
-public class createPhoningCampaignFragment extends Fragment {
+public class CreatePhoningCampaignFragment extends Fragment {
 
     public String idUser = UserDAO.getCurrentUser().getId();
 
@@ -62,17 +62,17 @@ public class createPhoningCampaignFragment extends Fragment {
 
     List<Customer> customersAdded;
 
-    public createPhoningCampaignFragment() {
+    public CreatePhoningCampaignFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Can be called when a new createPhoningCampaignFragment is needed
+     * Can be called when a new CreatePhoningCampaignFragment is needed
      *
-     * @return createPhoningCampaignFragment
+     * @return CreatePhoningCampaignFragment
      */
-    public static createPhoningCampaignFragment newInstance() {
-        createPhoningCampaignFragment fragment = new createPhoningCampaignFragment();
+    public static CreatePhoningCampaignFragment newInstance() {
+        CreatePhoningCampaignFragment fragment = new CreatePhoningCampaignFragment();
         Bundle args     = new Bundle();
         fragment.setArguments(args);
         return fragment;

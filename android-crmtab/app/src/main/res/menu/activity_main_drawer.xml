@@ -41,6 +41,10 @@
             android:id="@+id/nav_normalize"
             android:icon="@drawable/ic_menu_manage"
             android:title="Normalize"/>
+        <item
+            android:id="@+id/nav_phoning_campaign"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Campagne de phoning"/>
 
     </item>
 
