@@ -2,20 +2,28 @@ package miage.pds.api.mbalabascarin.uc.mock.contact.model;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
 
 import java.util.List;
 
 /**
  * Created by Muthu on 04/03/2016.
+ * Modify by tlacouque on 27/03/2016
  */
 
 @Entity("contact")
 public class Contact {
+    @Id
     public int contactId;
+    @Property
     public String clientId;
+    @Property
     public String contactName;
+    @Property
     public String contactFname;
+    @Property
     public String contactTel;
+    @Property
     public String contactJob;
 
     public String getContactJob() {

@@ -7,6 +7,7 @@ package fr.pds.isintheair.crmtab.model.entity;
 
 
 public interface Customer  {
+    long getSiretNumber();
     String getName();
     String getAdress();
     double getLattitude();
