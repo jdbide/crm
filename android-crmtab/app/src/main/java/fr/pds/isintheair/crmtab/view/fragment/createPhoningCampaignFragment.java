@@ -2,6 +2,8 @@ package fr.pds.isintheair.crmtab.view.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
+import fr.pds.isintheair.crmtab.helper.CustomerHelper;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
@@ -53,11 +56,9 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     EditText objective;
 
     @Bind(R.id.create_phoning_campaign_fragment_campaign_type)
-    @NotEmpty
     Spinner type;
 
     @Bind(R.id.create_phoning_campaign_fragment_list_customer)
-    @NotEmpty
     ListView customer;
 
     @Bind(R.id.create_phoning_campaign_fragment_contact_list_button)
@@ -88,6 +89,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        customersAdded = new ArrayList<Customer>();
         validator = new Validator(this);
         validator.setValidationListener(this);
     }
@@ -215,11 +217,21 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     @Override
     public void onValidationSucceeded() {
-
+        SparseBooleanArray position = customer.getCheckedItemPositions();
+        int len = customer.getCount();
+        for (int i = 0; i < len; i++) {
+            if (position.get(i)) {
+                customersAdded.add(CustomerHelper.getCustomerFromName(
+                        (String) customer.getItemAtPosition(i),customers));
+            }
+        }
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
 
     }
+
+
+
 }
