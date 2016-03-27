@@ -16,7 +16,7 @@ public class Contact {
     @Id
     public int contactId;
     @Property
-    public String clientId;
+    public long clientId;
     @Property
     public String contactName;
     @Property
@@ -54,11 +54,11 @@ public class Contact {
         this.contactId = contactId;
     }
 
-    public String getClientId() {
+    public long getClientId() {
         return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(long clientId) {
         this.clientId = clientId;
     }
 
