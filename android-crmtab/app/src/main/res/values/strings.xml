@@ -153,7 +153,10 @@
     <string name="create_phoning_campaign_fragment_list_customer_added">Liste des clients ajouté : </string>
     <string name="create_phoning_campaign_fragment_button_contact_list">Ajouter des contacts</string>
     <string name="add_contact_phoning_campaign_fragment_title_fragment">Ajouter des contacts a la campagne</string>
-    <string name="add_contact_phoning_campaign_fragment_button_detail">Créer la campagne de phoning</string>
+    <string name="add_contact_phoning_campaign_fragment_button_detail">Creer la campagne de phoning</string>
+    <string name="detail_phoning_campaign_fragment_title_fragment">Detail de la campagne de phoning</string>
+    <string name="detail_phoning_campaign_fragment_begin_campaign">Demarrer la campagne</string>
+    <string name="detail_phoning_campaign_fragment_list_customer">Liste des contacts ajouté : </string>
 
 
 </resources>

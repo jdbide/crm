@@ -168,12 +168,14 @@ public class AddContactPhoningCampaignFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
                 customerListHashMap);
+        phoningCampaign.setStatut(PhoningCampaign.STATE_DEFINED);
+        phoningCampaign.save();
         bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
                 phoningCampaign);
-        AddContactPhoningCampaignFragment addContactPhoningCampaignFragment = new AddContactPhoningCampaignFragment();
-        addContactPhoningCampaignFragment.setArguments(bundle);
+        DetailPhoningCampaignFragment detailPhoningCampaignFragment = new DetailPhoningCampaignFragment();
+        detailPhoningCampaignFragment.setArguments(bundle);
 
-       // ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
-       //         .replace(R.id.container, addContactPhoningCampaignFragment).commit();
+        ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                .replace(R.id.container, detailPhoningCampaignFragment).commit();
     }
 }

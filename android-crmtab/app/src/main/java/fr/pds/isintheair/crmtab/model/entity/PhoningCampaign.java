@@ -17,6 +17,11 @@ import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
 @Table(database = OrmTabDataBase.class)
 public class PhoningCampaign extends BaseModel implements Parcelable {
 
+    public static String STATE_DEFINED = "Cree";
+    public static String STATE_BEGINED = "En cours";
+    public static String STATE_STOPPED = "En pause";
+    public static String STATE_ENDED = "Termine";
+
     @Column
     @PrimaryKey(autoincrement = true)
     long    campaignId;
@@ -26,6 +31,12 @@ public class PhoningCampaign extends BaseModel implements Parcelable {
     String    campaignType;
     @Column
     String     campaignObjectives;
+    @Column
+    String statut;
+    @Column
+    String beginDate;
+    @Column
+    String endDate;
 
     public PhoningCampaign() {
     }
@@ -66,6 +77,30 @@ public class PhoningCampaign extends BaseModel implements Parcelable {
 
     public void setCampaignObjectives(String campaignObjectives) {
         this.campaignObjectives = campaignObjectives;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public String getBeginDate() {
+        return beginDate;
+    }
+
+    public void setBeginDate(String beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public static final Parcelable.Creator<PhoningCampaign> CREATOR = new Parcelable.Creator<PhoningCampaign>() {
