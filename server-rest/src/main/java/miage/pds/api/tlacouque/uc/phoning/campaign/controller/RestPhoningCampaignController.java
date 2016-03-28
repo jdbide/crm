@@ -7,6 +7,7 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.common.XYZCalcul;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.controller.LocationController;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.dao.HealthCenterDAO;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.HealthCenter;
+import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Independant;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.Customer;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.message.MessageRestCustomer;
@@ -17,6 +18,7 @@ import miage.pds.api.tlacouque.uc.phoning.campaign.dto.ResponseRestPhoningCampai
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,16 +39,38 @@ public class RestPhoningCampaignController {
      * @param message
      * @return ResponseRestCustomer
      */
-    @RequestMapping(value = "/phoningcampaign/contact", method = RequestMethod.GET)
+    @RequestMapping(value = "/phoningcampaign/contact", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestPhoningCampaign getContacts(@RequestBody MessageRestPhoningCampaign message) {
         HashMap customerContactMap = new HashMap<Customer,List<Contact>>();
         ContactDAO contactDAO = new ContactDAO(MongoDatastoreConfig.getDataStore());
-        for(Customer customer:message.getCustomers()) {
+        /**for(Customer customer:message.getCustomers()) {
             customerContactMap.put(customer,contactDAO.findAllWithCustomerId(Long.toString(customer.getSiretNumber())));
-        }
+        }*/
         ResponseRestPhoningCampaign response = new ResponseRestPhoningCampaign();
-        response.setContacts(customerContactMap);
+        response.setContacts(null);
         return response;
     }
+
+    @RequestMapping(value = "/phoningcampaign/test", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseRestPhoningCampaign getContactsTest(@RequestBody MessageRestPhoningCampaign message) {
+
+        ContactDAO contactDAO = new ContactDAO(MongoDatastoreConfig.getDataStore());
+        Independant indep = new Independant();
+        indep.setName("test");
+        Contact contact = new Contact();
+        contact.setClientId(100L);
+        contact.setContactFname("Test");
+        ArrayList<Contact> lcontact = new ArrayList<Contact>();
+        lcontact.add(contact);
+        for(String customer:message.getCustomersId()) {
+         lcontact.addAll(contactDAO.findAllWithCustomerId(customer));
+         }
+
+        ResponseRestPhoningCampaign response = new ResponseRestPhoningCampaign();
+        response.setContacts(lcontact);
+        return response;
+    }
+
 }

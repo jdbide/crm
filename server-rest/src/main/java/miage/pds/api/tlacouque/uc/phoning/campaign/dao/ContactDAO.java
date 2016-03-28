@@ -22,6 +22,6 @@ public class ContactDAO extends BasicDAO<Independant,ObjectId> {
      * @return List<Independant>
      */
     public List<Contact> findAllWithCustomerId(String id) {
-        return getDatastore().createQuery(Contact.class).filter("clientId =",id).asList();
+        return getDatastore().createQuery(Contact.class).filter("clientId =",Long.valueOf(id)).asList();
     }
 }

@@ -2,6 +2,8 @@ package fr.pds.isintheair.crmtab.view.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -222,10 +224,20 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         for (int i = 0; i < len; i++) {
             if (position.get(i)) {
                 customersAdded.add(CustomerHelper.getCustomerFromName(
-                        (String) customer.getItemAtPosition(i),customers));
+                        (String) customer.getItemAtPosition(i), customers));
             }
         }
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
+                (ArrayList<? extends Parcelable>) customersAdded);
+        AddContactPhoningCampaignFragment addContactPhoningCampaignFragment = new AddContactPhoningCampaignFragment();
+        addContactPhoningCampaignFragment.setArguments(bundle);
+
+        ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                .replace(R.id.container, addContactPhoningCampaignFragment).commit();
     }
+
+
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {

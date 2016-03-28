@@ -4,20 +4,20 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.createhc.entities.HealthCen
 import miage.pds.api.tlacouque.uc.admin.ref.customer.createindep.entities.Independant;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.Customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by tlacouque on 27/03/2016.
  */
 public class MessageRestPhoningCampaign {
-    private List<Customer> customers;
+    private ArrayList<String> customersId;
 
-
-    public List<Customer> getCustomers() {
-        return customers;
+    public ArrayList<String> getCustomersId() {
+        return customersId;
     }
 
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
+    public void setCustomersId(ArrayList<String> customersId) {
+        this.customersId = customersId;
     }
 }
