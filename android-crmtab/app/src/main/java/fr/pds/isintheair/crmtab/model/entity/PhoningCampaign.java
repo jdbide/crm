@@ -18,7 +18,7 @@ import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
 public class PhoningCampaign extends BaseModel implements Parcelable {
 
     @Column
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     long    campaignId;
     @Column
     String  campaignTheme;
@@ -28,6 +28,12 @@ public class PhoningCampaign extends BaseModel implements Parcelable {
     String     campaignObjectives;
 
     public PhoningCampaign() {
+    }
+
+    public PhoningCampaign( String campaignTheme, String campaignType, String campaignObjectives) {
+        this.campaignTheme = campaignTheme;
+        this.campaignType = campaignType;
+        this.campaignObjectives = campaignObjectives;
     }
 
     public long getCampaignId() {

@@ -34,6 +34,7 @@ import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
 import fr.pds.isintheair.crmtab.model.entity.IndependantType;
+import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaignType;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
 import fr.pds.isintheair.crmtab.model.rest.RESTCustomerHandlerSingleton;
@@ -221,9 +222,12 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
                         (String) customer.getItemAtPosition(i), customers));
             }
         }
+        String typeString =  type.getSelectedItem().toString();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
                 (ArrayList<? extends Parcelable>) customersAdded);
+        bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
+                new PhoningCampaign(title.getText().toString(),typeString,objective.getText().toString()));
         AddContactPhoningCampaignFragment addContactPhoningCampaignFragment = new AddContactPhoningCampaignFragment();
         addContactPhoningCampaignFragment.setArguments(bundle);
 

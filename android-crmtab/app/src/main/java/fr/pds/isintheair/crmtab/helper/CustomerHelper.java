@@ -71,4 +71,16 @@ public class CustomerHelper {
         return customerContactName;
     }
 
+    public static Contact getContactFromName(String name,List<Contact> contacts) {
+        Contact contactReturn = null;
+        String[] str_array = name.split(" : ");
+        name = str_array[1];
+        for(Contact contact : contacts) {
+            if(name.equals(contact.contactName + " "+contact.contactFname)) {
+                contactReturn = contact;
+            }
+        }
+        return contactReturn;
+    }
+
 }

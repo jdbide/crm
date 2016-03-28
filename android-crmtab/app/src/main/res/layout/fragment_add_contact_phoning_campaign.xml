@@ -34,6 +34,13 @@
                 android:layout_height="wrap_content" />
 
 
+            <Button
+                android:id="@+id/add_contact_phoning_campaign_fragment_button"
+                android:text="@string/add_contact_phoning_campaign_fragment_button_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
 
         </LinearLayout>
 
