@@ -34,36 +34,17 @@ public class RestPhoningCampaignController {
     }
 
     /**
-     * Take a messageRestCustomer (dto) in parameter with an healthcenter in it.
-     * Save the healthcenter and return true with a ResponseRestCustomer (dto)
+     * Take a MessageRestPhoningCampaign (dto) in parameter with list of String in it.
+     * Return the list of contact depends on the id pass in parameter
      * @param message
      * @return ResponseRestCustomer
      */
     @RequestMapping(value = "/phoningcampaign/contact", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestPhoningCampaign getContacts(@RequestBody MessageRestPhoningCampaign message) {
-        HashMap customerContactMap = new HashMap<Customer,List<Contact>>();
-        ContactDAO contactDAO = new ContactDAO(MongoDatastoreConfig.getDataStore());
-        /**for(Customer customer:message.getCustomers()) {
-            customerContactMap.put(customer,contactDAO.findAllWithCustomerId(Long.toString(customer.getSiretNumber())));
-        }*/
-        ResponseRestPhoningCampaign response = new ResponseRestPhoningCampaign();
-        response.setContacts(null);
-        return response;
-    }
-
-    @RequestMapping(value = "/phoningcampaign/test", method = RequestMethod.POST)
-    public @ResponseBody
-    ResponseRestPhoningCampaign getContactsTest(@RequestBody MessageRestPhoningCampaign message) {
 
         ContactDAO contactDAO = new ContactDAO(MongoDatastoreConfig.getDataStore());
-        Independant indep = new Independant();
-        indep.setName("test");
-        Contact contact = new Contact();
-        contact.setClientId(100L);
-        contact.setContactFname("Test");
         ArrayList<Contact> lcontact = new ArrayList<Contact>();
-        lcontact.add(contact);
         for(String customer:message.getCustomersId()) {
          lcontact.addAll(contactDAO.findAllWithCustomerId(customer));
          }
