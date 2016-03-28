@@ -6,17 +6,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.mobsandgeeks.saripaar.Validator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
+import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
@@ -36,7 +39,7 @@ import retrofit.Retrofit;
 public class AddContactPhoningCampaignFragment extends Fragment {
 
     @Bind(R.id.add_contact_phoning_campaign_fragment_list_contact)
-    ListView customer;
+    ListView contacts;
 
     public static final String KEY_CUSTOMERS_ARGS = "CUSTOMERS";
 
@@ -76,9 +79,6 @@ public class AddContactPhoningCampaignFragment extends Fragment {
         return v;
     }
 
-    public void initContactList() {
-
-    }
 
 
     /**
@@ -105,18 +105,36 @@ public class AddContactPhoningCampaignFragment extends Fragment {
             public void onResponse(Response<ResponseRestPhoningCampaign> response, Retrofit retrofit) {
 
                 if (response.errorBody() == null) {
+                    if (response.body() != null) {
 
+                        initContactList(CustomerHelper.getCustomerContactsMap
+                                (customerList, response.body().getContacts()));
+
+                    }
 
                 }
-                //initAdapter(customers);
+
             }
 
             @Override
             public void onFailure(Throwable t) {
                 //initAdapter(customers);
-                Log.d("d","d");
+
             }
         });
     }
 
+
+    public void initContactList(HashMap<Customer,List<Contact>> customerListHashMap) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_multiple_choice,
+                CustomerHelper.getCustomerContactName(customerListHashMap));
+        contacts.setAdapter(adapter);
+        contacts.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        ViewGroup.LayoutParams params = contacts.getLayoutParams();
+
+        // Set the height of the Item View
+        params.height = 1000;
+        contacts.setLayoutParams(params);
+    }
 }

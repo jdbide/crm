@@ -187,7 +187,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
         this.customers = customers;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_list_item_multiple_choice, getCustomersName(customers));
+                android.R.layout.simple_list_item_multiple_choice, CustomerHelper.getCustomersName(customers));
         customer.setAdapter(adapter);
         customer.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         ViewGroup.LayoutParams params = customer.getLayoutParams();
@@ -198,13 +198,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     }
 
-    public static List<String> getCustomersName(List<Customer> customers) {
-        List<String> customersName = new ArrayList<>();
-        for(Customer customer : customers) {
-            customersName.add(customer.getName());
-        }
-        return customersName;
-    }
+
 
     private void initSpinner() {
         type.setAdapter(new ArrayAdapter<PhoningCampaignType>
