@@ -12,12 +12,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.model.mock.Contact;
-import fr.pds.isintheair.crmtab.view.activity.MainActivity;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 
 public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<PendingLogsRecyclerViewAdapter.ViewHolder> {
@@ -54,11 +54,11 @@ public class PendingLogsRecyclerViewAdapter extends RecyclerView.Adapter<Pending
             public void onClick(View v) {
 
 
-               Constants.getInstance().getCurrentBusInstance().post(new DisplayAddLogFragmentEvent(new CallEndedEvent(
-                       mValues.get(position).getCalltype(),
-                       mValues.get(position).getDate(),
-                       mValues.get(position).getDuration(),
-                       mValues.get(position).getIdcontact()),true));
+                BusHandlerSingleton.getInstance().getBus().post(new DisplayAddLogFragmentEvent(new CallEndedEvent(
+                        mValues.get(position).getCalltype(),
+                        mValues.get(position).getDate(),
+                        mValues.get(position).getDuration(),
+                        mValues.get(position).getIdcontact()), true));
             }
         });
 

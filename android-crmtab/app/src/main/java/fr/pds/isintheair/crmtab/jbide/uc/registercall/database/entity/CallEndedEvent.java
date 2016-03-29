@@ -5,9 +5,9 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
+import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
 
 /**
  * Created by j-d on 20/12/2015.
@@ -47,7 +47,7 @@ public class CallEndedEvent extends BaseModel {
         this.date = date;
         this.duration = duration;
         this.idcontact = idcontact;
-        this.iduser = Constants.getInstance().getCurrentUser().getId();
+        this.iduser = UserDAO.getCurrentUser().getId();
 
     }
 

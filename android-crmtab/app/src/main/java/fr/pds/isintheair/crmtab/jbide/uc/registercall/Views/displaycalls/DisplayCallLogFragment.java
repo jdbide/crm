@@ -18,11 +18,10 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.SerciceGenerator;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
+import fr.pds.isintheair.crmtab.model.rest.service.RegisterCallSerciceGenerator;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -72,13 +71,13 @@ public class DisplayCallLogFragment extends Fragment {
         httpClient.interceptors().add(logging);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.getInstance().getBaseUrl())
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
-        SerciceGenerator service = retrofit.create(SerciceGenerator.class);
-        Call<List<Cra>> call = service.listcraforuser(Constants.getInstance().getCurrentUser().getId());
+        RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
+        Call<List<Cra>> call = service.listcraforuser(Constant.BASE_URL);
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {

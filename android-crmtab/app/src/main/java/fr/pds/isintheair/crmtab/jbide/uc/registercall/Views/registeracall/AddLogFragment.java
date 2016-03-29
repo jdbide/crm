@@ -17,18 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.model.entity.Client;
-import fr.pds.isintheair.crmtab.model.mock.Contact;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.ControllerCra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
 import fr.pds.isintheair.crmtab.view.fragment.DetailHCFragment;
 
 
@@ -91,8 +89,8 @@ public class AddLogFragment extends Fragment {
         contactname.setText(co.getLastName()+" "+co.getFirstName());
 
 
-        List<Client> clients = new ArrayList<Client>();
-        clients = Constants.getInstance().getClientsForUser(Constants.getInstance().getCurrentUser().getId());
+        //List<Client> clients = new ArrayList<Client>();
+        //clients = Constants.getInstance().getClientsForUser(Constants.getInstance().getCurrentUser().getId());
         clientname.setText("Cinique des pays de Meaux");
 
         clientname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -156,7 +154,7 @@ clientname.setOnClickListener(new View.OnClickListener() {
                 newCra.setDuration(Long.parseLong(String.valueOf(duration.getText())));
                 newCra.setIdcontact(contactnumber.getText().toString());
                 newCra.setSubject(subject.getText().toString());
-                newCra.setIduser(Constants.getInstance().getCurrentUser().getId());
+                newCra.setIduser(UserDAO.getCurrentUser().getId());
                 //local save
                 //newCra.setId(0);
                 //newCra.save();
