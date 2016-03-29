@@ -116,6 +116,9 @@ public class DetailPhoningCampaignFragment extends Fragment {
         phoningCampaign.setStatut(PhoningCampaign.STATE_BEGINED);
         phoningCampaign.setBeginDate(currentDateTimeString);
        phoningCampaign.save();
+
+        
+
     }
 
 
