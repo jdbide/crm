@@ -1,37 +1,48 @@
 package fr.pds.isintheair.crmtab.controller.service;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
+import android.content.IntentFilter;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.NfcF;
+import android.os.Binder;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
+import android.os.Parcelable;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
-import java.util.List;
+import java.util.Arrays;
 
-import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
-import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
-import fr.pds.isintheair.crmtab.model.mock.Contact;
-import fr.pds.isintheair.crmtab.view.activity.MainActivity;
+import fr.pds.isintheair.crmtab.controller.NotifyPresenceInterface;
+import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
+import fr.pds.isintheair.crmtab.model.ClockinObject;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
+import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Created by jbide on 25/03/2016.
  */
-public class NotifyPresenceService extends Service {
+public class NotifyPresenceService extends Service implements Callback<ClockinObject> {
 
 
-        private static final int notification_id = 10000;
-        private NotificationManager mNM;
-        private int numMessages;
+    private TextView mTextView;
+    private NfcAdapter mNfcAdapter;
+    private PendingIntent mPendingIntent;
+    private IntentFilter[] mIntentFilters;
+    private String[][] mNFCTechLists;
+    private ImageView imgStatus;
 
 
         @Override
@@ -39,158 +50,115 @@ public class NotifyPresenceService extends Service {
             return null;
         }
 
-        @Override
-        public void onCreate() {
-            //registering service for events on the bus
-            mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            Constants.getInstance().getCurrentBusInstance().register(this);
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        //registering service for events on the bus
+        BusHandlerSingleton.getInstance().getBus().register(this);
+
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
+        if (mNfcAdapter != null) {
+            // mTextView.setText("Read an NFC tag");
+        } else {
+            //mTextView.setText("This phone is not NFC enabled.");
         }
 
-        @Override
-        public int onStartCommand(Intent intent, int flags, int startId) {
-            Log.i("LocalService", "Listener start id " + startId + ": " + intent);
-            return START_NOT_STICKY;
+
+        // set an intent filter for all MIME data
+        IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        try {
+            ndefIntent.addDataType("*/*");
+            mIntentFilters = new IntentFilter[] { ndefIntent };
+        } catch (Exception e) {
+            Log.e("TagDispatch", e.toString());
         }
+
+        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+
+        return START_STICKY;
+    }
+
+
+
+    @Subscribe
+    public void onNewIntent(Intent intent) {
+        String action = intent.getAction();
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+        //String s = action + "\n\n" + tag.toString();
+        String s="";
+
+        // parse through all NDEF messages and their records and pick text type only
+        Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+        if (data != null) {
+            try {
+                for (int i = 0; i < data.length; i++) {
+                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
+                    for (int j = 0; j < recs.length; j++) {
+                        if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
+                                Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
+
+                            byte[] payload = recs[j].getPayload();
+                            String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+                            int langCodeLen = payload[0] & 0077;
+
+                            //Tag id
+                            s = ( new String(payload, langCodeLen + 1,
+                                    payload.length - langCodeLen - 1, textEncoding));
+
+
+                            clockin(s);
+
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("TagDispatch", e.toString());
+            }
+
+        }
+
+        // mTextView.setText(s);
+    }
+
+
+
+    private void clockin(String tagid){
+
+        NotifyPresenceInterface service =  RetrofitHandlerSingleton.getInstance().getNotifyPesenceInterface();
+        Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), tagid));
+        call.enqueue(this);
+
+    }
+
+    @Override
+    public void onResponse(Response<ClockinObject> response, Retrofit retrofit) {
+
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
+    }
+
 
         @Override
         public void onDestroy() {
-            // Cancel the persistent notification.
-            //mNM.cancel(NOTIFICATION);
 
             // Tell the user we stopped.
-            Toast.makeText(this, "ContactRetrofitService stopped", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "NotifyPresenceServiceService stopped", Toast.LENGTH_SHORT).show();
         }
 
 
-        // This is the object that receives interactions from clients.  See
-        // RemoteService for a more complete example.
-    /*private final IBinder mBinder = new LocalBinder();
 
-    /**
-     * Class for clients to access.  Because we know this service always
-     * runs in the same process as its clients, we don't need to deal with
-     * IPC.
-     */
-    /*public class LocalBinder extends Binder {
-        LocalService getService() {
-            return LocalService.this;
+
+    public class NotifyServiceBinder extends Binder {
+        NotifyPresenceService getService() {
+            return NotifyPresenceService.this;
         }
-    }*/
-        @Subscribe
-        public void showPopup(final CallEndedEvent event) {
-
-            boolean found = false;
-            List<Contact> liste = ContactDAO.getAll();
-
-
-            event.setIdcontact(event.getIdcontact().replace("+33","0"));
-            Contact co = (Contact) Contact.getNameFromNumber(event.getIdcontact());
-            if(co!=null)
-                found = true;
-
-
-
-            if(found) {
-
-                //if no popup displayed show
-                if (!Constants.getInstance().isPopUpDisplayed()) {
-                    Constants.getInstance().setPopUpDisplayed(true);
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Thread(new delay(event)),2000);
-
-
-
-
-                } else {  //else add to job
-                    //add event to pending list
-
-                    event.save();
-                    //Constants.getInstance().getPendindList().add(event);
-                    //tell subscribers that list has been updated
-                    //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
-                    notifyLocally();
-                }
-            }
-        }
-
-        public class delay implements Runnable{
-
-            private CallEndedEvent myevent;
-            public delay(CallEndedEvent event){
-                myevent = event;
-            }
-
-            @Override
-            public void run() {
-                Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(myevent));
-            }
-        }
-
-
-        /**
-         * Shows notifications if popup already displayed
-         */
-        public void notifyLocally() {
-
-            //List<CallEndedEvent> liste = Constants.getInstance().getPendindList();
-            List<CallEndedEvent> liste = CallEndedDAO.getAll();
-            Log.v("size",String.valueOf(liste.size()));
-            // Set the info for the views that show in the notification panel.
-            NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.drawable.logo)  // the status icon
-                    .setTicker("Nouvel appel à historiser")  // the status text
-                            //.setWhen(System.currentTimeMillis())  // the time stamp
-                    .setContentTitle("CRM-TAB")  // the label of the entry
-                    .setContentText("Appels en attente d'enregistrement")
-                    .setAutoCancel(true);
-
-
-
-            NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-
-            // The PendingIntent to launch our activity if the user selects this notification
-            // Creates an explicit intent for an Activity in your app
-            Intent resultIntent = new Intent(this, MainActivity.class);
-            resultIntent.putExtra("msg","notification");
-            //TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-            //stackBuilder.addParentStack(NotificationView.class);
-            // Adds the Intent that starts the Activity to the top of the stack
-            //stackBuilder.addNextIntent(resultIntent);
-            //PendingIntent contentIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-            PendingIntent resultPendingIntent =
-                    PendingIntent.getActivity(
-                            this,
-                            0,
-                            resultIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    );
-            notification.setContentIntent(resultPendingIntent);
-
-            notification.setNumber(++numMessages);
-            String[] events = new String[liste.size()];
-            for (int i=0; i < liste.size(); i++) {
-                Contact co = (Contact) Contact.getNameFromNumber(liste.get(i).getIdcontact());
-                if(co!=null)
-                    events[i] = liste.get(i).getDate() + ":" + co.getLastName()+" "+co.getFirstName() ;
-                else
-                    events[i] = liste.get(i).getDate() + ":" + liste.get(i).getIdcontact();
-            }
-            // Sets a title for the Inbox in expanded layout
-            inboxStyle.setBigContentTitle("Comptes-rendus d'appels à enregistrer");
-
-            // Moves events into the expanded layout
-            for (int i=0; i < events.length; i++) {
-                inboxStyle.addLine(events[i]);
-            }
-            // Moves the expanded layout object into the notification object.
-            notification.setStyle(inboxStyle);
-
-            // Send the notification.
-            mNM.notify(notification_id, notification.build());
-        }
-
-
+    }
 
     }
 
