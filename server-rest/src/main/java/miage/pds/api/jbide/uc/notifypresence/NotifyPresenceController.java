@@ -17,7 +17,8 @@ import miage.pds.api.jbide.uc.notifypresence.model.Tag;
 	import org.springframework.web.bind.annotation.PathVariable;
 	import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RequestMethod;
-	import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 	import org.springframework.web.servlet.ModelAndView;
 
 
@@ -57,7 +58,7 @@ import miage.pds.api.jbide.uc.notifypresence.model.Tag;
 
 		@RequestMapping(value="/doBadge/{id}", method=RequestMethod.GET)
 		@ResponseBody
-		public Boolean checkTag(@PathVariable("id") String id) {
+		public Boolean checkTag(@RequestParam("iduser") String iduser,@RequestParam("location") String location) {
 
 			status = db.DatabaseConnection(id);
 			if (status) {
