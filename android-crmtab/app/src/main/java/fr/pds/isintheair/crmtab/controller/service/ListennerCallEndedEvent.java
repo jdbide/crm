@@ -14,8 +14,9 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
@@ -43,7 +44,7 @@ public class ListennerCallEndedEvent extends Service {
     public void onCreate() {
         //registering service for events on the bus
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Constants.getInstance().getCurrentBusInstance().register(this);
+        BusHandlerSingleton.getInstance().getBus().register(this);
     }
 
     @Override
@@ -93,8 +94,8 @@ public class ListennerCallEndedEvent extends Service {
        if(found) {
 
            //if no popup displayed show
-           if (!Constants.getInstance().isPopUpDisplayed()) {
-               Constants.getInstance().setPopUpDisplayed(true);
+           if (!Constant.isPopUpDisplayed()) {
+               Constant.setPopUpDisplayed(true);
 
                Handler handler = new Handler();
                handler.postDelayed(new Thread(new delay(event)),2000);
@@ -123,7 +124,7 @@ public class ListennerCallEndedEvent extends Service {
 
         @Override
         public void run() {
-            Constants.getInstance().getCurrentBusInstance().post(new DisplayPopUpFragmentEvent(myevent));
+            BusHandlerSingleton.getInstance().getBus().post(new DisplayPopUpFragmentEvent(myevent));
         }
     }
 
@@ -133,7 +134,7 @@ public class ListennerCallEndedEvent extends Service {
      */
     public void notifyLocally() {
 
-        //List<CallEndedEvent> liste = Constants.getInstance().getPendindList();
+
         List<CallEndedEvent> liste = CallEndedDAO.getAll();
         Log.v("size",String.valueOf(liste.size()));
         // Set the info for the views that show in the notification panel.
