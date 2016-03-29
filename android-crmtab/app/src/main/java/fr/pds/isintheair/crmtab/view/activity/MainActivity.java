@@ -19,10 +19,9 @@ import android.view.MenuItem;
 import com.squareup.otto.Subscribe;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
@@ -33,7 +32,6 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
-import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     User    currentUser;
     // UC Register a call
     private PendingLogsFragment pend;
-    private AndroidBus          bus;
+    private BusHandlerSingleton bus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +60,10 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Crm Tab");
-        
-        bus = Constants.getInstance().getCurrentBusInstance();
-        bus.register(this);
+
+        BusHandlerSingleton.getInstance().getBus().register(this);
 
         currentUser = new User();
-
-
-        Constants.getInstance().setCurrentUser(UserDAO.getCurrentUser());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -142,16 +136,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         }
-        /*else if (id == R.id.multiple_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "0684894378"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0778801708"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
 
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
-
-        }*/
         else if (id == R.id.nav_lister_appel_non_enreg) {
             showNotificationListFrag();
         }
@@ -245,6 +230,8 @@ public class MainActivity extends AppCompatActivity
         CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra);
         ft.replace(R.id.container, fragment).addToBackStack(null).commit();
     }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

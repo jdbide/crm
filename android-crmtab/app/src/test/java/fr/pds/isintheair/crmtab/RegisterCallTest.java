@@ -10,9 +10,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.SerciceGenerator;
+import fr.pds.isintheair.crmtab.model.rest.service.RegisterCallSerciceGenerator;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallLogRecyclerViewAdapter;
 import retrofit.Call;
 import retrofit.Callback;
@@ -44,7 +43,7 @@ public class RegisterCallTest {
             .client(httpClient)
             .build();
 
-    SerciceGenerator service = retrofit.create(SerciceGenerator.class);
+    RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
     Call<List<Cra>> call = service.listcraforuser("1");
     call.enqueue(new Callback<List<Cra>>() {
         @Override
@@ -79,7 +78,7 @@ public class RegisterCallTest {
                 .client(httpClient)
                 .build();
 
-        SerciceGenerator service = retrofit.create(SerciceGenerator.class);
+        RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
         Call<Boolean> call = service.createcra(new Cra());
 
         call.enqueue(new Callback<Boolean>() {
