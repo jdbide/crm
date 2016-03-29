@@ -30,6 +30,7 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
 
@@ -117,7 +118,15 @@ public class DetailPhoningCampaignFragment extends Fragment {
         phoningCampaign.setBeginDate(currentDateTimeString);
        phoningCampaign.save();
 
-        
+        for(Customer customer : customerListHashMap.keySet()) {
+            for(Contact contact : customerListHashMap.get(customer) ) {
+                ContactCampaign contactCampaign = new ContactCampaign();
+                contactCampaign.setCampaignId(phoningCampaign.getCampaignId());
+                contactCampaign.setContactId(contact.getContactId());
+                contactCampaign.setContactInfo(ContactCampaign.STATE_DEFINED);
+                contactCampaign.save();
+            }
+        }
 
     }
 
