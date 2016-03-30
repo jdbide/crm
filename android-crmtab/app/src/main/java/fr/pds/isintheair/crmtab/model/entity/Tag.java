@@ -4,7 +4,6 @@ package fr.pds.isintheair.crmtab.model.entity;
  * Created by jbide on 30/03/2016.
  */
 
-
 public class Tag {
 
     private String id;
@@ -15,11 +14,7 @@ public class Tag {
 
     public Tag(String idUser) {
         setId(idUser);
-    }
 
-    public Tag(String idUser,String location) {
-        setId(idUser);
-        setLocation(location);
     }
 
     public String getId() {
@@ -29,8 +24,6 @@ public class Tag {
     public void setId(String id) {
         this.id = id;
     }
-
-
 
     public String toString() {
         return "[" + getId() + "]";
@@ -43,4 +36,10 @@ public class Tag {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public Tag(String idUser,String location) {
+        setId(idUser);
+        setLocation(location);
+    }
 }
+
