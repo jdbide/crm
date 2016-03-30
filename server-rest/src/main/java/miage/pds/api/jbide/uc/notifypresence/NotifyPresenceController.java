@@ -1,9 +1,12 @@
 package miage.pds.api.jbide.uc.notifypresence;
 
 import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.common.model.ClockinObject;
 import miage.pds.api.jbide.uc.notifypresence.dao.TagDAO;
 import miage.pds.api.jbide.uc.notifypresence.model.Tag;
-	import java.text.DateFormat;
+import miage.pds.api.jbide.uc.registercall.model.Cra;
+
+import java.text.DateFormat;
 	import java.util.Date;
 	import java.util.HashMap;
 	import java.util.Locale;
@@ -15,7 +18,8 @@ import miage.pds.api.jbide.uc.notifypresence.model.Tag;
 	import org.springframework.ui.Model;
 	import org.springframework.web.bind.annotation.ModelAttribute;
 	import org.springframework.web.bind.annotation.PathVariable;
-	import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,70 +60,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			return "status";
 		}
 
-		@RequestMapping(value="/doBadge/{id}", method=RequestMethod.GET)
+		@RequestMapping(value="/notifypresence/clockin", method=RequestMethod.POST)
 		@ResponseBody
-		public Boolean checkTag(@RequestParam("iduser") String iduser,@RequestParam("location") String location) {
+		public Boolean clock_in(@RequestBody ClockinObject clockin) {
 
-			status = db.DatabaseConnection(id);
-			if (status) {
+				logger.info("CLOCKIN");
+				return true;
 
-				logger.info("Inside checkTag, returned: " + id);
-				return status;
-			}
-
-			else {
-
-				logger.info("Inside checkTag, error: " + id + ", NOT FOUND!");
-				return false;
-			} 
 		}
-		
-		@RequestMapping(value="/doChangeStatus/{id}", method=RequestMethod.GET)
-		@ResponseBody
-		public Boolean setStatus(@PathVariable("id") String id) {
-
-			DAO db = new DAO();
-
-
-
-			status = db.setStatus(id);
-			if (status) {
-
-				logger.info("Inside checkTag, returned: " + id);
-				return status;
-			}
-
-			else {
-
-				logger.info("Inside checkTag, error: " + id + ", NOT FOUND!");
-				return false;
-			} 
-		}
-		
-		@RequestMapping(value="/checkStatus/{id}", method=RequestMethod.GET)
-		@ResponseBody
-		public Boolean checkStatus(@PathVariable("id") String id) {
-
-			DAO db = new DAO();
-
-
-
-			status = db.checkStatus(id);
-			if (status) {
-
-				logger.info("Inside checkTag, returned: " + id);
-				return status;
-			}
-
-			else {
-
-				logger.info("Inside checkTag, error: " + id + ", NOT FOUND!");
-				return false;
-			} 
-		}
-
-
-
+	
 
 	}
 
