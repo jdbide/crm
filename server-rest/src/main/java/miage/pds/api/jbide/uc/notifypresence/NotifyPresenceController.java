@@ -34,36 +34,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 		boolean status = false;  
 		private static final Logger logger = LoggerFactory.getLogger(NotifyPresenceController.class);
-		TagDAO db = new TagDAO(MongoDatastoreConfig.getDataStore());
+		TagDAO TagDao = new TagDAO(MongoDatastoreConfig.getDataStore());
 
 		private Map<String, Tag> tag = new HashMap<String, Tag>();
 		
 		public NotifyPresenceController() {
 		}
 
-		/**
-		 * Simply selects the home view to render by returning its name.
-		 */
-		@RequestMapping(value = "/", method = RequestMethod.GET)
-		public String home(Locale locale, Model model) {
-
-
-			logger.info("Welcome home! The client locale is {}.", locale);
-
-			Date date = new Date();
-			DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-			String formattedDate = dateFormat.format(date);
-
-			model.addAttribute("serverTime", formattedDate );
-
-			return "status";
-		}
-
 		@RequestMapping(value="/notifypresence/clockin", method=RequestMethod.POST)
 		@ResponseBody
 		public Boolean clock_in(@RequestBody ClockinObject clockin) {
 
+			TagDao.updateLocation(ClockinObject);
 				logger.info("CLOCKIN");
 				return true;
 
