@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import miage.pds.api.common.model.ClockinObject;
+import miage.pds.api.common.model.User;
 import miage.pds.api.jbide.uc.notifypresence.model.Tag;
 import miage.pds.api.jbide.uc.registercall.dao.CraDAO;
 import miage.pds.api.jbide.uc.registercall.model.Cra;
@@ -30,10 +31,19 @@ public class TagDAO  extends BasicDAO<Cra, ObjectId> {
 	}
 	
 	//
-	public boolean updateLocation(ClockinObject object) {
-		  getDatastore().createQuery(Tag.class).disableValidation().field("id").equal(tag.getId()).get();
-		  return true;
+	public Tag checkTag(String idtag){
+		return getDatastore().createQuery(Tag.class).disableValidation().field("id").equal(idtag).get();
 	}
+	
+	public boolean updateLocation(User u,Tag tag) {
+		
+		User user = getDatastore().createQuery(User.class).disableValidation().field("id").equal(u.getId()).get();
+		user.setLocation(tag.getLocation());
+		getDatastore().save(user);
+		return true;
+		
+	}
+	
 	
 	public boolean deleteTag(String idTag) {
 		getDatastore().delete(getDatastore().createQuery(Tag.class).field("id").equal(idTag));
