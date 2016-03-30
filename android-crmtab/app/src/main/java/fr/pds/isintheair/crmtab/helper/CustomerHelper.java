@@ -14,6 +14,12 @@ import fr.pds.isintheair.crmtab.model.entity.Independant;
  */
 public class CustomerHelper {
 
+    /**
+     * Return a customer from a list search by is name
+     * @param name
+     * @param customers
+     * @return
+     */
     public static Customer getCustomerFromName(String name,List<Customer> customers) {
         Customer customerReturn = null;
         for(Customer customerfor : customers) {
@@ -24,6 +30,13 @@ public class CustomerHelper {
         return customerReturn;
     }
 
+    /**
+     * Add all independants and healthcenter into two list pass in parameter from the list
+     * of customer pass in parameter too
+     * @param customers
+     * @param independants
+     * @param healthCenters
+     */
     public static void addHCIndependantIntoList(List<Customer> customers,List<Independant>independants
                                              , List<HealthCenter> healthCenters) {
         for(Customer customer:customers) {
@@ -35,6 +48,13 @@ public class CustomerHelper {
         }
     }
 
+    /**
+     * Get a  MAP of a customer (key) and his list of contact (value). Those two list are past in
+     * parameter.
+     * @param customers
+     * @param contacts
+     * @return
+     */
     public static HashMap<Customer,List<Contact>> getCustomerContactsMap
             (List<Customer> customers,List<Contact> contacts) {
         HashMap<Customer,List<Contact>> customerListHashMap = new HashMap<Customer,List<Contact>>();
@@ -52,6 +72,11 @@ public class CustomerHelper {
         return customerListHashMap;
     }
 
+    /**
+     * Return the list of customers name pass in parameter. Used to display it in list view.
+     * @param customers
+     * @return
+     */
     public static List<String> getCustomersName(List<Customer> customers) {
         List<String> customersName = new ArrayList<>();
         for(Customer customer : customers) {
@@ -60,6 +85,12 @@ public class CustomerHelper {
         return customersName;
     }
 
+    /**
+     * Return the list of customers name with a contact name pass in parameter.
+     * Used to display it in list view.
+     * @param hashMap
+     * @return
+     */
     public static List<String> getCustomerContactName(HashMap<Customer,List<Contact>> hashMap) {
         List<String> customerContactName = new ArrayList<>();
         for(Customer customer : hashMap.keySet()) {
@@ -71,6 +102,12 @@ public class CustomerHelper {
         return customerContactName;
     }
 
+    /**
+     * Return a contact from a list search by is name
+     * @param name
+     * @param contacts
+     * @return
+     */
     public static Contact getContactFromName(String name,List<Contact> contacts) {
         Contact contactReturn = null;
         String[] str_array = name.split(" : ");
