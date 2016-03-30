@@ -9,7 +9,11 @@ public class ClockinObject {
 
     private User user;
     private String tagId;
-    private String position;
+
+    public ClockinObject(User user, String tagId) {
+        this.user = user;
+        this.tagId = tagId;
+    }
 
     public User getUser() {
         return user;
@@ -27,23 +31,4 @@ public class ClockinObject {
         this.tagId = tagId;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public ClockinObject(User user, String tagId, String position) {
-        this.user = user;
-        this.tagId = tagId;
-        this.position = position;
-    }
-
-    public ClockinObject(User user, String tagId) {
-        this.user = user;
-        this.tagId = tagId;
-        this.position = null;
-    }
 }
