@@ -86,7 +86,6 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
         String action = intent.getAction();
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-        //String s = action + "\n\n" + tag.toString();
         String s="";
 
         // parse through all NDEF messages and their records and pick text type only
