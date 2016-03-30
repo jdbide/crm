@@ -20,6 +20,8 @@ public class User {
     private String email;
 
     private String password;
+    
+    private String location;
 
 	public String getId() {
 		return id;
@@ -69,7 +71,12 @@ public class User {
 		this.password = password;
 	}
 
-	
-    
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
     
 }
