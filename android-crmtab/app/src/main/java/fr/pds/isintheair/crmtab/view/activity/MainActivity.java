@@ -5,8 +5,8 @@ import android.app.FragmentTransaction;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +21,11 @@ import com.squareup.otto.Subscribe;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.controller.message.CrvController;
+import fr.pds.isintheair.crmtab.controller.service.CalendarService;
+import fr.pds.isintheair.crmtab.controller.service.CallService;
+import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
+import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
@@ -32,6 +37,7 @@ import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.AddLog
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.registeracall.PopUpFragment;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.mmefire.uc.sms.send.receive.activity.ActivityHome;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
@@ -110,7 +116,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.deco) {
-            PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
+
+            UserDAO.getCurrentUser().delete();
+            stopService(new Intent(this, CallService.class));
+            stopService(new Intent(this, CalendarService.class));
+            stopService(new Intent(this, NotificationIntentService.class));
+            stopService(new Intent(this, ListennerCallEndedEvent.class));
+            stopService(new Intent(this, NotifyPresenceService.class));
             startActivity(new Intent(this, LoginActivity.class));
         }
 
@@ -154,6 +166,14 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.container, clientListFragment);
             transaction.addToBackStack(null);
             transaction.commit();*/
+
+        }
+        else if(id == R.id.nfc){
+
+                final Intent intent = new Intent(NfcAdapter.ACTION_NDEF_DISCOVERED);
+                //intent.setType("text/plain");
+                intent.putExtra(NfcAdapter.EXTRA_NDEF_MESSAGES, "tagid");
+                startActivity(intent);
 
         }
         else if (id == R.id.nav_ref_client) {
