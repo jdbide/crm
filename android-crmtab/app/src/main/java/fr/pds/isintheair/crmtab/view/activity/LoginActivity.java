@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,17 +41,24 @@ public class LoginActivity extends Activity implements Callback<User> {
     @Bind(R.id.login_edittext)
     EditText loginEditText;
 
+    @Bind(R.id.loginerror)
+    TextView error;
+
     @Bind(R.id.password_edittext)
     EditText passwordEditText;
 
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
 
+    @Bind(R.id.connection_button)
+    Button connect;
+
     private User currentUser;
 
     @OnClick(R.id.connection_button)
     public void onConnectionClick() {
         progressBar.setVisibility(View.VISIBLE);
+        error.setVisibility(View.GONE);
 
         String login    = loginEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -82,6 +91,14 @@ public class LoginActivity extends Activity implements Callback<User> {
         loginEditText.setText("test@crm.fr");
         passwordEditText.setText("password");
         progressBar.setVisibility(View.GONE);
+        error.setVisibility(View.GONE);
+
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onConnectionClick();
+            }
+        });
 
         currentUser = UserDAO.getCurrentUser();
 
@@ -126,5 +143,7 @@ public class LoginActivity extends Activity implements Callback<User> {
     @Override
     public void onFailure(Throwable t) {
         currentUser.delete();
+        error.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 }
