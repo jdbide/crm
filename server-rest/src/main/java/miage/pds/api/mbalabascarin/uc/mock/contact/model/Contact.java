@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Created by Muthu on 04/03/2016.
- * Modify by tlacouque on 27/03/2016
+ * Modified by tlacouque on 27/03/2016
  */
 
 @Entity("contact")
