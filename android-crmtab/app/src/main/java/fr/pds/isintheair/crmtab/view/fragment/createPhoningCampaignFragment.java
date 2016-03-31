@@ -51,11 +51,11 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     public String idUser = UserDAO.getCurrentUser().getId();
 
     @Bind(R.id.create_phoning_campaign_fragment_title)
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.create_phoning_campaign_fragment_error_title_empty)
     EditText title;
 
     @Bind(R.id.create_phoning_campaign_fragment_objective)
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.create_phoning_campaign_fragment_error_objective_empty)
     EditText objective;
 
     @Bind(R.id.create_phoning_campaign_fragment_campaign_type)
