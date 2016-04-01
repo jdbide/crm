@@ -73,6 +73,10 @@
             android:name=".view.activity.CrvHomeActivity"
             android:label="CRM-tab"/>
         <activity android:name=".view.activity.CallActivity"/>
+
+        <activity android:name=".view.activity.ClockinActivity">
+
+        </activity>
         <activity
             android:name=".view.activity.CrvPreformatedMessage"
             android:label="@string/title_activity_crv_preformated_message"
@@ -88,6 +92,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
+
+
 
         <service
             android:name=".ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService"
