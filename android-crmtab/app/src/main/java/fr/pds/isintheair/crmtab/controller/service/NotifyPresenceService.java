@@ -21,7 +21,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.Arrays;
 
-import fr.pds.isintheair.crmtab.controller.NotifyPresenceInterface;
+import fr.pds.isintheair.crmtab.model.rest.service.NotifyPresenceRetrofitService;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.model.ClockinObject;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
@@ -126,7 +126,7 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
 
     private void clockin(String tagid){
 
-        NotifyPresenceInterface service =  RetrofitHandlerSingleton.getInstance().getNotifyPesenceInterface();
+        NotifyPresenceRetrofitService service =  RetrofitHandlerSingleton.getInstance().getNotifyPesenceInterface();
         Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), tagid));
         call.enqueue(this);
 
