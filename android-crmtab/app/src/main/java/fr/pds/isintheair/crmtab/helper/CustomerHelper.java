@@ -120,4 +120,27 @@ public class CustomerHelper {
         return contactReturn;
     }
 
+    /**
+     * Return a list of a customer id from lists pass in parameter
+     * @param independants
+     * @param healthCenters
+     * @return
+     */
+    public static ArrayList<String> getCustomerIds(List<Independant> independants,List<HealthCenter> healthCenters) {
+        ArrayList<String> customersId = new ArrayList<>();
+
+
+        for(Independant independant : independants) {
+            customersId.add(String.valueOf(independant.getSiretNumber()));
+        }
+        for(HealthCenter healthCenter : healthCenters) {
+            customersId.add(String.valueOf(healthCenter.getSiretNumber()));
+        }
+
+
+        return customersId;
+    }
+
+
+
 }

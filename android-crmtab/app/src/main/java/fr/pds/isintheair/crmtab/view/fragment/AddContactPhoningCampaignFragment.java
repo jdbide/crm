@@ -103,13 +103,8 @@ public class AddContactPhoningCampaignFragment extends Fragment {
         List<Independant> independants = new ArrayList<>();
         List<HealthCenter> healthCenters = new ArrayList<>();
         CustomerHelper.addHCIndependantIntoList(customerList, independants, healthCenters);
-        ArrayList<String> customersId = new ArrayList<>();
-        for(Independant independant : independants) {
-            customersId.add(String.valueOf(independant.getSiretNumber()));
-        }
-        for(HealthCenter healthCenter : healthCenters) {
-            customersId.add(String.valueOf(healthCenter.getSiretNumber()));
-        }
+        ArrayList<String> customersId = CustomerHelper.getCustomerIds(independants,healthCenters);
+
         message.setCustomersId(customersId);
         Call<ResponseRestPhoningCampaign> call = RESTPhoningCampaignHandlerSingleton.getInstance()
                 .getPhoningCampaignService().getContacts(message);
