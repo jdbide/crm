@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.raizlabs.android.dbflow.structure.ModelAdapter;
 
-import fr.pds.isintheair.crmtab.controller.NotifyPresenceInterface;
+import fr.pds.isintheair.crmtab.model.rest.service.NotifyPresenceRetrofitService;
 import fr.pds.isintheair.crmtab.model.rest.service.LoginService;
 import fr.pds.isintheair.crmtab.Constant;
 import retrofit.GsonConverterFactory;
@@ -23,7 +23,7 @@ public class RetrofitHandlerSingleton {
     private static RetrofitHandlerSingleton mInstance = new RetrofitHandlerSingleton();
 
     private LoginService loginService;
-    private NotifyPresenceInterface notifyPesenceService;
+    private NotifyPresenceRetrofitService notifyPesenceService;
 
     private RetrofitHandlerSingleton() {
         Gson gson = new GsonBuilder().setExclusionStrategies(new ExclusionStrategy() {
@@ -41,7 +41,7 @@ public class RetrofitHandlerSingleton {
         Retrofit loginRetrofit = new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
 
         loginService = loginRetrofit.create(LoginService.class);
-        notifyPesenceService = loginRetrofit.create(NotifyPresenceInterface.class);
+        notifyPesenceService = loginRetrofit.create(NotifyPresenceRetrofitService.class);
     }
 
     public static synchronized RetrofitHandlerSingleton getInstance() {
@@ -56,7 +56,7 @@ public class RetrofitHandlerSingleton {
         return loginService;
     }
 
-    public NotifyPresenceInterface getNotifyPesenceInterface() {
+    public NotifyPresenceRetrofitService getNotifyPesenceInterface() {
         return notifyPesenceService;
     }
 }
