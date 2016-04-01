@@ -74,9 +74,6 @@
             android:label="CRM-tab"/>
         <activity android:name=".view.activity.CallActivity"/>
 
-        <activity android:name=".view.activity.ClockinActivity">
-
-        </activity>
         <activity
             android:name=".view.activity.CrvPreformatedMessage"
             android:label="@string/title_activity_crv_preformated_message"
