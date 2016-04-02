@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.addToBackStack("menu");
             fragmentTransaction.commit();
 
+            
         }
         else if (id == R.id.nav_envoyer_sms) {
 
