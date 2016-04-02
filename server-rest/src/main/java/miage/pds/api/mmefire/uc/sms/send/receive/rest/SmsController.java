@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by Maimouna MEFIRE on 22/03/2016.
  */
-@Controller
-@RequestMapping (value = "/sms")//
+
 public class SmsController {
 
     boolean status = false;
