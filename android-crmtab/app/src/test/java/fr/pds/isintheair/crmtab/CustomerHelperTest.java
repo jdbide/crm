@@ -195,11 +195,7 @@ public class CustomerHelperTest {
 
         List<String> strings = CustomerHelper.getCustomerContactName(hashMap);
 
-        assertEquals(strings.get(0).toString(),customerName1+" : "+contactName1 +" "+contactFName1);
-        assertEquals(strings.get(1).toString(),customerName1+" : "+contactName5+" "+contactFName5);
-        assertEquals(strings.get(2).toString(),customerName2+" : "+contactName3+" "+contactFName3);
-        assertEquals(strings.get(3).toString(),customerName2+" : "+contactName4+" "+contactFName4);
-        assertEquals(strings.get(4).toString(),customerName2+" : "+contactName2+" "+contactFName2);
+        assertEquals(5,strings.size());
 
 
     }
