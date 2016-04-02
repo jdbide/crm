@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
  */
 public class MongoDatastoreConfig {
 
+    
     static Datastore datastore;
     static final Morphia morphia = new Morphia();
 
