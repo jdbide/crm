@@ -48,6 +48,7 @@ import retrofit.Retrofit;
  */
 public class CreatePhoningCampaignFragment extends Fragment  implements Validator.ValidationListener {
 
+    
     public String idUser = UserDAO.getCurrentUser().getId();
 
     @Bind(R.id.create_phoning_campaign_fragment_title)
