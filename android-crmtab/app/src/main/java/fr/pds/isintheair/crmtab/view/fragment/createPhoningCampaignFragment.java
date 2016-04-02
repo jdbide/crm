@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,6 @@ import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
-import fr.pds.isintheair.crmtab.model.entity.IndependantType;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaignType;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
@@ -46,9 +44,9 @@ import retrofit.Retrofit;
 /**
  * Created by tlacouque on 26/03/2016.
  */
-public class CreatePhoningCampaignFragment extends Fragment  implements Validator.ValidationListener {
+public class createPhoningCampaignFragment extends Fragment  implements Validator.ValidationListener {
 
-    
+
     public String idUser = UserDAO.getCurrentUser().getId();
 
     @Bind(R.id.create_phoning_campaign_fragment_title)
@@ -74,17 +72,17 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     Validator       validator;
 
-    public CreatePhoningCampaignFragment() {
+    public createPhoningCampaignFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Can be called when a new CreatePhoningCampaignFragment is needed
+     * Can be called when a new createPhoningCampaignFragment is needed
      *
-     * @return CreatePhoningCampaignFragment
+     * @return createPhoningCampaignFragment
      */
-    public static CreatePhoningCampaignFragment newInstance() {
-        CreatePhoningCampaignFragment fragment = new CreatePhoningCampaignFragment();
+    public static createPhoningCampaignFragment newInstance() {
+        createPhoningCampaignFragment fragment = new createPhoningCampaignFragment();
         Bundle args     = new Bundle();
         fragment.setArguments(args);
         return fragment;
