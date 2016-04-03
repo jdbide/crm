@@ -22,11 +22,9 @@ public class ContactCampaign extends BaseModel implements Parcelable {
 
     @Column
     @PrimaryKey(autoincrement = true)
-    @Unique(uniqueGroups = 1)
     int contactId;
 
     @Column
-    @Unique(uniqueGroups = 1)
     long campaignId;
 
     @Column

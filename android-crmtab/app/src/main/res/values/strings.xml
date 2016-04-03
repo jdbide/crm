@@ -162,7 +162,10 @@
     <string name="call_phoning_campaign_fragment_customer_name">Nom du client : </string>
     <string name="call_phoning_campaign_fragment_contact_name_firstname">Nom du contact : </string>
     <string name="call_phoning_campaign_fragment_contact_job">Position du contact : </string>
-    <string name="call_phoning_campaign_fragment_commmentary_job">Commentaire sur l\'appel : </string>
+    <string name="call_phoning_campaign_fragment_commmentary">Commentaire sur l\'appel : </string>
+    <string name="call_phoning_campaign_fragment_commentary_hint">Ecrire le commentaire ici</string>
+    <string name="call_phoning_campaign_fragment_next_call">Passer au prochain appel</string>
+    <string name="call_phoning_campaign_fragment_reset_call">Appeler plus tard</string>
 
 
 

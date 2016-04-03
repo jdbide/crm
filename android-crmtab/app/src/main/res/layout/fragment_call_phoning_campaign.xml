@@ -13,15 +13,6 @@
         android:textSize="25sp"
         android:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/phone_state_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="State"
-        android:textSize="20sp"/>
-
-
     <ImageView
         android:id="@+id/create_phoning_campaign_fragment_phone"
         android:layout_width="100dp"
@@ -174,26 +165,42 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="@string/call_phoning_campaign_fragment_commmentary_job"
+            android:text="@string/call_phoning_campaign_fragment_commmentary"
             android:layout_width="wrap_content"
             android:textStyle="bold"
             android:textSize="20dp"
             android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/call_phoning_campaign_fragment_commentary"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="4" />
-
-
-
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/call_phoning_campaign_fragment_commentary"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/call_phoning_campaign_fragment_commentary_hint"
+        android:minHeight="10dp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="2000"
+        android:lines="15"
+        android:maxLines="30"
+         />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button
+        android:id="@+id/call_phoning_campaign_fragment_reset_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/call_phoning_campaign_fragment_reset_call"/>
+
+    <Button
+        android:id="@+id/call_phoning_campaign_fragment_next_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/call_phoning_campaign_fragment_next_call"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

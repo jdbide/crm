@@ -17,6 +17,9 @@ public class Contact implements Parcelable {
     public String contactTel;
     public String contactJob;
 
+    public Contact() {
+    }
+
     public String getContactJob() {
         return contactJob;
     }

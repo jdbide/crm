@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +58,7 @@ public class CallPhoningCampaignFragment extends Fragment {
 
 
     @Bind(R.id.create_phoning_campaign_fragment_phone)
-    Button callButton;
+    ImageView callButton;
 
     @Bind(R.id.call_phoning_campaign_fragment_title)
     TextView titre;
@@ -137,11 +138,12 @@ public class CallPhoningCampaignFragment extends Fragment {
     @Subscribe
     public void onPhoneCallEndedEvent(PhoneCallEndedEvent phoneCallEndedEvent) {
         Log.d("callFragment","callEnded");
+        callButton.setImageResource(R.drawable.phone_logo_green);
     }
 
     @Subscribe
     public void onPhoneCallFailedEvent(PhoneCallFailedEvent phoneCallFailedEvent) {
-        Log.d("callFragment","failed");
+        Log.d("callFragment", "failed");
     }
 
     @Subscribe
@@ -150,11 +152,19 @@ public class CallPhoningCampaignFragment extends Fragment {
 }
 
     @OnClick(R.id.create_phoning_campaign_fragment_phone)
-    public void onPhoneClick() {
+    public void onPhoneClick(final View view) {
         CallMessageController.sendEndCallMessage();
     }
 
+    @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
+    public void resetCall(final View view) {
+        
+    }
 
+    @OnClick(R.id.call_phoning_campaign_fragment_next_call)
+    public void nextCall(final View view) {
+
+    }
 
 
 }

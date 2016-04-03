@@ -28,11 +28,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.PhoningCampaignController;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 /**
  * Created by tlacouque on 28/03/2016.
@@ -127,6 +129,9 @@ public class DetailPhoningCampaignFragment extends Fragment {
                 contactCampaign.save();
             }
         }
+
+        PhoningCampaignController controller = new PhoningCampaignController(customerListHashMap,phoningCampaign, (MainActivity) getActivity());
+        controller.BeginCampaign();
 
     }
 
