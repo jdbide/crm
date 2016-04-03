@@ -99,6 +99,6 @@ public class PhoningCampaignController  {
     public void endCampaign() {
 Log.d("endFragment","EndCampaign");
     }
-    
+
 
 }
