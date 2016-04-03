@@ -1,5 +1,8 @@
 package fr.pds.isintheair.crmtab.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -12,13 +15,13 @@ import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
  * Created by tlacouque on 29/03/2016.
  */
 @Table(database = OrmTabDataBase.class)
-public class ContactCampaign extends BaseModel {
+public class ContactCampaign extends BaseModel implements Parcelable {
 
     public static String STATE_DEFINED = "Cree";
     public static String STATE_ENDED = "Termine";
 
     @Column
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     @Unique(uniqueGroups = 1)
     int contactId;
 
@@ -62,4 +65,43 @@ public class ContactCampaign extends BaseModel {
     public void setContactInfo(String contactInfo) {
         this.contactInfo = contactInfo;
     }
+
+    public static final Creator<ContactCampaign> CREATOR = new Creator<ContactCampaign>() {
+        @Override
+        public ContactCampaign createFromParcel(Parcel in) {
+            return new ContactCampaign(in);
+        }
+
+        @Override
+        public ContactCampaign[] newArray(int size) {
+            return new ContactCampaign[size];
+        }
+    };
+
+    protected ContactCampaign(Parcel in) {
+        contactId = in.readInt();
+        campaignId = in.readLong();
+        contactInfo = in.readString();
+
+
+    }
+
+    /**
+     * Return the number of serializable attributes to needed to parse an contact campaign object
+     *
+     * @return int
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(contactId);
+        dest.writeLong(campaignId);
+        dest.writeString(contactInfo);
+
+    }
+
 }
