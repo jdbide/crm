@@ -1,7 +1,10 @@
 package fr.pds.isintheair.crmtab.controller.message;
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +14,7 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
+import fr.pds.isintheair.crmtab.helper.PhoningCampaignHelper;
 import fr.pds.isintheair.crmtab.model.dao.ContactCampaignDAO;
 import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
@@ -24,7 +28,7 @@ import fr.pds.isintheair.crmtab.view.fragment.DetailPhoningCampaignFragment;
 /**
  * Created by tlacouque on 03/04/2016.
  */
-public class PhoningCampaignController {
+public class PhoningCampaignController  {
     LinkedHashMap<Customer,List<Contact>> customerListHashMap;
     int currentCustomerposition;
     int currentContactPosition;
@@ -43,7 +47,6 @@ public class PhoningCampaignController {
     public void BeginCampaign() {
         UpdateCurrentCustomer();
         BeginCall();
-
     }
 
     public void BeginCall() {
@@ -59,6 +62,7 @@ public class PhoningCampaignController {
         bundle.putParcelable(CallPhoningCampaignFragment.KEY_CONTACT_CAMPAIGN, contactCampaign);
         bundle.putParcelable(CallPhoningCampaignFragment.KEY_CONTACT, currentContact);
 
+
         CallPhoningCampaignFragment callPhoningCampaignFragment = new CallPhoningCampaignFragment();
         callPhoningCampaignFragment.setArguments(bundle);
 
@@ -72,5 +76,29 @@ public class PhoningCampaignController {
         currentCustomer = CustomerHelper.
                 getCustomerByIndex(currentCustomerposition, customerListHashMap);
     }
+
+
+
+    public void endCall() {
+
+        if(PhoningCampaignHelper.isLastContact(customerListHashMap,currentContactPosition,currentCustomer)) {
+            if(CustomerHelper.getCustomerByIndex(customerListHashMap.size()-1,customerListHashMap) == currentCustomer) {
+                endCampaign();
+
+            } else {
+                currentCustomerposition++;
+                currentContactPosition = 0;
+                BeginCampaign();
+            }
+        } else {
+            currentContactPosition++;
+            BeginCampaign();
+        }
+    }
+
+    public void endCampaign() {
+Log.d("endFragment","EndCampaign");
+    }
+    
 
 }

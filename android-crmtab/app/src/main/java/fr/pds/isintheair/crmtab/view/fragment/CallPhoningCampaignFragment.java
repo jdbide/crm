@@ -31,6 +31,7 @@ import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallEndedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallHookedEvent;
 import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
+import fr.pds.isintheair.crmtab.controller.message.PhoningCampaignController;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
@@ -55,6 +56,7 @@ public class CallPhoningCampaignFragment extends Fragment {
     ContactCampaign contactCampaign;
     PhoningCampaign phoningCampaign;
     boolean callBegin;
+    PhoningCampaignController controller;
 
 
     @Bind(R.id.create_phoning_campaign_fragment_phone)
@@ -158,12 +160,12 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
     public void resetCall(final View view) {
-        
+
     }
 
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
     public void nextCall(final View view) {
-
+        Call
     }
 
 
