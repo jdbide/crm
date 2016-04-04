@@ -76,9 +76,10 @@ public class ClockinController {
 
                             // Setting Dialog Title
                             alertDialog.setTitle("Vous venez de badger");
-
+                            ClockinObject rep = response.body();
+                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                             // Setting Dialog Message
-                            alertDialog.setMessage("Emplacement :" + "Heure : ");
+                            alertDialog.setMessage("Emplacement : " + rep.getUser().getLocation() + "Heure : " + sdf.format(rep.getDate()));
 
                             // Setting Icon to Dialog
                             alertDialog.setIcon(R.drawable.sucess);
