@@ -38,8 +38,7 @@ public class TagDAO  extends BasicDAO<Cra, ObjectId> {
 	}
 	
 	public User updateLocation(ClockinObject cl,String location) {
-		
-		User user = getDatastore().createQuery(User.class).disableValidation().field("id").equal(cl.getUser().getId()).get();
+		User user = getDatastore().createQuery(User.class).field("id").equal(cl.getUser().getId()).get();
 		user.setLocation(location);//
 		getDatastore().save(user);
 		return user;

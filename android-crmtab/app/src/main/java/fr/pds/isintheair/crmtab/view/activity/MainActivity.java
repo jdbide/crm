@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        // mTextView.setText(s);
+
     }
 
 }
