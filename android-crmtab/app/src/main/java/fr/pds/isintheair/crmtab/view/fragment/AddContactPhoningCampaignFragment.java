@@ -158,19 +158,21 @@ public class AddContactPhoningCampaignFragment extends Fragment {
                         (String) contacts.getItemAtPosition(i), restContacts));
             }
         }
-        HashMap<Customer,List<Contact>> customerListHashMap = CustomerHelper.getCustomerContactsMap(
-                customerList,contactsAdded);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
-                customerListHashMap);
-        phoningCampaign.setStatut(PhoningCampaign.STATE_DEFINED);
-        phoningCampaign.save();
-        bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
-                phoningCampaign);
-        DetailPhoningCampaignFragment detailPhoningCampaignFragment = new DetailPhoningCampaignFragment();
-        detailPhoningCampaignFragment.setArguments(bundle);
+        if(!(contactsAdded.size() == 0)) {
+            HashMap<Customer, List<Contact>> customerListHashMap = CustomerHelper.getCustomerContactsMap(
+                    customerList, contactsAdded);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
+                    customerListHashMap);
+            phoningCampaign.setStatut(PhoningCampaign.STATE_DEFINED);
+            phoningCampaign.save();
+            bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
+                    phoningCampaign);
+            DetailPhoningCampaignFragment detailPhoningCampaignFragment = new DetailPhoningCampaignFragment();
+            detailPhoningCampaignFragment.setArguments(bundle);
 
-        ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
-                .replace(R.id.container, detailPhoningCampaignFragment).commit();
+            ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                    .replace(R.id.container, detailPhoningCampaignFragment).commit();
+        }
     }
 }
