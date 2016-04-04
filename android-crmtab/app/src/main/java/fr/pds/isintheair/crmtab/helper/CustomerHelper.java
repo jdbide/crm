@@ -2,6 +2,7 @@ package fr.pds.isintheair.crmtab.helper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.model.entity.Contact;
@@ -139,6 +140,18 @@ public class CustomerHelper {
 
 
         return customersId;
+    }
+
+    /**
+     * Get a key (Customer) by is index.
+     * @param currentCustomer
+     * @param customerListHashMap
+     * @return
+     */
+    public static Customer getCustomerByIndex(int currentCustomer,
+                                       LinkedHashMap<Customer,List<Contact>> customerListHashMap) {
+        List<Customer> customers =  new ArrayList<>(customerListHashMap.keySet());
+        return customers.get(currentCustomer);
     }
 
 

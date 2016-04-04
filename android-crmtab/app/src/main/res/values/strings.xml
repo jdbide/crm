@@ -154,11 +154,21 @@
     <string name="create_phoning_campaign_fragment_button_contact_list">Ajouter des contacts</string>
     <string name="create_phoning_campaign_fragment_error_title_empty">Le titre ne peut etre vide</string>
     <string name="create_phoning_campaign_fragment_error_objective_empty">L objectif ne peut etre vide</string>
+    <string name="create_phoning_campaign_fragment_alert_dialog_error">Erreur dans le format des champs</string>
     <string name="add_contact_phoning_campaign_fragment_title_fragment">Ajouter des contacts a la campagne</string>
     <string name="add_contact_phoning_campaign_fragment_button_detail">Creer la campagne de phoning</string>
     <string name="detail_phoning_campaign_fragment_title_fragment">Detail de la campagne de phoning</string>
     <string name="detail_phoning_campaign_fragment_begin_campaign">Demarrer la campagne</string>
     <string name="detail_phoning_campaign_fragment_list_customer">Liste des contacts ajoute : </string>
+    <string name="call_phoning_campaign_fragment_customer_name">Nom du client : </string>
+    <string name="call_phoning_campaign_fragment_contact_name_firstname">Nom du contact : </string>
+    <string name="call_phoning_campaign_fragment_contact_job">Position du contact : </string>
+    <string name="call_phoning_campaign_fragment_commmentary">Commentaire sur l\'appel : </string>
+    <string name="call_phoning_campaign_fragment_commentary_hint">Ecrire le commentaire ici</string>
+    <string name="call_phoning_campaign_fragment_next_call">Passer au prochain appel</string>
+    <string name="call_phoning_campaign_fragment_reset_call">Appeler plus tard</string>
+
+
 
 
 </resources>
