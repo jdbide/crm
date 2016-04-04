@@ -1,5 +1,7 @@
 package fr.pds.isintheair.crmtab.model;
 
+import java.util.Date;
+
 import fr.pds.isintheair.crmtab.model.entity.User;
 
 /**
@@ -9,10 +11,12 @@ public class ClockinObject {
 
     private User user;
     private String tagId;
+    private Date date;
 
     public ClockinObject(User user, String tagId) {
         this.user = user;
         this.tagId = tagId;
+        this.date = new java.util.Date();
     }
 
     public User getUser() {
@@ -30,5 +34,10 @@ public class ClockinObject {
     public void setTagId(String tagId) {
         this.tagId = tagId;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
 
 }
