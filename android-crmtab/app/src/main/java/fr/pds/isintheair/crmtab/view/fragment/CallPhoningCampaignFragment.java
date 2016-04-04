@@ -139,11 +139,12 @@ public class CallPhoningCampaignFragment extends Fragment {
          type.setText(this.phoningCampaign.getCampaignType());
           contactJob.setText(this.contact.contactJob);
          customerName.setText(this.customer.getName());
-        callButton.setImageResource(R.drawable.phone_logo_red);
+
     }
 
 
     public void startCall() {
+        callButton.setImageResource(R.drawable.phone_logo_red);
         CallMessageController.sendCallMessage(contact.contactTel);
         callBegin = true;
     }
@@ -168,7 +169,11 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @OnClick(R.id.create_phoning_campaign_fragment_phone)
     public void onPhoneClick(final View view) {
-        CallMessageController.sendEndCallMessage();
+        if(callBegin == true ) {
+            CallMessageController.sendEndCallMessage();
+        } else {
+            startCall();
+        }
     }
 
     @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
