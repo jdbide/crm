@@ -38,23 +38,14 @@ import miage.pds.api.jbide.uc.notifypresence.model.Tag;
 		@RequestMapping(value="/notifypresence/clockin", method=RequestMethod.POST)
 		@ResponseBody
 		public ClockinObject clock_in(@RequestBody ClockinObject clockin) {
-			
-			logger.info(clockin.getTagId());
-			logger.info(clockin.getUser().getId());
 		
 			Tag tag = TagDao.checkTag(clockin.getTagId());
-	
-			ClockinObject obj = new ClockinObject();
-			if(tag!=null)
-			{
 				
-				User u = TagDao.updateLocation(clockin,tag.getLocation());	
-				clockin = new ClockinObject();
-				obj.setUser(u);
-				clockin = obj;
+			if(tag!=null){
+				clockin.setUser(TagDao.updateLocation(clockin,tag.getLocation()));
+				return clockin;
 			}
-			return obj;
-
+			else return null;
 		}
 		
 		@RequestMapping(value="/notifypresence/addnewtag", method=RequestMethod.POST)
