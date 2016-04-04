@@ -130,8 +130,21 @@ public class DetailPhoningCampaignFragment extends Fragment {
             }
         }
 
-        PhoningCampaignController controller = new PhoningCampaignController(customerListHashMap,phoningCampaign, (MainActivity) getActivity());
-        controller.BeginCampaign();
+        Bundle bundle = new Bundle();
+
+        bundle.putSerializable(CallPhoningCampaignFragment.KEY_CUSTOMER_LIST_CONTACT, customerListHashMap);
+        bundle.putParcelable(CallPhoningCampaignFragment.KEY_PHONING_CAMPAIGN,
+                phoningCampaign);
+
+
+
+        CallPhoningCampaignFragment callPhoningCampaignFragment = new CallPhoningCampaignFragment();
+        callPhoningCampaignFragment.setArguments(bundle);
+
+        getActivity().getFragmentManager().beginTransaction().addToBackStack("callCampaign")
+                .replace(R.id.container, callPhoningCampaignFragment).commit();
+
+
 
     }
 

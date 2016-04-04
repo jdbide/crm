@@ -33,13 +33,14 @@ public class PhoningCampaignController  {
     int currentCustomerposition;
     int currentContactPosition;
     PhoningCampaign phoningCampaign;
-    MainActivity activity;
+    CallPhoningCampaignFragment fragment;
     Customer currentCustomer;
 
-    public PhoningCampaignController(HashMap<Customer, List<Contact>> customerListHashMap, PhoningCampaign phoningCampaign, MainActivity activity) {
+    public PhoningCampaignController(HashMap<Customer, List<Contact>> customerListHashMap,
+                                     PhoningCampaign phoningCampaign, CallPhoningCampaignFragment fragment) {
         this.customerListHashMap = new LinkedHashMap<>(customerListHashMap);
         this.phoningCampaign = phoningCampaign;
-        this.activity = activity;
+        this.fragment = fragment;
         currentCustomerposition = 0;
         currentContactPosition = 0;
     }
@@ -54,20 +55,8 @@ public class PhoningCampaignController  {
                 .get(currentContactPosition);
         ContactCampaign contactCampaign = ContactCampaignDAO
                 .getContactCampaignFromIds(currentContact.getContactId(), phoningCampaign.getCampaignId());
-        Bundle bundle = new Bundle();
-
-        bundle.putParcelable(CallPhoningCampaignFragment.KEY_PHONING_CAMPAIGN,
-                phoningCampaign);
-        bundle.putParcelable(CallPhoningCampaignFragment.KEY_CUSTOMER,currentCustomer);
-        bundle.putParcelable(CallPhoningCampaignFragment.KEY_CONTACT_CAMPAIGN, contactCampaign);
-        bundle.putParcelable(CallPhoningCampaignFragment.KEY_CONTACT, currentContact);
-
-
-        CallPhoningCampaignFragment callPhoningCampaignFragment = new CallPhoningCampaignFragment();
-        callPhoningCampaignFragment.setArguments(bundle);
-
-        activity.getFragmentManager().beginTransaction().addToBackStack("callCampaign")
-                .replace(R.id.container, callPhoningCampaignFragment).commit();
+        fragment.initView(phoningCampaign,currentContact,currentCustomer);
+        fragment.startCall();
 
     }
 
@@ -79,7 +68,7 @@ public class PhoningCampaignController  {
 
 
 
-    public void endCall() {
+    public void EndCall() {
 
         if(PhoningCampaignHelper.isLastContact(customerListHashMap,currentContactPosition,currentCustomer)) {
             if(CustomerHelper.getCustomerByIndex(customerListHashMap.size()-1,customerListHashMap) == currentCustomer) {

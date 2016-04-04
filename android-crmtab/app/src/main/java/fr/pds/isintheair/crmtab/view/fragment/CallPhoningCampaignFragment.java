@@ -46,10 +46,9 @@ import fr.pds.isintheair.crmtab.view.activity.MainActivity;
  */
 public class CallPhoningCampaignFragment extends Fragment {
 
-    public static String KEY_CONTACT_CAMPAIGN = "CONTACT_CAMPAIGN";
-    public static String KEY_CONTACT = "CONTACT";
-    public static String KEY_CUSTOMER = "CUSTOMER";
-    public static String KEY_PHONING_CAMPAIGN = "KEY_PHONING_CAMPAIGN";
+    public static String KEY_PHONING_CAMPAIGN = "PHONING_CAMPAIGN";
+    public static String KEY_CUSTOMER_LIST_CONTACT = "CUSTOMER_LIST_CONTACT";
+
 
     Customer customer;
     Contact contact;
@@ -83,6 +82,9 @@ public class CallPhoningCampaignFragment extends Fragment {
     @Bind(R.id.call_phoning_campaign_fragment_commentary)
     EditText commentary;
 
+    @Bind(R.id.call_phoning_campaign_fragment_next_call)
+    Button nextCallButton;
+
 
     /**
      * Can be called when a new CallPhoningCampaignFragment is needed
@@ -99,13 +101,14 @@ public class CallPhoningCampaignFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        contactCampaign =
-                (ContactCampaign) this.getArguments().getSerializable(CallPhoningCampaignFragment.KEY_CONTACT_CAMPAIGN);
-        contact = this.getArguments().getParcelable(CallPhoningCampaignFragment.KEY_CONTACT);
-        customer = this.getArguments().getParcelable(CallPhoningCampaignFragment.KEY_CUSTOMER);
+
+        HashMap<Customer,List<Contact>> customerListHashMap =
+                (HashMap<Customer, List<Contact>>)
+                        this.getArguments().getSerializable(CallPhoningCampaignFragment.KEY_CUSTOMER_LIST_CONTACT);
         phoningCampaign = this.getArguments().getParcelable(CallPhoningCampaignFragment.KEY_PHONING_CAMPAIGN);
         callBegin = false;
         BusHandlerSingleton.getInstance().getBus().register(this);
+        controller = new PhoningCampaignController(customerListHashMap,phoningCampaign,this);
     }
 
 
@@ -116,24 +119,33 @@ public class CallPhoningCampaignFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_call_phoning_campaign, container, false);
         ButterKnife.bind(this, v);
-        initView();
-        startCall();
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!callBegin)
+        controller.BeginCampaign();
+    }
 
-    public void initView() {
-        titre.setText(phoningCampaign.getCampaignTheme());
-         objective.setText(phoningCampaign.getCampaignObjectives());
-         contactNameFname.setText(contact.contactName+" "+contact.contactFname);
-         type.setText(phoningCampaign.getCampaignType());
-          contactJob.setText(contact.contactJob);
-         customerName.setText(customer.getName());
+    public void initView(PhoningCampaign phoningCampaign, Contact contact, Customer customer) {
+        this.phoningCampaign = phoningCampaign;
+        this.contact = contact;
+        this.customer = customer;
+        titre.setText(this.phoningCampaign.getCampaignTheme());
+         objective.setText(this.phoningCampaign.getCampaignObjectives());
+         contactNameFname.setText(this.contact.contactName+" "+this.contact.contactFname);
+         type.setText(this.phoningCampaign.getCampaignType());
+          contactJob.setText(this.contact.contactJob);
+         customerName.setText(this.customer.getName());
+        callButton.setImageResource(R.drawable.phone_logo_red);
     }
 
 
     public void startCall() {
         CallMessageController.sendCallMessage(contact.contactTel);
+        callBegin = true;
     }
 
 
@@ -141,6 +153,7 @@ public class CallPhoningCampaignFragment extends Fragment {
     public void onPhoneCallEndedEvent(PhoneCallEndedEvent phoneCallEndedEvent) {
         Log.d("callFragment","callEnded");
         callButton.setImageResource(R.drawable.phone_logo_green);
+        callBegin = false;
     }
 
     @Subscribe
@@ -165,7 +178,7 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
     public void nextCall(final View view) {
-
+        controller.EndCall();
     }
 
 

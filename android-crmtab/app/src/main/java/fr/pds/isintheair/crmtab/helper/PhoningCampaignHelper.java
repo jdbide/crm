@@ -15,6 +15,6 @@ public class PhoningCampaignHelper {
     public static boolean isLastContact(LinkedHashMap<Customer,List<Contact>> customerListHashMap,
                                         int currentContactPosition,Customer currentCustomer) {
         int futurContactPosition = currentContactPosition + 1;
-        return customerListHashMap.get(currentCustomer).size()-1 == futurContactPosition;
+        return customerListHashMap.get(currentCustomer).size() == futurContactPosition;
     }
 }
