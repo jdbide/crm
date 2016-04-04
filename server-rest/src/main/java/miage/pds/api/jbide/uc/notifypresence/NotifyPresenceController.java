@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import miage.pds.MongoDatastoreConfig;
 import miage.pds.api.common.model.ClockinObject;
+import miage.pds.api.common.model.User;
 import miage.pds.api.jbide.uc.notifypresence.dao.TagDAO;
 import miage.pds.api.jbide.uc.notifypresence.model.Tag;
+import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 
 	@Controller
@@ -22,22 +24,35 @@ import miage.pds.api.jbide.uc.notifypresence.model.Tag;
 		TagDAO TagDao = new TagDAO(MongoDatastoreConfig.getDataStore());
 		
 		public NotifyPresenceController() {
+			TagDao.getDatastore().getCollection(Tag.class).drop();
+			Tag tag = new Tag();
+			tag.setId("entree");
+			tag.setLocation("entree");
+			TagDao.addTag(tag);
+			
+			//TagDao.addTag(new Tag());
 		}
 
 		@RequestMapping(value="/notifypresence/clockin", method=RequestMethod.POST)
 		@ResponseBody
-		public Boolean clock_in(@RequestBody ClockinObject clockin) {
+		public ClockinObject clock_in(@RequestBody ClockinObject clockin) {
 			
-			logger.info("CLOCKIN");
+			logger.info(clockin.getTagId());
+			logger.info(clockin.getUser().getId());
+			
 			
 			Tag tag = TagDao.checkTag(clockin.getTagId());
+			logger.info(tag.getLocation());
+			ClockinObject obj = new ClockinObject();
 			if(tag!=null)
 			{
-			TagDao.updateLocation(clockin.getUser(),tag);
-
-			return true;
+				
+				User u = TagDao.updateLocation(clockin,tag.getLocation());	
+				clockin = new ClockinObject();
+				obj.setUser(u);
+				clockin = obj;
 			}
-			else return false;
+			return obj;
 
 		}
 		
