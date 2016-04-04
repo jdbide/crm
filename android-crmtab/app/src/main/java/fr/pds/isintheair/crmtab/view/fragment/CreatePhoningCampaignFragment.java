@@ -217,23 +217,26 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     public void onValidationSucceeded() {
         SparseBooleanArray position = customer.getCheckedItemPositions();
         int len = customer.getCount();
-        for (int i = 0; i < len; i++) {
-            if (position.get(i)) {
-                customersAdded.add(CustomerHelper.getCustomerFromName(
-                        (String) customer.getItemAtPosition(i), customers));
-            }
-        }
-        String typeString =  type.getSelectedItem().toString();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
-                (ArrayList<? extends Parcelable>) customersAdded);
-        bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
-                new PhoningCampaign(title.getText().toString(),typeString,objective.getText().toString()));
-        AddContactPhoningCampaignFragment addContactPhoningCampaignFragment = new AddContactPhoningCampaignFragment();
-        addContactPhoningCampaignFragment.setArguments(bundle);
 
-        ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
-                .replace(R.id.container, addContactPhoningCampaignFragment).commit();
+            for (int i = 0; i < len; i++) {
+                if (position.get(i)) {
+                    customersAdded.add(CustomerHelper.getCustomerFromName(
+                            (String) customer.getItemAtPosition(i), customers));
+                }
+            }
+        if(!(customersAdded.size() == 0)) {
+            String typeString = type.getSelectedItem().toString();
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
+                    (ArrayList<? extends Parcelable>) customersAdded);
+            bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
+                    new PhoningCampaign(title.getText().toString(), typeString, objective.getText().toString()));
+            AddContactPhoningCampaignFragment addContactPhoningCampaignFragment = new AddContactPhoningCampaignFragment();
+            addContactPhoningCampaignFragment.setArguments(bundle);
+
+            ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                    .replace(R.id.container, addContactPhoningCampaignFragment).commit();
+        }
     }
 
 
