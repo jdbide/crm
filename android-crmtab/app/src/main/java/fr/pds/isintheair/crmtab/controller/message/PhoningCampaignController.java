@@ -1,5 +1,6 @@
 package fr.pds.isintheair.crmtab.controller.message;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -27,6 +28,7 @@ import fr.pds.isintheair.crmtab.view.fragment.DetailPhoningCampaignFragment;
 
 /**
  * Created by tlacouque on 03/04/2016.
+ * Class used to controll a phoning campaign
  */
 public class PhoningCampaignController  {
     LinkedHashMap<Customer,List<Contact>> customerListHashMap;
@@ -35,6 +37,8 @@ public class PhoningCampaignController  {
     PhoningCampaign phoningCampaign;
     CallPhoningCampaignFragment fragment;
     Customer currentCustomer;
+    ContactCampaign contactCampaign;
+
 
     public PhoningCampaignController(HashMap<Customer, List<Contact>> customerListHashMap,
                                      PhoningCampaign phoningCampaign, CallPhoningCampaignFragment fragment) {
@@ -46,16 +50,18 @@ public class PhoningCampaignController  {
     }
 
     public void BeginCampaign() {
-        UpdateCurrentCustomer();
+        phoningCampaign.setStatut(PhoningCampaign.STATE_BEGINED);
         BeginCall();
+
     }
 
     public void BeginCall() {
+        UpdateCurrentCustomer();
         Contact currentContact = customerListHashMap.get(currentCustomer)
                 .get(currentContactPosition);
-        ContactCampaign contactCampaign = ContactCampaignDAO
+         contactCampaign = ContactCampaignDAO
                 .getContactCampaignFromIds(currentContact.getContactId(), phoningCampaign.getCampaignId());
-        fragment.initView(phoningCampaign,currentContact,currentCustomer);
+        fragment.initView(phoningCampaign, currentContact, currentCustomer);
         fragment.startCall();
 
     }
@@ -69,24 +75,34 @@ public class PhoningCampaignController  {
 
 
     public void EndCall() {
-
+        // Test if the next contact is the last contact of the current customer
         if(PhoningCampaignHelper.isLastContact(customerListHashMap,currentContactPosition,currentCustomer)) {
+            // Check if the customer is the last customer of the list of all customer to call
             if(CustomerHelper.getCustomerByIndex(customerListHashMap.size()-1,customerListHashMap) == currentCustomer) {
                 endCampaign();
 
             } else {
+                // Pass to the next customer and set the contact position to 0
                 currentCustomerposition++;
                 currentContactPosition = 0;
-                BeginCampaign();
+                BeginCall();
             }
         } else {
+            // Called if there is an another contact for a customer, and start a new call
             currentContactPosition++;
-            BeginCampaign();
+            BeginCall();
         }
     }
 
     public void endCampaign() {
-Log.d("endFragment","EndCampaign");
+        phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
+        fragment.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    public void saveCurrentContactInfo(String info) {
+        contactCampaign.setContactInfo(info);
+        contactCampaign.setStatus(ContactCampaign.STATE_ENDED);
+        contactCampaign.save();
     }
 
 

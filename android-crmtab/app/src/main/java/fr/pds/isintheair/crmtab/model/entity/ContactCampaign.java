@@ -30,6 +30,9 @@ public class ContactCampaign extends BaseModel implements Parcelable {
     @Column
     String contactInfo;
 
+    @Column
+    String status;
+
 
     public ContactCampaign() {
     }
@@ -64,6 +67,14 @@ public class ContactCampaign extends BaseModel implements Parcelable {
         this.contactInfo = contactInfo;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public static final Creator<ContactCampaign> CREATOR = new Creator<ContactCampaign>() {
         @Override
         public ContactCampaign createFromParcel(Parcel in) {
@@ -80,7 +91,7 @@ public class ContactCampaign extends BaseModel implements Parcelable {
         contactId = in.readInt();
         campaignId = in.readLong();
         contactInfo = in.readString();
-
+        status = in.readString();
 
     }
 
@@ -99,6 +110,7 @@ public class ContactCampaign extends BaseModel implements Parcelable {
         dest.writeInt(contactId);
         dest.writeLong(campaignId);
         dest.writeString(contactInfo);
+        dest.writeString(status);
 
     }
 
