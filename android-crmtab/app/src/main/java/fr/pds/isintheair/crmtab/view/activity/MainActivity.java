@@ -137,48 +137,10 @@ public class MainActivity extends AppCompatActivity
         mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
     }
 
-
     //Badging
     @Override
     public void onNewIntent(Intent intent) {
-        String action = intent.getAction();
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-
-        //String s = action + "\n\n" + tag.toString();
-        String s="";
-
-        // parse through all NDEF messages and their records and pick text type only
-        Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-        if (data != null) {
-            try {
-                for (int i = 0; i < data.length; i++) {
-                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
-                    for (int j = 0; j < recs.length; j++) {
-                        if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
-                                Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
-
-                            byte[] payload = recs[j].getPayload();
-                            String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
-                            int langCodeLen = payload[0] & 0077;
-
-                            s = ( new String(payload, langCodeLen + 1,
-                                    payload.length - langCodeLen - 1, textEncoding));
-
-
-                            ClockinController.clockin(s,this);
-
-
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                Log.e("TagDispatch", e.toString());
-            }
-
-        }
-
-        // mTextView.setText(s);
+        tagdDiscovered(intent);
     }
 
     @Override
@@ -367,14 +329,6 @@ public class MainActivity extends AppCompatActivity
             getFragmentManager().popBackStack();
         }
 
-       /* else {
-
-            MainLogoFragment mainLogoFragment = new MainLogoFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.container, mainLogoFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }*/
     }
 
     @Override
@@ -397,6 +351,45 @@ public class MainActivity extends AppCompatActivity
                                     .commit();
                 break;
         }
+    }
+
+    private void tagdDiscovered(Intent intent) {
+        String action = intent.getAction();
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+        //String s = action + "\n\n" + tag.toString();
+        String s="";
+
+        // parse through all NDEF messages and their records and pick text type only
+        Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+        if (data != null) {
+            try {
+                for (int i = 0; i < data.length; i++) {
+                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
+                    for (int j = 0; j < recs.length; j++) {
+                        if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
+                                Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
+
+                            byte[] payload = recs[j].getPayload();
+                            String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+                            int langCodeLen = payload[0] & 0077;
+
+                            s = ( new String(payload, langCodeLen + 1,
+                                    payload.length - langCodeLen - 1, textEncoding));
+
+                            ClockinController.clockin(s, this);
+
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("TagDispatch", e.toString());
+            }
+
+        }
+
+        // mTextView.setText(s);
     }
 
 }
