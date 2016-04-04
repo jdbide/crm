@@ -29,7 +29,7 @@ public class ClockinObject {
         date = c.get(c.DAY_OF_MONTH)+"-"+c.get(c.MONTH)+"-"+c.get(c.YEAR);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         sdf.setTimeZone(TimeZone.getTimeZone("France"));
-        time = sdf.format(new Date().);
+        time = sdf.format(new Date());
     }
 
     public User getUser() {
