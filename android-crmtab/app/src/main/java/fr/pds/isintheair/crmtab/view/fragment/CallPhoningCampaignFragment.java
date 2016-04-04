@@ -32,7 +32,6 @@ import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallHookedEvent;
 import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
 import fr.pds.isintheair.crmtab.controller.message.PhoningCampaignController;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
