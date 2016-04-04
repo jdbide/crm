@@ -3,6 +3,7 @@ package fr.pds.isintheair.crmtab.controller.message;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,6 +30,7 @@ import retrofit.Retrofit;
  */
 public class ClockinController {
 
+
         public static void clockin(String idtag, final Activity context) {
 
 
@@ -50,7 +52,8 @@ public class ClockinController {
                     .build();
 
             NotifyPresenceRetrofitService service =  RetrofitHandlerSingleton.getInstance().getNotifyPesenceInterface();
-            Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(),idtag));
+            //NotifyPresenceRetrofitService service =  retrofit.create(NotifyPresenceRetrofitService.class);
+            Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), idtag));
 
             call.enqueue(new Callback<ClockinObject>() {
                 @Override
@@ -79,7 +82,7 @@ public class ClockinController {
                             ClockinObject rep = response.body();
                             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                             // Setting Dialog Message
-                            alertDialog.setMessage("Emplacement : " + rep.getUser().getLocation() + "Heure : " + sdf.format(rep.getDate()));
+                            alertDialog.setMessage("Emplacement : " + rep.getUser().getLocation() + "  " + "Heure : " + rep.getTime());
 
                             // Setting Icon to Dialog
                             alertDialog.setIcon(R.drawable.sucess);
@@ -117,7 +120,7 @@ public class ClockinController {
                         }
 
                     }else{
-
+                        Toast.makeText(context, "req is not success", Toast.LENGTH_SHORT).show();
                     }
 
 
