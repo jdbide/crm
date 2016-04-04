@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by Maimouna MEFIRE on 22/03/2016.
  */
-<<<<<<< HEAD
+
 /*@Controller
 @RequestMapping (value = "/sms")//
 =======
