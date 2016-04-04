@@ -178,7 +178,9 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
     public void nextCall(final View view) {
-        controller.saveCurrentContactInfo(commentary.getText().toString());
+        if(!commentary.getText().toString().isEmpty()) {
+            controller.saveCurrentContactInfo(commentary.getText().toString());
+        }
         controller.EndCall();
     }
 
