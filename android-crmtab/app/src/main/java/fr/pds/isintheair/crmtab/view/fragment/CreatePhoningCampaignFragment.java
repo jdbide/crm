@@ -1,6 +1,8 @@
 package fr.pds.isintheair.crmtab.view.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
@@ -238,6 +240,26 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
+
+        String errorString = "";
+
+        // Concat error strings
+        for (ValidationError error : errors) {
+            errorString = errorString + error.getCollatedErrorMessage
+                    (getActivity().getApplicationContext()) + ".\n";
+        }
+
+        ErrorCustomerAlertDialog alertDialog =
+                new ErrorCustomerAlertDialog(getContext());
+        alertDialog.setTitle(R.string.create_phoning_campaign_fragment_alert_dialog_error);
+        alertDialog.setMessage(errorString);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
 
     }
 
