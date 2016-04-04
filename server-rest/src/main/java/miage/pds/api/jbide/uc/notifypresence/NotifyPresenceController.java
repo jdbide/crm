@@ -1,5 +1,8 @@
 package miage.pds.api.jbide.uc.notifypresence;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,6 @@ import miage.pds.api.common.model.ClockinObject;
 import miage.pds.api.common.model.User;
 import miage.pds.api.jbide.uc.notifypresence.dao.TagDAO;
 import miage.pds.api.jbide.uc.notifypresence.model.Tag;
-import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 
 	@Controller
@@ -39,10 +41,9 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
 			
 			logger.info(clockin.getTagId());
 			logger.info(clockin.getUser().getId());
-			
-			
+		
 			Tag tag = TagDao.checkTag(clockin.getTagId());
-			logger.info(tag.getLocation());
+	
 			ClockinObject obj = new ClockinObject();
 			if(tag!=null)
 			{
