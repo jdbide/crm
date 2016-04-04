@@ -6,6 +6,8 @@ import org.mongodb.morphia.dao.BasicDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import miage.pds.MongoDatastoreConfig;
+import miage.pds.api.common.LoggingDao.LoggingDAO;
 import miage.pds.api.common.model.ClockinObject;
 import miage.pds.api.common.model.User;
 import miage.pds.api.jbide.uc.notifypresence.model.Tag;
@@ -18,7 +20,7 @@ import miage.pds.api.jbide.uc.registercall.model.Cra;
 
 public class TagDAO  extends BasicDAO<Cra, ObjectId> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CraDAO.class);
+	private static final Logger logger = LoggerFactory.getLogger(TagDAO.class);
 
 	public TagDAO(Datastore datastore) {
 		super(datastore);					
@@ -35,12 +37,12 @@ public class TagDAO  extends BasicDAO<Cra, ObjectId> {
 		return getDatastore().createQuery(Tag.class).disableValidation().field("id").equal(idtag).get();
 	}
 	
-	public boolean updateLocation(User u,Tag tag) {
+	public User updateLocation(ClockinObject cl,String location) {
 		
-		User user = getDatastore().createQuery(User.class).disableValidation().field("id").equal(u.getId()).get();
-		user.setLocation(tag.getLocation());
+		User user = getDatastore().createQuery(User.class).disableValidation().field("id").equal(cl.getUser().getId()).get();
+		user.setLocation(location);//
 		getDatastore().save(user);
-		return true;
+		return user;
 		
 	}
 	
