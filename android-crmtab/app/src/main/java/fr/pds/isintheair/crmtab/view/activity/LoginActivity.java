@@ -84,7 +84,10 @@ public class LoginActivity extends Activity implements Callback<User> {
 
         currentUser = UserDAO.getCurrentUser();
 
+
+
         if (currentUser != null) {
+            initService();
             startActivity(new Intent(this, MainActivity.class));
         }
 
@@ -111,11 +114,8 @@ public class LoginActivity extends Activity implements Callback<User> {
             }
 
             currentUser.save();
+            initService();
 
-            startService(new Intent(LoginActivity.this, CallService.class));
-            startService(new Intent(LoginActivity.this, CalendarService.class));
-            startService(new Intent(LoginActivity.this, NotificationIntentService.class));
-            startService(new Intent(LoginActivity.this, ListennerCallEndedEvent.class));
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
     }
@@ -123,5 +123,12 @@ public class LoginActivity extends Activity implements Callback<User> {
     @Override
     public void onFailure(Throwable t) {
         currentUser.delete();
+    }
+
+    private void initService() {
+        startService(new Intent(LoginActivity.this, CallService.class));
+        startService(new Intent(LoginActivity.this, CalendarService.class));
+        startService(new Intent(LoginActivity.this, NotificationIntentService.class));
+        startService(new Intent(LoginActivity.this, ListennerCallEndedEvent.class));
     }
 }

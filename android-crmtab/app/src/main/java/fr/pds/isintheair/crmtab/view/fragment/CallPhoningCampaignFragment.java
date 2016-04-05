@@ -139,6 +139,7 @@ public class CallPhoningCampaignFragment extends Fragment {
          type.setText(this.phoningCampaign.getCampaignType());
           contactJob.setText(this.contact.contactJob);
          customerName.setText(this.customer.getName());
+        commentary.setText("");
 
     }
 
