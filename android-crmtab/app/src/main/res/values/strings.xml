@@ -167,6 +167,8 @@
     <string name="call_phoning_campaign_fragment_commentary_hint">Ecrire le commentaire ici</string>
     <string name="call_phoning_campaign_fragment_next_call">Passer au prochain appel</string>
     <string name="call_phoning_campaign_fragment_reset_call">Appeler plus tard</string>
+    <string name="call_phoning_campaign_fragment_stop_call">Continuer plus tard</string>
+    <string name="call_phoning_campaign_fragment_end_campaign">Fin de la campagne</string>
 
 
 

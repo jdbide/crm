@@ -23,7 +23,7 @@ public class ContactCampaignDAO {
         return new Select().from(ContactCampaign.class)
                 .where(ContactCampaign_Table.campaignId.eq(campaignId))
                 .and(ContactCampaign_Table.contactId.eq(contactId))
-                .and(ContactCampaign_Table.contactInfo.eq(ContactCampaign.STATE_DEFINED))
+                .and(ContactCampaign_Table.status.eq(ContactCampaign.STATE_DEFINED))
                 .querySingle();
     }
 }

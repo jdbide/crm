@@ -136,7 +136,7 @@ public class CallPhoningCampaignFragment extends Fragment {
      * @param contact
      * @param customer
      */
-    public void initView(PhoningCampaign phoningCampaign, Contact contact, Customer customer) {
+    public void initView(PhoningCampaign phoningCampaign, Contact contact, Customer customer,ContactCampaign contactCampaign) {
         this.phoningCampaign = phoningCampaign;
         this.contact = contact;
         this.customer = customer;
@@ -146,7 +146,14 @@ public class CallPhoningCampaignFragment extends Fragment {
          type.setText(this.phoningCampaign.getCampaignType());
           contactJob.setText(this.contact.contactJob);
          customerName.setText(this.customer.getName());
-        commentary.setText("");
+
+        if(contactCampaign.getContactInfo() == null) {
+            commentary.setText("");
+        } else {
+            commentary.setText(""+contactCampaign.getContactInfo());
+        }
+
+
 
     }
 
@@ -162,7 +169,7 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @Subscribe
     public void onPhoneCallEndedEvent(PhoneCallEndedEvent phoneCallEndedEvent) {
-        Log.d("callFragment","callEnded");
+        Log.d("callFragment", "callEnded");
         callButton.setImageResource(R.drawable.phone_logo_green);
         callBegin = false;
     }
@@ -191,8 +198,9 @@ public class CallPhoningCampaignFragment extends Fragment {
     }
 
     @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
-    public void resetCall(final View view) {
-
+    public void ResetCall(final View view) {
+        controller.SaveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_DEFINED);
+        controller.ResetCall();
     }
 
     /**
@@ -200,9 +208,9 @@ public class CallPhoningCampaignFragment extends Fragment {
      * @param view
      */
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
-    public void nextCall(final View view) {
+    public void NextCall(final View view) {
         if(!commentary.getText().toString().isEmpty()) {
-            controller.saveCurrentContactInfo(commentary.getText().toString());
+            controller.SaveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_ENDED);
         }
         controller.EndCall();
     }

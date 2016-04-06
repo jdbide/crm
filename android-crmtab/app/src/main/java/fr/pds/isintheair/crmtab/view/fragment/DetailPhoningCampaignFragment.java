@@ -133,7 +133,7 @@ public class DetailPhoningCampaignFragment extends Fragment {
                 ContactCampaign contactCampaign = new ContactCampaign();
                 contactCampaign.setCampaignId(phoningCampaign.getCampaignId());
                 contactCampaign.setContactId(contact.getContactId());
-                contactCampaign.setContactInfo(ContactCampaign.STATE_DEFINED);
+                contactCampaign.setStatus(ContactCampaign.STATE_DEFINED);
                 contactCampaign.save();
             }
         }
