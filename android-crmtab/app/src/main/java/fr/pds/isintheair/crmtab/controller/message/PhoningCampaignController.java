@@ -101,6 +101,12 @@ public class PhoningCampaignController  {
     public void EndCall() {
         // Test if the next contact is the last contact of the current customer
         if(PhoningCampaignHelper.isLastContact(customerListHashMap,currentContactPosition,currentCustomer)) {
+
+            if(resetContact.size() != 0) {
+                customerListReseted.put(currentCustomer,resetContact);
+                resetContact = new ArrayList<>();
+            }
+
             // Check if the customer is the last customer of the list of all customer to call
             if(CustomerHelper.getCustomerByIndex(customerListHashMap.size()-1,customerListHashMap) == currentCustomer) {
                 if(customerListReseted.size() != 0) {
@@ -119,10 +125,7 @@ public class PhoningCampaignController  {
                 // Pass to the next customer and set the contact position to 0
                 currentCustomerposition++;
                 currentContactPosition = 0;
-                if(resetContact.size() != 0) {
-                    customerListReseted.put(currentCustomer,resetContact);
-                    resetContact = new ArrayList<>();
-                }
+
                 UpdateCurrentCustomer();
                 BeginCall();
             }
