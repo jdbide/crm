@@ -12,6 +12,13 @@ import fr.pds.isintheair.crmtab.model.mock.Contact;
  */
 public class ContactCampaignDAO {
 
+
+    /**
+     * Get a single ContactCampaign from is contactId and is campaignId which state is defined
+     * @param contactId
+     * @param campaignId
+     * @return
+     */
     public static ContactCampaign getContactCampaignFromIds(int contactId,long campaignId) {
         return new Select().from(ContactCampaign.class)
                 .where(ContactCampaign_Table.campaignId.eq(campaignId))

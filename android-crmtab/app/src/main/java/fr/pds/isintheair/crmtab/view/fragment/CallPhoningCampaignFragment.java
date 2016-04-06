@@ -43,6 +43,7 @@ import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 /**
  * Created by tlacouque on 03/04/2016.
+ * Fragment used to do all the call of a phoning campaign
  */
 public class CallPhoningCampaignFragment extends Fragment {
 
@@ -129,6 +130,12 @@ public class CallPhoningCampaignFragment extends Fragment {
         controller.BeginCampaign();
     }
 
+    /**
+     * Initialise the view of a Call. It is called before every call.
+     * @param phoningCampaign
+     * @param contact
+     * @param customer
+     */
     public void initView(PhoningCampaign phoningCampaign, Contact contact, Customer customer) {
         this.phoningCampaign = phoningCampaign;
         this.contact = contact;
@@ -143,7 +150,9 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     }
 
-
+    /**
+     * Method used to start a call
+     */
     public void startCall() {
         callButton.setImageResource(R.drawable.phone_logo_red);
         CallMessageController.sendCallMessage(contact.contactTel);
@@ -168,9 +177,13 @@ public class CallPhoningCampaignFragment extends Fragment {
         Log.d("callFragment","Hoocked");
 }
 
+    /**
+     * Called when the user click on the phone. If the call is started, it end it, or it start it.
+     * @param view
+     */
     @OnClick(R.id.create_phoning_campaign_fragment_phone)
     public void onPhoneClick(final View view) {
-        if(callBegin == true ) {
+        if(callBegin) {
             CallMessageController.sendEndCallMessage();
         } else {
             startCall();
@@ -182,6 +195,10 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     }
 
+    /**
+     * Method called to pass to the next call.
+     * @param view
+     */
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
     public void nextCall(final View view) {
         if(!commentary.getText().toString().isEmpty()) {

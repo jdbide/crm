@@ -7,8 +7,10 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -49,12 +51,19 @@ public class PhoningCampaignController  {
         currentContactPosition = 0;
     }
 
+    /**
+     * Start the new campaign
+     */
     public void BeginCampaign() {
         phoningCampaign.setStatut(PhoningCampaign.STATE_BEGINED);
+        phoningCampaign.save();
         BeginCall();
 
     }
 
+    /**
+     * Start a new call
+     */
     public void BeginCall() {
         UpdateCurrentCustomer();
         Contact currentContact = customerListHashMap.get(currentCustomer)
@@ -66,14 +75,20 @@ public class PhoningCampaignController  {
 
     }
 
-
+    /**
+     * Update the current customer if it is needed.
+     */
     public void UpdateCurrentCustomer() {
         currentCustomer = CustomerHelper.
                 getCustomerByIndex(currentCustomerposition, customerListHashMap);
     }
 
 
-
+    /**
+     * Called when the user click on the button "next call". Test if the next contact is the last of the current customer.
+     * If it s false, it pass to the next contact. If t s true, it check if the customer is the last customer to call.
+     * If it s true it call endCampaign(). if it s false it pass to the next customer
+     */
     public void EndCall() {
         // Test if the next contact is the last contact of the current customer
         if(PhoningCampaignHelper.isLastContact(customerListHashMap,currentContactPosition,currentCustomer)) {
@@ -94,11 +109,21 @@ public class PhoningCampaignController  {
         }
     }
 
+    /**
+     * Called when there is no contact left to call, it end the campaign
+     */
     public void endCampaign() {
+        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
-        fragment.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        phoningCampaign.setEndDate(currentDateTimeString);
+        phoningCampaign.save();
+        fragment.getFragmentManager().popBackStack("detailHc", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
+    /**
+     * Save commentary written by the commercial pass by the CallPhoningCampaignFragment
+     * @param info
+     */
     public void saveCurrentContactInfo(String info) {
         contactCampaign.setContactInfo(info);
         contactCampaign.setStatus(ContactCampaign.STATE_ENDED);

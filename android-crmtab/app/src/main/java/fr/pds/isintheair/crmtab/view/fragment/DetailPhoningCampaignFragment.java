@@ -97,6 +97,9 @@ public class DetailPhoningCampaignFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Initialise the view of detail fragment
+     */
     public void initView() {
         title.setText(phoningCampaign.getCampaignTheme());
         type.setText(phoningCampaign.getCampaignType());
@@ -113,6 +116,11 @@ public class DetailPhoningCampaignFragment extends Fragment {
         customerContactList.setLayoutParams(params);
     }
 
+    /**
+     * Called when the user click on the button "start campaign".
+     * It initialise the contact campaign and start the phoning campaign.
+     * @param view
+     */
     @OnClick(R.id.detail_phoning_campaign_fragment_begin_campaign_button)
     public void beginCampaign(final View view) {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
