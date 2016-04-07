@@ -200,9 +200,9 @@ public class CallPhoningCampaignFragment extends Fragment {
     }
 
     @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
-    public void ResetCall(final View view) {
-        controller.SaveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_DEFINED);
-        controller.ResetCall();
+    public void resetCall(final View view) {
+        controller.saveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_DEFINED);
+        controller.resetCall();
     }
 
     /**
@@ -210,14 +210,14 @@ public class CallPhoningCampaignFragment extends Fragment {
      * @param view
      */
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
-    public void NextCall(final View view) {
+    public void nextCall(final View view) {
         if(!commentary.getText().toString().isEmpty()) {
-            controller.SaveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_ENDED);
+            controller.saveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_ENDED);
         }
-        controller.EndCall();
+        controller.endCall();
     }
 
-    public void EndCampaign() {
+    public void endCampaign() {
         Snackbar snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_end_campaign,
                 Snackbar.LENGTH_LONG);
         ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);

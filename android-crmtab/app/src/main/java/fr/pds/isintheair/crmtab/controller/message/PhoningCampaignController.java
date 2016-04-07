@@ -64,8 +64,8 @@ public class PhoningCampaignController  {
     public void BeginCampaign() {
         phoningCampaign.setStatut(PhoningCampaign.STATE_BEGINED);
         phoningCampaign.save();
-        UpdateCurrentCustomer();
-        BeginCall();
+        updateCurrentCustomer();
+        beginCall();
 
 
     }
@@ -73,7 +73,7 @@ public class PhoningCampaignController  {
     /**
      * Start a new call
      */
-    public void BeginCall() {
+    public void beginCall() {
 
          currentContact = customerListHashMap.get(currentCustomer)
                 .get(currentContactPosition);
@@ -87,7 +87,7 @@ public class PhoningCampaignController  {
     /**
      * Update the current customer if it is needed.
      */
-    public void UpdateCurrentCustomer() {
+    public void updateCurrentCustomer() {
         currentCustomer = CustomerHelper.
                 getCustomerByIndex(currentCustomerposition, customerListHashMap);
     }
@@ -98,7 +98,7 @@ public class PhoningCampaignController  {
      * If it s false, it pass to the next contact. If t s true, it check if the customer is the last customer to call.
      * If it s true it call endCampaign(). if it s false it pass to the next customer
      */
-    public void EndCall() {
+    public void endCall() {
         // Test if the next contact is the last contact of the current customer
         if(PhoningCampaignHelper.isLastContact(customerListHashMap,currentContactPosition,currentCustomer)) {
 
@@ -114,10 +114,10 @@ public class PhoningCampaignController  {
                     currentContactPosition = 0;
                     customerListHashMap = customerListReseted;
                     customerListReseted = new LinkedHashMap<>();
-                    UpdateCurrentCustomer();
-                    BeginCall();
+                    updateCurrentCustomer();
+                    beginCall();
                 } else {
-                    EndCampaign();
+                    endCampaign();
                 }
 
 
@@ -126,41 +126,41 @@ public class PhoningCampaignController  {
                 currentCustomerposition++;
                 currentContactPosition = 0;
 
-                UpdateCurrentCustomer();
-                BeginCall();
+                updateCurrentCustomer();
+                beginCall();
             }
         } else {
             // Called if there is an another contact for a customer, and start a new call
             currentContactPosition++;
-            UpdateCurrentCustomer();
-            BeginCall();
+            updateCurrentCustomer();
+            beginCall();
         }
     }
 
     /**
      * Called when there is no contact left to call, it end the campaign
      */
-    public void EndCampaign() {
+    public void endCampaign() {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
         phoningCampaign.setEndDate(currentDateTimeString);
         phoningCampaign.save();
-        fragment.EndCampaign();
+        fragment.endCampaign();
     }
 
     /**
      * Save commentary written by the commercial pass by the CallPhoningCampaignFragment
      * @param info
      */
-    public void SaveCurrentContactInfo(String info, String status) {
+    public void saveCurrentContactInfo(String info, String status) {
         contactCampaign.setContactInfo(info);
         contactCampaign.setStatus(status);
         contactCampaign.save();
     }
 
-    public void ResetCall() {
+    public void resetCall() {
         resetContact.add(currentContact);
-        EndCall();
+        endCall();
     }
 
 

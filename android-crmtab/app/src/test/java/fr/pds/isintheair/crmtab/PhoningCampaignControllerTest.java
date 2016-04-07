@@ -201,6 +201,12 @@ public class PhoningCampaignControllerTest {
         assertEquals(hc,controller.getCurrentCustomer());
     }
 
+    @Test
+    public void testSaveCurrentContactInfo() throws Exception {
+       ContactCampaign contactCampaign = contactCampaigns.get(0);
+        controller.SaveCurrentContactInfo
+    }
+
     @After
     public void tearDown() throws Exception {
 
