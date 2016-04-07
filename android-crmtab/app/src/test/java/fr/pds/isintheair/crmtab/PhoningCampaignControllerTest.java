@@ -60,10 +60,15 @@ public class PhoningCampaignControllerTest {
     @Before
     public void setUp() throws Exception {
         contact = new Contact();
+        contact.setContactId(1);
         contact2 = new Contact();
+        contact2.setContactId(2);
         contact3 = new Contact();
+        contact3.setContactId(3);
         contact4 = new Contact();
+        contact4.setContactId(4);
         contact5 = new Contact();
+        contact5.setContactId(5);
         indep = new Independant();
         hc = new HealthCenter();
         fragment  = Mockito.mock(CallPhoningCampaignFragment.class);
@@ -140,6 +145,40 @@ public class PhoningCampaignControllerTest {
         controller = spy(controller);
         controller.EndCall();
         verify(controller, Mockito.times(1)).EndCampaign();
+    }
+
+    @Test
+    public void testUserCalledContactAfter() throws Exception {
+
+        LinkedHashMap<Customer,List<Contact>> customerListReseted = new LinkedHashMap<>();
+        ArrayList<Contact> contacts = new ArrayList<>();
+        contacts.add(contact4);
+        customerListReseted.put(indep, contacts);
+        controller.setCustomerListReseted(customerListReseted);
+
+        controller.setCurrentCustomer(hc);
+        controller.setCurrentContactPosition(2);
+        controller = spy(controller);
+        Mockito.doNothing().when(controller).BeginCall();
+        controller.EndCall();
+        verify(controller, Mockito.times(1)).BeginCall();
+        verify(controller,Mockito.times(1)).UpdateCurrentCustomer();
+        assertEquals(indep, controller.getCurrentCustomer());
+        assertEquals(0,controller.getCurrentContactPosition());
+        assertEquals(0,controller.getCurrentCustomerposition());
+    }
+
+
+    @Test
+    public void testBeginCall() throws Exception {
+
+        Mockito.doNothing().when(fragment)
+                .initView(any(PhoningCampaign.class),any(Contact.class),any(Customer.class),any(ContactCampaign.class));
+        Mockito.doNothing().when(fragment).startCall();
+        controller.UpdateCurrentCustomer();
+        controller.BeginCall();
+        assertEquals(controller.getContactCampaign().getContactId(), 1);
+        assertEquals(controller.getCurrentContact(),contact);
 
     }
 
