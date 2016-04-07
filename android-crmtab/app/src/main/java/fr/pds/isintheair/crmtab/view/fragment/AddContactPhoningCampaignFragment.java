@@ -133,7 +133,10 @@ public class AddContactPhoningCampaignFragment extends Fragment {
         });
     }
 
-
+    /**
+     * Method called to initialise the contact list
+     * @param customerListHashMap
+     */
     public void initContactList(HashMap<Customer,List<Contact>> customerListHashMap) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_multiple_choice,
@@ -147,6 +150,10 @@ public class AddContactPhoningCampaignFragment extends Fragment {
         contacts.setLayoutParams(params);
     }
 
+    /**
+     * Method called when the user click on the button "create campaign".
+     * @param view
+     */
     @OnClick(R.id.add_contact_phoning_campaign_fragment_button)
     public void createCampaign(final View view) {
         SparseBooleanArray position = contacts.getCheckedItemPositions();

@@ -21,7 +21,7 @@ public class ContactCampaign extends BaseModel implements Parcelable {
     public static String STATE_ENDED = "Termine";
 
     @Column
-    @PrimaryKey(autoincrement = true)
+    @PrimaryKey
     int contactId;
 
     @Column

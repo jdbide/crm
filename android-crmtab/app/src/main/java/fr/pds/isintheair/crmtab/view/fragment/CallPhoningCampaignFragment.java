@@ -1,8 +1,10 @@
 package fr.pds.isintheair.crmtab.view.fragment;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 /**
  * Created by tlacouque on 03/04/2016.
+ * Fragment used to do all the call of a phoning campaign
  */
 public class CallPhoningCampaignFragment extends Fragment {
 
@@ -125,10 +128,16 @@ public class CallPhoningCampaignFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if(!callBegin)
-        controller.BeginCampaign();
+        controller.beginCampaign();
     }
 
-    public void initView(PhoningCampaign phoningCampaign, Contact contact, Customer customer) {
+    /**
+     * Initialise the view of a Call. It is called before every call.
+     * @param phoningCampaign
+     * @param contact
+     * @param customer
+     */
+    public void initView(PhoningCampaign phoningCampaign, Contact contact, Customer customer,ContactCampaign contactCampaign) {
         this.phoningCampaign = phoningCampaign;
         this.contact = contact;
         this.customer = customer;
@@ -139,9 +148,19 @@ public class CallPhoningCampaignFragment extends Fragment {
           contactJob.setText(this.contact.contactJob);
          customerName.setText(this.customer.getName());
 
+        if(contactCampaign.getContactInfo() == null) {
+            commentary.setText("");
+        } else {
+            commentary.setText(""+contactCampaign.getContactInfo());
+        }
+
+
+
     }
 
-
+    /**
+     * Method used to start a call
+     */
     public void startCall() {
         callButton.setImageResource(R.drawable.phone_logo_red);
         CallMessageController.sendCallMessage(contact.contactTel);
@@ -151,7 +170,7 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @Subscribe
     public void onPhoneCallEndedEvent(PhoneCallEndedEvent phoneCallEndedEvent) {
-        Log.d("callFragment","callEnded");
+        Log.d("callFragment", "callEnded");
         callButton.setImageResource(R.drawable.phone_logo_green);
         callBegin = false;
     }
@@ -166,9 +185,13 @@ public class CallPhoningCampaignFragment extends Fragment {
         Log.d("callFragment","Hoocked");
 }
 
+    /**
+     * Called when the user click on the phone. If the call is started, it end it, or it start it.
+     * @param view
+     */
     @OnClick(R.id.create_phoning_campaign_fragment_phone)
     public void onPhoneClick(final View view) {
-        if(callBegin == true ) {
+        if(callBegin) {
             CallMessageController.sendEndCallMessage();
         } else {
             startCall();
@@ -177,15 +200,28 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
     public void resetCall(final View view) {
-
+        controller.saveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_DEFINED);
+        controller.resetCall();
     }
 
+    /**
+     * Method called to pass to the next call.
+     * @param view
+     */
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
     public void nextCall(final View view) {
         if(!commentary.getText().toString().isEmpty()) {
-            controller.saveCurrentContactInfo(commentary.getText().toString());
+            controller.saveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_ENDED);
         }
-        controller.EndCall();
+        controller.endCall();
+    }
+
+    public void endCampaign() {
+        Snackbar snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_end_campaign,
+                Snackbar.LENGTH_LONG);
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+        snackbar.show();
+        this.getFragmentManager().popBackStack("detailHc", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
 
