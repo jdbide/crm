@@ -129,7 +129,7 @@ public class CallPhoningCampaignFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if(!callBegin)
-        controller.BeginCampaign();
+        controller.beginCampaign();
     }
 
     /**

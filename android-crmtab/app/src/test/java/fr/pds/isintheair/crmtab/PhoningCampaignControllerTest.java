@@ -116,7 +116,7 @@ public class PhoningCampaignControllerTest {
 
     }
 
-
+    
     @Test
     public void testEndCallPassNextContact() throws Exception {
         controller.setCurrentCustomer(indep);
@@ -190,7 +190,7 @@ public class PhoningCampaignControllerTest {
         controller = spy(controller);
         Mockito.doNothing().when(controller).beginCall();
         Mockito.doNothing().when(controller).updateCurrentCustomer();
-        controller.BeginCampaign();
+        controller.beginCampaign();
         assertEquals(PhoningCampaign.STATE_BEGINED, phoningCampaign.getStatut());
         verify(controller, Mockito.times(1)).beginCall();
         verify(controller,Mockito.times(1)).updateCurrentCustomer();
@@ -224,6 +224,9 @@ public class PhoningCampaignControllerTest {
         assertEquals(PhoningCampaign.STATE_ENDED,phoningCampaign.getStatut());
 
     }
+
+
+
 
     @After
     public void tearDown() throws Exception {

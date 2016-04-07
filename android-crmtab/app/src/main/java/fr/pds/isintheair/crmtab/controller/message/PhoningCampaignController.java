@@ -61,7 +61,7 @@ public class PhoningCampaignController  {
     /**
      * Start the new campaign
      */
-    public void BeginCampaign() {
+    public void beginCampaign() {
         phoningCampaign.setStatut(PhoningCampaign.STATE_BEGINED);
         phoningCampaign.save();
         updateCurrentCustomer();
