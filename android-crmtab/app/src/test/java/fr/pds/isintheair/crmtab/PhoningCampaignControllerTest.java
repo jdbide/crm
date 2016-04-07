@@ -176,12 +176,12 @@ public class PhoningCampaignControllerTest {
     public void testBeginCall() throws Exception {
 
         Mockito.doNothing().when(fragment)
-                .initView(any(PhoningCampaign.class),any(Contact.class),any(Customer.class),any(ContactCampaign.class));
+                .initView(any(PhoningCampaign.class), any(Contact.class), any(Customer.class), any(ContactCampaign.class));
         Mockito.doNothing().when(fragment).startCall();
         controller.updateCurrentCustomer();
         controller.beginCall();
         assertEquals(controller.getContactCampaign().getContactId(), 1);
-        assertEquals(controller.getCurrentContact(),contact);
+        assertEquals(controller.getCurrentContact(), contact);
 
     }
 
@@ -209,7 +209,7 @@ public class PhoningCampaignControllerTest {
        ContactCampaign contactCampaign = contactCampaigns.get(0);
         String commentary = "commentary";
         controller.setContactCampaign(contactCampaign);
-        controller.saveCurrentContactInfo(commentary,ContactCampaign.STATE_ENDED);
+        controller.saveCurrentContactInfo(commentary, ContactCampaign.STATE_ENDED);
         assertEquals(commentary,contactCampaign.getContactInfo());
         assertEquals(ContactCampaign.STATE_ENDED,contactCampaign.getStatus());
     }
@@ -225,8 +225,14 @@ public class PhoningCampaignControllerTest {
 
     }
 
-
-
+    @Test
+    public void testResetCall() throws Exception {
+        controller.setCurrentContact(contact2);
+        controller = spy(controller);
+        Mockito.doNothing().when(controller).endCall();
+        controller.resetCall();
+        assertEquals(contact2,controller.getResetContact().get(0));
+    }
 
     @After
     public void tearDown() throws Exception {
