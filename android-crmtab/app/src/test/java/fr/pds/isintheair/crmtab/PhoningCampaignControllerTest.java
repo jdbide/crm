@@ -89,7 +89,7 @@ public class PhoningCampaignControllerTest {
         customerListHashMap.put(hc, listHealthCenter);
 
 
-        phoningCampaign.setStatut(PhoningCampaign.STATE_BEGINED);
+        phoningCampaign.setStatut(PhoningCampaign.STATE_DEFINED);
         phoningCampaign.save();
 
         contactCampaigns = new ArrayList<>();
@@ -180,6 +180,25 @@ public class PhoningCampaignControllerTest {
         assertEquals(controller.getContactCampaign().getContactId(), 1);
         assertEquals(controller.getCurrentContact(),contact);
 
+    }
+
+    @Test
+    public void testBeginCampaign() throws Exception {
+        controller = spy(controller);
+        Mockito.doNothing().when(controller).BeginCall();
+        Mockito.doNothing().when(controller).UpdateCurrentCustomer();
+        controller.BeginCampaign();
+        assertEquals(PhoningCampaign.STATE_BEGINED, phoningCampaign.getStatut());
+        verify(controller, Mockito.times(1)).BeginCall();
+        verify(controller,Mockito.times(1)).UpdateCurrentCustomer();
+
+    }
+
+    @Test
+    public void testUpdateCurrentCustomer() throws Exception {
+        controller.setCurrentCustomerposition(1);
+        controller.UpdateCurrentCustomer();
+        assertEquals(hc,controller.getCurrentCustomer());
     }
 
     @After
