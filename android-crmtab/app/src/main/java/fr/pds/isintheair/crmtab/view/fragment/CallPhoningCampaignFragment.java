@@ -1,8 +1,10 @@
 package fr.pds.isintheair.crmtab.view.fragment;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -213,6 +215,14 @@ public class CallPhoningCampaignFragment extends Fragment {
             controller.SaveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_ENDED);
         }
         controller.EndCall();
+    }
+
+    public void EndCampaign() {
+        Snackbar snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_end_campaign,
+                Snackbar.LENGTH_LONG);
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+        snackbar.show();
+        this.getFragmentManager().popBackStack("detailHc", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
 

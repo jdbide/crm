@@ -145,11 +145,7 @@ public class PhoningCampaignController  {
         phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
         phoningCampaign.setEndDate(currentDateTimeString);
         phoningCampaign.save();
-        Snackbar snackbar = Snackbar.make(fragment.getView(), R.string.call_phoning_campaign_fragment_end_campaign,
-                Snackbar.LENGTH_LONG);
-        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
-        snackbar.show();
-        fragment.getFragmentManager().popBackStack("detailHc", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragment.EndCampaign();
     }
 
     /**
@@ -168,4 +164,83 @@ public class PhoningCampaignController  {
     }
 
 
+    public LinkedHashMap<Customer, List<Contact>> getCustomerListReseted() {
+        return customerListReseted;
+    }
+
+    public void setCustomerListReseted(LinkedHashMap<Customer, List<Contact>> customerListReseted) {
+        this.customerListReseted = customerListReseted;
+    }
+
+    public List<Contact> getResetContact() {
+        return resetContact;
+    }
+
+    public void setResetContact(List<Contact> resetContact) {
+        this.resetContact = resetContact;
+    }
+
+    public Contact getCurrentContact() {
+        return currentContact;
+    }
+
+    public void setCurrentContact(Contact currentContact) {
+        this.currentContact = currentContact;
+    }
+
+    public ContactCampaign getContactCampaign() {
+        return contactCampaign;
+    }
+
+    public void setContactCampaign(ContactCampaign contactCampaign) {
+        this.contactCampaign = contactCampaign;
+    }
+
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
+    }
+
+    public void setCurrentCustomer(Customer currentCustomer) {
+        this.currentCustomer = currentCustomer;
+    }
+
+    public CallPhoningCampaignFragment getFragment() {
+        return fragment;
+    }
+
+    public void setFragment(CallPhoningCampaignFragment fragment) {
+        this.fragment = fragment;
+    }
+
+    public PhoningCampaign getPhoningCampaign() {
+        return phoningCampaign;
+    }
+
+    public void setPhoningCampaign(PhoningCampaign phoningCampaign) {
+        this.phoningCampaign = phoningCampaign;
+    }
+
+    public int getCurrentContactPosition() {
+        return currentContactPosition;
+    }
+
+    public void setCurrentContactPosition(int currentContactPosition) {
+        this.currentContactPosition = currentContactPosition;
+    }
+
+    public int getCurrentCustomerposition() {
+        return currentCustomerposition;
+    }
+
+    public void setCurrentCustomerposition(int currentCustomerposition) {
+        this.currentCustomerposition = currentCustomerposition;
+    }
+
+    public LinkedHashMap<Customer, List<Contact>> getCustomerListHashMap() {
+        return customerListHashMap;
+    }
+
+    public void setCustomerListHashMap(LinkedHashMap<Customer, List<Contact>> customerListHashMap) {
+        this.customerListHashMap = customerListHashMap;
+    }
 }
