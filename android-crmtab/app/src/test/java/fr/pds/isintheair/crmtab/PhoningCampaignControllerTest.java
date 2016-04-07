@@ -15,7 +15,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,6 +32,7 @@ import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
 import fr.pds.isintheair.crmtab.view.fragment.CallPhoningCampaignFragment;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doNothing;
@@ -118,10 +121,10 @@ public class PhoningCampaignControllerTest {
     public void testEndCallPassNextContact() throws Exception {
         controller.setCurrentCustomer(indep);
         controller = spy(controller);
-        Mockito.doNothing().when(controller).BeginCall();
-        controller.EndCall();
-        verify(controller,Mockito.times(1)).BeginCall();
-        verify(controller,Mockito.times(1)).UpdateCurrentCustomer();
+        Mockito.doNothing().when(controller).beginCall();
+        controller.endCall();
+        verify(controller,Mockito.times(1)).beginCall();
+        verify(controller,Mockito.times(1)).updateCurrentCustomer();
         assertEquals(1,controller.getCurrentContactPosition());
     }
 
@@ -130,21 +133,21 @@ public class PhoningCampaignControllerTest {
         controller.setCurrentCustomer(indep);
         controller.setCurrentContactPosition(1);
         controller = spy(controller);
-        Mockito.doNothing().when(controller).BeginCall();
-        controller.EndCall();
-        verify(controller, Mockito.times(1)).BeginCall();
-        verify(controller,Mockito.times(1)).UpdateCurrentCustomer();
+        Mockito.doNothing().when(controller).beginCall();
+        controller.endCall();
+        verify(controller, Mockito.times(1)).beginCall();
+        verify(controller,Mockito.times(1)).updateCurrentCustomer();
         assertEquals(hc, controller.getCurrentCustomer());
     }
 
     @Test
     public void testEndCallEndCampaign() throws Exception {
-        Mockito.doNothing().when(fragment).EndCampaign();
+        Mockito.doNothing().when(fragment).endCampaign();
         controller.setCurrentCustomer(hc);
         controller.setCurrentContactPosition(2);
         controller = spy(controller);
-        controller.EndCall();
-        verify(controller, Mockito.times(1)).EndCampaign();
+        controller.endCall();
+        verify(controller, Mockito.times(1)).endCampaign();
     }
 
     @Test
@@ -159,10 +162,10 @@ public class PhoningCampaignControllerTest {
         controller.setCurrentCustomer(hc);
         controller.setCurrentContactPosition(2);
         controller = spy(controller);
-        Mockito.doNothing().when(controller).BeginCall();
-        controller.EndCall();
-        verify(controller, Mockito.times(1)).BeginCall();
-        verify(controller,Mockito.times(1)).UpdateCurrentCustomer();
+        Mockito.doNothing().when(controller).beginCall();
+        controller.endCall();
+        verify(controller, Mockito.times(1)).beginCall();
+        verify(controller,Mockito.times(1)).updateCurrentCustomer();
         assertEquals(indep, controller.getCurrentCustomer());
         assertEquals(0,controller.getCurrentContactPosition());
         assertEquals(0,controller.getCurrentCustomerposition());
@@ -175,8 +178,8 @@ public class PhoningCampaignControllerTest {
         Mockito.doNothing().when(fragment)
                 .initView(any(PhoningCampaign.class),any(Contact.class),any(Customer.class),any(ContactCampaign.class));
         Mockito.doNothing().when(fragment).startCall();
-        controller.UpdateCurrentCustomer();
-        controller.BeginCall();
+        controller.updateCurrentCustomer();
+        controller.beginCall();
         assertEquals(controller.getContactCampaign().getContactId(), 1);
         assertEquals(controller.getCurrentContact(),contact);
 
@@ -185,26 +188,41 @@ public class PhoningCampaignControllerTest {
     @Test
     public void testBeginCampaign() throws Exception {
         controller = spy(controller);
-        Mockito.doNothing().when(controller).BeginCall();
-        Mockito.doNothing().when(controller).UpdateCurrentCustomer();
+        Mockito.doNothing().when(controller).beginCall();
+        Mockito.doNothing().when(controller).updateCurrentCustomer();
         controller.BeginCampaign();
         assertEquals(PhoningCampaign.STATE_BEGINED, phoningCampaign.getStatut());
-        verify(controller, Mockito.times(1)).BeginCall();
-        verify(controller,Mockito.times(1)).UpdateCurrentCustomer();
+        verify(controller, Mockito.times(1)).beginCall();
+        verify(controller,Mockito.times(1)).updateCurrentCustomer();
 
     }
 
     @Test
     public void testUpdateCurrentCustomer() throws Exception {
         controller.setCurrentCustomerposition(1);
-        controller.UpdateCurrentCustomer();
+        controller.updateCurrentCustomer();
         assertEquals(hc,controller.getCurrentCustomer());
     }
 
     @Test
     public void testSaveCurrentContactInfo() throws Exception {
        ContactCampaign contactCampaign = contactCampaigns.get(0);
-        controller.SaveCurrentContactInfo
+        String commentary = "commentary";
+        controller.setContactCampaign(contactCampaign);
+        controller.saveCurrentContactInfo(commentary,ContactCampaign.STATE_ENDED);
+        assertEquals(commentary,contactCampaign.getContactInfo());
+        assertEquals(ContactCampaign.STATE_ENDED,contactCampaign.getStatus());
+    }
+
+    @Test
+    public void testEndCampaign() throws Exception {
+        Mockito.doNothing().when(fragment).endCampaign();
+        Date date = new Date();
+        PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(date);
+        controller.endCampaign();
+        assertEquals(DateFormat.getDateTimeInstance().format(date), phoningCampaign.getEndDate());
+        assertEquals(PhoningCampaign.STATE_ENDED,phoningCampaign.getStatut());
+
     }
 
     @After

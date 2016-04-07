@@ -158,6 +158,9 @@ public class PhoningCampaignController  {
         contactCampaign.save();
     }
 
+    /**
+     * Add the contact to the contact list which the user want to call later on
+     */
     public void resetCall() {
         resetContact.add(currentContact);
         endCall();
