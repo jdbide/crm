@@ -185,8 +185,8 @@ public class PhoningCampaignControllerTest {
         verify(controller, Mockito.times(1)).beginCall();
         verify(controller,Mockito.times(1)).updateCurrentCustomer();
         assertEquals(indep, controller.getCurrentCustomer());
-        assertEquals(0,controller.getCurrentContactPosition());
-        assertEquals(0,controller.getCurrentCustomerposition());
+        assertEquals(0, controller.getCurrentContactPosition());
+        assertEquals(0, controller.getCurrentCustomerposition());
     }
 
 
@@ -219,7 +219,7 @@ public class PhoningCampaignControllerTest {
     public void testUpdateCurrentCustomer() throws Exception {
         controller.setCurrentCustomerposition(1);
         controller.updateCurrentCustomer();
-        assertEquals(hc,controller.getCurrentCustomer());
+        assertEquals(hc, controller.getCurrentCustomer());
     }
 
     @Test
@@ -228,7 +228,7 @@ public class PhoningCampaignControllerTest {
         String commentary = "commentary";
         controller.setContactCampaign(contactCampaign);
         controller.saveCurrentContactInfo(commentary, ContactCampaign.STATE_ENDED);
-        assertEquals(commentary,contactCampaign.getContactInfo());
+        assertEquals(commentary, contactCampaign.getContactInfo());
         assertEquals(ContactCampaign.STATE_ENDED,contactCampaign.getStatus());
     }
 
@@ -264,9 +264,27 @@ public class PhoningCampaignControllerTest {
         Response responseMocked = Response.success(response);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.github.com/").build();
         verify(controller).endRestCampaign(callbackArgumentCaptor.capture());
-        callbackArgumentCaptor.getValue().onResponse(responseMocked,retrofit);
+        callbackArgumentCaptor.getValue().onResponse(responseMocked, retrofit);
 
         assertEquals(true,controller.isBoolReponse());
+    }
+
+    @Test
+    public void testEndRestCampaignError() throws Exception {
+        Mockito.doNothing().when(fragment).endCampaign(false);
+        controller = spy(controller);
+        CallBackSavedResponseRestPhoningCampaign cb = new CallBackSavedResponseRestPhoningCampaign(controller);
+        controller.endRestCampaign(cb);
+        controller.setFragment(fragment);
+        ResponseRestPhoningCampaign response = new ResponseRestPhoningCampaign();
+        response.setSaved(true);
+        Response responseMocked = Response.success(response);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.github.com/").build();
+        verify(controller).endRestCampaign(callbackArgumentCaptor.capture());
+        Throwable t = new Throwable("message");
+        callbackArgumentCaptor.getValue().onFailure(t);
+
+        assertEquals(false,controller.isBoolReponse());
     }
 
     @After
