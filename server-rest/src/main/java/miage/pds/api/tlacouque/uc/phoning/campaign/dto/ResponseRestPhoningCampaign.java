@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class ResponseRestPhoningCampaign {
     ArrayList<Contact> contacts;
+    boolean isSaved;
 
     public ArrayList<Contact> getContacts() {
         return contacts;

@@ -54,4 +54,16 @@ public class RestPhoningCampaignController {
         return response;
     }
 
+    /**
+     * Take a MessageRestPhoningCampaign (dto) in parameter with list of String in it.
+     * Return the list of contact depends on the id pass in parameter
+     * @param message
+     * @return ResponseRestCustomer
+     */
+    @RequestMapping(value = "/phoningcampaign", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseRestPhoningCampaign savePhoningCampaign(@RequestBody MessageRestPhoningCampaign message) {
+        return null;
+    }
+
 }
