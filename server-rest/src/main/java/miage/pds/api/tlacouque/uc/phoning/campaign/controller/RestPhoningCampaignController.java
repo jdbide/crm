@@ -12,7 +12,9 @@ import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.Customer;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.entities.MapInfo;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.message.MessageRestCustomer;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.message.ResponseRestCustomer;
+import miage.pds.api.tlacouque.uc.phoning.campaign.dao.ContactCampaignDAO;
 import miage.pds.api.tlacouque.uc.phoning.campaign.dao.ContactDAO;
+import miage.pds.api.tlacouque.uc.phoning.campaign.dao.PhoningCampaignDAO;
 import miage.pds.api.tlacouque.uc.phoning.campaign.dto.MessageRestPhoningCampaign;
 import miage.pds.api.tlacouque.uc.phoning.campaign.dto.ResponseRestPhoningCampaign;
 import org.springframework.stereotype.Controller;
@@ -63,7 +65,13 @@ public class RestPhoningCampaignController {
     @RequestMapping(value = "/phoningcampaign", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestPhoningCampaign savePhoningCampaign(@RequestBody MessageRestPhoningCampaign message) {
-        return null;
+        ContactCampaignDAO campaignDAO = new ContactCampaignDAO(MongoDatastoreConfig.getDataStore());
+        PhoningCampaignDAO phoningCampaignDAO = new PhoningCampaignDAO(MongoDatastoreConfig.getDataStore());
+        campaignDAO.saveContactCampaignList(message.getContactCampaigns());
+        phoningCampaignDAO.save(message.getPhoningCampaign());
+        ResponseRestPhoningCampaign responseRestPhoningCampaign = new ResponseRestPhoningCampaign();
+        responseRestPhoningCampaign.setSaved(true);
+        return responseRestPhoningCampaign;
     }
 
 }

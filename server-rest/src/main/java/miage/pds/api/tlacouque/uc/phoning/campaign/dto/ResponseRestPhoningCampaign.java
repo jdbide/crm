@@ -21,4 +21,12 @@ public class ResponseRestPhoningCampaign {
     public void setContacts(ArrayList<Contact> contacts) {
         this.contacts = contacts;
     }
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
+    }
 }
