@@ -25,10 +25,17 @@ import fr.pds.isintheair.crmtab.model.dao.ContactDAO;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
+import fr.pds.isintheair.crmtab.model.entity.MessageRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestPhoningCampaign;
+import fr.pds.isintheair.crmtab.model.rest.RESTPhoningCampaignHandlerSingleton;
 import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 import fr.pds.isintheair.crmtab.view.fragment.CallPhoningCampaignFragment;
 import fr.pds.isintheair.crmtab.view.fragment.DetailPhoningCampaignFragment;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Created by tlacouque on 03/04/2016.
@@ -45,6 +52,8 @@ public class PhoningCampaignController  {
     Contact currentContact;
     List<Contact> resetContact;
     LinkedHashMap<Customer,List<Contact>> customerListReseted;
+    List<ContactCampaign> restContactCampaign;
+
 
 
     public PhoningCampaignController(HashMap<Customer, List<Contact>> customerListHashMap,
@@ -56,6 +65,7 @@ public class PhoningCampaignController  {
         currentCustomerposition = 0;
         currentContactPosition = 0;
         resetContact = new ArrayList<>();
+        restContactCampaign = new ArrayList<>();
     }
 
     /**
@@ -79,7 +89,10 @@ public class PhoningCampaignController  {
                 .get(currentContactPosition);
          contactCampaign = ContactCampaignDAO
                 .getContactCampaignFromIds(currentContact.getContactId(), phoningCampaign.getCampaignId());
-        fragment.initView(phoningCampaign, currentContact, currentCustomer,contactCampaign);
+        if(!restContactCampaign.contains(contactCampaign)) {
+            restContactCampaign.add(contactCampaign);
+        }
+        fragment.initView(phoningCampaign, currentContact, currentCustomer, contactCampaign);
         fragment.startCall();
 
     }
@@ -145,7 +158,46 @@ public class PhoningCampaignController  {
         phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
         phoningCampaign.setEndDate(currentDateTimeString);
         phoningCampaign.save();
-        fragment.endCampaign();
+        endRestCampaign();
+    }
+
+    /**
+     * called to save a campaign
+     */
+    public void endRestCampaign() {
+        MessageRestPhoningCampaign messageRestPhoningCampaign = new MessageRestPhoningCampaign();
+        messageRestPhoningCampaign.setPhoningCampaign(phoningCampaign);
+        messageRestPhoningCampaign.setContactCampaigns(restContactCampaign);
+        Call<ResponseRestPhoningCampaign> call = RESTPhoningCampaignHandlerSingleton.getInstance().getPhoningCampaignService()
+                .savePhoningCampaign(messageRestPhoningCampaign);
+
+        call.enqueue(new Callback<ResponseRestPhoningCampaign>() {
+            /**
+             * Called when a good HTTP response is return
+             * @param response
+             * @param retrofit
+             */
+            @Override
+            public void onResponse(Response<ResponseRestPhoningCampaign> response, Retrofit retrofit) {
+                boolean bool = false;
+                if (response.errorBody() == null) {
+                    if(response.body().isSaved()) {
+                        bool = true;
+                }
+                }
+                fragment.endCampaign(bool);
+
+            }
+
+            /**
+             * Called when a bad HTTP response is return
+             * @param t
+             */
+            @Override
+            public void onFailure(Throwable t) {
+                fragment.endCampaign(false);
+            }
+        });
     }
 
     /**

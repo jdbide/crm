@@ -213,16 +213,25 @@ public class CallPhoningCampaignFragment extends Fragment {
     public void nextCall(final View view) {
         if(!commentary.getText().toString().isEmpty()) {
             controller.saveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_ENDED);
+        } else {
+            controller.saveCurrentContactInfo("",ContactCampaign.STATE_ENDED);
         }
         controller.endCall();
     }
 
-    public void endCampaign() {
-        Snackbar snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_end_campaign,
-                Snackbar.LENGTH_LONG);
+    public void endCampaign(boolean bool) {
+        Snackbar snackbar;
+        if(bool) {
+             snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_end_campaign,
+                    Snackbar.LENGTH_LONG);
+        } else {
+             snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_end_campaign_error,
+                    Snackbar.LENGTH_LONG);
+        }
+
         ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
         snackbar.show();
-        this.getFragmentManager().popBackStack("detailHc", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        this.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
 

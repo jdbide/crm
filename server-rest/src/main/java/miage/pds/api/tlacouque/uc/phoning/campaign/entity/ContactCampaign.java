@@ -1,5 +1,6 @@
 package miage.pds.api.tlacouque.uc.phoning.campaign.entity;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
@@ -11,6 +12,9 @@ import org.mongodb.morphia.annotations.Property;
 public class ContactCampaign {
 
     @Id
+    protected ObjectId id;
+
+    @Property
     int contactId;
 
     @Property

@@ -169,6 +169,8 @@
     <string name="call_phoning_campaign_fragment_reset_call">Appeler plus tard</string>
     <string name="call_phoning_campaign_fragment_stop_call">Continuer plus tard</string>
     <string name="call_phoning_campaign_fragment_end_campaign">Fin de la campagne</string>
+    <string name="call_phoning_campaign_fragment_end_campaign_error">La sauvegarde n\'a pu être envoyé sur le serveur.
+        \nLe système réessayera à la prochaine connexion</string>
 
 
 

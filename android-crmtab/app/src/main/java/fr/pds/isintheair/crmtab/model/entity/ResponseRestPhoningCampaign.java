@@ -8,8 +8,8 @@ import java.util.List;
  * Created by tlacouque on 27/03/2016.
  */
 public class ResponseRestPhoningCampaign {
+    boolean saved;
     ArrayList<Contact> contacts;
-    boolean isSaved;
 
     public ArrayList<Contact> getContacts() {
         return contacts;
@@ -20,10 +20,10 @@ public class ResponseRestPhoningCampaign {
     }
 
     public boolean isSaved() {
-        return isSaved;
+        return saved;
     }
 
     public void setSaved(boolean saved) {
-        isSaved = saved;
+        this.saved = saved;
     }
 }
