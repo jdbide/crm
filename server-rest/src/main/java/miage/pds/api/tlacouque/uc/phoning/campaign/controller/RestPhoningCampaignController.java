@@ -65,10 +65,16 @@ public class RestPhoningCampaignController {
     @RequestMapping(value = "/phoningcampaign", method = RequestMethod.POST)
     public @ResponseBody
     ResponseRestPhoningCampaign savePhoningCampaign(@RequestBody MessageRestPhoningCampaign message) {
-        ContactCampaignDAO campaignDAO = new ContactCampaignDAO(MongoDatastoreConfig.getDataStore());
-        PhoningCampaignDAO phoningCampaignDAO = new PhoningCampaignDAO(MongoDatastoreConfig.getDataStore());
-        campaignDAO.saveContactCampaignList(message.getContactCampaigns());
-        phoningCampaignDAO.save(message.getPhoningCampaign());
+        boolean response = true;
+        try {
+            ContactCampaignDAO campaignDAO = new ContactCampaignDAO(MongoDatastoreConfig.getDataStore());
+            PhoningCampaignDAO phoningCampaignDAO = new PhoningCampaignDAO(MongoDatastoreConfig.getDataStore());
+            campaignDAO.saveContactCampaignList(message.getContactCampaigns());
+            phoningCampaignDAO.save(message.getPhoningCampaign());
+        } catch (Exception e) {
+            response = false;
+        }
+
         ResponseRestPhoningCampaign responseRestPhoningCampaign = new ResponseRestPhoningCampaign();
         responseRestPhoningCampaign.setSaved(true);
         return responseRestPhoningCampaign;
