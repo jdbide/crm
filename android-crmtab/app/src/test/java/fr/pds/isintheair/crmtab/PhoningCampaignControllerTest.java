@@ -10,8 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -22,14 +26,20 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import fr.pds.isintheair.crmtab.controller.message.CallBackSavedResponseRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.controller.message.PhoningCampaignController;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
+import fr.pds.isintheair.crmtab.model.entity.MessageRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.view.fragment.CallPhoningCampaignFragment;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -39,12 +49,14 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static retrofit.Retrofit.*;
 
 /**
  * Created by tlacouque on 07/04/2016.
  */
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(RobolectricGradleTestRunner.class)
+@PrepareForTest({Retrofit.class})
 public class PhoningCampaignControllerTest {
     Contact contact;
     Contact contact2;
@@ -59,9 +71,14 @@ public class PhoningCampaignControllerTest {
     PhoningCampaignController controller;
     HashMap<Customer,List<Contact>> customerListHashMap;
 
+    @Captor
+    private ArgumentCaptor<CallBackSavedResponseRestPhoningCampaign> callbackArgumentCaptor;
+
+
 
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         contact = new Contact();
         contact.setContactId(1);
         contact2 = new Contact();
@@ -142,10 +159,11 @@ public class PhoningCampaignControllerTest {
 
     @Test
     public void testEndCallEndCampaign() throws Exception {
-        Mockito.doNothing().when(fragment).endCampaign();
+
         controller.setCurrentCustomer(hc);
         controller.setCurrentContactPosition(2);
         controller = spy(controller);
+        Mockito.doNothing().when(controller).endCampaign();
         controller.endCall();
         verify(controller, Mockito.times(1)).endCampaign();
     }
@@ -216,13 +234,13 @@ public class PhoningCampaignControllerTest {
 
     @Test
     public void testEndCampaign() throws Exception {
-        Mockito.doNothing().when(fragment).endCampaign();
+        controller = spy(controller);
+        Mockito.doNothing().when(controller).endRestCampaign(Mockito.any(CallBackSavedResponseRestPhoningCampaign.class));
         Date date = new Date();
         PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(date);
         controller.endCampaign();
         assertEquals(DateFormat.getDateTimeInstance().format(date), phoningCampaign.getEndDate());
         assertEquals(PhoningCampaign.STATE_ENDED,phoningCampaign.getStatut());
-
     }
 
     @Test
@@ -232,6 +250,23 @@ public class PhoningCampaignControllerTest {
         Mockito.doNothing().when(controller).endCall();
         controller.resetCall();
         assertEquals(contact2,controller.getResetContact().get(0));
+    }
+
+    @Test
+    public void testEndRestCampaignValid() throws Exception {
+        Mockito.doNothing().when(fragment).endCampaign(true);
+        controller = spy(controller);
+        CallBackSavedResponseRestPhoningCampaign cb = new CallBackSavedResponseRestPhoningCampaign(controller);
+        controller.endRestCampaign(cb);
+        controller.setFragment(fragment);
+        ResponseRestPhoningCampaign response = new ResponseRestPhoningCampaign();
+        response.setSaved(true);
+        Response responseMocked = Response.success(response);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.github.com/").build();
+        verify(controller).endRestCampaign(callbackArgumentCaptor.capture());
+        callbackArgumentCaptor.getValue().onResponse(responseMocked,retrofit);
+
+        assertEquals(true,controller.isBoolReponse());
     }
 
     @After

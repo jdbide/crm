@@ -53,7 +53,7 @@ public class PhoningCampaignController  {
     List<Contact> resetContact;
     LinkedHashMap<Customer,List<Contact>> customerListReseted;
     List<ContactCampaign> restContactCampaign;
-
+    boolean boolReponse;
 
 
     public PhoningCampaignController(HashMap<Customer, List<Contact>> customerListHashMap,
@@ -66,6 +66,7 @@ public class PhoningCampaignController  {
         currentContactPosition = 0;
         resetContact = new ArrayList<>();
         restContactCampaign = new ArrayList<>();
+         boolReponse = false;
     }
 
     /**
@@ -158,46 +159,20 @@ public class PhoningCampaignController  {
         phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
         phoningCampaign.setEndDate(currentDateTimeString);
         phoningCampaign.save();
-        endRestCampaign();
+        endRestCampaign(new CallBackSavedResponseRestPhoningCampaign(this));
     }
 
     /**
      * called to save a campaign
      */
-    public void endRestCampaign() {
+    public void endRestCampaign(CallBackSavedResponseRestPhoningCampaign cb) {
         MessageRestPhoningCampaign messageRestPhoningCampaign = new MessageRestPhoningCampaign();
         messageRestPhoningCampaign.setPhoningCampaign(phoningCampaign);
         messageRestPhoningCampaign.setContactCampaigns(restContactCampaign);
         Call<ResponseRestPhoningCampaign> call = RESTPhoningCampaignHandlerSingleton.getInstance().getPhoningCampaignService()
                 .savePhoningCampaign(messageRestPhoningCampaign);
 
-        call.enqueue(new Callback<ResponseRestPhoningCampaign>() {
-            /**
-             * Called when a good HTTP response is return
-             * @param response
-             * @param retrofit
-             */
-            @Override
-            public void onResponse(Response<ResponseRestPhoningCampaign> response, Retrofit retrofit) {
-                boolean bool = false;
-                if (response.errorBody() == null) {
-                    if(response.body().isSaved()) {
-                        bool = true;
-                }
-                }
-                fragment.endCampaign(bool);
-
-            }
-
-            /**
-             * Called when a bad HTTP response is return
-             * @param t
-             */
-            @Override
-            public void onFailure(Throwable t) {
-                fragment.endCampaign(false);
-            }
-        });
+        call.enqueue(cb);
     }
 
     /**
@@ -297,5 +272,21 @@ public class PhoningCampaignController  {
 
     public void setCustomerListHashMap(LinkedHashMap<Customer, List<Contact>> customerListHashMap) {
         this.customerListHashMap = customerListHashMap;
+    }
+
+    public List<ContactCampaign> getRestContactCampaign() {
+        return restContactCampaign;
+    }
+
+    public void setRestContactCampaign(List<ContactCampaign> restContactCampaign) {
+        this.restContactCampaign = restContactCampaign;
+    }
+
+    public boolean isBoolReponse() {
+        return boolReponse;
+    }
+
+    public void setBoolReponse(boolean boolReponse) {
+        this.boolReponse = boolReponse;
     }
 }
