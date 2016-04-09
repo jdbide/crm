@@ -42,7 +42,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doNothing;
@@ -266,7 +268,7 @@ public class PhoningCampaignControllerTest {
         verify(controller).endRestCampaign(callbackArgumentCaptor.capture());
         callbackArgumentCaptor.getValue().onResponse(responseMocked, retrofit);
 
-        assertEquals(true,controller.isBoolReponse());
+        assertTrue(controller.isBoolReponse());
     }
 
     @Test
@@ -284,7 +286,7 @@ public class PhoningCampaignControllerTest {
         Throwable t = new Throwable("message");
         callbackArgumentCaptor.getValue().onFailure(t);
 
-        assertEquals(false,controller.isBoolReponse());
+        assertFalse(controller.isBoolReponse());
     }
 
     @After
