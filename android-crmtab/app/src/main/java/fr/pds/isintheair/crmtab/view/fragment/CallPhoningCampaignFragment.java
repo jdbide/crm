@@ -201,8 +201,12 @@ public class CallPhoningCampaignFragment extends Fragment {
 
     @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
     public void resetCall(final View view) {
-        controller.saveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_DEFINED);
-        controller.resetCall();
+        if(!callBegin) {
+            controller.saveCurrentContactInfo(commentary.getText().toString(), ContactCampaign.STATE_DEFINED);
+            controller.resetCall();
+        } else {
+            snackbarActionDuringCall();
+        }
     }
 
     /**
@@ -211,12 +215,16 @@ public class CallPhoningCampaignFragment extends Fragment {
      */
     @OnClick(R.id.call_phoning_campaign_fragment_next_call)
     public void nextCall(final View view) {
-        if(!commentary.getText().toString().isEmpty()) {
-            controller.saveCurrentContactInfo(commentary.getText().toString(),ContactCampaign.STATE_ENDED);
+        if(!callBegin) {
+            if (!commentary.getText().toString().isEmpty()) {
+                controller.saveCurrentContactInfo(commentary.getText().toString(), ContactCampaign.STATE_ENDED);
+            } else {
+                controller.saveCurrentContactInfo("", ContactCampaign.STATE_ENDED);
+            }
+            controller.endCall();
         } else {
-            controller.saveCurrentContactInfo("",ContactCampaign.STATE_ENDED);
+            snackbarActionDuringCall();
         }
-        controller.endCall();
     }
 
     public void endCampaign(boolean bool) {
@@ -234,5 +242,11 @@ public class CallPhoningCampaignFragment extends Fragment {
         this.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
+    private void snackbarActionDuringCall() {
+        Snackbar snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_during_call,
+                Snackbar.LENGTH_LONG);
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+        snackbar.show();
+    }
 
 }
