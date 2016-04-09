@@ -76,7 +76,7 @@ public class RestPhoningCampaignController {
         }
 
         ResponseRestPhoningCampaign responseRestPhoningCampaign = new ResponseRestPhoningCampaign();
-        responseRestPhoningCampaign.setSaved(true);
+        responseRestPhoningCampaign.setSaved(response);
         return responseRestPhoningCampaign;
     }
 
