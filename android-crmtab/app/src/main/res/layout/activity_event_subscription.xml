@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp"
     tools:context="fr.pds.isintheair.crmtab.view.activity.EventSubscriptionActivity">
 
     <com.facebook.login.widget.LoginButton

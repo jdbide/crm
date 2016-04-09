@@ -42,9 +42,14 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Normalize"/>
         <item
+
             android:id="@+id/nav_phoning_campaign"
             android:icon="@android:drawable/sym_action_call"
             android:title="Campagne de phoning"/>
+        <item
+            android:id="@+id/nav_event_subscription"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Souscrire aux évènements"/>
 
     </item>
 

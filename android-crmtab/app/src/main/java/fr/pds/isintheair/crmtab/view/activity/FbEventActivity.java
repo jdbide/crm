@@ -77,6 +77,7 @@ public class FbEventActivity extends Activity {
                         // if this button is clicked, close
                         // current activity
                         mydb.insertEvent(gson.toJson(data,Data.class));
+
                         FbEventActivity.this.finish();
                     }
                 })

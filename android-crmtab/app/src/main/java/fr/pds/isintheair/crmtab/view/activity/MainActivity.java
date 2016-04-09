@@ -266,6 +266,9 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.agenda) {
             startActivity(new Intent(this, AgendaActivity.class));
         }
+        else if (id == R.id.nav_event_subscription){
+            startActivity(new Intent(this, EventSubscriptionActivity.class));
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
