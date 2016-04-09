@@ -8,10 +8,10 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.helper.FbDBHelper;
 import fr.pds.isintheair.crmtab.model.entity.FbEventsPojo.Data;
 
 public class FbEventActivity extends Activity {
-
     Data data;
     FbDBHelper mydb;
     String description, hdebut, hfin, lieu, title;

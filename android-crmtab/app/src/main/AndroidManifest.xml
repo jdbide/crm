@@ -100,7 +100,7 @@
         <activity android:name=".view.activity.ImportContactActivity" />
         <activity
             android:name=".view.activity.AgendaActivity"
-            android:label="@string/title_activity_agenda"></activity>
+            android:label="@string/title_activity_agenda" />
         <activity
             android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -115,7 +115,8 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".view.activity.FbEventActivity"></activity>
+        <activity android:name=".view.activity.FbEventActivity" />
+        <activity android:name=".view.activity.EventSubscriptionActivity"></activity>
     </application>
 
 </manifest>
