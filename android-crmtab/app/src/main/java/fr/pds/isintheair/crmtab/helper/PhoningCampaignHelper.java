@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 
 /**
@@ -24,5 +25,28 @@ public class PhoningCampaignHelper {
                                         int currentContactPosition,Customer currentCustomer) {
         int futurContactPosition = currentContactPosition + 1;
         return customerListHashMap.get(currentCustomer).size() == futurContactPosition;
+    }
+
+    /**
+     * Check if the contact campaign is already in the last pass in parameter. If it s true it
+     * replace the old contact campaign by the new.
+     * @param cp
+     * @param restContactCampaign
+     * @return
+     */
+    public static void contactCampaignInList(ContactCampaign cp, List<ContactCampaign> restContactCampaign) {
+       boolean bool = false;
+        ContactCampaign cpToRemove = null;
+        for(ContactCampaign  contactCampaign : restContactCampaign) {
+            if(contactCampaign.getContactId() == cp.getContactId()) {
+                bool = true;
+                cpToRemove = contactCampaign;
+            }
+        }
+      if(bool) {
+          restContactCampaign.remove(cpToRemove);
+      }
+        restContactCampaign.add(cp);
+
     }
 }

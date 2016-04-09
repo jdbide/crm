@@ -90,9 +90,7 @@ public class PhoningCampaignController  {
                 .get(currentContactPosition);
          contactCampaign = ContactCampaignDAO
                 .getContactCampaignFromIds(currentContact.getContactId(), phoningCampaign.getCampaignId());
-        if(!restContactCampaign.contains(contactCampaign)) {
-            restContactCampaign.add(contactCampaign);
-        }
+        PhoningCampaignHelper.contactCampaignInList(contactCampaign,restContactCampaign);
         fragment.initView(phoningCampaign, currentContact, currentCustomer, contactCampaign);
         fragment.startCall();
 
