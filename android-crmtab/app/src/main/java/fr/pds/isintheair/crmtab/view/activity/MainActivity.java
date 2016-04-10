@@ -263,6 +263,13 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        else if (id == R.id.nav_phoning_campaign) {
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, new ListCustomerFragment());
+            fragmentTransaction.addToBackStack("createPhoning");
+            fragmentTransaction.commit();
+        }
+
         else if (id == R.id.agenda) {
             startActivity(new Intent(this, AgendaActivity.class));
         }
