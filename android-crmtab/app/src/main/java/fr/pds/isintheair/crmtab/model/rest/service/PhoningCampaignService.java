@@ -21,4 +21,7 @@ public interface PhoningCampaignService {
 
     @POST("/api/phoningcampaign/contact")
     Call<ResponseRestPhoningCampaign> getContacts(@Body MessageRestPhoningCampaign message);
+
+    @POST("/api/phoningcampaign")
+    Call<ResponseRestPhoningCampaign> savePhoningCampaign(@Body MessageRestPhoningCampaign message);
 }
