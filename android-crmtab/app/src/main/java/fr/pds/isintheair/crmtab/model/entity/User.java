@@ -33,6 +33,9 @@ public class User extends BaseModel {
     @Column
     private String password;
 
+    @Column
+    private String location;
+
     public String getTel() {
         return tel;
     }
@@ -79,5 +82,13 @@ public class User extends BaseModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

@@ -11,10 +11,11 @@ import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
+import fr.pds.isintheair.crmtab.model.rest.service.RegisterCallSerciceGenerator;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -41,12 +42,12 @@ public class ControllerCra {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.getInstance().getBaseUrl())
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
-        SerciceGenerator service = retrofit.create(SerciceGenerator.class);
+        RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
         Call<Boolean> call = service.createcra(cra);
 
         call.enqueue(new Callback<Boolean>() {
@@ -155,12 +156,12 @@ public class ControllerCra {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.getInstance().getBaseUrl())
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
-        SerciceGenerator service = retrofit.create(SerciceGenerator.class);
+        RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
         Call<Boolean> call = service.createcra(cra);
 
         call.enqueue(new Callback<Boolean>() {

@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -14,9 +16,10 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.service.CalendarService;
 import fr.pds.isintheair.crmtab.controller.service.CallService;
+import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.helper.CredentialHelper;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.ListennerCallEndedEvent;
+import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
@@ -38,17 +41,24 @@ public class LoginActivity extends Activity implements Callback<User> {
     @Bind(R.id.login_edittext)
     EditText loginEditText;
 
+    @Bind(R.id.loginerror)
+    TextView error;
+
     @Bind(R.id.password_edittext)
     EditText passwordEditText;
 
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
 
+    @Bind(R.id.connection_button)
+    Button connect;
+
     private User currentUser;
 
     @OnClick(R.id.connection_button)
     public void onConnectionClick() {
         progressBar.setVisibility(View.VISIBLE);
+        error.setVisibility(View.GONE);
 
         String login    = loginEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -81,10 +91,21 @@ public class LoginActivity extends Activity implements Callback<User> {
         loginEditText.setText("test@crm.fr");
         passwordEditText.setText("password");
         progressBar.setVisibility(View.GONE);
+        error.setVisibility(View.GONE);
+
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onConnectionClick();
+            }
+        });
 
         currentUser = UserDAO.getCurrentUser();
 
+
+
         if (currentUser != null) {
+            initService();
             startActivity(new Intent(this, MainActivity.class));
         }
 
@@ -111,17 +132,25 @@ public class LoginActivity extends Activity implements Callback<User> {
             }
 
             currentUser.save();
+            initService();
 
-            startService(new Intent(LoginActivity.this, CallService.class));
-            startService(new Intent(LoginActivity.this, CalendarService.class));
-            startService(new Intent(LoginActivity.this, NotificationIntentService.class));
-            startService(new Intent(LoginActivity.this, ListennerCallEndedEvent.class));
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
         }
     }
 
     @Override
     public void onFailure(Throwable t) {
         currentUser.delete();
+        error.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void initService() {
+        startService(new Intent(LoginActivity.this, CallService.class));
+        startService(new Intent(LoginActivity.this, CalendarService.class));
+        startService(new Intent(LoginActivity.this, NotificationIntentService.class));
+        startService(new Intent(LoginActivity.this, ListennerCallEndedEvent.class));
+        startService(new Intent(LoginActivity.this, NotifyPresenceService.class));
     }
 }

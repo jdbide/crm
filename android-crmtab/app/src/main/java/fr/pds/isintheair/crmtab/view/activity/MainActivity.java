@@ -3,26 +3,43 @@ package fr.pds.isintheair.crmtab.view.activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.NfcF;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.Arrays;
+
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
+import fr.pds.isintheair.crmtab.controller.message.ClockinController;
 import fr.pds.isintheair.crmtab.controller.message.CrvController;
+import fr.pds.isintheair.crmtab.controller.service.CalendarService;
+import fr.pds.isintheair.crmtab.controller.service.CallService;
+import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
+import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.AndroidBus;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
@@ -39,7 +56,6 @@ import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateIndepFragment;
-import fr.pds.isintheair.crmtab.view.fragment.CreatePhoningCampaignFragment;
 import fr.pds.isintheair.crmtab.view.fragment.ListCustomerFragment;
 import fr.pds.isintheair.crmtab.view.fragment.MainLogoFragment;
 
@@ -54,23 +70,26 @@ public class MainActivity extends AppCompatActivity
     User    currentUser;
     // UC Register a call
     private PendingLogsFragment pend;
-    private AndroidBus          bus;
+    private TextView mTextView;
+    private NfcAdapter mNfcAdapter;
+    private PendingIntent mPendingIntent;
+    private IntentFilter[] mIntentFilters;
+    private String[][] mNFCTechLists;
+    private ImageView imgStatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Crm Tab");
-        
-        bus = Constants.getInstance().getCurrentBusInstance();
-        bus.register(this);
+
+        BusHandlerSingleton.getInstance().getBus().register(this);
 
         currentUser = new User();
-
-
-        Constants.getInstance().setCurrentUser(UserDAO.getCurrentUser());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,7 +109,58 @@ public class MainActivity extends AppCompatActivity
 
         if (getIntent().hasExtra("msg"))
             showNotificationListFrag();
+
+        //Badging
+        // mTextView = (TextView)findViewById(R.id.tag);
+        imgStatus = (ImageView)findViewById(R.id.imgStatus);
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
+        if (mNfcAdapter != null) {
+            // mTextView.setText("Read an NFC tag");
+        } else {
+            //mTextView.setText("This phone is not NFC enabled.");
+        }
+
+        // create an intent with tag data and deliver to this activity
+        mPendingIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+        // set an intent filter for all MIME data
+        IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        try {
+            ndefIntent.addDataType("*/*");
+            mIntentFilters = new IntentFilter[] { ndefIntent };
+        } catch (Exception e) {
+            Log.e("TagDispatch", e.toString());
+        }
+
+        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
     }
+
+    //Badging
+    @Override
+    public void onNewIntent(Intent intent) {
+        tagdDiscovered(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mNfcAdapter != null)
+            mNfcAdapter.enableForegroundDispatch(this, mPendingIntent, mIntentFilters, mNFCTechLists);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mNfcAdapter != null)
+            mNfcAdapter.disableForegroundDispatch(this);
+    }
+
+
+
 
     /**
      * @Override public void onBackPressed() {
@@ -117,7 +187,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.deco) {
-            PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
+
+            UserDAO.getCurrentUser().delete();
+            stopService(new Intent(this, CallService.class));
+            stopService(new Intent(this, CalendarService.class));
+            stopService(new Intent(this, NotificationIntentService.class));
+            stopService(new Intent(this, ListennerCallEndedEvent.class));
+            stopService(new Intent(this, NotifyPresenceService.class));
             startActivity(new Intent(this, LoginActivity.class));
         }
 
@@ -143,16 +219,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         }
-        /*else if (id == R.id.multiple_appel) {
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
-            bus.post(new CallEndedEvent(CallType.OUTGOING, Calendar.getInstance().getTime().toLocaleString(), "502", "0684894378"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1038", "0778801708"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0610772364"));
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620584913"));
 
-            bus.post(new CallEndedEvent(CallType.INCOMING, Calendar.getInstance().getTime().toLocaleString(), "1034", "0620123456"));
-
-        }*/
         else if (id == R.id.nav_lister_appel_non_enreg) {
             showNotificationListFrag();
         }
@@ -172,6 +239,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();*/
 
         }
+
         else if (id == R.id.nav_ref_client) {
             // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
             // setSupportActionBar(toolbar);
@@ -179,7 +247,6 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, new ListCustomerFragment());
             fragmentTransaction.addToBackStack("menu");
             fragmentTransaction.commit();
-
 
         }
         else if (id == R.id.nav_envoyer_sms) {
@@ -198,13 +265,6 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.agenda) {
             startActivity(new Intent(this, AgendaActivity.class));
-        }
-
-        else if (id == R.id.nav_phoning_campaign) {
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container, new CreatePhoningCampaignFragment());
-            fragmentTransaction.addToBackStack("createPhoning");
-            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -255,6 +315,8 @@ public class MainActivity extends AppCompatActivity
         ft.replace(R.id.container, fragment).addToBackStack(null).commit();
     }
 
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //No call for super(). Bug on API Level > 11.
@@ -267,14 +329,6 @@ public class MainActivity extends AppCompatActivity
             getFragmentManager().popBackStack();
         }
 
-       /* else {
-
-            MainLogoFragment mainLogoFragment = new MainLogoFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.container, mainLogoFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }*/
     }
 
     @Override
@@ -297,6 +351,45 @@ public class MainActivity extends AppCompatActivity
                                     .commit();
                 break;
         }
+    }
+
+    private void tagdDiscovered(Intent intent) {
+        String action = intent.getAction();
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
+        //String s = action + "\n\n" + tag.toString();
+        String s="";
+
+        // parse through all NDEF messages and their records and pick text type only
+        Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+        if (data != null) {
+            try {
+                for (int i = 0; i < data.length; i++) {
+                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
+                    for (int j = 0; j < recs.length; j++) {
+                        if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
+                                Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
+
+                            byte[] payload = recs[j].getPayload();
+                            String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+                            int langCodeLen = payload[0] & 0077;
+
+                            s = ( new String(payload, langCodeLen + 1,
+                                    payload.length - langCodeLen - 1, textEncoding));
+
+                            ClockinController.clockin(s, this);
+
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("TagDispatch", e.toString());
+            }
+
+        }
+
+
     }
 
 }

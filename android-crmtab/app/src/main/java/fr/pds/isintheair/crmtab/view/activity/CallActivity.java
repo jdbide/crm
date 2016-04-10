@@ -25,7 +25,6 @@ import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallEndedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallFailedEvent;
 import fr.pds.isintheair.crmtab.controller.bus.event.PhoneCallHookedEvent;
 import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.enums.CallType;
 import fr.pds.isintheair.crmtab.model.entity.MessageType;
@@ -121,7 +120,7 @@ public class CallActivity extends Activity {
 
         CallEndedEvent callEndedEvent = new CallEndedEvent(callType,formatted, Long.toString(callDuration / 1000), currentPhoneNumber);
 
-        Constants.getInstance().getCurrentBusInstance().post(callEndedEvent);
+        BusHandlerSingleton.getInstance().getBus().post(callEndedEvent);
 
         finish();
     }

@@ -28,11 +28,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.PhoningCampaignController;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 /**
  * Created by tlacouque on 28/03/2016.
@@ -95,6 +97,9 @@ public class DetailPhoningCampaignFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Initialise the view of detail fragment
+     */
     public void initView() {
         title.setText(phoningCampaign.getCampaignTheme());
         type.setText(phoningCampaign.getCampaignType());
@@ -111,6 +116,11 @@ public class DetailPhoningCampaignFragment extends Fragment {
         customerContactList.setLayoutParams(params);
     }
 
+    /**
+     * Called when the user click on the button "start campaign".
+     * It initialise the contact campaign and start the phoning campaign.
+     * @param view
+     */
     @OnClick(R.id.detail_phoning_campaign_fragment_begin_campaign_button)
     public void beginCampaign(final View view) {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
@@ -123,10 +133,26 @@ public class DetailPhoningCampaignFragment extends Fragment {
                 ContactCampaign contactCampaign = new ContactCampaign();
                 contactCampaign.setCampaignId(phoningCampaign.getCampaignId());
                 contactCampaign.setContactId(contact.getContactId());
-                contactCampaign.setContactInfo(ContactCampaign.STATE_DEFINED);
+                contactCampaign.setStatus(ContactCampaign.STATE_DEFINED);
                 contactCampaign.save();
             }
         }
+
+        Bundle bundle = new Bundle();
+
+        bundle.putSerializable(CallPhoningCampaignFragment.KEY_CUSTOMER_LIST_CONTACT, customerListHashMap);
+        bundle.putParcelable(CallPhoningCampaignFragment.KEY_PHONING_CAMPAIGN,
+                phoningCampaign);
+
+
+
+        CallPhoningCampaignFragment callPhoningCampaignFragment = new CallPhoningCampaignFragment();
+        callPhoningCampaignFragment.setArguments(bundle);
+
+        getActivity().getFragmentManager().beginTransaction().addToBackStack("callCampaign")
+                .replace(R.id.container, callPhoningCampaignFragment).commit();
+
+
 
     }
 

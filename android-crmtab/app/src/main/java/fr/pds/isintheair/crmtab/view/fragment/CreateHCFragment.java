@@ -33,17 +33,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
 import fr.pds.isintheair.crmtab.helper.FormatValidator;
+import fr.pds.isintheair.crmtab.model.asynctask.TileDownloader;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
+import fr.pds.isintheair.crmtab.model.entity.EtablishmentType;
+import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
+import fr.pds.isintheair.crmtab.model.entity.Holding;
 import fr.pds.isintheair.crmtab.model.entity.Holding_Table;
 import fr.pds.isintheair.crmtab.model.entity.MessageRestCustomer;
 import fr.pds.isintheair.crmtab.model.entity.PurchasingCentral;
 import fr.pds.isintheair.crmtab.model.entity.PurchasingCentral_Table;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
-import fr.pds.isintheair.crmtab.model.asynctask.TileDownloader;
-import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
-import fr.pds.isintheair.crmtab.model.entity.Holding;
-import fr.pds.isintheair.crmtab.model.entity.EtablishmentType;
 import fr.pds.isintheair.crmtab.model.rest.RESTCustomerHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;
@@ -237,7 +237,7 @@ public class CreateHCFragment extends Fragment implements ValidationListener {
         }
         healthCenter.setWebSite(webSite.getText().toString());
         healthCenter.setOrigin("Prospection");
-        healthCenter.setIdUser(Constants.getInstance().getCurrentUser().getId());
+        healthCenter.setIdUser(UserDAO.getCurrentUser().getId());
         healthCenter.setEtablishmentType(etablishmentType.getSelectedItem().toString());
         if (((RadioButton) getActivity().findViewById(isPublic.getCheckedRadioButtonId())).getText().toString().equals("Oui"))
             healthCenter.setIsPublic(true);

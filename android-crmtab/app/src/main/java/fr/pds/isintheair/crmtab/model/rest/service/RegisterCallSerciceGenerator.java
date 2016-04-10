@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest;
+package fr.pds.isintheair.crmtab.model.rest.service;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import retrofit.http.Query;
 /**
  * Created by j-d on 22/12/2015.
  */
-public interface SerciceGenerator {
+public interface RegisterCallSerciceGenerator {
 
 
     @GET("cra/listcra")

@@ -1,6 +1,8 @@
 package fr.pds.isintheair.crmtab.view.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
@@ -215,29 +217,52 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     public void onValidationSucceeded() {
         SparseBooleanArray position = customer.getCheckedItemPositions();
         int len = customer.getCount();
-        for (int i = 0; i < len; i++) {
-            if (position.get(i)) {
-                customersAdded.add(CustomerHelper.getCustomerFromName(
-                        (String) customer.getItemAtPosition(i), customers));
-            }
-        }
-        String typeString =  type.getSelectedItem().toString();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
-                (ArrayList<? extends Parcelable>) customersAdded);
-        bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
-                new PhoningCampaign(title.getText().toString(),typeString,objective.getText().toString()));
-        AddContactPhoningCampaignFragment addContactPhoningCampaignFragment = new AddContactPhoningCampaignFragment();
-        addContactPhoningCampaignFragment.setArguments(bundle);
 
-        ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
-                .replace(R.id.container, addContactPhoningCampaignFragment).commit();
+            for (int i = 0; i < len; i++) {
+                if (position.get(i)) {
+                    customersAdded.add(CustomerHelper.getCustomerFromName(
+                            (String) customer.getItemAtPosition(i), customers));
+                }
+            }
+        if(!(customersAdded.size() == 0)) {
+            String typeString = type.getSelectedItem().toString();
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(AddContactPhoningCampaignFragment.KEY_CUSTOMERS_ARGS,
+                    (ArrayList<? extends Parcelable>) customersAdded);
+            bundle.putParcelable(AddContactPhoningCampaignFragment.KEY_PHONING_CAMPAIGN_ARGS,
+                    new PhoningCampaign(title.getText().toString(), typeString, objective.getText().toString()));
+            AddContactPhoningCampaignFragment addContactPhoningCampaignFragment = new AddContactPhoningCampaignFragment();
+            addContactPhoningCampaignFragment.setArguments(bundle);
+
+            ((AppCompatActivity) getActivity()).getFragmentManager().beginTransaction().addToBackStack("detailHc")
+                    .replace(R.id.container, addContactPhoningCampaignFragment).commit();
+        }
     }
 
 
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
+
+        String errorString = "";
+
+        // Concat error strings
+        for (ValidationError error : errors) {
+            errorString = errorString + error.getCollatedErrorMessage
+                    (getActivity().getApplicationContext()) + ".\n";
+        }
+
+        ErrorCustomerAlertDialog alertDialog =
+                new ErrorCustomerAlertDialog(getContext());
+        alertDialog.setTitle(R.string.create_phoning_campaign_fragment_alert_dialog_error);
+        alertDialog.setMessage(errorString);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
 
     }
 

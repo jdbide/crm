@@ -1,4 +1,4 @@
-package miage.pds.api.mmefire.uc.sms.send.receive.rest;
+/*package miage.pds.api.mmefire.uc.sms.send.receive.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
  * Created by Maimouna MEFIRE on 22/03/2016.
  */
 
+/*@Controller
+@RequestMapping (value = "/sms")//
+=======
+
+>>>>>>> dev
 public class SmsController {
 
     boolean status = false;
@@ -51,5 +56,5 @@ public class SmsController {
         return messageService.deleteMessageById(id);
     }
 }
-
+*/
 

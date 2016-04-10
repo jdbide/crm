@@ -7,11 +7,10 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-
-import fr.pds.isintheair.crmtab.view.activity.MainActivity;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constants;
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
+import fr.pds.isintheair.crmtab.view.activity.MainActivity;
 
 /**
  * Created by j-d on 18/12/2015.
@@ -49,13 +48,13 @@ public class PopUpFragment extends DialogFragment {
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //hide popup , addlog fragment  is below
-                        Constants.getInstance().setPopUpDisplayed(false);
+                        Constant.setPopUpDisplayed(false);
                         ((MainActivity)getActivity()).showaddlogfragment(new DisplayAddLogFragmentEvent(callevent.getCallEndedEvent(),false));
 
                     }
                 }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Constants.getInstance().setPopUpDisplayed(false);
+                        Constant.setPopUpDisplayed(false);
                     }
                 }).show();
 

@@ -27,8 +27,6 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
 
 	// cra insertion
 	public boolean createCra(Cra cra) {
-		boolean state = false;
-		// check if connected to DB
 		cra.setIdcra(getUniqueIdCra());
 		getDatastore().save(cra);
 		return true;

@@ -57,12 +57,23 @@
         android:layout_gravity="center"
         android:progressDrawable="@drawable/circular_progress_bar"/>
 
+    <TextView
+        android:id="@+id/loginerror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Failed to login"
+        android:textColor="#ff0008"
+        android:typeface="sans"
+        android:visibility="gone"/>
+
     <Button
         android:id="@+id/connection_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="Connexion"/>
+        android:text="Connexion"
+        />
 
 </LinearLayout>
