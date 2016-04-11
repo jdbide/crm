@@ -2,6 +2,7 @@ package fr.pds.isintheair.crmtab.view.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -30,6 +31,7 @@ import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
+import fr.pds.isintheair.crmtab.model.dao.PhoningCampaignDAO;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
@@ -46,7 +48,8 @@ import retrofit.Retrofit;
 /**
  * Created by tlacouque on 26/03/2016.
  */
-public class CreatePhoningCampaignFragment extends Fragment  implements Validator.ValidationListener {
+public class CreatePhoningCampaignFragment extends Fragment  implements Validator.ValidationListener,
+        ReplayCampaignAlertDialog.AlertPositiveListener {
 
 
     public String idUser = UserDAO.getCurrentUser().getId();
@@ -73,6 +76,8 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     List<Customer> customersAdded;
 
     Validator       validator;
+
+    PhoningCampaign phoningCampaign;
 
     public CreatePhoningCampaignFragment() {
         // Required empty public constructor
@@ -266,6 +271,26 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        phoningCampaign = PhoningCampaignDAO.getStoppedPhoningCampaign();
+        if (phoningCampaign != null) {
+            ReplayCampaignAlertDialog alert = new ReplayCampaignAlertDialog();
+            alert.setAlertPositiveListener(this);
+            FragmentManager manager = getFragmentManager();
+            /** Creating the dialog fragment object, which will in turn open the alert dialog window */
+            alert.show(manager, "ReplayCampaignAlertDialog");
+        }
+    }
 
+    @Override
+    public void onPositiveClick() {
 
+    }
+
+    @Override
+    public void onNegativeClick() {
+        
+    }
 }
