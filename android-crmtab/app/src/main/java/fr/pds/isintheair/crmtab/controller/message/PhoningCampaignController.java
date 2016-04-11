@@ -191,6 +191,15 @@ public class PhoningCampaignController  {
         endCall();
     }
 
+    /**
+     * Called to pause a campaign
+     */
+    public void pauseCampaign() {
+        phoningCampaign.setStatut(PhoningCampaign.STATE_STOPPED);
+        phoningCampaign.save();
+        fragment.stopCampaign();
+    }
+
 
     public LinkedHashMap<Customer, List<Contact>> getCustomerListReseted() {
         return customerListReseted;

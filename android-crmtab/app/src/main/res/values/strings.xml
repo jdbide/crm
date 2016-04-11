@@ -172,6 +172,8 @@
     <string name="call_phoning_campaign_fragment_end_campaign">Fin de la campagne</string>
     <string name="call_phoning_campaign_fragment_end_campaign_error">La sauvegarde n\'a pu être envoyé sur le serveur.
         \nLe système réessayera à la prochaine connexion</string>
+    <string name="call_phoning_campaign_fragment_pause_campaign">Mettre en pause la campagne</string>
+    <string name="stop_campaign_alert_dialog_title">Êtes vous sur de vouloir mettre en pause la campagne ?</string>
 
 
 

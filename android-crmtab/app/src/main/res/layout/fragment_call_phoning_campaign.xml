@@ -188,6 +188,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/call_phoning_campaign_fragment_pause_campaign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/call_phoning_campaign_fragment_pause_campaign"/>
     <Button
         android:id="@+id/call_phoning_campaign_fragment_reset_call"
         android:layout_width="wrap_content"

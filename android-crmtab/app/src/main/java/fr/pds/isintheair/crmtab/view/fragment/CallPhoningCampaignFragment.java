@@ -46,7 +46,7 @@ import fr.pds.isintheair.crmtab.view.activity.MainActivity;
  * Created by tlacouque on 03/04/2016.
  * Fragment used to do all the call of a phoning campaign
  */
-public class CallPhoningCampaignFragment extends Fragment {
+public class CallPhoningCampaignFragment extends Fragment implements StopCampaignAlertDialog.AlertPositiveListener{
 
     public static String KEY_PHONING_CAMPAIGN = "PHONING_CAMPAIGN";
     public static String KEY_CUSTOMER_LIST_CONTACT = "CUSTOMER_LIST_CONTACT";
@@ -226,6 +226,24 @@ public class CallPhoningCampaignFragment extends Fragment {
         }
     }
 
+    /**
+     * Method called to pause a campaign
+     * @param view
+     */
+    @OnClick(R.id.call_phoning_campaign_fragment_pause_campaign)
+    public void pauseCampaign(final View view) {
+        if(!callBegin) {
+            StopCampaignAlertDialog alert = new StopCampaignAlertDialog();
+            alert.setAlertPositiveListener(this);
+            FragmentManager manager = getFragmentManager();
+            /** Creating the dialog fragment object, which will in turn open the alert dialog window */
+            alert.show(manager, "StopCampaignAlertDialog");
+
+        } else {
+            snackbarActionDuringCall();
+        }
+    }
+
     public void endCampaign(boolean bool) {
         Snackbar snackbar;
         if(bool) {
@@ -241,6 +259,10 @@ public class CallPhoningCampaignFragment extends Fragment {
         this.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
+    public void stopCampaign() {
+        this.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     private void snackbarActionDuringCall() {
         Snackbar snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_during_call,
                 Snackbar.LENGTH_LONG);
@@ -248,4 +270,13 @@ public class CallPhoningCampaignFragment extends Fragment {
         snackbar.show();
     }
 
+    @Override
+    public void onPositiveClick() {
+        if (!commentary.getText().toString().isEmpty()) {
+            controller.saveCurrentContactInfo(commentary.getText().toString(), ContactCampaign.STATE_ENDED);
+        } else {
+            controller.saveCurrentContactInfo("", ContactCampaign.STATE_ENDED);
+        }
+        controller.pauseCampaign();
+    }
 }
