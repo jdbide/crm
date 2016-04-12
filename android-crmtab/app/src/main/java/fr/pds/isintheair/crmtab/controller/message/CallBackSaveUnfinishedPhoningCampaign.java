@@ -31,6 +31,6 @@ public class CallBackSaveUnfinishedPhoningCampaign implements Callback<ResponseR
 
     @Override
     public void onFailure(Throwable t) {
-
+        fragment.stopCampaign(false);
     }
 }
