@@ -31,7 +31,6 @@ public class StopCampaignAlertDialog extends DialogFragment {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             AlertDialog alert    = (AlertDialog) dialog;
-            int         position = alert.getListView().getCheckedItemPosition();
             alertPositiveListener.onPositiveClick();
         }
     };

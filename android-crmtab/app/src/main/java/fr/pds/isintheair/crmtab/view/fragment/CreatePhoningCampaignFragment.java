@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -23,23 +25,31 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.CallBackSaveUnfinishedPhoningCampaign;
 import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
+import fr.pds.isintheair.crmtab.model.dao.ContactCampaignDAO;
 import fr.pds.isintheair.crmtab.model.dao.PhoningCampaignDAO;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
+import fr.pds.isintheair.crmtab.model.entity.Contact;
+import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 import fr.pds.isintheair.crmtab.model.entity.Customer;
 import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
+import fr.pds.isintheair.crmtab.model.entity.MessageRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.PhoningCampaignType;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
+import fr.pds.isintheair.crmtab.model.entity.ResponseRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.model.rest.RESTCustomerHandlerSingleton;
+import fr.pds.isintheair.crmtab.model.rest.RESTPhoningCampaignHandlerSingleton;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -176,6 +186,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
                     }
                 }
                 initAdapter(customers);
+                isCampaignAlreadySet();
             }
 
             @Override
@@ -203,6 +214,18 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         params.height = 1000;
         customer.setLayoutParams(params);
 
+    }
+
+
+    private void isCampaignAlreadySet() {
+        phoningCampaign = PhoningCampaignDAO.getStoppedPhoningCampaign();
+        if (phoningCampaign != null) {
+            ReplayCampaignAlertDialog alert = new ReplayCampaignAlertDialog();
+            alert.setAlertPositiveListener(this);
+            FragmentManager manager = getFragmentManager();
+            /** Creating the dialog fragment object, which will in turn open the alert dialog window */
+            alert.show(manager, "ReplayCampaignAlertDialog");
+        }
     }
 
 
@@ -271,26 +294,81 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        phoningCampaign = PhoningCampaignDAO.getStoppedPhoningCampaign();
-        if (phoningCampaign != null) {
-            ReplayCampaignAlertDialog alert = new ReplayCampaignAlertDialog();
-            alert.setAlertPositiveListener(this);
-            FragmentManager manager = getFragmentManager();
-            /** Creating the dialog fragment object, which will in turn open the alert dialog window */
-            alert.show(manager, "ReplayCampaignAlertDialog");
-        }
-    }
+
 
     @Override
     public void onPositiveClick() {
+        MessageRestPhoningCampaign message = new MessageRestPhoningCampaign();
+        List<Independant> independants = new ArrayList<>();
+        List<HealthCenter> healthCenters = new ArrayList<>();
+        CustomerHelper.addHCIndependantIntoList(customers, independants, healthCenters);
+        ArrayList<String> customersId = CustomerHelper.getCustomerIds(independants,healthCenters);
 
+        message.setCustomersId(customersId);
+        Call<ResponseRestPhoningCampaign> call = RESTPhoningCampaignHandlerSingleton.getInstance()
+                .getPhoningCampaignService().getContacts(message);
+
+        call.enqueue(new Callback<ResponseRestPhoningCampaign>() {
+            @Override
+            public void onResponse(Response<ResponseRestPhoningCampaign> response, Retrofit retrofit) {
+
+                if (response.errorBody() == null) {
+                    if (response.body() != null) {
+                        restartCampaign(response.body().getContacts());
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                //initAdapter(customers);
+
+            }
+        });
+    }
+
+    public void restartCampaign(List<Contact> contacts) {
+        HashMap<Customer,List<Contact>> hashMap = CustomerHelper.getCustomerContactsMap(customers,contacts);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CallPhoningCampaignFragment.KEY_CUSTOMER_LIST_CONTACT, hashMap);
+        bundle.putParcelable(CallPhoningCampaignFragment.KEY_PHONING_CAMPAIGN,
+                phoningCampaign);
+        CallPhoningCampaignFragment callPhoningCampaignFragment = new CallPhoningCampaignFragment();
+        callPhoningCampaignFragment.setArguments(bundle);
+        getActivity().getFragmentManager().beginTransaction().addToBackStack("callCampaign")
+                .replace(R.id.container, callPhoningCampaignFragment).commit();
     }
 
     @Override
     public void onNegativeClick() {
-        
+        phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
+        phoningCampaign.save();
+        List<ContactCampaign> contactCampaigns =
+                ContactCampaignDAO.getContactCampaignFromCampaignId(phoningCampaign.getCampaignId());
+        MessageRestPhoningCampaign messageRestPhoningCampaign = new MessageRestPhoningCampaign();
+        messageRestPhoningCampaign.setPhoningCampaign(phoningCampaign);
+        messageRestPhoningCampaign.setContactCampaigns(contactCampaigns);
+        Call<ResponseRestPhoningCampaign> call = RESTPhoningCampaignHandlerSingleton.getInstance().getPhoningCampaignService()
+                .savePhoningCampaign(messageRestPhoningCampaign);
+        CallBackSaveUnfinishedPhoningCampaign cb = new CallBackSaveUnfinishedPhoningCampaign(this);
+        call.enqueue(cb);
+
+    }
+
+    public void stopCampaign(boolean bool) {
+        Snackbar snackbar;
+        if(bool) {
+            snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_stopped_campaign,
+                    Snackbar.LENGTH_LONG);
+        } else {
+            snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_end_campaign_error,
+                    Snackbar.LENGTH_LONG);
+        }
+
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+        snackbar.show();
     }
 }

@@ -56,6 +56,7 @@ import fr.pds.isintheair.crmtab.view.fragment.ContactListFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateCustomerAlertDialog;
 import fr.pds.isintheair.crmtab.view.fragment.CreateHCFragment;
 import fr.pds.isintheair.crmtab.view.fragment.CreateIndepFragment;
+import fr.pds.isintheair.crmtab.view.fragment.CreatePhoningCampaignFragment;
 import fr.pds.isintheair.crmtab.view.fragment.ListCustomerFragment;
 import fr.pds.isintheair.crmtab.view.fragment.MainLogoFragment;
 
@@ -265,7 +266,7 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_phoning_campaign) {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container, new ListCustomerFragment());
+            fragmentTransaction.replace(R.id.container, new CreatePhoningCampaignFragment());
             fragmentTransaction.addToBackStack("createPhoning");
             fragmentTransaction.commit();
         }

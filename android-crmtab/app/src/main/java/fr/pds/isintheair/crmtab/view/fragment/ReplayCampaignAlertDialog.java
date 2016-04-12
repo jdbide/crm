@@ -40,7 +40,7 @@ public class ReplayCampaignAlertDialog  extends DialogFragment {
         public void onClick(DialogInterface dialog, int which) {
             AlertDialog alert    = (AlertDialog) dialog;
 
-            alertPositiveListener.onPositiveClick();
+            alertPositiveListener.onNegativeClick();
         }
     };
 
