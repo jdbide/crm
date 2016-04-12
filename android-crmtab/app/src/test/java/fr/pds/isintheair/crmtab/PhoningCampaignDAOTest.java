@@ -43,9 +43,6 @@ public class PhoningCampaignDAOTest {
 
     @After
     public void tearDown() throws Exception {
-
-    
         FlowManager.destroy();
-
     }
 }
