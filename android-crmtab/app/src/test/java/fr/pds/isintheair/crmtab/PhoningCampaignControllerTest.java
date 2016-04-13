@@ -241,7 +241,6 @@ public class PhoningCampaignControllerTest {
         Date date = new Date();
         PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(date);
         controller.endCampaign();
-        assertEquals(DateFormat.getDateTimeInstance().format(date), phoningCampaign.getEndDate());
         assertEquals(PhoningCampaign.STATE_ENDED,phoningCampaign.getStatut());
     }
 
@@ -287,6 +286,13 @@ public class PhoningCampaignControllerTest {
         callbackArgumentCaptor.getValue().onFailure(t);
 
         assertFalse(controller.isBoolReponse());
+    }
+
+    @Test
+    public void testPauseCampaign() throws Exception {
+        controller.pauseCampaign();
+        verify(fragment, Mockito.times(1)).stopCampaign();
+        assertEquals(PhoningCampaign.STATE_STOPPED,phoningCampaign.getStatut());
     }
 
     @After

@@ -5,6 +5,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
@@ -14,6 +15,7 @@ import fr.pds.isintheair.crmtab.model.entity.HealthCenter;
 import fr.pds.isintheair.crmtab.model.entity.Independant;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -233,4 +235,94 @@ public class CustomerHelperTest {
 
     }
 
+    @Test
+    public void testGetCustomerByIndex() throws Exception {
+        String customerName1 = "Customer 1";
+        String customerName2 = "Customer 2";
+        String contactName1 = "Contact 1";
+        String contactName2 = "Contact 2";
+        String contactName3 = "Contact 3";
+        String contactName4 = "Contact 4";
+        String contactName5 = "Contact 5";
+        String contactFName1 = "Fname1";
+        String contactFName2 = "Fname2";
+        String contactFName3 = "Fname3";
+        String contactFName4 = "Fname4";
+        String contactFName5 = "Fname5";
+
+        Customer customer1 = Mockito.mock(Customer.class);
+        when(customer1.getName()).thenReturn(customerName1);
+
+        Customer customer2 = Mockito.mock(Customer.class);
+        when(customer2.getName()).thenReturn(customerName2);
+
+        Contact contact1 = new Contact();
+        contact1.setContactName(contactName1);
+        contact1.setContactFname(contactFName1);
+
+        Contact contact2 = new Contact();
+        contact2.setContactName(contactName2);
+        contact2.setContactFname(contactFName2);
+
+        Contact contact3 = new Contact();
+        contact3.setContactName(contactName3);
+        contact3.setContactFname(contactFName3);
+
+        Contact contact4 = new Contact();
+        contact4.setContactName(contactName4);
+        contact4.setContactFname(contactFName4);
+
+        Contact contact5 = new Contact();
+        contact5.setContactName(contactName5);
+        contact5.setContactFname(contactFName5);
+
+        List<Contact> contactsCustomer1 = new ArrayList<>();
+        contactsCustomer1.add(contact1);
+        contactsCustomer1.add(contact5);
+        List<Contact> contactsCustomer2 = new ArrayList<>();
+        contactsCustomer2.add(contact3);
+        contactsCustomer2.add(contact4);
+        contactsCustomer2.add(contact2);
+
+        LinkedHashMap<Customer,List<Contact>> listLinkedHashMap = new LinkedHashMap<>();
+
+        listLinkedHashMap.put(customer1, contactsCustomer1);
+        listLinkedHashMap.put(customer2,contactsCustomer2);
+
+        Customer customer = CustomerHelper.getCustomerByIndex(1,listLinkedHashMap);
+        assertEquals(customer2.getName(),customer.getName());
+
+
+    }
+
+    @Test
+    public void testGetCustomerIds() throws Exception {
+        Independant independant = new Independant();
+        independant.setSiretNumber(1);
+        Independant independant2 = new Independant();
+        independant.setSiretNumber(2);
+        Independant independant3 = new Independant();
+        independant.setSiretNumber(3);
+
+        ArrayList<Independant> independants = new ArrayList<>();
+        independants.add(independant);
+        independants.add(independant2);
+        independants.add(independant3);
+
+        HealthCenter healthCenter = new HealthCenter();
+        healthCenter.setSiretNumber(4);
+        HealthCenter healthCenter2 = new HealthCenter();
+        healthCenter2.setSiretNumber(5);
+        HealthCenter healthCenter3 = new HealthCenter();
+        healthCenter3.setSiretNumber(6);
+
+        ArrayList<HealthCenter> healthcenters = new ArrayList<>();
+        healthcenters.add(healthCenter);
+        healthcenters.add(healthCenter2);
+        healthcenters.add(healthCenter3);
+
+        ArrayList<String> strings = CustomerHelper.getCustomerIds(independants,healthcenters);
+        assertNotNull(strings);
+        assertEquals(6,strings.size());
+    }
 }
