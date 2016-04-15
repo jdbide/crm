@@ -17,6 +17,6 @@ public class PhoningCampaignDAO {
      */
     public static PhoningCampaign getStoppedPhoningCampaign() {
         return new Select().from(PhoningCampaign.class)
-                .where(PhoningCampaign_Table.statut.eq(PhoningCampaign.STATE_STOPPED)).querySingle();
+                .where(PhoningCampaign_Table.statut.notEq(PhoningCampaign.STATE_ENDED)).querySingle();
     }
 }
