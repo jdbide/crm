@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_phoning_campaign) {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container, new ListCustomerFragment());
+            fragmentTransaction.replace(R.id.container, new CreatePhoningCampaignFragment());
             fragmentTransaction.addToBackStack("createPhoning");
             fragmentTransaction.commit();
         }

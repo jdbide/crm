@@ -90,10 +90,14 @@ public class PhoningCampaignController  {
                 .get(currentContactPosition);
          contactCampaign = ContactCampaignDAO
                 .getContactCampaignFromIds(currentContact.getContactId(), phoningCampaign.getCampaignId());
-        PhoningCampaignHelper.contactCampaignInList(contactCampaign,restContactCampaign);
-        fragment.initView(phoningCampaign, currentContact, currentCustomer, contactCampaign);
-        fragment.startCall();
-
+        // check if the contact campaign has not already be saved
+        if(contactCampaign == null) {
+            endCall();
+        } else {
+            PhoningCampaignHelper.contactCampaignInList(contactCampaign, restContactCampaign);
+            fragment.initView(phoningCampaign, currentContact, currentCustomer, contactCampaign);
+            fragment.startCall();
+        }
     }
 
     /**
@@ -189,6 +193,15 @@ public class PhoningCampaignController  {
     public void resetCall() {
         resetContact.add(currentContact);
         endCall();
+    }
+
+    /**
+     * Called to pause a campaign
+     */
+    public void pauseCampaign() {
+        phoningCampaign.setStatut(PhoningCampaign.STATE_STOPPED);
+        phoningCampaign.save();
+        fragment.stopCampaign();
     }
 
 
