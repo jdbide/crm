@@ -11,9 +11,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.List;
+
 import fr.pds.isintheair.crmtab.model.dao.ContactCampaignDAO;
 import fr.pds.isintheair.crmtab.model.entity.ContactCampaign;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -40,6 +43,16 @@ public class ContactCampaignDAOTest
     @Test
     public void testGetContactCampaignFromCampaignId() throws Exception {
         assertNotNull(ContactCampaignDAO.getContactCampaignFromCampaignId(2L));
+    }
+
+    @Test
+    public void testGetContactCampaignFromCampaignIdNoStatus() throws Exception {
+        ContactCampaign cc2 = new ContactCampaign(2,2L,"");
+        cc2.setStatus(ContactCampaign.STATE_DEFINED);
+        cc2.save();
+        List<ContactCampaign> campaignList = ContactCampaignDAO.getContactCampaignFromCampaignIdNoStatus(2L);
+        cc2.delete();
+        assertEquals(2,campaignList.size());
     }
 
     @After

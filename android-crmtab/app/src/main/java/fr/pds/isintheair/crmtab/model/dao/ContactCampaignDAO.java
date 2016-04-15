@@ -40,4 +40,16 @@ public class ContactCampaignDAO {
                 .and(ContactCampaign_Table.status.eq(ContactCampaign.STATE_DEFINED))
                 .queryList();
     }
+
+    /**
+     * Get a single ContactCampaign from is contactId and is campaignId which state is defined
+     * @param campaignId
+     * @return
+     */
+    public static List<ContactCampaign> getContactCampaignFromCampaignIdNoStatus(long campaignId) {
+        return new Select().from(ContactCampaign.class)
+                .where(ContactCampaign_Table.campaignId.eq(campaignId))
+                .queryList();
+    }
+
 }

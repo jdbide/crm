@@ -347,7 +347,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
         phoningCampaign.save();
         List<ContactCampaign> contactCampaigns =
-                ContactCampaignDAO.getContactCampaignFromCampaignId(phoningCampaign.getCampaignId());
+                ContactCampaignDAO.getContactCampaignFromCampaignIdNoStatus(phoningCampaign.getCampaignId());
         MessageRestPhoningCampaign messageRestPhoningCampaign = new MessageRestPhoningCampaign();
         messageRestPhoningCampaign.setPhoningCampaign(phoningCampaign);
         messageRestPhoningCampaign.setContactCampaigns(contactCampaigns);
