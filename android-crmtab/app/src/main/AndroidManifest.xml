@@ -100,12 +100,20 @@
         <activity android:name=".view.activity.ImportContactActivity" />
         <activity
             android:name=".view.activity.AgendaActivity"
-            android:label="@string/title_activity_agenda"></activity>
+            android:label="@string/title_activity_agenda" />
         <activity
             android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.activity.NormalizeDemoActivity" />
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity"></activity>
+        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity" />
+
+        <provider
+            android:name=".ctruong.uc.propsect.suggestion.provider.MyContentProvider"
+            android:authorities="fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.provider.MyContentProvider"
+            android:enabled="true"
+            android:label="@string/app_name"
+            android:exported="false"
+            android:syncable="true" ></provider>
     </application>
 
 </manifest>
