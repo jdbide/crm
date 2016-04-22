@@ -142,7 +142,7 @@
     <string name="prospect_bt_insert">Insert new client</string>
     <string name="prospect_bt_back">Back</string>
     <string name="prospect_tv_bed">Bed Number</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="syncho_main">Synchronisation</string>
 
     <!-- Strings related to the creation of a phoning campaign -->
     <string name="create_phoning_campaign_fragment_title_fragment">Creer une campagne de phoning</string>
