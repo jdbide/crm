@@ -46,6 +46,11 @@
             android:icon="@android:drawable/sym_action_call"
             android:title="Campagne de phoning"/>
 
+        <item
+            android:id="@+id/nav_synchronisation"
+            android:icon="@android:drawable/sym_action_call"
+            android:title="Synchronisation"/>
+
     </item>
 
 
