@@ -40,6 +40,7 @@ import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
@@ -259,6 +260,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, ProspectActivity.class));
 
         }
+        else if (id == R.id.nav_synchronisation) {
+            startActivity(new Intent(this, SynchronisationActivity.class));
+
+        }
+
         else if (id == R.id.nav_normalize) {
             startActivity(new Intent(this, NormalizeDemoActivity.class));
 
