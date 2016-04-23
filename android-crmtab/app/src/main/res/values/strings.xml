@@ -143,6 +143,8 @@
     <string name="prospect_bt_back">Back</string>
     <string name="prospect_tv_bed">Bed Number</string>
     <string name="syncho_main">Synchronisation</string>
+    <string name="auth_type">fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.provider.auth</string>
+    <string name="content_authority">fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.provider.MyContentProvider</string>
 
     <!-- Strings related to the creation of a phoning campaign -->
     <string name="create_phoning_campaign_fragment_title_fragment">Creer une campagne de phoning</string>
