@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import static android.accounts.AccountManager.KEY_BOOLEAN_RESULT;
+import static fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account.AccountGeneral.*;
 /**
  * Created by Truong on 4/24/2016.
  */
@@ -89,8 +90,14 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
     @Override
     public String getAuthTokenLabel(String authTokenType) {
-        return null;
+        if (AUTHTOKEN_TYPE_FULL_ACCESS.equals(authTokenType))
+            return AUTHTOKEN_TYPE_FULL_ACCESS_LABEL;
+        else if (AUTHTOKEN_TYPE_READ_ONLY.equals(authTokenType))
+            return AUTHTOKEN_TYPE_READ_ONLY_LABEL;
+        else
+            return authTokenType + " (Label)";
     }
+
 
     @Override
     public Bundle updateCredentials(AccountAuthenticatorResponse response, Account account, String authTokenType, Bundle options) throws NetworkErrorException {
