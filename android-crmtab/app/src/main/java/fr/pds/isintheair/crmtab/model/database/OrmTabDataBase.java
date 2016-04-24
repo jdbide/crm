@@ -10,4 +10,6 @@ import com.raizlabs.android.dbflow.annotation.Database;
 public class OrmTabDataBase {
     public static final String DBNAME = "CRMTabDataBase";
     public static final int DBVERSION = 1;
+
+
 }
