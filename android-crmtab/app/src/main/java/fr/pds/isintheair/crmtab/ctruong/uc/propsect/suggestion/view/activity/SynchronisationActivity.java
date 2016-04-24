@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.adapter.SyncAdapter;
 
 public class SynchronisationActivity extends Activity implements View.OnClickListener{
 
@@ -34,6 +36,13 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         ((Button) findViewById(R.id.button4)).setOnClickListener(this);
 
         createDemoAccount();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(syncStaredReceiver, new IntentFilter(SyncAdapter.SYNC_STARTED));
+        registerReceiver(syncFinishedReceiver, new IntentFilter(SyncAdapter.SYNC_FINISHED));
     }
 
     private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
