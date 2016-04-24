@@ -45,6 +45,13 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         registerReceiver(syncFinishedReceiver, new IntentFilter(SyncAdapter.SYNC_FINISHED));
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(syncStaredReceiver);
+        unregisterReceiver(syncFinishedReceiver);
+    }
+
     private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
 
         @Override
