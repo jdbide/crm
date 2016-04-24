@@ -151,6 +151,6 @@ public class LoginActivity extends Activity implements Callback<User> {
         startService(new Intent(LoginActivity.this, CalendarService.class));
         startService(new Intent(LoginActivity.this, NotificationIntentService.class));
         startService(new Intent(LoginActivity.this, ListennerCallEndedEvent.class));
-        startService(new Intent(LoginActivity.this, NotifyPresenceService.class));
+       // startService(new Intent(LoginActivity.this, NotifyPresenceService.class));
     }
 }
