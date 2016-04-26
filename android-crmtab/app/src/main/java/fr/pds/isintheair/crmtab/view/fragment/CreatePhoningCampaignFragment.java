@@ -184,14 +184,21 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
                             customers.add(independant);
                         }
                     }
+                    initAdapter(customers);
+                    isCampaignAlreadySet();
                 }
-                initAdapter(customers);
-                isCampaignAlreadySet();
+                onFailure(null);
             }
 
             @Override
             public void onFailure(Throwable t) {
-                initAdapter(customers);
+                Snackbar snackbar = Snackbar.make(CreatePhoningCampaignFragment.this.getView(),
+                        R.string.create_phoning_campaign_fragment_rest_server_error,
+                        Snackbar.LENGTH_LONG);
+                ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+                snackbar.show();
+                CreatePhoningCampaignFragment.this.getFragmentManager()
+                        .popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }
@@ -319,13 +326,18 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
                     }
 
                 }
-
+                onFailure(null);
             }
 
             @Override
             public void onFailure(Throwable t) {
-                //initAdapter(customers);
-
+               Snackbar snackbar = Snackbar.make(CreatePhoningCampaignFragment.this.getView(),
+                       R.string.create_phoning_campaign_fragment_rest_server_error,
+                       Snackbar.LENGTH_LONG);
+                ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+                snackbar.show();
+                CreatePhoningCampaignFragment.this.getFragmentManager()
+                        .popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }
