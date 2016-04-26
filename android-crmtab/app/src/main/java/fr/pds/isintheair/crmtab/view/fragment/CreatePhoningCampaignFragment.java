@@ -121,11 +121,16 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_create_phoning_campaign, container, false);
         ButterKnife.bind(this, v);
-        initCustomers();
+
         initSpinner();
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initCustomers();
+    }
 
     /**
      * Initialise the list of customer. if the user have an internet connexion
@@ -143,7 +148,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
             callRest(customers, healthCenterList, independantList);
         }
         else {
-            initAdapter(customers);
+            callRestFailed();
         }
     }
 
@@ -186,19 +191,14 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
                     }
                     initAdapter(customers);
                     isCampaignAlreadySet();
+                } else {
+                    onFailure(null);
                 }
-                onFailure(null);
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Snackbar snackbar = Snackbar.make(CreatePhoningCampaignFragment.this.getView(),
-                        R.string.create_phoning_campaign_fragment_rest_server_error,
-                        Snackbar.LENGTH_LONG);
-                ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
-                snackbar.show();
-                CreatePhoningCampaignFragment.this.getFragmentManager()
-                        .popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                callRestFailed();
             }
         });
     }
@@ -246,6 +246,16 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     @OnClick(R.id.create_phoning_campaign_fragment_contact_list_button)
     public void onButtonClick(final View view) {
         validator.validate(true);
+    }
+
+    public void callRestFailed() {
+        Snackbar snackbar = Snackbar.make(this.getView(),
+                R.string.create_phoning_campaign_fragment_rest_server_error,
+                Snackbar.LENGTH_LONG);
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+        snackbar.show();
+        CreatePhoningCampaignFragment.this.getFragmentManager()
+                .popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     @Override
@@ -325,19 +335,14 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
                     }
 
+                } else {
+                    onFailure(null);
                 }
-                onFailure(null);
             }
 
             @Override
             public void onFailure(Throwable t) {
-               Snackbar snackbar = Snackbar.make(CreatePhoningCampaignFragment.this.getView(),
-                       R.string.create_phoning_campaign_fragment_rest_server_error,
-                       Snackbar.LENGTH_LONG);
-                ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
-                snackbar.show();
-                CreatePhoningCampaignFragment.this.getFragmentManager()
-                        .popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                callRestFailed();
             }
         });
     }
