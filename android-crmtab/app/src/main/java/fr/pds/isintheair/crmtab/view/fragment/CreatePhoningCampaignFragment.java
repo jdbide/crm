@@ -32,6 +32,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.pds.isintheair.crmtab.R;
+import fr.pds.isintheair.crmtab.controller.message.CallBackGetContactsForPhoningCampaign;
+import fr.pds.isintheair.crmtab.controller.message.CallBackGetOtherCustomers;
 import fr.pds.isintheair.crmtab.controller.message.CallBackSaveUnfinishedPhoningCampaign;
 import fr.pds.isintheair.crmtab.helper.CheckInternetConnexion;
 import fr.pds.isintheair.crmtab.helper.CustomerHelper;
@@ -121,11 +123,16 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_create_phoning_campaign, container, false);
         ButterKnife.bind(this, v);
-        initCustomers();
+
         initSpinner();
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initCustomers();
+    }
 
     /**
      * Initialise the list of customer. if the user have an internet connexion
@@ -143,7 +150,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
             callRest(customers, healthCenterList, independantList);
         }
         else {
-            initAdapter(customers);
+            callRestFailed();
         }
     }
 
@@ -154,46 +161,10 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
      */
     private void callRest(final List<Customer> customers, final List<HealthCenter> healthCenterList,
                           final List<Independant> independantList) {
-
         Call<ResponseRestCustomer> call = RESTCustomerHandlerSingleton.getInstance()
                 .getCustomerService().getCustomers(this.idUser);
-
-        call.enqueue(new Callback<ResponseRestCustomer>() {
-            @Override
-            public void onResponse(Response<ResponseRestCustomer> response, Retrofit retrofit) {
-
-                if (response.errorBody() == null) {
-                    List<HealthCenter> healthCenters = response.body().getHealthCenters();
-                    List<Independant> independants = response.body().getIndependants();
-                    if (healthCenters != null) {
-                        for (HealthCenter healthCenter : response.body().getHealthCenters()) {
-                            boolean alreadyOnTablet = false;
-                            for (HealthCenter healthCenterTab : healthCenterList) {
-                                if (healthCenterTab.getSiretNumber() == healthCenter.getSiretNumber()) {
-                                    alreadyOnTablet = true;
-                                }
-                            }
-                            if (!alreadyOnTablet) {
-                                customers.add(healthCenter);
-                            }
-
-                        }
-                    }
-                    if (independants != null) {
-                        for (Independant independant : response.body().getIndependants()) {
-                            customers.add(independant);
-                        }
-                    }
-                }
-                initAdapter(customers);
-                isCampaignAlreadySet();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                initAdapter(customers);
-            }
-        });
+        CallBackGetOtherCustomers cb = new CallBackGetOtherCustomers(this,healthCenterList,customers);
+        call.enqueue(cb);
     }
 
     /**
@@ -201,7 +172,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
      *
      * @param customers
      */
-    private void initAdapter(List<Customer> customers) {
+    public void initAdapter(List<Customer> customers) {
 
         this.customers = customers;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
@@ -217,7 +188,7 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     }
 
 
-    private void isCampaignAlreadySet() {
+    public void isCampaignAlreadySet() {
         phoningCampaign = PhoningCampaignDAO.getStoppedPhoningCampaign();
         if (phoningCampaign != null) {
             ReplayCampaignAlertDialog alert = new ReplayCampaignAlertDialog();
@@ -239,6 +210,16 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     @OnClick(R.id.create_phoning_campaign_fragment_contact_list_button)
     public void onButtonClick(final View view) {
         validator.validate(true);
+    }
+
+    public void callRestFailed() {
+        Snackbar snackbar = Snackbar.make(this.getView(),
+                R.string.create_phoning_campaign_fragment_rest_server_error,
+                Snackbar.LENGTH_LONG);
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(2);
+        snackbar.show();
+        CreatePhoningCampaignFragment.this.getFragmentManager()
+                .popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     @Override
@@ -302,32 +283,13 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         List<Independant> independants = new ArrayList<>();
         List<HealthCenter> healthCenters = new ArrayList<>();
         CustomerHelper.addHCIndependantIntoList(customers, independants, healthCenters);
-        ArrayList<String> customersId = CustomerHelper.getCustomerIds(independants,healthCenters);
+        ArrayList<String> customersId = CustomerHelper.getCustomerIds(independants, healthCenters);
 
         message.setCustomersId(customersId);
         Call<ResponseRestPhoningCampaign> call = RESTPhoningCampaignHandlerSingleton.getInstance()
                 .getPhoningCampaignService().getContacts(message);
-
-        call.enqueue(new Callback<ResponseRestPhoningCampaign>() {
-            @Override
-            public void onResponse(Response<ResponseRestPhoningCampaign> response, Retrofit retrofit) {
-
-                if (response.errorBody() == null) {
-                    if (response.body() != null) {
-                        restartCampaign(response.body().getContacts());
-
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                //initAdapter(customers);
-
-            }
-        });
+        CallBackGetContactsForPhoningCampaign cb = new CallBackGetContactsForPhoningCampaign(this);
+        call.enqueue(cb);
     }
 
     public void restartCampaign(List<Contact> contacts) {
