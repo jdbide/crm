@@ -187,7 +187,10 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     }
 
-
+    /**
+     * Check if a campaign is already set, if it's true it show a pop up to know if the commercial
+     * whants to continue the campaign or start a new one.
+     */
     public void isCampaignAlreadySet() {
         phoningCampaign = PhoningCampaignDAO.getStoppedPhoningCampaign();
         if (phoningCampaign != null) {
@@ -200,13 +203,19 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     }
 
 
-
+    /**
+     * Initialise the phoning campaign type spinner
+     */
     private void initSpinner() {
         type.setAdapter(new ArrayAdapter<PhoningCampaignType>
                 (getActivity().getApplicationContext(), R.layout.create_customer_spinner_view, PhoningCampaignType.values()));
 
     }
 
+    /**
+     * Called when the user wants to add contact to the phoning campaign
+     * @param view
+     */
     @OnClick(R.id.create_phoning_campaign_fragment_contact_list_button)
     public void onButtonClick(final View view) {
         validator.validate(true);
