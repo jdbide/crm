@@ -8,6 +8,7 @@ import retrofit.Retrofit;
 
 /**
  * Created by tlacouque on 26/04/2016.
+ * Class used to get all the contact used in a phoning campaign
  */
 public class CallBackGetContactsForPhoningCampaign implements Callback<ResponseRestPhoningCampaign> {
 
@@ -20,6 +21,11 @@ public class CallBackGetContactsForPhoningCampaign implements Callback<ResponseR
         this.fragment = fragment;
     }
 
+    /**
+     * If there is no error on the response, it restart the campaign. If there is errors it called on failure method
+     * @param response
+     * @param retrofit
+     */
     @Override
     public void onResponse(Response<ResponseRestPhoningCampaign> response, Retrofit retrofit) {
         if (response.errorBody() == null) {
@@ -33,6 +39,11 @@ public class CallBackGetContactsForPhoningCampaign implements Callback<ResponseR
         }
     }
 
+    /**
+     * Called when there is an error on the rest call/response.
+     * It call the method callRestFailed from the fragment pass in parameter.
+     * @param t
+     */
     @Override
     public void onFailure(Throwable t) {
         fragment.callRestFailed();
