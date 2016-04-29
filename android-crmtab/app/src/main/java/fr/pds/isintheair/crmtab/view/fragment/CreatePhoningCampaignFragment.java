@@ -221,6 +221,10 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         validator.validate(true);
     }
 
+    /**
+     * Method called when a call rest failed (by the server, or the network), display an error message
+     * and return to the home page
+     */
     public void callRestFailed() {
         Snackbar snackbar = Snackbar.make(this.getView(),
                 R.string.create_phoning_campaign_fragment_rest_server_error,
@@ -231,6 +235,10 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
                 .popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
+    /**
+     * Method called when the user wants to add contact and all the validation passed.
+     * It start the add contact fragment and pass the good parameters for it.
+     */
     @Override
     public void onValidationSucceeded() {
         SparseBooleanArray position = customer.getCheckedItemPositions();
@@ -258,7 +266,11 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     }
 
 
-
+    /**
+     * Method called when the user wants to add contact and at least one validation failed.
+     * It display all errors on a pop up
+     * @param errors
+     */
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
 
@@ -285,7 +297,10 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
     }
 
 
-
+    /**
+     * Method called when a phoning campaign is already set, and the user wants to continue it.
+     * It do a rest call to have all the contact needed
+     */
     @Override
     public void onPositiveClick() {
         MessageRestPhoningCampaign message = new MessageRestPhoningCampaign();
@@ -301,6 +316,11 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
         call.enqueue(cb);
     }
 
+    /**
+     * Method called after all the contact has been send by the rest server.
+     * It restart the campaign and begin a new call.
+     * @param contacts
+     */
     public void restartCampaign(List<Contact> contacts) {
         HashMap<Customer,List<Contact>> hashMap = CustomerHelper.getCustomerContactsMap(customers,contacts);
         Bundle bundle = new Bundle();
@@ -313,6 +333,10 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
                 .replace(R.id.container, callPhoningCampaignFragment).commit();
     }
 
+    /**
+     * Method called when a phoning campaign is already set, and the user wants to stop it.
+     * It do a rest call to save the phoning campaign that is stopped.
+     */
     @Override
     public void onNegativeClick() {
         phoningCampaign.setStatut(PhoningCampaign.STATE_ENDED);
@@ -329,6 +353,11 @@ public class CreatePhoningCampaignFragment extends Fragment  implements Validato
 
     }
 
+    /**
+     * Called when the rest call to save the phoning campaign is done well.
+     * It show a snack bar which said that the phoning campaign is stopped
+     * @param bool
+     */
     public void stopCampaign(boolean bool) {
         Snackbar snackbar;
         if(bool) {
