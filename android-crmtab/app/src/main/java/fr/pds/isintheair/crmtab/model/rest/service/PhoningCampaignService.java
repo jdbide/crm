@@ -18,10 +18,19 @@ public interface PhoningCampaignService {
 
     // static String BEGIN_URL = "/SpringRESTapi";
 
-
+    /**
+     * Call rest used to demand contacts of the customer pass with messageRestPhoningCampaign object
+     * @param message
+     * @return
+     */
     @POST("/api/phoningcampaign/contact")
     Call<ResponseRestPhoningCampaign> getContacts(@Body MessageRestPhoningCampaign message);
 
+    /**
+     * Call rest used to save the current phoning campaign pass with messageRestPhoningCampaign object
+     * @param message
+     * @return
+     */
     @POST("/api/phoningcampaign")
     Call<ResponseRestPhoningCampaign> savePhoningCampaign(@Body MessageRestPhoningCampaign message);
 }
