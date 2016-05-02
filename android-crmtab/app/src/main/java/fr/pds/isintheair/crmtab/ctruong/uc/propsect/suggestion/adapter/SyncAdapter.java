@@ -53,9 +53,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Intent i = new Intent(SYNC_STARTED);
         context.sendBroadcast(i);
-
         Log.i("SyncAdapter", "onPerformSync");
-
         i = new Intent(SYNC_FINISHED);
         context.sendBroadcast(i);
     }
