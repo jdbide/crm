@@ -143,7 +143,7 @@
     <string name="prospect_bt_back">Back</string>
     <string name="prospect_tv_bed">Bed Number</string>
     <string name="syncho_main">Synchronisation</string>
-    <string name="auth_type">fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.provider.auth</string>
+    <string name="auth_type">fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.sync</string>
     <string name="content_authority">fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.provider.MyContentProvider</string>
     <string name="sync_start">Start Syncing</string>
     <string name="sync_schedule">Schedule Sync every 10 Sec</string>
