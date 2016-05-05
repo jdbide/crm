@@ -14,7 +14,7 @@ import android.util.Log;
  * Created by Truong on 4/24/2016.
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
-
+    private static final String TAG = "SyncAdapter";
     // Global variables
     // Define a variable to contain a content resolver instance
     public static final String SYNC_FINISHED = "SyncFinished";
