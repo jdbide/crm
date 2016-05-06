@@ -103,13 +103,13 @@ public class FbDBHelper extends SQLiteOpenHelper {
         }
         return false;
     }
-    public List<Data> getPendingDataInDb(Data data)
+    public List<Data> getAttendingDataInDb()
     {
         ArrayList<Data> array_list = new ArrayList<Data>();
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from pending_datas", null );
+        Cursor res =  db.rawQuery( "select * from going_datas", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -125,7 +126,7 @@ public class EventSubscriptionActivity extends Activity {
                         graphRequest.executeAsync();
 
                     }
-                }, 0, 60000);//put here time 1000 milliseconds=1 second 3600000 = 1h
+                }, 0, 3600000);//put here time 1000 milliseconds=1 second 3600000 = 1h
                 //Toast.makeText(MainActivity.this, "user id: " + loginResult.getAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
 
             }
@@ -195,6 +196,13 @@ public class EventSubscriptionActivity extends Activity {
         // pass the Notification object to the system
         myNotificationManager.notify( data.getId().hashCode() , mBuilder.build());
 
+    }
+    public void launchTwitterActivity(View view) {
+        startActivity(new Intent(this, TwitterActivity.class));
+    }
+
+    public void search(View view){
+        startActivity(new Intent(this, GoingEventDetails.class));
     }
 
 }
