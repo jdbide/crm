@@ -174,6 +174,7 @@
     <string name="call_phoning_campaign_fragment_stop_call">Continuer plus tard</string>
     <string name="call_phoning_campaign_fragment_during_call">Action impossible, vous êtes toujours en appel.</string>
     <string name="call_phoning_campaign_fragment_end_campaign">Fin de la campagne</string>
+
     <string name="call_phoning_campaign_fragment_end_campaign_error">La sauvegarde n\'a pu être envoyé sur le serveur.
         \nLe système réessayera à la prochaine connexion</string>
     <string name="call_phoning_campaign_fragment_pause_campaign">Mettre en pause la campagne</string>
@@ -183,6 +184,10 @@
     <string name="call_phoning_campaign_fragment_stopped_campaign">Campagne arrêtée</string>
     <string name="create_phoning_campaign_fragment_rest_server_error">Le serveur ne peut être appelé, la campagne est \n
         impossible sans serveur</string>
+
+
+    <string name="app_id">1587889908205124</string>
+
 
 
 </resources>

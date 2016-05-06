@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
@@ -111,6 +112,7 @@
             android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.activity.NormalizeDemoActivity" />
+
         <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity" />
 
         <provider
@@ -133,6 +135,21 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/sync_adapter" />
         </service>
+
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity android:name=".view.activity.FbEventActivity" />
+        <activity android:name=".view.activity.EventSubscriptionActivity"></activity>
+
     </application>
 
 </manifest>
