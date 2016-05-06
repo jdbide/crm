@@ -7,8 +7,15 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.helper.FbDBHelper;
+import fr.pds.isintheair.crmtab.model.entity.Event;
 import fr.pds.isintheair.crmtab.model.entity.FbEventsPojo.Data;
 
 public class FbEventActivity extends Activity {
@@ -77,6 +84,30 @@ public class FbEventActivity extends Activity {
                         // if this button is clicked, close
                         // current activity
                         mydb.insertEvent(gson.toJson(data,Data.class));
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.FRANCE);
+
+                            Date dateStart = sdf.parse(hdebut);
+                            Date dateEnd = sdf.parse(hfin);
+
+
+                            Calendar calStart = sdf.getCalendar();
+                            calStart.setTime(dateStart);
+                            Calendar calEnd = sdf.getCalendar();
+                            calEnd.setTime(dateEnd);
+
+                            Event event = new Event();
+                            event.setTitle(title);
+                            event.setStartTime(calStart);
+                            event.setEndTime(calEnd);
+
+                            event.save();
+
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
 
                         FbEventActivity.this.finish();
                     }

@@ -1,6 +1,5 @@
 package fr.pds.isintheair.crmtab.model.dao;
 
-import com.raizlabs.android.dbflow.sql.language.Insert;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.List;
@@ -20,8 +19,5 @@ public class EventDAO {
         return new Select().from(Event.class).orderBy(Event_Table.startTime, true).queryList();
     }
 
-    public static void addEvent(Event event){
-        new Insert<Event>(Event.class).columns(event.getTitle(),event.getStartTime().toString(),event.getEndTime().toString()).execute();
-
-    }
 }
+
