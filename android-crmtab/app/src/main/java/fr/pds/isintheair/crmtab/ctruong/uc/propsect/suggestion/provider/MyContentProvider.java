@@ -9,8 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
+import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.Insert;
 import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.sql.language.Update;
+import com.raizlabs.android.dbflow.sql.language.Where;
 
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
@@ -83,8 +86,31 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        return 0;
+        final SQLiteDatabase database = mDatabase.getWritableDatabase();
+        final int match = sURIMatcher.match(uri);
+        int count = 0;
+        switch (match) {
+            case MESSAGE:
+                count = database.delete(CacheDao.TABLE_NAME, "id=" + uri.getLastPathSegment() + " and " + selection,
+                        selectionArgs);
+                break;
+            case CRV:
+                count = database.delete(CacheDao.TABLE_NAME_VISIT_REPORT, "id=" + uri.getLastPathSegment() + " and " + selection,
+                        selectionArgs);
+                break;
+            case CALL:
+                new Delete().from(CallEndedEvent.class).where(CallEndedEvent_Table.id.eq(Long.parseLong(uri.getLastPathSegment())));
+                break;
+            case CONTACT:
+                new Delete().from(Contact.class).where(CallEndedEvent_Table.id.eq(Long.parseLong(uri.getLastPathSegment())));
+                break;
+            case EVENT:
+                new Delete().from(Event.class).where(CallEndedEvent_Table.id.eq(Long.parseLong(uri.getLastPathSegment())));
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        return count;
     }
 
     /**
@@ -194,7 +220,30 @@ public class MyContentProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
         // TODO: Implement this to handle requests to update one or more rows.
-        return 0;
+        SQLiteDatabase database = mDatabase.getWritableDatabase();
+        int uriType = sURIMatcher.match(uri);
+        int count = 0;
+        switch (uriType) {
+            case MESSAGE:
+                count = database.update(CacheDao.TABLE_NAME, values, "id=" + uri.getLastPathSegment() + " and " + selection, selectionArgs);
+                break;
+            case CRV:
+                count = database.update(CacheDao.TABLE_NAME_VISIT_REPORT, values, "id=" + uri.getLastPathSegment() + " and " + selection, selectionArgs);
+                break;
+            case CALL:
+                new Update<CallEndedEvent>(CallEndedEvent.class).set().where(CallEndedEvent_Table.id.eq(Long.parseLong(uri.getLastPathSegment()))).query();
+                break;
+            case CONTACT:
+                new Update<Contact>(Contact.class).set().where(Contact_Table.phoneNumber.eq(uri.getLastPathSegment())).query();
+                break;
+            case EVENT:
+                new Update<Event>(Event.class).set().where(Event_Table.id.eq(Long.parseLong(uri.getLastPathSegment()))).query();
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
 }
