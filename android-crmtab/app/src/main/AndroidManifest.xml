@@ -113,6 +113,14 @@
         <activity android:name=".view.activity.NormalizeDemoActivity" />
         <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity" />
 
+        <provider
+            android:name=".ctruong.uc.propsect.suggestion.provider.MyContentProvider"
+            android:authorities="@string/content_authority"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:syncable="true" />
+
         <service
             android:name=".ctruong.uc.propsect.suggestion.service.SyncService"
             android:enabled="true"
@@ -126,10 +134,6 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/sync_adapter" />
         </service>
-        <provider
-            android:name="fr.pds.isintheair.crmtab.model.database.OrmTabDataBase$Provider"
-            android:authorities="fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.provider"
-            android:exported="true" />
         <service
             android:name=".ctruong.uc.propsect.suggestion.service.AuthenticatorService"
             android:enabled="true"
