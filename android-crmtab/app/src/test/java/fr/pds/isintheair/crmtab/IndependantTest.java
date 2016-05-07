@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  * Created by tlacouque on 20/01/2016.
  */
 
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "fr.pds.isintheair.crmtab")
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(RobolectricGradleTestRunner.class)
 public class IndependantTest {
     Independant independant;
