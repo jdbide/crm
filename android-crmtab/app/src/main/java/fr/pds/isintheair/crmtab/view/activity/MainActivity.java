@@ -281,12 +281,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, AgendaActivity.class));
         }
 
-        else if (id == R.id.nav_phoning_campaign) {
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container, new CreatePhoningCampaignFragment());
-            fragmentTransaction.addToBackStack("createPhoning");
-            fragmentTransaction.commit();
-        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
