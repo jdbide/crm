@@ -18,4 +18,6 @@ public class EventDAO {
     public static List<Event> getAll() {
         return new Select().from(Event.class).orderBy(Event_Table.startTime, true).queryList();
     }
+
 }
+

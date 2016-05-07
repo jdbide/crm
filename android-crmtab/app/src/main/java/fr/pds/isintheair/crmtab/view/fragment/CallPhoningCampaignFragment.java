@@ -198,6 +198,10 @@ public class CallPhoningCampaignFragment extends Fragment implements StopCampaig
         }
     }
 
+    /**
+     * Method called when a user click on "Appeler plus tard" button. It call reset call from the controller.
+     * @param view
+     */
     @OnClick(R.id.call_phoning_campaign_fragment_reset_call)
     public void resetCall(final View view) {
         if(!callBegin) {
@@ -244,6 +248,11 @@ public class CallPhoningCampaignFragment extends Fragment implements StopCampaig
         }
     }
 
+    /**
+     * Method called by the controller when it s the end of the campaign.
+     * It start the home activity.
+     * @param bool
+     */
     public void endCampaign(boolean bool) {
         Snackbar snackbar;
         if(bool) {
@@ -259,10 +268,17 @@ public class CallPhoningCampaignFragment extends Fragment implements StopCampaig
         this.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
+    /**
+     * Called by the controller when the user wants to stop the campaign.
+     * It force the user to return on the home activity
+     */
     public void stopCampaign() {
         this.getFragmentManager().popBackStack("createPhoning", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
+    /**
+     * Called when the user try to press on any button when a call is started. It show a snackbar.
+     */
     private void snackbarActionDuringCall() {
         Snackbar snackbar = Snackbar.make(this.getView(), R.string.call_phoning_campaign_fragment_during_call,
                 Snackbar.LENGTH_LONG);
@@ -270,6 +286,10 @@ public class CallPhoningCampaignFragment extends Fragment implements StopCampaig
         snackbar.show();
     }
 
+    /**
+     * Called when a user want to pause a campaign.
+     * It called the controller to pause the campaign
+     */
     @Override
     public void onPositiveClick() {
         if (!commentary.getText().toString().isEmpty()) {

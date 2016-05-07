@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by tlacouque on 27/03/2016.
+ * Class used has DTO. It transmit message between android and rest server.
  */
 public class MessageRestPhoningCampaign {
     private ArrayList<String> customersId;

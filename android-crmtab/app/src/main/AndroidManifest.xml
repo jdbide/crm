@@ -125,25 +125,13 @@
             android:name=".ctruong.uc.propsect.suggestion.service.SyncService"
             android:enabled="true"
             android:exported="true"
-            android:process=":sync">
+            android:process=":sync" >
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
-
             <meta-data
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/sync_adapter" />
-        </service>
-        <service
-            android:name=".ctruong.uc.propsect.suggestion.service.AuthenticatorService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"></action>
-            </intent-filter>
-            <meta-data
-                android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator" />
         </service>
     </application>
 
