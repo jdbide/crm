@@ -30,7 +30,7 @@ import static org.junit.Assert.assertTrue;
  * Created by tlacouque on 29/02/2016.
  */
 
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "pds.isintheair.fr.crmtab")
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(RobolectricGradleTestRunner.class)
 public class TileDownloaderTest {
 
