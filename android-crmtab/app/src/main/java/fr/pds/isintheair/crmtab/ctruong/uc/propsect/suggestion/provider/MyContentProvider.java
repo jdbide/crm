@@ -13,14 +13,11 @@ import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.Insert;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.sql.language.Update;
-import com.raizlabs.android.dbflow.sql.language.Where;
 
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent_Table;
 import fr.pds.isintheair.crmtab.model.dao.CacheDao;
 import fr.pds.isintheair.crmtab.model.database.OrmTabDataBase;
-import fr.pds.isintheair.crmtab.model.entity.Call;
 import fr.pds.isintheair.crmtab.model.entity.Event;
 import fr.pds.isintheair.crmtab.model.entity.Event_Table;
 import fr.pds.isintheair.crmtab.model.mock.Contact;
