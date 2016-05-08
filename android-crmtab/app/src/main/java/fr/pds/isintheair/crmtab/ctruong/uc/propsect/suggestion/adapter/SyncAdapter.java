@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 /**
@@ -25,6 +26,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     /**
      * Set up a Sync Adapter
+     *
      * @param context
      * @param autoInitialize
      */
@@ -39,6 +41,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
      * Set up the sync adapter. This form of the
      * constructor maintains compatibility with Android 3.0
      * and later platform versions
+     *
      * @param context
      * @param autoInitialize
      * @param allowParallelSyncs
@@ -51,10 +54,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        Intent i = new Intent(SYNC_STARTED);
-        context.sendBroadcast(i);
-        Log.i("SyncAdapter", "onPerformSync");
-        i = new Intent(SYNC_FINISHED);
-        context.sendBroadcast(i);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(SYNC_STARTED);
+                context.sendBroadcast(i);
+                Log.i("SyncAdapter", "onPerformSync");
+                i = new Intent(SYNC_FINISHED);
+                context.sendBroadcast(i);
+            }
+        }, 5000);
+
     }
 }

@@ -13,8 +13,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.adapter.SyncAdapter;
 
@@ -25,11 +28,26 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
     public static final String DEMO_ACCOUNT_NAME = "Demo Account";
     public static final String DEMO_ACCOUNT_PASSWORD = "Demo123";
 
+    @Bind(R.id.tv1)
+    TextView tv1;
+
+    @Bind(R.id.tv2)
+    TextView tv2;
+
+    @Bind(R.id.tv3)
+    TextView tv3;
+
+    @Bind(R.id.tv4)
+    TextView tv4;
+
+    @Bind(R.id.tv5)
+    TextView tv5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_synchronisation);
-
+        ButterKnife.bind(this);
         mAccountManager = AccountManager.get(this);
 
         ((Button) findViewById(R.id.button3)).setOnClickListener(this);
@@ -52,12 +70,17 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         unregisterReceiver(syncFinishedReceiver);
     }
 
-    private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
+        private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Sync finished!");
             Toast.makeText(getApplicationContext(), "Sync Finished", Toast.LENGTH_SHORT).show();
+            tv1.setText("ok");
+            tv2.setText("ok");
+            tv3.setText("ok");
+            tv4.setText("ok");
+            tv5.setText("ok");
         }
     };
 
@@ -67,6 +90,12 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Sync started!");
             Toast.makeText(getApplicationContext(), "Sync started...", Toast.LENGTH_SHORT).show();
+            tv1.setText("sync ...");
+            tv2.setText("sync ...");
+            tv3.setText("sync ...");
+            tv4.setText("sync ...");
+            tv5.setText("sync ...");
+
         }
     };
 
@@ -105,7 +134,7 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
             public void run() {
                 Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
