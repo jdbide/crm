@@ -29,15 +29,13 @@ public class SynchronisationActivityTest {
 
     @Before
     public void setUp() throws Exception {
-        //activity = Robolectric.setupActivity(CRUDCustomerActivity.class);
-        // cm = (ConnectivityManager) RuntimeEnvironment.application.getSystemService(Context.CONNECTIVITY_SERVICE);
-        ConnectivityManager cm = (ConnectivityManager)
-                RuntimeEnvironment.application.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        ConnectivityManager cm = (ConnectivityManager) RuntimeEnvironment.application.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         ShadowConnectivityManager shadowCM = (ShadowConnectivityManager) ShadowExtractor.extract(cm);
-        // shadowCM = Shadows.shadowOf(cm);
         ShadowNetworkInfo shadowOfActiveNetworkInfo = (ShadowNetworkInfo) ShadowExtractor.extract(shadowCM.getActiveNetworkInfo());
     }
+
     @Test
     public void startForceSyncingTest() throws Exception {
         SynchronisationActivity activity = new SynchronisationActivity();
