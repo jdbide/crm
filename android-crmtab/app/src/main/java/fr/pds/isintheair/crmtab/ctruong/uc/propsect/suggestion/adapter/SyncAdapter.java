@@ -14,7 +14,7 @@ import android.util.Log;
  * Created by Truong on 4/24/2016.
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
-
+    private static final String TAG = "SyncAdapter";
     // Global variables
     // Define a variable to contain a content resolver instance
     public static final String SYNC_FINISHED = "SyncFinished";
@@ -53,9 +53,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Intent i = new Intent(SYNC_STARTED);
         context.sendBroadcast(i);
-
         Log.i("SyncAdapter", "onPerformSync");
-
         i = new Intent(SYNC_FINISHED);
         context.sendBroadcast(i);
     }

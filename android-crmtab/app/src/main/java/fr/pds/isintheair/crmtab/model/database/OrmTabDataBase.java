@@ -11,5 +11,4 @@ public class OrmTabDataBase {
     public static final String DBNAME = "CRMTabDataBase";
     public static final int DBVERSION = 1;
 
-
 }

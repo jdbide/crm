@@ -5,7 +5,7 @@ package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account;
  */
 public class AccountGeneral {
     public static final String ACCOUNT_NAME = "IsinTheAir";
-
+    public static final String ACCOUNT_TYPE = "fr.pds.isintheair.crm.controller.ctruong.uc.propsect.suggestion.sync";
     public static final String AUTHTOKEN_TYPE_READ_ONLY = "Read only";
     public static final String AUTHTOKEN_TYPE_READ_ONLY_LABEL = "Read only access to an IsinTheAir account";
 

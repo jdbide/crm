@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
  * Created by tlacouque on 19/01/2016.
  */
 
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "pds.isintheair.fr.crmtab")
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(RobolectricGradleTestRunner.class)
 public class HealthCenterTest {
     

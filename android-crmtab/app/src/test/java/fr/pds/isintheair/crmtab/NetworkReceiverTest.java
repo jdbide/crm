@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
  * Created by tlacouque on 05/03/2016.
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "fr.pds.isintheair.crmtab",
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP,
         manifest = "src/main/AndroidManifest.xml")
 public class NetworkReceiverTest {
 

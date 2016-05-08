@@ -83,8 +83,12 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
 
     private void scheduleSync() {
         Bundle bundle = new Bundle();
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         Account account = new Account(DEMO_ACCOUNT_NAME, getString(R.string.auth_type));
-        ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 15);
+        ContentResolver.setIsSyncable(account, getString(R.string.content_authority), 1);
+        ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 60*15);
+        ContentResolver.setSyncAutomatically(account, getString(R.string.content_authority), true);
     }
 
     void createDemoAccount() {

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class CacheDao extends SQLiteOpenHelper {
 
     static String DB_NAME = "CRV_PREFORMATED_MESSAGE";
-    String TABLE_NAME ="message";
-    String TABLE_NAME_VISIT_REPORT ="crv";
+    public static String TABLE_NAME ="message";
+    public static String TABLE_NAME_VISIT_REPORT ="crv";
     int BDVersion = 1;
 
     public CacheDao(Context context) {

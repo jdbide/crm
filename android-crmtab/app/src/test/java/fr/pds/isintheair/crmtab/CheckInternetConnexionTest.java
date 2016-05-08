@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
  * Created by tlacouque on 19/01/2016.
  */
 
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "fr.pds.isintheair.crmtab",
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP,
 manifest = "src/main/AndroidManifest.xml")
 @RunWith(RobolectricGradleTestRunner.class)
 public class CheckInternetConnexionTest {
