@@ -77,10 +77,23 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
             Log.d(TAG, "Sync finished!");
             Toast.makeText(getApplicationContext(), "Sync Finished", Toast.LENGTH_SHORT).show();
             tv1.setText("ok");
-            tv2.setText("ok");
-            tv3.setText("ok");
-            tv4.setText("ok");
-            tv5.setText("ok");
+            final Runnable r = new Runnable() {
+                int counter = 0;
+                public void run() {
+                    tv2.setText("ok");
+                    tv3.setText("ok");
+                    tv4.setText("ok");
+                    tv5.setText("ok");
+                    if (counter < 10) {
+                        tv2.postDelayed(this, 1000 * 5);
+                        tv3.postDelayed(this, 1000 * 10);
+                        tv4.postDelayed(this, 1000 * 15);
+                        tv5.postDelayed(this, 1000 * 20);
+                    }
+                }
+            };
+            r.run();
+
         }
     };
 

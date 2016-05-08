@@ -54,16 +54,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(SYNC_STARTED);
-                context.sendBroadcast(i);
-                Log.i("SyncAdapter", "onPerformSync");
-                i = new Intent(SYNC_FINISHED);
-                context.sendBroadcast(i);
-            }
-        }, 5000);
+        Intent i = new Intent(SYNC_STARTED);
+        context.sendBroadcast(i);
+        Log.i("SyncAdapter", "onPerformSync");
+        i = new Intent(SYNC_FINISHED);
+        context.sendBroadcast(i);
+
 
     }
 }
