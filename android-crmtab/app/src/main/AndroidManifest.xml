@@ -36,7 +36,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.activity.ContactDetailActivity"
@@ -108,11 +112,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.activity.NormalizeDemoActivity" />
         <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider
