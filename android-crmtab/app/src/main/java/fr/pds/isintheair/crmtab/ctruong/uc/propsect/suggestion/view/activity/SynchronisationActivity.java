@@ -104,6 +104,11 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
             @Override
             public void run() {
                 Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -19,9 +19,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     // Define a variable to contain a content resolver instance
     public static final String SYNC_FINISHED = "SyncFinished";
     public static final String SYNC_STARTED = "SyncStarted";
-
-    ContentResolver mContentResolver;
+    final ContentResolver mContentResolver;
     Context context;
+
 
     /**
      * Set up a Sync Adapter
