@@ -36,11 +36,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.activity.ContactDetailActivity"
@@ -111,7 +107,13 @@
             android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.activity.NormalizeDemoActivity" />
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity" />
+        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name=".ctruong.uc.propsect.suggestion.provider.MyContentProvider"
@@ -122,10 +124,22 @@
             android:syncable="true" />
 
         <service
+            android:name=".ctruong.uc.propsect.suggestion.service.AuthenticatorService"
+            android:exported="true"
+            android:process=":auth" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+        <service
             android:name=".ctruong.uc.propsect.suggestion.service.SyncService"
             android:enabled="true"
             android:exported="true"
-            android:process=":sync" >
+            android:process=":sync">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>

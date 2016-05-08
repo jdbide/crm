@@ -13,8 +13,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.adapter.SyncAdapter;
 
@@ -25,11 +28,26 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
     public static final String DEMO_ACCOUNT_NAME = "Demo Account";
     public static final String DEMO_ACCOUNT_PASSWORD = "Demo123";
 
+    @Bind(R.id.tv1)
+    TextView tv1;
+
+    @Bind(R.id.tv2)
+    TextView tv2;
+
+    @Bind(R.id.tv3)
+    TextView tv3;
+
+    @Bind(R.id.tv4)
+    TextView tv4;
+
+    @Bind(R.id.tv5)
+    TextView tv5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_synchronisation);
-
+        ButterKnife.bind(this);
         mAccountManager = AccountManager.get(this);
 
         ((Button) findViewById(R.id.button3)).setOnClickListener(this);
@@ -52,12 +70,30 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         unregisterReceiver(syncFinishedReceiver);
     }
 
-    private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
+        private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Sync finished!");
             Toast.makeText(getApplicationContext(), "Sync Finished", Toast.LENGTH_SHORT).show();
+            tv1.setText("ok");
+            final Runnable r = new Runnable() {
+                int counter = 0;
+                public void run() {
+                    tv2.setText("ok");
+                    tv3.setText("ok");
+                    tv4.setText("ok");
+                    tv5.setText("ok");
+                    if (counter < 10) {
+                        tv2.postDelayed(this, 1000 * 5);
+                        tv3.postDelayed(this, 1000 * 10);
+                        tv4.postDelayed(this, 1000 * 15);
+                        tv5.postDelayed(this, 1000 * 20);
+                    }
+                }
+            };
+            r.run();
+
         }
     };
 
@@ -67,10 +103,16 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Sync started!");
             Toast.makeText(getApplicationContext(), "Sync started...", Toast.LENGTH_SHORT).show();
+            tv1.setText("sync ...");
+            tv2.setText("sync ...");
+            tv3.setText("sync ...");
+            tv4.setText("sync ...");
+            tv5.setText("sync ...");
+
         }
     };
 
-    private void startForceSyncing() {
+    public void startForceSyncing() {
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
@@ -81,22 +123,20 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         ContentResolver.setSyncAutomatically(account, getString(R.string.content_authority), true);
     }
 
-    private void scheduleSync() {
+    public void scheduleSync() {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         Account account = new Account(DEMO_ACCOUNT_NAME, getString(R.string.auth_type));
-        ContentResolver.setIsSyncable(account, getString(R.string.content_authority), 1);
-        ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 60*15);
-        ContentResolver.setSyncAutomatically(account, getString(R.string.content_authority), true);
+        ContentResolver.requestSync(account, getString(R.string.content_authority), bundle);
+        ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 15*60);
     }
 
-    void createDemoAccount() {
+    public Account createDemoAccount() {
         Account account = new Account(DEMO_ACCOUNT_NAME, getString(R.string.auth_type));
         boolean accountCreated = mAccountManager.addAccountExplicitly(account, DEMO_ACCOUNT_PASSWORD, null);
         if (accountCreated) {
             showMessage("Account Created");
         }
+        return account;
     }
 
     private void showMessage(final String msg) {
@@ -107,6 +147,11 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
             @Override
             public void run() {
                 Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

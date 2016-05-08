@@ -19,12 +19,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     // Define a variable to contain a content resolver instance
     public static final String SYNC_FINISHED = "SyncFinished";
     public static final String SYNC_STARTED = "SyncStarted";
-
-    ContentResolver mContentResolver;
+    final ContentResolver mContentResolver;
     Context context;
+
 
     /**
      * Set up a Sync Adapter
+     *
      * @param context
      * @param autoInitialize
      */
@@ -39,6 +40,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
      * Set up the sync adapter. This form of the
      * constructor maintains compatibility with Android 3.0
      * and later platform versions
+     *
      * @param context
      * @param autoInitialize
      * @param allowParallelSyncs
@@ -56,5 +58,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.i("SyncAdapter", "onPerformSync");
         i = new Intent(SYNC_FINISHED);
         context.sendBroadcast(i);
+
+
     }
 }

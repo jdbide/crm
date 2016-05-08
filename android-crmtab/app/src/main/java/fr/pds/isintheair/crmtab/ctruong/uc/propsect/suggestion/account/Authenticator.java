@@ -3,15 +3,16 @@ package fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account;
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
-import android.accounts.AccountManager;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 
 import static android.accounts.AccountManager.KEY_BOOLEAN_RESULT;
-import static fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account.AccountGeneral.*;
+import static fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account.AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS;
+import static fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account.AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS_LABEL;
+import static fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account.AccountGeneral.AUTHTOKEN_TYPE_READ_ONLY;
+import static fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.account.AccountGeneral.AUTHTOKEN_TYPE_READ_ONLY_LABEL;
 /**
  * Created by Truong on 4/24/2016.
  */
