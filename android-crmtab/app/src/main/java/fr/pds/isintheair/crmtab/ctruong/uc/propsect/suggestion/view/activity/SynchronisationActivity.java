@@ -130,7 +130,7 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 15*60);
     }
 
-    void createDemoAccount() {
+    public void createDemoAccount() {
         Account account = new Account(DEMO_ACCOUNT_NAME, getString(R.string.auth_type));
         boolean accountCreated = mAccountManager.addAccountExplicitly(account, DEMO_ACCOUNT_PASSWORD, null);
         if (accountCreated) {

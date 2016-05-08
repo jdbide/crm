@@ -8,6 +8,7 @@ import android.os.Build;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -40,6 +41,7 @@ public class SynchronisationActivityTest {
     public void startForceSyncingTest() throws Exception {
         SynchronisationActivity activity = new SynchronisationActivity();
         final int uid = Binder.getCallingUid();
+        Mockito.doNothing().when(activity).createDemoAccount();
         assertNotNull(uid);
         assertEquals(Binder.getCallingUid(), uid);
     }
