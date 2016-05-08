@@ -34,6 +34,7 @@ public class Contact {
         this.contactJob = contactJob;
     }
 
+    @Property
     public String contactStatus;
 
     public List<Contact> getContactList() {

@@ -145,7 +145,7 @@ public class CallPhoningCampaignFragment extends Fragment implements StopCampaig
          objective.setText(this.phoningCampaign.getCampaignObjectives());
          contactNameFname.setText(this.contact.contactName+" "+this.contact.contactFname);
          type.setText(this.phoningCampaign.getCampaignType());
-          contactJob.setText(this.contact.contactJob);
+          contactJob.setText(this.contact.contactStatus);
          customerName.setText(this.customer.getName());
 
         if(contactCampaign.getContactInfo() == null) {
