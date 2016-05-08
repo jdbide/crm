@@ -23,18 +23,12 @@ import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.Syn
 /**
  * Created by Truong on 5/8/2016.
  */
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, packageName = "fr.pds.isintheair.crmtab",
-        manifest = "src/main/AndroidManifest.xml")
-@RunWith(RobolectricGradleTestRunner.class)
 public class SynchronisationActivityTest {
 
     @Before
     public void setUp() throws Exception {
 
-        ConnectivityManager cm = (ConnectivityManager) RuntimeEnvironment.application.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        ShadowConnectivityManager shadowCM = (ShadowConnectivityManager) ShadowExtractor.extract(cm);
-        ShadowNetworkInfo shadowOfActiveNetworkInfo = (ShadowNetworkInfo) ShadowExtractor.extract(shadowCM.getActiveNetworkInfo());
     }
 
     @Test
