@@ -1,64 +1,61 @@
 package miage.pds.api.jbide.uc.registercall.dao;
 
-import java.util.List;
-import java.util.UUID;
-
+import miage.pds.api.common.LoggingRestController;
+import miage.pds.api.jbide.uc.registercall.model.Cra;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import miage.pds.api.common.LoggingRestController;
-import miage.pds.api.common.model.User;
-import miage.pds.api.jbide.uc.registercall.model.Cra;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by jbide on 20/12/2015.
  */
-
 public class CraDAO extends BasicDAO<Cra, ObjectId> {
 
-	private static final Logger logger = LoggerFactory.getLogger(CraDAO.class);
+    private static final Logger logger = LoggerFactory.getLogger(CraDAO.class);
 
-	public CraDAO(Datastore datastore) {
-		super(datastore);					
-	}
+    public CraDAO (Datastore datastore) {
+        super(datastore);
+    }
 
-	// cra insertion
-	public boolean createCra(Cra cra) {
-		cra.setIdcra(getUniqueIdCra());
-		getDatastore().save(cra);
-		return true;
-	}
-	
-	public boolean deleteCra(String idcra) {
-		getDatastore().delete(getDatastore().createQuery(Cra.class).field("idcra").equal(idcra));
-		return true;
-	}
+    // cra insertion
+    public boolean createCra (Cra cra) {
+        cra.setIdcra(getUniqueIdCra());
+        getDatastore().save(cra);
+        return true;
+    }
 
-	public List<Cra> getListCraForUser(String iduser) {
-		return  getDatastore().createQuery(Cra.class).disableValidation().field("iduser").equal(iduser).asList();
-	}
+    public boolean deleteCra (String idcra) {
+        getDatastore().delete(getDatastore().createQuery(Cra.class).field("idcra").equal(idcra));
+        return true;
+    }
+
+    public List<Cra> getListCraForUser (String iduser) {
+        return getDatastore().createQuery(Cra.class).disableValidation().field("iduser").equal(iduser).asList();
+    }
 
 
-	public String getUniqueIdCra(){		
-		Cra u = new Cra();
-		boolean unique = false;
-		String id = "" ;
-		do{
-			id = UUID.randomUUID().toString().substring(0, 10);
-			u = getDatastore().createQuery(Cra.class).field("idcra").equal(id).get();			
-			if(u==null) unique = true;
-		}while(unique=false);
-		return id;	
-	}
-	
-	public void dropTableCraAndAddMock(){
+    public String getUniqueIdCra () {
+        Cra     u      = new Cra();
+        boolean unique = false;
+        String  id     = "";
+        do {
+            id = UUID.randomUUID().toString().substring(0, 10);
+            u = getDatastore().createQuery(Cra.class).field("idcra").equal(id).get();
+            if (u == null) unique = true;
+        } while (unique = false);
+        return id;
+    }
 
-		getDatastore().getCollection(Cra.class).drop();
-		logger.info("DROPPED TABLE Cra");
-    	//Mock Cra
+    public void dropTableCraAndAddMock () {
+
+        getDatastore().getCollection(Cra.class).drop();
+        logger.info("DROPPED TABLE Cra");
+        //Mock Cra
         Cra newCra = new Cra();
         newCra.setCalltype("Recu");
         newCra.setClientname("CH HENRI MONDOR");
@@ -71,10 +68,10 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
         newCra.setIduser(LoggingRestController.idusertest);
         String s = getUniqueIdCra();
         newCra.setIdcra(s);
-        
+
         createCra(newCra);
         s = getUniqueIdCra();
-        
+
         newCra = new Cra();
         newCra.setCalltype("Emis");
         newCra.setClientname("CS Daniel Renoult et Montreuil");
@@ -88,7 +85,5 @@ public class CraDAO extends BasicDAO<Cra, ObjectId> {
         newCra.setIdcra(s);
         createCra(newCra);
         logger.info("ADDED CRA MOCK");
-	}
-
-
+    }
 }
