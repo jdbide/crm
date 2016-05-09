@@ -64,7 +64,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         String[] result = getData();
-        if (result[0] == "ok") {
+        if (result[0] != null) {
             Intent i = new Intent(SYNC_STARTED);
             context.sendBroadcast(i);
             Log.i("SyncAdapter", "onPerformSync");
@@ -88,7 +88,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
                 try {
                     test[0] = response.body().string();
-                    Log.i(TAG, "onResponse: " + test);
+                    Log.i(TAG, "onResponse: " + test[0]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
