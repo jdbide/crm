@@ -1,5 +1,6 @@
-package miage.pds.api.ctruong.uc.prospect.suggest.rest;
+package miage.pds.api.ctruong.uc.sync.controller;
 
+import miage.pds.api.ctruong.uc.prospect.suggest.rest.ProspectRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
