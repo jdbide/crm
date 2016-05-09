@@ -1,6 +1,8 @@
 package fr.pds.isintheair.crmtab.model.rest.service;
 
 
+import com.squareup.okhttp.ResponseBody;
+
 import retrofit.Call;
 import retrofit.http.GET;
 
@@ -10,6 +12,5 @@ import retrofit.http.GET;
 public interface SyncRetrofitAPI {
 
     @GET("sync/demo")
-    Call<String> getSyncData();
-
+    Call<ResponseBody> getSyncData();
 }

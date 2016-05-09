@@ -10,6 +10,16 @@ import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.squareup.okhttp.ResponseBody;
+
+import fr.pds.isintheair.crmtab.model.rest.service.ProspectRestConfig;
+import fr.pds.isintheair.crmtab.model.rest.service.SyncRetrofitAPI;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
+
 /**
  * Created by Truong on 4/24/2016.
  */
@@ -59,6 +69,29 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         i = new Intent(SYNC_FINISHED);
         context.sendBroadcast(i);
 
+    }
 
+    public String[] getData(){
+        final String[] test = new String[1];
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ProspectRestConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        SyncRetrofitAPI api = retrofit.create(SyncRetrofitAPI.class);
+        Call<ResponseBody> result = api.getSyncData();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+                try {
+                    test[0] = response.body().string();
+                    Log.i(TAG, "onResponse: " + test);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+        return test;
     }
 }
