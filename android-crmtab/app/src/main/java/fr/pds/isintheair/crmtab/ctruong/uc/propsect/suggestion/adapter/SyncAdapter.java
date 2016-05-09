@@ -63,15 +63,22 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        Intent i = new Intent(SYNC_STARTED);
-        context.sendBroadcast(i);
-        Log.i("SyncAdapter", "onPerformSync");
-        i = new Intent(SYNC_FINISHED);
-        context.sendBroadcast(i);
+        String[] result = getData();
+        if (result[0] == "ok") {
+            Intent i = new Intent(SYNC_STARTED);
+            context.sendBroadcast(i);
+            Log.i("SyncAdapter", "onPerformSync");
+            i = new Intent(SYNC_FINISHED);
+            context.sendBroadcast(i);
+        }
 
     }
 
-    public String[] getData(){
+    /**
+     *
+     * @return
+     */
+    public String[] getData() {
         final String[] test = new String[1];
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ProspectRestConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         SyncRetrofitAPI api = retrofit.create(SyncRetrofitAPI.class);
@@ -82,7 +89,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 try {
                     test[0] = response.body().string();
                     Log.i(TAG, "onResponse: " + test);
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
