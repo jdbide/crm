@@ -18,11 +18,8 @@ public class Shell {
 
         if (cmdProc != null) {
             BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(cmdProc.getInputStream()));
-
-            BufferedReader stderrReader = new BufferedReader(
-                    new InputStreamReader(cmdProc.getErrorStream()));
-
-            String line;
+            BufferedReader stderrReader = new BufferedReader(new InputStreamReader(cmdProc.getErrorStream()));
+            String         line         = "";
 
             try {
                 while ((line = stdoutReader.readLine()) != null) {
@@ -41,5 +38,4 @@ public class Shell {
 
         return null;
     }
-
 }
