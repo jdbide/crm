@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import sun.misc.IOUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,36 +25,42 @@ public class DatabaseController {
     @RequestMapping(value = "/database/dump", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     ResponseEntity<String> dumpDatabase (@RequestBody String dumpDatabaseRequest) {
-        String command = "mongodump --db crm --path /home && tar -cvjf /home/dump /home/dump.tar.bz2";
-        //String           command      = "cmd /c dir";
-        Integer          returnCode   = Shell.executeCommand(command);
-        InputStream      secretStream = DatabaseController.class.getClassLoader().getResourceAsStream("ESIAG-PDS-2eac60e12628.json");
-        GoogleCredential credential   = null;
+        String  dumpCommand    = "/usr/bin/mongodump --db crm --out /tmp";
+        Integer dumpReturnCode = Shell.executeCommand(dumpCommand);
 
-        if (returnCode != null && returnCode != 0) {
-            return new ResponseEntity<String>(HttpStatus.SERVICE_UNAVAILABLE);
+        if (dumpReturnCode != null && dumpReturnCode != 0) {
+            return new ResponseEntity<String>("Dump went wrong" + dumpReturnCode, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        String  tarCommand    = "/bin/tar -zcvf /tmp/crm.tar.bz2 /tmp/crm";
+        Integer tarReturnCode = Shell.executeCommand(tarCommand);
+
+        if (tarReturnCode != null && tarReturnCode != 0) {
+            return new ResponseEntity<String>("Tar went wrong" + dumpReturnCode, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         try {
-            credential = GoogleCredential.fromStream(secretStream).createScoped(Collections.singleton("https://www.googleapis.com/auth/drive"));
+            InputStream      secretStream = DatabaseController.class.getClassLoader().getResourceAsStream("ESIAG-PDS-2eac60e12628.json");
+            GoogleCredential credential   = GoogleCredential.fromStream(secretStream).createScoped(Collections.singleton("https://www.googleapis.com/auth/drive"));
+
             credential.refreshToken();
 
-            //TODO : Remplacer par le dump
             InputStream inputStream = DatabaseController.class.getClassLoader().getResourceAsStream("ESIAG-PDS-2eac60e12628.json");
+            byte[]      datas       = IOUtils.toByteArray(inputStream);
 
-            byte[] datas = IOUtils.readFully(inputStream, -1, true);
-            String token = credential.getAccessToken();
+            String                       authorization = "Bearer " + credential.getAccessToken();
+            Call<UploadFileResponse>     call          = RetrofitHandlerSingleton.getInstance().getDriveApi().updloadFile(authorization, datas);
+            Response<UploadFileResponse> response      = call.execute();
 
-            Call<UploadFileResponse>     call     = RetrofitHandlerSingleton.getInstance().getDriveApi().updloadFile("Bearer " + token, datas);
-            Response<UploadFileResponse> response = call.execute();
-
-            Preferences.userRoot().node(this.getClass().getName()).put(PREF_KEY_DUMP_FILE_ID, response.body().id);
+            if (response.body() != null) {
+                Preferences.userRoot().node(this.getClass().getName()).put(PREF_KEY_DUMP_FILE_ID, response.body().id);
+            }
         }
         catch (IOException e) {
-            return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Exception : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<String>(Preferences.userRoot().node(this.getClass().getName()).get(PREF_KEY_DUMP_FILE_ID, ":("), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/database/restore", method = RequestMethod.GET, headers = "Accept=application/json")
