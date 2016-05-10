@@ -194,4 +194,9 @@
     <string name="sync_contact">Contact</string>
 
 
+    <!-- Uc Sync dynimically contacts -->
+    <string name="sync_account_type">contact.example.com</string>
+    <string name="content_authority_contact">fr.pds.isintheair.crm</string>
+
+
 </resources>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="fr.pds.isintheair.crmtab"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fr.pds.isintheair.crmtab">
 
     <uses-feature
         android:name="android.hardware.nfc"
-        android:required="true"/>
+        android:required="true" />
 
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,7 +25,6 @@
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
-
     <application
         android:name=".CrmTabApplication"
         android:allowBackup="true"
@@ -39,85 +38,82 @@
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.activity.ContactDetailActivity"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".mmefire.uc.sms.send.receive.activity.ActivityHome"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mmefire.uc.sms.send.receive.activity.BaseActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mmefire.uc.sms.send.receive.activity.ActivityNewMessage"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="net.hockeyapp.android.UpdateActivity"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="net.hockeyapp.android.UpdateActivity" />
         <activity
             android:name=".view.activity.CRUDCustomerActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.CrvMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.CreateCrvActivity"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.CrvHomeActivity"
-            android:label="CRM-tab"/>
-        <activity android:name=".view.activity.CallActivity"/>
+            android:label="CRM-tab" />
+        <activity android:name=".view.activity.CallActivity" />
         <activity
             android:name=".view.activity.CrvPreformatedMessage"
             android:label="@string/title_activity_crv_preformated_message"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".view.activity.VisitActivity"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activity.VisitActivity" />
 
         <receiver
             android:name=".controller.broadcastreceiver.BootServiceBrodcastReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
         <service
             android:name=".ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService"
             android:enabled="true"
-            android:exported="false"/>
-        <service android:name=".controller.service.CallService"/>
-        <service android:name=".controller.service.CalendarService"/>
-        <service android:name=".controller.service.ListennerCallEndedEvent"/>
-        <service android:name=".controller.service.NotifyPresenceService"/>
-
+            android:exported="false" />
+        <service android:name=".controller.service.CallService" />
+        <service android:name=".controller.service.CalendarService" />
+        <service android:name=".controller.service.ListennerCallEndedEvent" />
+        <service android:name=".controller.service.NotifyPresenceService" />
         <service android:name=".controller.service.ContactService" />
-
 
         <activity
             android:name=".ctruong.uc.propsect.suggestion.view.activity.ProspectActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".view.activity.ImportContactActivity"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activity.ImportContactActivity" />
         <activity
             android:name=".view.activity.AgendaActivity"
-            android:label="@string/title_activity_agenda"/>
+            android:label="@string/title_activity_agenda" />
         <activity
             android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".view.activity.NormalizeDemoActivity"/>
-        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activity.NormalizeDemoActivity" />
+        <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity" />
 
         <provider
             android:name=".ctruong.uc.propsect.suggestion.provider.MyContentProvider"
@@ -125,19 +121,19 @@
             android:enabled="true"
             android:exported="false"
             android:label="@string/app_name"
-            android:syncable="true"/>
+            android:syncable="true" />
 
         <service
             android:name=".ctruong.uc.propsect.suggestion.service.AuthenticatorService"
             android:exported="true"
             android:process=":auth">
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"/>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator"/>
+                android:resource="@xml/authenticator" />
         </service>
         <service
             android:name=".ctruong.uc.propsect.suggestion.service.SyncService"
@@ -145,37 +141,71 @@
             android:exported="true"
             android:process=":sync">
             <intent-filter>
-                <action android:name="android.content.SyncAdapter"/>
+                <action android:name="android.content.SyncAdapter" />
             </intent-filter>
 
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/sync_adapter"/>
+                android:resource="@xml/sync_adapter" />
         </service>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id"/>
+            android:value="@string/app_id" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity android:name=".view.activity.FbEventActivity"/>
-        <activity android:name=".view.activity.EventSubscriptionActivity"/>
-        <activity android:name=".view.activity.TwitterActivity"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".view.activity.FbEventActivity" />
+        <activity android:name=".view.activity.EventSubscriptionActivity" />
+        <activity android:name=".view.activity.TwitterActivity" />
 
         <meta-data
             android:name="CONSUMER_KEY"
-            android:value="d65Za9LU5SO5jcUlBql6Fla7e"/>
+            android:value="d65Za9LU5SO5jcUlBql6Fla7e" />
         <meta-data
             android:name="CONSUMER_SECRET"
-            android:value="qGZ7CBkraYsYqvx7ZybBdmH2ToPi2Isu3Ir288J1cUDmhUoR75"/>
+            android:value="qGZ7CBkraYsYqvx7ZybBdmH2ToPi2Isu3Ir288J1cUDmhUoR75" />
 
-        <activity android:name=".view.activity.GoingEventDetails"/>
-        <activity android:name=".view.activity.AdminActivity">
-        </activity>
+        <activity android:name=".view.activity.GoingEventDetails" />
+        <activity android:name=".view.activity.AdminActivity" />
+
+        <service
+            android:name=".sync.ContactAuthenticatorService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.Account.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.Account.AccountAuthenticator"
+                android:resource="@xml/authenticator_contact" />
+        </service>
+
+        <provider
+            android:name=".sync.ContactProvider"
+            android:authorities="@string/content_authority_contact"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:syncable="true" />
+
+        <service
+            android:name=".sync.ContactSyncService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_adapter_contact" />
+
+        </service>
     </application>
 
 </manifest>
