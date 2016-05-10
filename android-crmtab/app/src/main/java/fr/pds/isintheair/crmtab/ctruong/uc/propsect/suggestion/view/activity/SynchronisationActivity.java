@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.adapter.SyncAdapter;
 
-public class SynchronisationActivity extends Activity implements View.OnClickListener{
+public class SynchronisationActivity extends Activity implements View.OnClickListener {
 
     private String TAG = this.getClass().getSimpleName();
     private AccountManager mAccountManager;
@@ -70,29 +71,34 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         unregisterReceiver(syncFinishedReceiver);
     }
 
-        private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Sync finished!");
             Toast.makeText(getApplicationContext(), "Sync Finished", Toast.LENGTH_SHORT).show();
             tv1.setText("ok");
-            final Runnable r = new Runnable() {
-                int counter = 0;
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
                 public void run() {
+                    //Do something after 100ms
                     tv2.setText("ok");
                     tv3.setText("ok");
+                    handler.postDelayed(this, 2000);
+                }
+            }, 1500);
+            final Handler handler1 = new Handler();
+            handler1.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 100ms
                     tv4.setText("ok");
                     tv5.setText("ok");
-                    if (counter < 10) {
-                        tv2.postDelayed(this, 1000 * 5);
-                        tv3.postDelayed(this, 1000 * 10);
-                        tv4.postDelayed(this, 1000 * 15);
-                        tv5.postDelayed(this, 1000 * 20);
-                    }
+                    handler.postDelayed(this, 2000);
                 }
-            };
-            r.run();
+            }, 1500);
+
 
         }
     };
@@ -127,7 +133,7 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         Bundle bundle = new Bundle();
         Account account = new Account(DEMO_ACCOUNT_NAME, getString(R.string.auth_type));
         ContentResolver.requestSync(account, getString(R.string.content_authority), bundle);
-        ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 15*60);
+        ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 15 * 60);
     }
 
     public Account createDemoAccount() {

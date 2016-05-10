@@ -10,6 +10,16 @@ import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.squareup.okhttp.ResponseBody;
+
+import fr.pds.isintheair.crmtab.model.rest.service.ProspectRestConfig;
+import fr.pds.isintheair.crmtab.model.rest.service.SyncRetrofitAPI;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
+
 /**
  * Created by Truong on 4/24/2016.
  */
@@ -21,6 +31,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public static final String SYNC_STARTED = "SyncStarted";
     final ContentResolver mContentResolver;
     Context context;
+
 
 
     /**
@@ -53,12 +64,42 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        Intent i = new Intent(SYNC_STARTED);
-        context.sendBroadcast(i);
-        Log.i("SyncAdapter", "onPerformSync");
-        i = new Intent(SYNC_FINISHED);
-        context.sendBroadcast(i);
+        String[] result = getData();
+        if (result[0] != null) {
+            Intent i = new Intent(SYNC_STARTED);
+            context.sendBroadcast(i);
+            Log.i("SyncAdapter", "onPerformSync");
+            i = new Intent(SYNC_FINISHED);
+            context.sendBroadcast(i);
+        }
 
+    }
 
+    /**
+     *
+     * @return
+     */
+    public String[] getData() {
+        final String[] test = new String[1];
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ProspectRestConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        SyncRetrofitAPI api = retrofit.create(SyncRetrofitAPI.class);
+        Call<ResponseBody> result = api.getSyncData();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+                try {
+                    test[0] = response.body().string();
+                    Log.i(TAG, "onResponse: " + test[0]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+        return test;
     }
 }
