@@ -1,9 +1,11 @@
 package fr.pds.isintheair.crmtab;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.squareup.okhttp.ResponseBody;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -23,7 +25,13 @@ import retrofit.Retrofit;
  * Created by Truong on 5/8/2016.
  */
 public class SyncAdapterTest {
-    SyncAdapter adapter = Mockito.mock(SyncAdapter.class);
+    SyncAdapter adapter;
+    Context context;
+
+    @Before
+    public void setUp() throws Exception {
+        adapter = new SyncAdapter(context, true);
+    }
 
     @Test
     public void testGetData() throws Exception {
@@ -46,6 +54,7 @@ public class SyncAdapterTest {
                 t.printStackTrace();
             }
         });
+
         String[] test = adapter.getData();
         assertNotNull(test);
         boolean isCorrect = false;
