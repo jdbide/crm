@@ -173,7 +173,7 @@
         <activity android:name=".view.activity.AdminActivity" />
 
         <service
-            android:name=".sync.ContactAuthenticatorService"
+            android:name=".syncContact.ContactAuthenticatorService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -186,7 +186,7 @@
         </service>
 
         <provider
-            android:name=".sync.ContactProvider"
+            android:name=".syncContact.ContactProvider"
             android:authorities="@string/content_authority_contact"
             android:enabled="true"
             android:exported="false"
@@ -194,7 +194,7 @@
             android:syncable="true" />
 
         <service
-            android:name=".sync.ContactSyncService"
+            android:name=".syncContact.ContactSyncService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

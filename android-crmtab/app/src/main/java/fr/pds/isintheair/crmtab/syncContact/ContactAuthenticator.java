@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.sync;
+package fr.pds.isintheair.crmtab.syncContact;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;

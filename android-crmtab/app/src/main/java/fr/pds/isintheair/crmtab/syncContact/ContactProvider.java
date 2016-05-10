@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.sync;
+package fr.pds.isintheair.crmtab.syncContact;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
