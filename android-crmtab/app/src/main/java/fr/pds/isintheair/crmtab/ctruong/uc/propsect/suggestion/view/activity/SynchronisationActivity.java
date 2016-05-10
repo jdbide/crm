@@ -118,7 +118,7 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         }
     };
 
-    private void startForceSyncing() {
+    public void startForceSyncing() {
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
@@ -129,19 +129,20 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
         ContentResolver.setSyncAutomatically(account, getString(R.string.content_authority), true);
     }
 
-    private void scheduleSync() {
+    public void scheduleSync() {
         Bundle bundle = new Bundle();
         Account account = new Account(DEMO_ACCOUNT_NAME, getString(R.string.auth_type));
         ContentResolver.requestSync(account, getString(R.string.content_authority), bundle);
         ContentResolver.addPeriodicSync(account, getString(R.string.content_authority), bundle, 15 * 60);
     }
 
-    public void createDemoAccount() {
+    public Account createDemoAccount() {
         Account account = new Account(DEMO_ACCOUNT_NAME, getString(R.string.auth_type));
         boolean accountCreated = mAccountManager.addAccountExplicitly(account, DEMO_ACCOUNT_PASSWORD, null);
         if (accountCreated) {
             showMessage("Account Created");
         }
+        return account;
     }
 
     private void showMessage(final String msg) {
