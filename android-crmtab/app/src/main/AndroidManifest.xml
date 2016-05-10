@@ -102,7 +102,7 @@
         <service android:name=".controller.service.ListennerCallEndedEvent"/>
         <service android:name=".controller.service.NotifyPresenceService"/>
 
-        <service android:name=".controller.service.ListennerCallEndedEvent$ContactService" />
+        <service android:name=".controller.service.ContactService" />
 
 
         <activity

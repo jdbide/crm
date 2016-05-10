@@ -52,7 +52,8 @@ public class AddContactFragment extends Fragment {
                 co.save();
 
                 //add contact in phone contacts
-                ContactHelper.addContactinPhoneDatabase(getActivity().getContentResolver(), fname.getText().toString() + lname.getText().toString(), number.getText().toString());
+                //fname lname???
+                ContactHelper.addContactinPhoneDatabase(getActivity().getContentResolver(), fname.getText().toString(), number.getText().toString());
 
                 //add contact in server
                 fr.pds.isintheair.crmtab.model.entity.Contact con = new fr.pds.isintheair.crmtab.model.entity.Contact();

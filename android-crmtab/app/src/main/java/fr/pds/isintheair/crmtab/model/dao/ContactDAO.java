@@ -27,4 +27,12 @@ public class ContactDAO {
     public static void delete(String num) {
         new Delete().from(Contact.class).where(Contact_Table.phoneNumber.eq(num)).query();
     }
+
+    public static Contact getContactFromName(String name) {
+        return new Select().from(Contact.class).where(Contact_Table.firstName.eq(name)).querySingle();
+    }
+
+    public static Contact getContactFromNumber(String number) {
+        return new Select().from(Contact.class).where(Contact_Table.firstName.eq(number)).querySingle();
+    }
 }
