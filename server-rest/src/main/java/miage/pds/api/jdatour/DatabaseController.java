@@ -118,7 +118,7 @@ public class DatabaseController {
             return new ResponseEntity<String>("Exception : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        String  tarCommand    = "/bin/tar -zxvf /tmp/crm-restore.tar.bz2 -C /tmp";
+        String  tarCommand    = "/bin/tar -zxvf /tmp/crm-restore.tar.bz2";
         Integer tarReturnCode = Shell.executeCommand(tarCommand);
 
         if (tarReturnCode != null && tarReturnCode != 0) {
