@@ -41,16 +41,16 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
-import fr.pds.isintheair.crmtab.model.entity.User;
 import fr.pds.isintheair.crmtab.model.dao.CacheDao;
-import fr.pds.isintheair.crmtab.model.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.model.entity.Client;
 import fr.pds.isintheair.crmtab.model.entity.Product;
 import fr.pds.isintheair.crmtab.model.entity.Report;
 import fr.pds.isintheair.crmtab.model.entity.Reporting;
+import fr.pds.isintheair.crmtab.model.entity.User;
+import fr.pds.isintheair.crmtab.model.mock.RandomInformation;
 import fr.pds.isintheair.crmtab.model.rest.service.CrvRetrofitService;
 import retrofit.Call;
 import retrofit.Callback;
@@ -66,7 +66,7 @@ public class CreateCrvActivity extends AppCompatActivity {
     CheckBox ch1, ch2, ch3, ch4;
     Button btnMessageList, btnList;
     RadioButton radio;
-    ListView listView, lstProducts;
+    ListView    listView, lstProducts;
     CardView card;
     List<String> messages = new ArrayList<String>();
     String userId, clientId, conatcId, visitId;
@@ -80,9 +80,10 @@ public class CreateCrvActivity extends AppCompatActivity {
     TextView txtRelation, txtInformation, txtProducts, txtNote;
     SeekBar relation, information, productSatisfaction;
     ImageView imgMeteo;
-    View promptView;
+    View      promptView;
     int progress = 0;
-    int note = 0;
+    int note     = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,9 +121,6 @@ public class CreateCrvActivity extends AppCompatActivity {
         ch4 = (CheckBox) findViewById(R.id.chk4);
 
 
-
-
-
         //get mocked client object
         Intent intent = getIntent();
 
@@ -153,7 +151,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         try {
 
             //Mock pre formated information
-            JSONObject json = new JSONObject(new RandomInformation().getRandomInfo());
+            JSONObject json       = new JSONObject(new RandomInformation().getRandomInfo());
             JSONObject mockObject = new JSONObject(json.getJSONObject("mock").toString());
             commercial.setText(mockObject.get("user").toString());
             contact.setText(mockObject.get("contact").toString());
@@ -206,7 +204,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                 date.setText(report.getDate());
                 comment.setText(comment.getText());
                 //get array of radio buttons from radio group
-                int count = radioGroup.getChildCount();
+                int                    count              = radioGroup.getChildCount();
                 ArrayList<RadioButton> listOfRadioButtons = new ArrayList<RadioButton>();
                 for (int j = 0; j < count; j++) {
                     View o = radioGroup.getChildAt(j);
@@ -238,7 +236,6 @@ public class CreateCrvActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-
 
 
                     //launch a new dialog box to delete if a product is selected
@@ -450,7 +447,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -527,7 +524,7 @@ public class CreateCrvActivity extends AppCompatActivity {
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                "Dites quelque chose...");
+                        "Dites quelque chose...");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         }
@@ -616,7 +613,7 @@ public class CreateCrvActivity extends AppCompatActivity {
     }
 
 
-    public void showDialogBoxForLocalSave(){
+    public void showDialogBoxForLocalSave() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
@@ -625,13 +622,13 @@ public class CreateCrvActivity extends AppCompatActivity {
         // set dialog message
         alertDialogBuilder
                 .setMessage("Sauvegarde local permet de garder une copie du compte rendu en local. Vous pouvez accéder à vos compte rendus" +
-                        "local quand vous avez une perte de connexion vers le réseau." +
-                        "\nVoulez vous garder une copie de ce compte rendu en local?")
+                                    "local quand vous avez une perte de connexion vers le réseau." +
+                                    "\nVoulez vous garder une copie de ce compte rendu en local?")
                 .setCancelable(true)
-                .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                       //save report in cache
-                        Gson gson = new Gson();
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //save report in cache
+                        Gson   gson = new Gson();
                         String json = gson.toJson(crv);
 
                         dao.insertReport(json);
@@ -655,12 +652,12 @@ public class CreateCrvActivity extends AppCompatActivity {
 
 
     //call a contact
-    public void callContact(View view){
+    public void callContact(View view) {
         CallMessageController.call(tel.getText().toString());
     }
 
-    public void showSatisfactionDetail(View view){
-        note= 0;
+    public void showSatisfactionDetail(View view) {
+        note = 0;
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         promptView = layoutInflater.inflate(R.layout.satisfaction_dialog, null);
 
@@ -674,8 +671,7 @@ public class CreateCrvActivity extends AppCompatActivity {
         txtNote = (TextView) promptView.findViewById(R.id.noteGlobale);
         imgMeteo = (ImageView) promptView.findViewById(R.id.imgMeteo);
 
-        grpContacter = (RadioGroup)promptView.findViewById(R.id.grpContacter);
-
+        grpContacter = (RadioGroup) promptView.findViewById(R.id.grpContacter);
 
 
         //set on seek progress listener
@@ -683,7 +679,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 progress = i;
-                txtRelation.setText(progress +"/5");
+                txtRelation.setText(progress + "/5");
 
             }
 
@@ -702,7 +698,7 @@ public class CreateCrvActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 progress = i;
-                txtInformation.setText(progress +"/5");
+                txtInformation.setText(progress + "/5");
 
             }
 
@@ -738,31 +734,28 @@ public class CreateCrvActivity extends AppCompatActivity {
         });
 
 
-
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
-
-
 
 
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
 
-                .setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
+                          .setPositiveButton("Ok",
+                                             new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //save all values in an object
+                                                 @Override
+                                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                                     //save all values in an object
 
-                            }
-                        })
-                .setNegativeButton("Annuler",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                                                 }
+                                             })
+                          .setNegativeButton("Annuler",
+                                             new DialogInterface.OnClickListener() {
+                                                 public void onClick(DialogInterface dialog, int id) {
+                                                     dialog.cancel();
+                                                 }
+                                             });
 
 
         // create an alert dialog
@@ -771,10 +764,9 @@ public class CreateCrvActivity extends AppCompatActivity {
         alert.show();
 
 
-
     }
 
-    public void calculateNote(View view){
+    public void calculateNote(View view) {
         relation.setEnabled(false);
         information.setEnabled(false);
         productSatisfaction.setEnabled(false);
@@ -790,33 +782,36 @@ public class CreateCrvActivity extends AppCompatActivity {
 
         //get the text of selected radio button to set points
         String result = contactAnswer.getText().toString();
-        if(result.equalsIgnoreCase("oui")){
-            note+=5;
-        }else if(result.equalsIgnoreCase("non")){
-            note = note-2;
-        }else if(result.equalsIgnoreCase("aucune reponse")){
-            note+=2;
+        if (result.equalsIgnoreCase("oui")) {
+            note += 5;
+        }
+        else if (result.equalsIgnoreCase("non")) {
+            note = note - 2;
+        }
+        else if (result.equalsIgnoreCase("aucune reponse")) {
+            note += 2;
         }
 
         txtNote.setText("Note globale: " + note);
 
 
-        if(note <= 5){
+        if (note <= 5) {
             imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_pas_satisfait));
             radio = (RadioButton) findViewById(R.id.rdNon);
             radio.setChecked(true);
-        }else if(note >5 && note <=10){
+        }
+        else if (note > 5 && note <= 10) {
             imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_satisfait_moyen));
             radio = (RadioButton) findViewById(R.id.rdMoyen);
             radio.setChecked(true);
-        }else if(note >10){
+        }
+        else if (note > 10) {
             imgMeteo.setImageDrawable(getResources().getDrawable(R.drawable.meteo_satisfait));
             radio = (RadioButton) findViewById(R.id.rdOui);
             radio.setChecked(true);
         }
 
         note = 0;
-
 
 
     }

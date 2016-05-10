@@ -61,23 +61,15 @@ public class LoginActivity extends Activity implements Callback<User> {
         progressBar.setVisibility(View.VISIBLE);
         error.setVisibility(View.GONE);
 
-        String login = loginEditText.getText().toString();
+        String login    = loginEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String basic = CredentialHelper.getBase64Credentials(login, password);
+        String basic    = CredentialHelper.getBase64Credentials(login, password);
 
         currentUser.setEmail(login);
         currentUser.setPassword(basic);
 
-        //TODO Remove it
-        /*currentUser.save();
-
-        startService(new Intent(LoginActivity.this, CallService.class));
-        startService(new Intent(LoginActivity.this, CalendarService.class));
-        startService(new Intent(LoginActivity.this, NotificationIntentService.class));
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));*/
-
         LoginService loginService = RetrofitHandlerSingleton.getInstance().getLoginService();
-        Call<User> call = loginService.login(currentUser);
+        Call<User>   call         = loginService.login(currentUser);
 
         call.enqueue(LoginActivity.this);
     }
@@ -107,7 +99,8 @@ public class LoginActivity extends Activity implements Callback<User> {
         if (currentUser != null) {
             initService();
             startActivity(new Intent(this, MainActivity.class));
-        } else {
+        }
+        else {
             currentUser = new User();
         }
     }
@@ -117,7 +110,7 @@ public class LoginActivity extends Activity implements Callback<User> {
         if (response.isSuccess()) {
             currentUser = response.body();
             Log.v("rep", response.body().toString());
-            //TODO FIx the real problem
+
             if (currentUser == null) {
                 currentUser = new User();
 
@@ -133,7 +126,6 @@ public class LoginActivity extends Activity implements Callback<User> {
             initService();
 
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
         }
     }
 

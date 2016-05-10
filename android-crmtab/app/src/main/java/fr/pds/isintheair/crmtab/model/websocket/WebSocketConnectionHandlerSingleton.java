@@ -4,6 +4,7 @@ import android.util.Log;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.CrmTabApplication;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
@@ -13,7 +14,6 @@ import fr.pds.isintheair.crmtab.helper.NetworkHelper;
 import fr.pds.isintheair.crmtab.model.entity.CalendarMessage;
 import fr.pds.isintheair.crmtab.model.entity.CallMessage;
 import fr.pds.isintheair.crmtab.model.entity.Message;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 
 public class WebSocketConnectionHandlerSingleton {
 

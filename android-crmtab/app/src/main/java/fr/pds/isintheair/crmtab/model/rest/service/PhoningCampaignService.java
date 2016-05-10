@@ -1,6 +1,6 @@
 package fr.pds.isintheair.crmtab.model.rest.service;
 
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.model.entity.MessageRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestPhoningCampaign;
 import retrofit.Call;
@@ -19,6 +19,7 @@ public interface PhoningCampaignService {
 
     /**
      * Call rest used to demand contacts of the customer pass with messageRestPhoningCampaign object
+     *
      * @param message
      * @return
      */
@@ -27,6 +28,7 @@ public interface PhoningCampaignService {
 
     /**
      * Call rest used to save the current phoning campaign pass with messageRestPhoningCampaign object
+     *
      * @param message
      * @return
      */

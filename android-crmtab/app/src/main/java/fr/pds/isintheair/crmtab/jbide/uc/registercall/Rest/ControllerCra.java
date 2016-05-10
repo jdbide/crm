@@ -11,7 +11,7 @@ import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
@@ -42,13 +42,13 @@ public class ControllerCra {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
         RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
-        Call<Boolean> call = service.createcra(cra);
+        Call<Boolean>                call    = service.createcra(cra);
 
         call.enqueue(new Callback<Boolean>() {
             @Override
@@ -80,7 +80,8 @@ public class ControllerCra {
                     CallEndedDAO.delete(Long.valueOf(eventToDelete));
 
 
-                } else {
+                }
+                else {
                     //request not successful (like 400,401,403 etc)
                     //Handle errors
                     Log.v("rest", "no rep" + response.message());
@@ -156,13 +157,13 @@ public class ControllerCra {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
         RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
-        Call<Boolean> call = service.createcra(cra);
+        Call<Boolean>                call    = service.createcra(cra);
 
         call.enqueue(new Callback<Boolean>() {
             @Override
@@ -193,7 +194,8 @@ public class ControllerCra {
                     alertDialog.show();
 
 
-                } else {
+                }
+                else {
                     //request not successful (like 400,401,403 etc)
                     //Handle errors
                     Log.v("rest", "no rep" + response.message());

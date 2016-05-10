@@ -39,7 +39,7 @@ public class RegisterCallTest {
 
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
+            .baseUrl(Constant.REST_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(httpClient)
             .build();
@@ -74,7 +74,7 @@ public class RegisterCallTest {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();

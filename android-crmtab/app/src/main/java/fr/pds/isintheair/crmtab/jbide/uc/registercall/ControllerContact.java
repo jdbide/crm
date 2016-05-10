@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
+import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.model.entity.Contact;
 import fr.pds.isintheair.crmtab.model.rest.service.ContactRetrofitService;
@@ -40,13 +41,13 @@ public class ControllerContact {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
         ContactRetrofitService service = retrofit.create(ContactRetrofitService.class);
-        Call<Boolean> call = service.addContacts(cra);
+        Call<Boolean>          call    = service.addContacts(cra);
 
         call.enqueue(new Callback<Boolean>() {
             @Override
@@ -77,7 +78,8 @@ public class ControllerContact {
                     alertDialog.show();
 
 
-                } else {
+                }
+                else {
                     //request not successful (like 400,401,403 etc)
                     //Handle errors
                     Log.v("rest", "no rep" + response.message());
