@@ -13,7 +13,8 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
+import fr.pds.isintheair.crmtab.helper.ContactHelper;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.ControllerContact;
 import fr.pds.isintheair.crmtab.model.mock.Contact;
 
 
@@ -51,7 +52,14 @@ public class AddContactFragment extends Fragment {
                 co.save();
 
                 //add contact in phone contacts
-                Constant.addContactinPhoneDatabase(getActivity().getContentResolver(),fname.getText().toString()+lname.getText().toString(),number.getText().toString());
+                ContactHelper.addContactinPhoneDatabase(getActivity().getContentResolver(), fname.getText().toString() + lname.getText().toString(), number.getText().toString());
+
+                //add contact in server
+                fr.pds.isintheair.crmtab.model.entity.Contact con = new fr.pds.isintheair.crmtab.model.entity.Contact();
+                con.setContactFname(fname.getText().toString());
+                con.setContactName(lname.getText().toString());
+                con.setContactTel(number.getText().toString());
+                ControllerContact.registerContact(con,getActivity());
 
                 //redirect
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
