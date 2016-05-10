@@ -56,6 +56,11 @@
             android:icon="@android:drawable/sym_action_call"
             android:title="Synchronisation"/>
 
+        <item
+            android:id="@+id/nav_admin"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Administration"/>
+
     </item>
 
 

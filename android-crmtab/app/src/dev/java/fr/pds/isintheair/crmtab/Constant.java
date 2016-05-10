@@ -1,4 +1,4 @@
-package fr.pds.isintheair;
+package fr.pds.isintheair.crmtab;
 
 /**
  * Create by jdatour

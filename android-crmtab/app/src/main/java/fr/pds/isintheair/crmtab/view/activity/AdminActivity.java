@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,7 +41,7 @@ public class AdminActivity extends Activity {
                 Toast.makeText(AdminActivity.this, "La base de donnée a été correctement sauvegardée", Toast.LENGTH_LONG).show();
                 SharedPreferenceHelper.writeString("lastDumpFileId", response.body());
                 fileIdTextView.setText("Last dump file id : " + response.body());
-                lastDumpDateTextView.setText(Calendar.getInstance().toString());
+                lastDumpDateTextView.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(Calendar.getInstance().getTime()));
             }
 
             @Override
@@ -57,6 +59,7 @@ public class AdminActivity extends Activity {
             @Override
             public void onResponse(Response<String> response, Retrofit retrofit) {
                 Toast.makeText(AdminActivity.this, "La base de donnée a été correctement rétablie", Toast.LENGTH_LONG).show();
+                lastRestoreDateTextView.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(Calendar.getInstance().getTime()));
             }
 
             @Override

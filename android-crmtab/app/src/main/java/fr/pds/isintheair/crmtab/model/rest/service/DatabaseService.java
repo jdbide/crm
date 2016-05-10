@@ -11,9 +11,9 @@ import retrofit.http.GET;
  ******************************************/
 
 public interface DatabaseService {
-    @GET("/database/dump")
-    public Call<String> dumpDatabase();
+    @GET("database/dump")
+    Call<String> dumpDatabase();
 
     @GET("database/restore")
-    public Call<String> restoreDatabase();
+    Call<String> restoreDatabase();
 }
