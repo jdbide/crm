@@ -117,6 +117,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".view.activity.NormalizeDemoActivity"/>
         <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity">
+
         </activity>
 
         <provider
