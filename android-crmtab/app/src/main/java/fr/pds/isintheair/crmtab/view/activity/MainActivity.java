@@ -36,12 +36,13 @@ import fr.pds.isintheair.crmtab.controller.message.ClockinController;
 import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.controller.service.CalendarService;
 import fr.pds.isintheair.crmtab.controller.service.CallService;
+import fr.pds.isintheair.crmtab.controller.service.ContactService;
 import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
 import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.ContactService;
+import fr.pds.isintheair.crmtab.helper.ContactHelper;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
@@ -73,16 +74,17 @@ public class MainActivity extends AppCompatActivity
     User    currentUser;
     // UC Register a call
     private PendingLogsFragment pend;
-    private TextView mTextView;
-    private NfcAdapter mNfcAdapter;
-    private PendingIntent mPendingIntent;
-    private IntentFilter[] mIntentFilters;
-    private String[][] mNFCTechLists;
-    private ImageView imgStatus;
+    private TextView            mTextView;
+    private NfcAdapter          mNfcAdapter;
+    private PendingIntent       mPendingIntent;
+    private IntentFilter[]      mIntentFilters;
+    private String[][]          mNFCTechLists;
+    private ImageView           imgStatus;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ContactHelper.updateContactinAppDatabase(getContentResolver());
         super.onCreate(savedInstanceState);
         startService(new Intent(this, ContactService.class));
         setContentView(R.layout.activity_main);
@@ -115,29 +117,31 @@ public class MainActivity extends AppCompatActivity
 
         //Badging
         // mTextView = (TextView)findViewById(R.id.tag);
-        imgStatus = (ImageView)findViewById(R.id.imgStatus);
+        imgStatus = (ImageView) findViewById(R.id.imgStatus);
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (mNfcAdapter != null) {
             // mTextView.setText("Read an NFC tag");
-        } else {
+        }
+        else {
             //mTextView.setText("This phone is not NFC enabled.");
         }
 
         // create an intent with tag data and deliver to this activity
         mPendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+                                                   new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
         // set an intent filter for all MIME data
         IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             ndefIntent.addDataType("*/*");
-            mIntentFilters = new IntentFilter[] { ndefIntent };
-        } catch (Exception e) {
+            mIntentFilters = new IntentFilter[]{ndefIntent};
+        }
+        catch (Exception e) {
             Log.e("TagDispatch", e.toString());
         }
 
-        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+        mNFCTechLists = new String[][]{new String[]{NfcF.class.getName()}};
     }
 
     //Badging
@@ -161,8 +165,6 @@ public class MainActivity extends AppCompatActivity
         if (mNfcAdapter != null)
             mNfcAdapter.disableForegroundDispatch(this);
     }
-
-
 
 
     /**
@@ -281,8 +283,12 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.agenda) {
             startActivity(new Intent(this, AgendaActivity.class));
         }
-        else if (id == R.id.nav_event_subscription){
+        else if (id == R.id.nav_event_subscription) {
             startActivity(new Intent(this, EventSubscriptionActivity.class));
+        }
+
+        else if (id == R.id.nav_admin) {
+            startActivity(new Intent(this, AdminActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -293,7 +299,7 @@ public class MainActivity extends AppCompatActivity
 
     public void showNotificationListFrag() {
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(10000);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         pend = PendingLogsFragment.newInstance();
@@ -318,7 +324,7 @@ public class MainActivity extends AppCompatActivity
                 , event.getCallEndedEvent().getDate()
                 , event.getCallEndedEvent().getDuration()
                 , event.getCallEndedEvent().getCalltype() == CallType.INCOMING ? "Entrant" : "Sortant"
-                , true,event.pend,event.getCallEndedEvent().getId());
+                , true, event.pend, event.getCallEndedEvent().getId());
 
         ft.replace(R.id.container, fragment, TagAddLogFragment).addToBackStack(null).commit();
     }
@@ -332,7 +338,6 @@ public class MainActivity extends AppCompatActivity
         CallDetailsFragment fragment = CallDetailsFragment.newInstance(cra);
         ft.replace(R.id.container, fragment).addToBackStack(null).commit();
     }
-
 
 
     @Override
@@ -373,10 +378,10 @@ public class MainActivity extends AppCompatActivity
 
     private void tagdDiscovered(Intent intent) {
         String action = intent.getAction();
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        Tag    tag    = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
         //String s = action + "\n\n" + tag.toString();
-        String s="";
+        String s = "";
 
         // parse through all NDEF messages and their records and pick text type only
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -384,24 +389,25 @@ public class MainActivity extends AppCompatActivity
         if (data != null) {
             try {
                 for (int i = 0; i < data.length; i++) {
-                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
+                    NdefRecord[] recs = ((NdefMessage) data[i]).getRecords();
                     for (int j = 0; j < recs.length; j++) {
                         if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
                                 Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
 
-                            byte[] payload = recs[j].getPayload();
+                            byte[] payload      = recs[j].getPayload();
                             String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
-                            int langCodeLen = payload[0] & 0077;
+                            int    langCodeLen  = payload[0] & 0077;
 
-                            s = ( new String(payload, langCodeLen + 1,
-                                    payload.length - langCodeLen - 1, textEncoding));
+                            s = (new String(payload, langCodeLen + 1,
+                                            payload.length - langCodeLen - 1, textEncoding));
 
                             ClockinController.clockin(s, this);
 
                         }
                     }
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 Log.e("TagDispatch", e.toString());
             }
 

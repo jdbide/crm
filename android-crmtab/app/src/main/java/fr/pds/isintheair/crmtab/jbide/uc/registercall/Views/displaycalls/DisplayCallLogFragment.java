@@ -37,9 +37,9 @@ import retrofit.Retrofit;
 public class DisplayCallLogFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private List<Cra> listecra;
+    private List<Cra>                         listecra;
     private OnListFragmentInteractionListener mListener;
-    private CallLogRecyclerViewAdapter adapter;
+    private CallLogRecyclerViewAdapter        adapter;
 
 
     /**
@@ -62,7 +62,7 @@ public class DisplayCallLogFragment extends Fragment {
         listecra = new ArrayList<Cra>();
         adapter = new CallLogRecyclerViewAdapter(listecra, mListener);
 
-        Gson gson = new GsonBuilder().create();
+        Gson                   gson    = new GsonBuilder().create();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -71,13 +71,13 @@ public class DisplayCallLogFragment extends Fragment {
         httpClient.interceptors().add(logging);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
         RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
-        Call<List<Cra>> call = service.listcraforuser(Constant.BASE_URL);
+        Call<List<Cra>>              call    = service.listcraforuser(Constant.REST_URL);
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
@@ -100,7 +100,8 @@ public class DisplayCallLogFragment extends Fragment {
                     }
                     adapter.notifyDataSetChanged();
 
-                } else {
+                }
+                else {
                     Log.v("listcraforuser", "no rep");
                 }
                 //Toast.makeText(context, "status code" + response.message(), Toast.LENGTH_SHORT).show();
@@ -123,7 +124,7 @@ public class DisplayCallLogFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
+            Context      context      = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             //set adapter
@@ -138,9 +139,10 @@ public class DisplayCallLogFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
-        } else {
+        }
+        else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                                               + " must implement OnListFragmentInteractionListener");
         }
     }
 
@@ -150,7 +152,7 @@ public class DisplayCallLogFragment extends Fragment {
         mListener = null;
     }
 
-    public CallLogRecyclerViewAdapter  getAdapter(){
+    public CallLogRecyclerViewAdapter getAdapter() {
         return adapter;
     }
 

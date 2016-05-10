@@ -7,6 +7,7 @@ import com.squareup.okhttp.ResponseBody;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 
@@ -26,7 +27,7 @@ import retrofit.Retrofit;
  */
 public class SyncAdapterTest {
     SyncAdapter adapter;
-    Context context;
+    Context context = Mockito.mock(Context.class);
 
     @Before
     public void setUp() throws Exception {
@@ -60,7 +61,8 @@ public class SyncAdapterTest {
         boolean isCorrect = false;
         if (test[0] == "ko") {
             isCorrect = true;
+            Log.d("test", "testGetData: " + test);
         }
-        assertTrue(isCorrect);
+        assertFalse(isCorrect);
     }
 }

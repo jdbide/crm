@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
-import fr.pds.isintheair.crmtab.model.rest.service.RegisterCallSerciceGenerator;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Views.displaycalls.CallLogRecyclerViewAdapter;
+import fr.pds.isintheair.crmtab.model.rest.service.RegisterCallSerciceGenerator;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -26,41 +26,41 @@ import static org.junit.Assert.assertTrue;
  */
 public class RegisterCallTest {
 
-@Test
-    public void testDisplayCallLogFragment(){
+    @Test
+    public void testDisplayCallLogFragment() {
 
-    List<Cra> listecra = new ArrayList<Cra>();
-    CallLogRecyclerViewAdapter adapter = new CallLogRecyclerViewAdapter(listecra);
+        List<Cra>                  listecra = new ArrayList<Cra>();
+        CallLogRecyclerViewAdapter adapter  = new CallLogRecyclerViewAdapter(listecra);
 
-    Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder().create();
 
-    OkHttpClient httpClient = new OkHttpClient();
+        OkHttpClient httpClient = new OkHttpClient();
 
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(httpClient)
-            .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.REST_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(httpClient)
+                .build();
 
-    RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
-    Call<List<Cra>> call = service.listcraforuser("1");
-    call.enqueue(new Callback<List<Cra>>() {
-        @Override
-        public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
-            assertTrue(response.isSuccess());
-            //Toast.makeText(context, "status code" + response.message(), Toast.LENGTH_SHORT).show();
-        }
+        RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
+        Call<List<Cra>>              call    = service.listcraforuser("1");
+        call.enqueue(new Callback<List<Cra>>() {
+            @Override
+            public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
+                assertTrue(response.isSuccess());
+                //Toast.makeText(context, "status code" + response.message(), Toast.LENGTH_SHORT).show();
+            }
 
-        @Override
-        public void onFailure(Throwable t) {
+            @Override
+            public void onFailure(Throwable t) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
     @Test
-    public void testaddlog(){
+    public void testaddlog() {
         //Interceptor
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
@@ -73,13 +73,13 @@ public class RegisterCallTest {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
         RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
-        Call<Boolean> call = service.createcra(new Cra());
+        Call<Boolean>                call    = service.createcra(new Cra());
 
         call.enqueue(new Callback<Boolean>() {
             @Override

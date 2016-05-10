@@ -29,14 +29,14 @@ public class DatabaseController {
     @RequestMapping(value = "/database/dump", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     ResponseEntity<String> dumpDatabase (@RequestBody String dumpDatabaseRequest) {
-        String  dumpCommand    = "/usr/bin/mongodump --db crm --out /tmp";
+        String  dumpCommand    = "/usr/bin/mongodump --db crm --out /home/mongodb";
         Integer dumpReturnCode = Shell.executeCommand(dumpCommand);
 
         if (dumpReturnCode != null && dumpReturnCode != 0) {
             return new ResponseEntity<String>("Dump went wrong : " + dumpReturnCode, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        String  tarCommand    = "/bin/tar -zcvf /tmp/crm.tar.bz2 /tmp/crm";
+        String  tarCommand    = "/bin/tar -zcvf /home/mongodb/crm-backup.tar.gz -C /home/mongodb crm";
         Integer tarReturnCode = Shell.executeCommand(tarCommand);
 
         if (tarReturnCode != null && tarReturnCode != 0) {
@@ -46,7 +46,7 @@ public class DatabaseController {
         byte[] backupFileDatas = null;
 
         try {
-            Path path = Paths.get("/tmp/crm.tar.bz2");
+            Path path = Paths.get("/home/mongodb/crm-backup.tar.gz");
 
             backupFileDatas = Files.readAllBytes(path);
 
@@ -102,7 +102,7 @@ public class DatabaseController {
             }
 
             if (response.body() != null) {
-                String  path                  = "/tmp/crm-restore.tar.bz2";
+                String  path                  = "/home/mongodb/crm-restore.tar.gz";
                 File    file                  = new File(path);
                 Boolean fileCreationSucceeded = false;
 
@@ -118,14 +118,14 @@ public class DatabaseController {
             return new ResponseEntity<String>("Exception : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        String  tarCommand    = "/bin/tar -zxvf /tmp/crm-restore.tar.bz2 -C /tmp";
+        String  tarCommand    = "/bin/tar -zxvf /home/mongodb/crm-restore.tar.gz -C /home/mongodb";
         Integer tarReturnCode = Shell.executeCommand(tarCommand);
 
         if (tarReturnCode != null && tarReturnCode != 0) {
             return new ResponseEntity<String>("Tar went wrong : " + tarReturnCode, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        String  restoreCommand    = "/usr/bin/mongorestore --db crm /tmp/tmp/crm";
+        String  restoreCommand    = "/usr/bin/mongorestore --db crm /home/mongodb/crm";
         Integer restoreReturnCode = Shell.executeCommand(restoreCommand);
 
         if (restoreReturnCode != null && restoreReturnCode != 0) {

@@ -87,8 +87,6 @@ public class ListennerCallEndedEvent extends Service {
             if(co!=null)
                 found = true;
 
-
-
        if(found) {
 /*
            //if no popup displayed show
@@ -97,8 +95,6 @@ public class ListennerCallEndedEvent extends Service {
 
                Handler handler = new Handler();
                handler.postDelayed(new Thread(new delay(event)),2000);
-
-
 
 
            } else {  //else add to job
@@ -188,7 +184,5 @@ public class ListennerCallEndedEvent extends Service {
         // Send the notification.
         mNM.notify(notification_id, notification.build());
     }
-
-
 
 }
