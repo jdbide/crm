@@ -10,7 +10,7 @@
 
     <modules>
         <module>server-notification</module>
-        <module>api</module>
+        <module>server-rest</module>
     </modules>
 
     <properties>
