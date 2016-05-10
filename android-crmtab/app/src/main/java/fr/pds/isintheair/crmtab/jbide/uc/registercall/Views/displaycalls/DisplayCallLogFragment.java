@@ -18,7 +18,7 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pds.isintheair.crmtab.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
 import fr.pds.isintheair.crmtab.model.rest.service.RegisterCallSerciceGenerator;

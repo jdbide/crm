@@ -41,7 +41,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import fr.pds.isintheair.crmtab.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.message.CallMessageController;
 import fr.pds.isintheair.crmtab.model.entity.User;

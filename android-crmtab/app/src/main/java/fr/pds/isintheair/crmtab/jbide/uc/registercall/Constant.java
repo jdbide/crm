@@ -1,6 +1,7 @@
-package fr.pds.isintheair.crmtab;
+package fr.pds.isintheair.crmtab.jbide.uc.registercall;
 
 import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class Constant {
         popupdisplayed = state;
     }
 
-    public void addContactinPhoneDatabase(String name, String number) {
+    public static void addContactinPhoneDatabase(ContentResolver res,String name, String number) {
 
         String DisplayName = name;
         String MobileNumber = number;
@@ -133,7 +134,7 @@ public class Constant {
 
         // Asking the Contact provider to create a new contact
         try {
-            //getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+            res.applyBatch(ContactsContract.AUTHORITY, ops);
         } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(myContext, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();

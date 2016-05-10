@@ -1,11 +1,10 @@
 package fr.pds.isintheair.crmtab.model.rest.service;
 
-import fr.pds.isintheair.crmtab.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 import fr.pds.isintheair.crmtab.model.entity.MessageRestPhoningCampaign;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestPhoningCampaign;
 import retrofit.Call;
 import retrofit.http.Body;
-import retrofit.http.GET;
 import retrofit.http.POST;
 
 /**

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import fr.pds.isintheair.crmtab.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 import fr.pds.isintheair.crmtab.model.mock.Contact;
 import fr.pds.isintheair.crmtab.model.dao.CacheDao;
 import fr.pds.isintheair.crmtab.model.entity.Client;

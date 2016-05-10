@@ -1,6 +1,7 @@
 package fr.pds.isintheair.crmtab.view.fragment;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,7 +13,8 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import fr.pds.isintheair.crmtab.R;
-
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
+import fr.pds.isintheair.crmtab.model.mock.Contact;
 
 
 /**
@@ -21,8 +23,10 @@ import fr.pds.isintheair.crmtab.R;
 public class AddContactFragment extends Fragment {
     @Bind(R.id.edittextnumber)
     EditText number;
-    @Bind(R.id.edittextname)
-    EditText name;
+    @Bind(R.id.edittextfname)
+    EditText fname;
+    @Bind(R.id.edittextlname)
+    EditText lname;
     @Bind(R.id.registercontact)
     Button register;
     @Override
@@ -38,7 +42,21 @@ public class AddContactFragment extends Fragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Contact co = new Contact();
 
+                //add contact in app database
+                co.setFirstName(fname.getText().toString());
+                co.setLastName(lname.getText().toString());
+                co.setPhoneNumber(number.getText().toString());
+                co.save();
+
+                //add contact in phone contacts
+                Constant.addContactinPhoneDatabase(getActivity().getContentResolver(),fname.getText().toString()+lname.getText().toString(),number.getText().toString());
+
+                //redirect
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, new ContactListFragment());
+                fragmentTransaction.commit();
             }
         });
         return view;

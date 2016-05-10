@@ -8,7 +8,7 @@ import com.raizlabs.android.dbflow.structure.ModelAdapter;
 
 import fr.pds.isintheair.crmtab.model.rest.service.NotifyPresenceRetrofitService;
 import fr.pds.isintheair.crmtab.model.rest.service.LoginService;
-import fr.pds.isintheair.crmtab.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 

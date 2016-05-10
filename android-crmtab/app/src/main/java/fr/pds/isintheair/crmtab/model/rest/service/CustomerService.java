@@ -1,7 +1,7 @@
 package fr.pds.isintheair.crmtab.model.rest.service;
 
 
-import fr.pds.isintheair.crmtab.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 import fr.pds.isintheair.crmtab.model.entity.MessageRestCustomer;
 import fr.pds.isintheair.crmtab.model.entity.ResponseRestCustomer;
 import retrofit.Call;

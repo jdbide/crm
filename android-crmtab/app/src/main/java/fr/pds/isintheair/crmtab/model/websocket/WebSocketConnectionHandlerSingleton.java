@@ -13,7 +13,7 @@ import fr.pds.isintheair.crmtab.helper.NetworkHelper;
 import fr.pds.isintheair.crmtab.model.entity.CalendarMessage;
 import fr.pds.isintheair.crmtab.model.entity.CallMessage;
 import fr.pds.isintheair.crmtab.model.entity.Message;
-import fr.pds.isintheair.crmtab.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 
 public class WebSocketConnectionHandlerSingleton {
 

@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getContentResolver();
         super.onCreate(savedInstanceState);
         startService(new Intent(this, ContactService.class));
         setContentView(R.layout.activity_main);

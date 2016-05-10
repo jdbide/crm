@@ -78,14 +78,14 @@ public class ContactListFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.contact,menu);
+        inflater.inflate(R.menu.contact, menu);
     }
 
     private void generateMockedContactsIfNeeded() {
         List<Contact> databaseContacts = ContactDAO.getAll();
 
         if (databaseContacts.size() == 0) {
-
+            ContactDAO.delete();
             StringBuilder stringBuilder = new StringBuilder();
             InputStream inputStream = null;
 
