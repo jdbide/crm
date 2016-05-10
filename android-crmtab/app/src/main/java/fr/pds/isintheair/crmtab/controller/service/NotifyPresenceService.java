@@ -21,11 +21,10 @@ import com.squareup.otto.Subscribe;
 
 import java.util.Arrays;
 
-import fr.pds.isintheair.crmtab.model.rest.service.NotifyPresenceRetrofitService;
-import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
 import fr.pds.isintheair.crmtab.model.ClockinObject;
 import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
+import fr.pds.isintheair.crmtab.model.rest.service.NotifyPresenceRetrofitService;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -37,30 +36,31 @@ import retrofit.Retrofit;
 public class NotifyPresenceService extends Service implements Callback<ClockinObject> {
 
 
-    private TextView mTextView;
-    private NfcAdapter mNfcAdapter;
-    private PendingIntent mPendingIntent;
+    private TextView       mTextView;
+    private NfcAdapter     mNfcAdapter;
+    private PendingIntent  mPendingIntent;
     private IntentFilter[] mIntentFilters;
-    private String[][] mNFCTechLists;
-    private ImageView imgStatus;
+    private String[][]     mNFCTechLists;
+    private ImageView      imgStatus;
 
 
-        @Override
-        public IBinder onBind(Intent intent) {
-            return null;
-        }
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         //registering service for events on the bus
-        BusHandlerSingleton.getInstance().getBus().register(this);
+//        BusHandlerSingleton.getInstance().getBus().register(this);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (mNfcAdapter != null) {
             // mTextView.setText("Read an NFC tag");
-        } else {
+        }
+        else {
             //mTextView.setText("This phone is not NFC enabled.");
         }
 
@@ -69,24 +69,24 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
         IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             ndefIntent.addDataType("*/*");
-            mIntentFilters = new IntentFilter[] { ndefIntent };
-        } catch (Exception e) {
+            mIntentFilters = new IntentFilter[]{ndefIntent};
+        }
+        catch (Exception e) {
             Log.e("TagDispatch", e.toString());
         }
 
-        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+        mNFCTechLists = new String[][]{new String[]{NfcF.class.getName()}};
 
         return START_STICKY;
     }
 
 
-
     @Subscribe
     public void onNewIntent(Intent intent) {
         String action = intent.getAction();
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        Tag    tag    = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-        String s="";
+        String s = "";
 
         // parse through all NDEF messages and their records and pick text type only
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -94,18 +94,18 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
         if (data != null) {
             try {
                 for (int i = 0; i < data.length; i++) {
-                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
+                    NdefRecord[] recs = ((NdefMessage) data[i]).getRecords();
                     for (int j = 0; j < recs.length; j++) {
                         if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
                                 Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
 
-                            byte[] payload = recs[j].getPayload();
+                            byte[] payload      = recs[j].getPayload();
                             String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
-                            int langCodeLen = payload[0] & 0077;
+                            int    langCodeLen  = payload[0] & 0077;
 
                             //Tag id
-                            s = ( new String(payload, langCodeLen + 1,
-                                    payload.length - langCodeLen - 1, textEncoding));
+                            s = (new String(payload, langCodeLen + 1,
+                                            payload.length - langCodeLen - 1, textEncoding));
 
 
                             clockin(s);
@@ -113,7 +113,8 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
                         }
                     }
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 Log.e("TagDispatch", e.toString());
             }
 
@@ -123,11 +124,10 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
     }
 
 
+    private void clockin(String tagid) {
 
-    private void clockin(String tagid){
-
-        NotifyPresenceRetrofitService service =  RetrofitHandlerSingleton.getInstance().getNotifyPesenceInterface();
-        Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), tagid));
+        NotifyPresenceRetrofitService service = RetrofitHandlerSingleton.getInstance().getNotifyPresenceService();
+        Call<ClockinObject>           call    = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), tagid));
         call.enqueue(this);
 
     }
@@ -143,14 +143,12 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
     }
 
 
-        @Override
-        public void onDestroy() {
+    @Override
+    public void onDestroy() {
 
-            // Tell the user we stopped.
-            Toast.makeText(this, "NotifyPresenceServiceService stopped", Toast.LENGTH_SHORT).show();
-        }
-
-
+        // Tell the user we stopped.
+        Toast.makeText(this, "NotifyPresenceServiceService stopped", Toast.LENGTH_SHORT).show();
+    }
 
 
     public class NotifyServiceBinder extends Binder {
@@ -159,5 +157,5 @@ public class NotifyPresenceService extends Service implements Callback<ClockinOb
         }
     }
 
-    }
+}
 

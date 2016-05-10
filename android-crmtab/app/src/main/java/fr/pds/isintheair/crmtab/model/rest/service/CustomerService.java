@@ -17,9 +17,9 @@ import retrofit.http.Path;
 public interface CustomerService {
 
 
-   static String BASE_URL = Constant.REST_URL;
+    static String BASE_URL = Constant.REST_URL;
 
-   // static String BEGIN_URL = "/SpringRESTapi";
+    // static String BEGIN_URL = "/SpringRESTapi";
 
 
     @POST("/api/customer/hc/create/")
@@ -34,7 +34,7 @@ public interface CustomerService {
     @GET("/api/customer/purchasingcentral")
     Call<ResponseRestCustomer> getPurchasingCentral();
 
-   @GET("/api/customer/company")
+    @GET("/api/customer/company")
     Call<ResponseRestCustomer> getCompanies();
 
     @GET("/api/customer/specialty")

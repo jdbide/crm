@@ -1,13 +1,6 @@
 package miage.pds;
 
-import com.mongodb.MongoClient;
-import miage.pds.api.tlacouque.uc.admin.ref.customer.SpringMongoConfig;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 
-import java.net.UnknownHostException;
-
-/*
 import com.mongodb.MongoClient;
 import miage.pds.api.tlacouque.uc.admin.ref.customer.SpringMongoConfig;
 import org.mongodb.morphia.Datastore;
@@ -21,20 +14,13 @@ import java.net.UnknownHostException;
 public class MongoDatastoreConfig {
 
 
-    static Datastore datastore;
     static final Morphia morphia = new Morphia();
+    static Datastore datastore;
 
-    public static Datastore getDataStore() {
-        if(datastore == null ) {
+    public static Datastore getDataStore () {
+        if (datastore == null) {
             try {
-<<<<<<< HEAD
-                datastore = morphia.createDatastore(new MongoClient(MongoConfig.VM_PROD_IP,MongoConfig.VM_PROD_PORT),
-                  //datastore = morphia.createDatastore(new MongoClient("localhost",MongoConfig.VM_DEV_PORT),
-=======
-                datastore = morphia.createDatastore(new MongoClient(MongoConfig.VM_DEV_IP,MongoConfig.VM_DEV_PORT),
-                        //datastore = morphia.createDatastore(new MongoClient("localhost",MongoConfig.VM_DEV_PORT),
->>>>>>> dev
-                        SpringMongoConfig.DB_NAME);
+                datastore = morphia.createDatastore(new MongoClient(MongoConfig.VM_PROD_IP, MongoConfig.VM_PROD_PORT), SpringMongoConfig.DB_NAME);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }

@@ -18,10 +18,10 @@ public class NotifyPresenceController {
 
     private static final Logger logger = LoggerFactory.getLogger(NotifyPresenceController.class);
     boolean status = false;
-    TagDAO TagDao = new TagDAO(MongoDatastoreConfig.getDataStore());
+    TagDAO  TagDao = new TagDAO(MongoDatastoreConfig.getDataStore());
 
     public NotifyPresenceController () {
-//			TagDao.getDatastore().getCollection(Tag.class).drop();
+        TagDao.getDatastore().getCollection(Tag.class).drop();
         Tag tag = new Tag();
         tag.setId("entree");
         tag.setLocation("Dans les locaux");

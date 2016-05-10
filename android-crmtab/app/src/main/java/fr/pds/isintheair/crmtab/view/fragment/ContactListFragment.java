@@ -1,11 +1,15 @@
 package fr.pds.isintheair.crmtab.view.fragment;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -43,7 +47,7 @@ public class ContactListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -71,11 +75,17 @@ public class ContactListFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.contact, menu);
+    }
+
     private void generateMockedContactsIfNeeded() {
         List<Contact> databaseContacts = ContactDAO.getAll();
 
         if (databaseContacts.size() == 0) {
-
+            ContactDAO.delete();
             StringBuilder stringBuilder = new StringBuilder();
             InputStream inputStream = null;
 
@@ -103,6 +113,21 @@ public class ContactListFragment extends Fragment {
                 contact.save();
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.addcontact:
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, new AddContactFragment());
+                fragmentTransaction.commit();
+                return true;
+            default:
+                break;
+        }
+
+        return false;
     }
 
     @Override
