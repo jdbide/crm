@@ -13,7 +13,10 @@ public class Constant {
     // url for rest server
     public static final String REST_URL = "http://192.168.20.3:8082";
     //url for mock client
-    public static final String BASE_URL = "http://192.168.20.3:8082/api/";
+    //public static final String BASE_URL = "http://192.168.20.3:8082/api/";
+
+    //url for mock client
+    public static final String BASE_URL = "http://192.168.1.68/api/";
 
     public static String WEBSOCKET_CALL_ENDPOINT = "ws://192.168.20.3:8084/call";
     //public static String WEBSOCKET_CALL_ENDPOINT     = "ws://192.168.1.1:8084/call";

@@ -128,7 +128,7 @@ public class ClockinController {
 
                 @Override
                 public void onFailure(Throwable t) {
-
+                    Toast.makeText(context, "Failure ", Toast.LENGTH_SHORT).show();
                 }
             });
 
