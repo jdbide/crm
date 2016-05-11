@@ -27,7 +27,7 @@ public class NotifyPresenceController {
         tag.setLocation("Dans les locaux");
         TagDao.addTag(tag);
         tag.setId("poste");
-        tag.setLocation("Poste de travail");
+        tag.setLocation("A son poste de travail");
         TagDao.addTag(tag);
         tag.setId("cafetaria");
         tag.setLocation("Cafétaria");
@@ -47,8 +47,8 @@ public class NotifyPresenceController {
         String time = clockin.getTime();
         //change time to UTC + 2
         clockin.setTime(String.valueOf(Integer.parseInt(time.substring(0, time.indexOf(":"))) + 2) + ":" + time.substring(time.indexOf(":") + 1));
-        if (tag != null) {
-            clockin.setUser(TagDao.updateLocation(clockin, tag.getLocation()));
+        if (tag != null) {    	
+        	clockin.setUser(TagDao.updateLocation(clockin, tag.getLocation()));
             return clockin;
         }
         else return null;
