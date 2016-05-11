@@ -36,9 +36,7 @@ import fr.pds.isintheair.crmtab.controller.message.ClockinController;
 import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.controller.service.CalendarService;
 import fr.pds.isintheair.crmtab.controller.service.CallService;
-import fr.pds.isintheair.crmtab.controller.service.ContactService;
 import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
-import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity;
@@ -83,10 +81,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //ContactHelper.updateContactinAppDatabase(getContentResolver());
+
         super.onCreate(savedInstanceState);
-        startService(new Intent(this, ContactService.class));
-       // startService(new Intent(this, NotifyPresenceService.class));
+
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
@@ -198,7 +195,6 @@ public class MainActivity extends AppCompatActivity
             stopService(new Intent(this, CalendarService.class));
             stopService(new Intent(this, NotificationIntentService.class));
             stopService(new Intent(this, ListennerCallEndedEvent.class));
-            stopService(new Intent(this, NotifyPresenceService.class));
             startActivity(new Intent(this, LoginActivity.class));
         }
 

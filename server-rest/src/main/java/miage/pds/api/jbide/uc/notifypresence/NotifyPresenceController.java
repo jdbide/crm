@@ -24,7 +24,7 @@ public class NotifyPresenceController {
         TagDao.getDatastore().getCollection(Tag.class).drop();
         Tag tag = new Tag();
         tag.setId("entree");
-        tag.setLocation("Dans les locaux");
+        tag.setLocation("Entrée Bâtiment");
         TagDao.addTag(tag);
         tag.setId("poste");
         tag.setLocation("A son poste de travail");
