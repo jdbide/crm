@@ -1,4 +1,4 @@
-package fr.pds.isintheair.crmtab.controller.message;
+package fr.pds.isintheair.phonintheair.view.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,12 +13,8 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import fr.pds.isintheair.crmtab.Constant;
-import fr.pds.isintheair.crmtab.R;
-import fr.pds.isintheair.crmtab.model.ClockinObject;
-import fr.pds.isintheair.crmtab.model.dao.UserDAO;
-import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
-import fr.pds.isintheair.crmtab.model.rest.service.NotifyPresenceRetrofitService;
+import fr.pds.isintheair.phonintheair.R;
+import fr.pds.isintheair.phonintheair.model.constant.Constant;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -26,10 +22,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * Created by jbide on 01/04/2016.
+ * Created by jbide on 11/05/2016.
  */
 public class ClockinController {
-
 
     public static void clockin(String idtag, final Activity context) {
 
@@ -46,21 +41,25 @@ public class ClockinController {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.REST_URL)
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
-        NotifyPresenceRetrofitService service = RetrofitHandlerSingleton.getInstance().getNotifyPresenceService();
-        //NotifyPresenceRetrofitService service =  retrofit.create(NotifyPresenceRetrofitService.class);
-        Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), idtag));
+        Retrofit gen = new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
+        NotifyPresenceInterface service =  gen.create(NotifyPresenceInterface.class);
+
+        //Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), idtag));
+        User user = new User();
+        user.setId("bd299fa2-244c-4b6b-9966-49a84192cc8c");
+        Call<ClockinObject> call = service.clockin(new ClockinObject(user, idtag));
 
         call.enqueue(new Callback<ClockinObject>() {
             @Override
             public void onResponse(Response<ClockinObject> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
+                if(response.isSuccess()){
 
-                    if (response.body() != null) {
+                    if(response.body()!=null) {
                         Calendar cal = Calendar.getInstance();
                         cal.add(Calendar.DATE, 1);
                         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -96,7 +95,7 @@ public class ClockinController {
 
                         // Showing Alert Message
                         alertDialog.show();
-                    } else {
+                    }else{
 
                         AlertDialog alertDialog = new AlertDialog.Builder(
                                 context).create();
@@ -119,7 +118,7 @@ public class ClockinController {
 
                     }
 
-                } else {
+                }else{
                     Toast.makeText(context, "req is not success", Toast.LENGTH_SHORT).show();
                 }
 
@@ -128,26 +127,9 @@ public class ClockinController {
 
             @Override
             public void onFailure(Throwable t) {
-                AlertDialog alertDialog = new AlertDialog.Builder(
-                        context).create();
-
-                // Setting Dialog Title
-                alertDialog.setTitle("Serveur injoignable");
-
-                // Setting Dialog Message
-                //alertDialog.setMessage("Emplacement :" + "Heure : ");
-
-                // Setting Icon to Dialog
-                alertDialog.setIcon(R.drawable.wrong);
-
-                // Setting OK Button
-                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog closed
-                    }
-                });
-
+                Toast.makeText(context, "Failure ", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }

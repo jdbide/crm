@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import fr.pds.isintheair.crmtab.controller.service.CallService;
-import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
 
 /******************************************
  * Created by        : jdatour            *
@@ -24,7 +23,7 @@ public class BootServiceBrodcastReceiver extends BroadcastReceiver {
             final Intent serviceIntent = new Intent(context, CallService.class);
 
             context.startService(serviceIntent);
-            context.startService(new Intent(context, NotifyPresenceService.class));
+
         }
     }
 }
