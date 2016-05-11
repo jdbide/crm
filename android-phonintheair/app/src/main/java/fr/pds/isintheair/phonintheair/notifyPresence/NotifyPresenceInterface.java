@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.view.activity;
+package fr.pds.isintheair.phonintheair.notifyPresence;
 
 import retrofit.Call;
 import retrofit.http.Body;

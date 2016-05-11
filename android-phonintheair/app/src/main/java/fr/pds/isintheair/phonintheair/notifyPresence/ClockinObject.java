@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.view.activity;
+package fr.pds.isintheair.phonintheair.notifyPresence;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

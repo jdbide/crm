@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.view.activity;
+package fr.pds.isintheair.phonintheair.notifyPresence;
 
 import android.app.Activity;
 import android.app.AlertDialog;

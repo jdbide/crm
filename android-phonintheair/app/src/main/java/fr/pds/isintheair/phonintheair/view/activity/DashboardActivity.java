@@ -33,6 +33,7 @@ import fr.pds.isintheair.phonintheair.controller.bus.handler.BusHandlerSingleton
 import fr.pds.isintheair.phonintheair.helper.SharedPreferencesHelper;
 import fr.pds.isintheair.phonintheair.model.entity.Agenda;
 import fr.pds.isintheair.phonintheair.model.provider.CalendarProvider;
+import fr.pds.isintheair.phonintheair.notifyPresence.ClockinController;
 
 /******************************************
  * Created by        : jdatour            *

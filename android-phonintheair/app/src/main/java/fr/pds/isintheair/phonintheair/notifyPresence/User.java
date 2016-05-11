@@ -1,4 +1,4 @@
-package fr.pds.isintheair.phonintheair.view.activity;
+package fr.pds.isintheair.phonintheair.notifyPresence;
 
 /**
  * Created by jbide on 11/05/2016.
