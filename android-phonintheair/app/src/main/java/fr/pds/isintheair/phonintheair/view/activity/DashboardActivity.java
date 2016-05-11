@@ -120,24 +120,23 @@ public class DashboardActivity extends Activity {
                 requestPermissions(permissions.toArray(new String[permissions.size()]), 0);
             }
 
-            // Badging us
-            mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            mPendingIntent = PendingIntent.getActivity(this, 0,
-                    new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
-            // set an intent filter for all MIME data
-            IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-            try {
-                ndefIntent.addDataType("*/*");
-                mIntentFilters = new IntentFilter[] { ndefIntent };
-            } catch (Exception e) {
-                Log.e("TagDispatch", e.toString());
-            }
-
-            mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
-
-
         }
+
+        // Badging us
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        mPendingIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+        // set an intent filter for all MIME data
+        IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        try {
+            ndefIntent.addDataType("*/*");
+            mIntentFilters = new IntentFilter[] { ndefIntent };
+        } catch (Exception e) {
+            Log.e("TagDispatch", e.toString());
+        }
+
+        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
 
     }
 
