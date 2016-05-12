@@ -13,15 +13,14 @@ import java.net.UnknownHostException;
  */
 public class MongoDatastoreConfig {
 
+
     static final Morphia morphia = new Morphia();
     static Datastore datastore;
 
     public static Datastore getDataStore () {
         if (datastore == null) {
             try {
-                datastore = morphia.createDatastore(new MongoClient(MongoConfig.VM_DEV_IP, MongoConfig.VM_DEV_PORT),
-                        //datastore = morphia.createDatastore(new MongoClient("localhost",MongoConfig.VM_DEV_PORT),
-                        SpringMongoConfig.DB_NAME);
+                datastore = morphia.createDatastore(new MongoClient(MongoConfig.VM_PROD_IP, MongoConfig.VM_PROD_PORT), SpringMongoConfig.DB_NAME);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }

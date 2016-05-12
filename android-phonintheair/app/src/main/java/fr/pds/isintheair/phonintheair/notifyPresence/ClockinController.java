@@ -41,13 +41,13 @@ public class ClockinController {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.REST_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient)
                 .build();
 
-        Retrofit gen = new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
-        NotifyPresenceInterface service =  gen.create(NotifyPresenceInterface.class);
+        Retrofit                gen     = new Retrofit.Builder().baseUrl(Constant.REST_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
+        NotifyPresenceInterface service = gen.create(NotifyPresenceInterface.class);
 
         //Call<ClockinObject> call = service.clockin(new ClockinObject(UserDAO.getCurrentUser(), idtag));
         User user = new User();
@@ -57,9 +57,9 @@ public class ClockinController {
         call.enqueue(new Callback<ClockinObject>() {
             @Override
             public void onResponse(Response<ClockinObject> response, Retrofit retrofit) {
-                if(response.isSuccess()){
+                if (response.isSuccess()) {
 
-                    if(response.body()!=null) {
+                    if (response.body() != null) {
                         Calendar cal = Calendar.getInstance();
                         cal.add(Calendar.DATE, 1);
                         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -78,7 +78,7 @@ public class ClockinController {
 
                         // Setting Dialog Title
                         alertDialog.setTitle("Vous venez de badger");
-                        ClockinObject rep = response.body();
+                        ClockinObject    rep = response.body();
                         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                         // Setting Dialog Message
                         alertDialog.setMessage("Emplacement : " + rep.getUser().getLocation() + "  " + "Heure : " + rep.getTime());
@@ -95,7 +95,8 @@ public class ClockinController {
 
                         // Showing Alert Message
                         alertDialog.show();
-                    }else{
+                    }
+                    else {
 
                         AlertDialog alertDialog = new AlertDialog.Builder(
                                 context).create();
@@ -118,7 +119,8 @@ public class ClockinController {
 
                     }
 
-                }else{
+                }
+                else {
                     Toast.makeText(context, "req is not success", Toast.LENGTH_SHORT).show();
                 }
 

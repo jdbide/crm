@@ -301,7 +301,6 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_event_subscription) {
             startActivity(new Intent(this, EventSubscriptionActivity.class));
         }
-
         else if (id == R.id.nav_admin) {
             startActivity(new Intent(this, AdminActivity.class));
         }
