@@ -1,38 +1,9 @@
 package fr.pds.isintheair.crmtab;
 
-import android.content.Intent;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-import android.os.Parcelable;
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
-
-import org.junit.Test;
-
-import java.util.Arrays;
-
-import fr.pds.isintheair.crmtab.model.ClockinObject;
-import fr.pds.isintheair.crmtab.model.dao.UserDAO;
-import fr.pds.isintheair.crmtab.model.rest.RetrofitHandlerSingleton;
-import fr.pds.isintheair.crmtab.model.rest.service.NotifyPresenceRetrofitService;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
-
-import static org.junit.Assert.assertTrue;
-
 /**
  * Created by jbide on 11/05/2016.
  */
-public class NotifyPresenceTest {
+/*public class NotifyPresenceTest {
 
     final int TECH_NFC_A = 1;
     final String EXTRA_NFC_A_SAK = "sak";    // short (SAK byte value)
@@ -153,5 +124,5 @@ public class NotifyPresenceTest {
                 assertTrue(false);
             }
         });}
-}
+} */
 
