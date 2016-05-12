@@ -95,9 +95,9 @@ public class SynchronisationActivity extends Activity implements View.OnClickLis
                     //Do something after 100ms
                     tv4.setText("ok");
                     tv5.setText("ok");
-                    handler.postDelayed(this, 2000);
+                    handler.postDelayed(this, 5000);
                 }
-            }, 1500);
+            }, 3000);
 
 
         }

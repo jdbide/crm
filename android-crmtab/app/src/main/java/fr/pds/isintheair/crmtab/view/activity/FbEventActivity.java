@@ -160,7 +160,7 @@ public class FbEventActivity extends Activity {
                         public void onClick(DialogInterface dialog,int id) {
                             // if this button is clicked, close
                             // current activity
-                            mydb.insertEvent(gson.toJson(search,Search.class));
+                           // mydb.insertEvent(gson.toJson(search,Search.class));
                             getUrlFromString(search.getText());
 
 

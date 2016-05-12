@@ -25,7 +25,6 @@
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
 
-
     <application
         android:name=".CrmTabApplication"
         android:allowBackup="true"
@@ -100,7 +99,6 @@
         <service android:name=".controller.service.CalendarService"/>
         <service android:name=".controller.service.ListennerCallEndedEvent"/>
         <service android:name=".controller.service.NotifyPresenceService"/>
-
         <service android:name=".controller.service.ContactService"/>
 
 
@@ -113,10 +111,13 @@
             android:label="@string/title_activity_agenda"/>
         <activity
             android:name=".ctruong.uc.propsect.suggestion.view.activity.DetailProspect"
+
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".view.activity.NormalizeDemoActivity"/>
         <activity android:name=".ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity">
+
         </activity>
+
 
         <provider
             android:name=".ctruong.uc.propsect.suggestion.provider.MyContentProvider"
@@ -173,8 +174,43 @@
             android:value="qGZ7CBkraYsYqvx7ZybBdmH2ToPi2Isu3Ir288J1cUDmhUoR75"/>
 
         <activity android:name=".view.activity.GoingEventDetails"/>
-        <activity android:name=".view.activity.AdminActivity">
-        </activity>
+        <activity android:name=".view.activity.AdminActivity"/>
+
+        <service
+            android:name=".syncContact.ContactAuthenticatorService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.Account.AccountAuthenticator"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.Account.AccountAuthenticator"
+                android:resource="@xml/authenticator_contact"/>
+        </service>
+
+        <provider
+            android:name=".syncContact.ContactProvider"
+            android:authorities="@string/content_authority_contact"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:syncable="true"/>
+
+
+        <service
+            android:name=".syncContact.ContactSyncService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_adapter_contact"/>
+
+        </service>
     </application>
 
 </manifest>

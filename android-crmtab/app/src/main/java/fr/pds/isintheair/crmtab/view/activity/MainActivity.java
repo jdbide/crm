@@ -1,5 +1,6 @@
 package fr.pds.isintheair.crmtab.view.activity;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.NotificationManager;
@@ -7,11 +8,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.NfcF;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
@@ -28,7 +31,9 @@ import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
@@ -36,13 +41,10 @@ import fr.pds.isintheair.crmtab.controller.message.ClockinController;
 import fr.pds.isintheair.crmtab.controller.message.CrvController;
 import fr.pds.isintheair.crmtab.controller.service.CalendarService;
 import fr.pds.isintheair.crmtab.controller.service.CallService;
-import fr.pds.isintheair.crmtab.controller.service.ContactService;
 import fr.pds.isintheair.crmtab.controller.service.ListennerCallEndedEvent;
-import fr.pds.isintheair.crmtab.controller.service.NotifyPresenceService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.notification.service.NotificationIntentService;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.ProspectActivity;
 import fr.pds.isintheair.crmtab.ctruong.uc.propsect.suggestion.view.activity.SynchronisationActivity;
-import fr.pds.isintheair.crmtab.helper.ContactHelper;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayAddLogFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
@@ -84,9 +86,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ContactHelper.updateContactinAppDatabase(getContentResolver());
         super.onCreate(savedInstanceState);
-        startService(new Intent(this, ContactService.class));
+
+        List<String> permissions = new ArrayList<>();
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.NFC) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.NFC);
+            }
+            if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.READ_CONTACTS);
+            }
+            if (checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.WRITE_CONTACTS);
+            }
+            if (permissions.size() > 0) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), 0);
+            }
+        }
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
@@ -198,7 +214,6 @@ public class MainActivity extends AppCompatActivity
             stopService(new Intent(this, CalendarService.class));
             stopService(new Intent(this, NotificationIntentService.class));
             stopService(new Intent(this, ListennerCallEndedEvent.class));
-            stopService(new Intent(this, NotifyPresenceService.class));
             startActivity(new Intent(this, LoginActivity.class));
         }
 
