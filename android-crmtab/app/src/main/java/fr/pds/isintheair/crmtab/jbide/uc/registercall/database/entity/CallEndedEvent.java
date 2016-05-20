@@ -28,6 +28,8 @@ public class CallEndedEvent extends BaseModel {
     private CallType callemitted;
     @Column
     private String iduser;
+    @Column
+    private boolean isACampaign ;
 
 
 
@@ -48,6 +50,7 @@ public class CallEndedEvent extends BaseModel {
         this.duration = duration;
         this.idcontact = idcontact;
         this.iduser = UserDAO.getCurrentUser().getId();
+        isACampaign = false;
 
     }
 
@@ -95,4 +98,11 @@ public class CallEndedEvent extends BaseModel {
         return duration;
     }
 
+    public boolean getIsACampaign() {
+        return isACampaign;
+    }
+
+    public void setIsACampaign(boolean isACampaign) {
+        this.isACampaign = isACampaign;
+    }
 }
