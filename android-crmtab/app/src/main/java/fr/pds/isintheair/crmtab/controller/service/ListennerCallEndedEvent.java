@@ -90,22 +90,21 @@ public class ListennerCallEndedEvent extends Service {
 
        if(found) {
 
-           //if no popup displayed show
-           if (!ConstantJbide.isPopUpDisplayed()) {
+           //if event not coming from campain and no popup is displayed
+           if(!event.getIsACampaign() && !ConstantJbide.isPopUpDisplayed()){
                ConstantJbide.setPopUpDisplayed(true);
-
                Handler handler = new Handler();
                handler.postDelayed(new Thread(new delay(event)),3000);
-
-
-           } else {  //else add to job
+           }
+           else{
+               //else add to job
                //add event to pending list
-
                event.save();
                //tell subscribers that list has been updated
                //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
                notifyLocally();
            }
+
        }
     }
 
