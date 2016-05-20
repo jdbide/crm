@@ -21,6 +21,7 @@ import java.util.List;
 import fr.pds.isintheair.crmtab.Constant;
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Rest.Model.Cra;
+import fr.pds.isintheair.crmtab.model.dao.UserDAO;
 import fr.pds.isintheair.crmtab.model.rest.service.RegisterCallSerciceGenerator;
 import retrofit.Call;
 import retrofit.Callback;
@@ -77,7 +78,7 @@ public class DisplayCallLogFragment extends Fragment {
                 .build();
 
         RegisterCallSerciceGenerator service = retrofit.create(RegisterCallSerciceGenerator.class);
-        Call<List<Cra>>              call    = service.listcraforuser(Constant.REST_URL);
+        Call<List<Cra>>              call    = service.listcraforuser(UserDAO.getCurrentUser().getId());
         call.enqueue(new Callback<List<Cra>>() {
             @Override
             public void onResponse(Response<List<Cra>> response, Retrofit retrofit) {
