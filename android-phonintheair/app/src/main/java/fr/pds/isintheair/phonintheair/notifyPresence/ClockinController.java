@@ -102,7 +102,7 @@ public class ClockinController {
                                 context).create();
 
                         // Setting Dialog Title
-                        alertDialog.setTitle("Tag inconnu");
+                        alertDialog.setTitle("Impossible d'enregistrer online");
 
                         // Setting Dialog Message
                         //alertDialog.setMessage("Emplacement :" + "Heure : ");
@@ -129,7 +129,25 @@ public class ClockinController {
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(context, "Failure ", Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(
+                        context).create();
+
+                // Setting Dialog Title
+                alertDialog.setTitle("Erreur de connexion au serveur");
+
+                // Setting Dialog Message
+                //alertDialog.setMessage("Emplacement :" + "Heure : ");
+
+                // Setting Icon to Dialog
+                alertDialog.setIcon(R.drawable.wrong);
+
+                // Setting OK Button
+                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog closed
+                    }
+                });
+
             }
         });
 

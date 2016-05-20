@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
@@ -88,7 +90,7 @@ public class ListennerCallEndedEvent extends Service {
                 found = true;
 
        if(found) {
-/*
+
            //if no popup displayed show
            if (!Constant.isPopUpDisplayed()) {
                Constant.setPopUpDisplayed(true);
@@ -101,11 +103,10 @@ public class ListennerCallEndedEvent extends Service {
                //add event to pending list
 
                event.save();
-               //Constants.getInstance().getPendindList().add(event);
                //tell subscribers that list has been updated
                //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
                notifyLocally();
-           }*/
+           }
        }
     }
 
