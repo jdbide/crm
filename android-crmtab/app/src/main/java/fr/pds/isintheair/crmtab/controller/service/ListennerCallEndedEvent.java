@@ -94,7 +94,7 @@ public class ListennerCallEndedEvent extends Service {
            if(!event.getIsACampaign() && !ConstantJbide.isPopUpDisplayed()){
                ConstantJbide.setPopUpDisplayed(true);
                Handler handler = new Handler();
-               handler.postDelayed(new Thread(new delay(event)),3000);
+               handler.postDelayed(new Thread(new delay(event)),4000);
            }
            else{
                //else add to job
