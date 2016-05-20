@@ -6,7 +6,7 @@ package fr.pds.isintheair.crmtab.jbide.uc.registercall;
  * <p/>
  * Class used to store url with static constant
  */
-public class Constant {
+public class ConstantJbide {
 
     private static Boolean popupdisplayed = false;
 
