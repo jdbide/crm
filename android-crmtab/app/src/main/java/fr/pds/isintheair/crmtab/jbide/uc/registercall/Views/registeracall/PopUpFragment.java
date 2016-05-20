@@ -47,13 +47,13 @@ public class PopUpFragment extends DialogFragment {
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //hide popup , addlog fragment  is below
-                       // Constant.setPopUpDisplayed(false);
+                       // ConstantJbide.setPopUpDisplayed(false);
                         ((MainActivity)getActivity()).showaddlogfragment(new DisplayAddLogFragmentEvent(callevent.getCallEndedEvent(),false));
 
                     }
                 }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                      //  Constant.setPopUpDisplayed(false);
+                      //  ConstantJbide.setPopUpDisplayed(false);
                     }
                 }).show();
 

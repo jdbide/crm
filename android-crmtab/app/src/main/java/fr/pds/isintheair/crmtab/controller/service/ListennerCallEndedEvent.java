@@ -16,7 +16,7 @@ import java.util.List;
 
 import fr.pds.isintheair.crmtab.R;
 import fr.pds.isintheair.crmtab.controller.bus.BusHandlerSingleton;
-import fr.pds.isintheair.crmtab.jbide.uc.registercall.Constant;
+import fr.pds.isintheair.crmtab.jbide.uc.registercall.ConstantJbide;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.Events.DisplayPopUpFragmentEvent;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.dao.CallEndedDAO;
 import fr.pds.isintheair.crmtab.jbide.uc.registercall.database.entity.CallEndedEvent;
@@ -83,7 +83,6 @@ public class ListennerCallEndedEvent extends Service {
         boolean found = false;
         List<Contact> liste = ContactDAO.getAll();
 
-
             event.setIdcontact(event.getIdcontact().replace("+33","0"));
             Contact co = (Contact) Contact.getNameFromNumber(event.getIdcontact());
             if(co!=null)
@@ -91,22 +90,21 @@ public class ListennerCallEndedEvent extends Service {
 
        if(found) {
 
-           //if no popup displayed show
-           if (!Constant.isPopUpDisplayed()) {
-               Constant.setPopUpDisplayed(true);
-
+           //if event not coming from campain and no popup is displayed
+           if(!event.getIsACampaign() && !ConstantJbide.isPopUpDisplayed()){
+               ConstantJbide.setPopUpDisplayed(true);
                Handler handler = new Handler();
                handler.postDelayed(new Thread(new delay(event)),3000);
-
-
-           } else {  //else add to job
+           }
+           else{
+               //else add to job
                //add event to pending list
-
                event.save();
                //tell subscribers that list has been updated
                //Constants.getInstance().getCurrentBusInstance().post(new PendingLogEvent());
                notifyLocally();
            }
+
        }
     }
 
